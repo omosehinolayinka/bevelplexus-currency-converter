@@ -1,0 +1,114 @@
+@import "../../variables";
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: fit-content;
+  width: 100%;
+
+  .left-container {
+    visibility: hidden;
+  }
+
+  @media (max-width: 925px) {
+    .left-container {
+      visibility: visible;
+      width: 30%;
+      display: flex;
+      align-items: center;
+
+      button {
+        display: flex;
+        align-items: center;
+        background-color: transparent;
+        border: none;
+        padding: 0;
+        color: $darkteal;
+        font-size: 12px;
+        box-shadow: none;
+        margin-right: .7rem;
+      }
+
+      button:focus {
+        outline: none;
+      }
+
+      img {
+        max-width: 130%;
+      }
+    }
+  }
+
+  .profile-summary {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 0;
+    height: 30px;
+
+    .notifications {
+      position: relative;
+      margin: 0 5px;
+
+      img {
+        max-width: 70%;
+      }
+
+      span {
+        position: absolute;
+        left: 10px;
+        top: 3px;
+        width: 8px;
+        height: 8px;
+        border-radius: 100%;
+        background-color: $orange;
+      }
+    }
+
+    @media (max-width: 450px) {
+      .notifications {
+        margin: 0 !important;
+      }
+    }
+
+    .avatar {
+      margin: 0 5px;
+    }
+
+    button {
+      display: flex;
+      align-items: center;
+      background-color: transparent;
+      border: none;
+      padding: 0;
+      color: $darkteal;
+      font-size: 12px;
+      box-shadow: none;
+
+      @media (max-width: 475px) {
+        .profile-name {
+          display: none;
+        }
+      }
+    }
+
+    button:hover {
+      background-color: transparent;
+    }
+  }
+
+  .right-menu {
+    margin-left: 10px;
+
+    button:focus {
+      outline: none;
+    }
+  }
+}
+
+@media (max-width: 925px) {
+  header {
+    margin-bottom: 2.5rem;
+  }
+}

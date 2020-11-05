@@ -1,0 +1,70 @@
+@import '../../variables';
+
+#payment-options {
+
+  .section-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 0 5rem;
+  }
+
+  @media(max-width: 1200px) {
+    .section-wrap {
+      flex-direction: column;
+
+      .section-one, .section-two {
+        width: 100%;
+      }
+    }
+  }
+
+  @media(max-width: 1060px) {
+    .section-wrap {
+      flex-direction: row;
+
+      .section-one {
+        width: 52%;
+      }
+
+      .section-two {
+        width: 46%;
+      }
+    }
+  }
+
+  @media(max-width: 725px) {
+    .section-wrap {
+      flex-direction: column;
+
+      .section-one, .section-two {
+        width: 100%;
+      }
+    }
+  }
+
+  .section-one {
+    width: 54%;
+    padding-right: 0;
+
+    .shadow-box {
+      width: 100% !important;
+      margin-bottom: 1.5rem;
+
+      #custom-checkbox {
+        .checkbox-details {
+          padding-right: 3%;
+        }
+      }
+    }
+  }
+
+  .section-two {
+    width: 44%;
+    padding: 2.3rem 0 0;
+
+    .shadow-box {
+      background-color: transparent;
+    }
+  }
+}

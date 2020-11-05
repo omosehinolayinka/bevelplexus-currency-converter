@@ -1,0 +1,92 @@
+@import "../../variables";
+
+#custom-checkbox {
+  display: flex;
+  align-items: center;
+  padding: 0 0.5rem;
+  width: 100%;
+  cursor: pointer;
+
+  .checkbox {
+    width: 25px;
+    height: 25px;
+    border: 1px solid rgba(219, 221, 227, 0.7);
+    box-sizing: border-box;
+    box-shadow: 0px 2px 5px rgba(169, 181, 192, 0.2);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    margin-right: 1.5rem;
+    
+
+    &__inner {
+      background: #015eff;
+      border-radius: 2px;
+      height: 15px;
+      width: 15px;
+      margin: auto;
+    }
+  }
+
+  .wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-grow: 1;
+    justify-content: space-between;
+    cursor: pointer;
+  }
+
+  .checkbox-details {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding-right: 20%;
+    user-select: none;
+    cursor: pointer;
+
+    p:nth-child(1) {
+      font-weight: 600;
+      font-size: 18px;
+      color: $darkteal;
+      flex-grow: 1;
+      margin-bottom: .5rem !important;
+    }
+
+    p.sub-details {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px !important;
+      color: #879DAD !important;
+      font-weight: normal !important;
+    }
+  }
+
+  @media(max-width: 575px) {
+    .checkbox-details {
+      padding-right: 5%;
+    }
+  }
+
+  @media(max-width: 455px) {
+    .checkbox-details .sub-details {
+      flex-direction: column;
+    }
+  }
+
+  .checkbox-action {
+    width: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    
+    a {
+      color: $teal;
+      text-align: right;
+    }
+
+    a.green {
+      color: #0FC578;
+    }
+  }
+}

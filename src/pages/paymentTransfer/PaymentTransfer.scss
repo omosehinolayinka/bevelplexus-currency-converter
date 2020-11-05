@@ -1,0 +1,78 @@
+@import "../../variables";
+
+#payment-transfer {
+  .section-two {
+    .box-container {
+      flex-direction: column;
+
+      #currency-calculator {
+        margin-bottom: 1rem;
+
+        form {
+          .logic-box {
+            border-left-color: $blue;
+
+            span.logic__symbols {
+              background-color: $blue;
+              color: #fff;
+            }
+
+            p {
+              color: $darkteal;
+            }
+          }
+
+          .notice,
+          .form__submit {
+            display: none;
+          }
+        }
+      }
+
+      .transfer-info {
+        width: 100%;
+
+        p {
+          display: flex;
+          width: 100%;
+          justify-content: flex-start;
+          align-items: center;
+          color: #879dad;
+
+          span:nth-child(1) {
+            color: $darkteal;
+            margin-left: 7px;
+          }
+
+          span:nth-child(2) {
+            font-size: 18px;
+            margin-left: 7px;
+            color: $blue;
+          }
+        }
+      }
+    }
+  }
+
+  .section-three {
+    .section-title {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-bottom: 10px;
+
+      p {
+        margin-bottom: 0;
+      }
+
+      a {
+        margin-left: 10px;
+      }
+    }
+
+    .box-container .shadow-box {
+      display: flex;
+      padding-top: 3%;
+    }
+  }
+}

@@ -1,0 +1,83 @@
+@import "../../variables";
+
+#transaction-history, #recipents, #account {
+  .page-header {
+    h4 {
+      font-style: normal;
+      font-weight: bold;
+      font-size: 11px;
+      line-height: 14px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: $teal;
+    }
+  }
+
+  .content-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1.2rem 0;
+
+    h2 {
+      font-size: 1.2rem;
+      line-height: 133.8%;
+      color: #4a4b65;
+      margin: 0;
+    }
+
+    form {
+      width: 250px;
+
+      label {
+        box-shadow: 0px 2px 5px rgba(169, 181, 192, 0.2);
+        border-radius: 6px;
+        background-color: #fff;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        padding: .4rem 1.2rem;
+
+        span {
+          color: $blue;
+          font-size: 18px;
+          margin-right: 10px;
+          height: 30px;
+          display: flex;
+          align-items: center;
+        }
+      }
+
+      input {
+        border: none;
+      }
+
+      input:focus {
+        outline: none;
+      }
+    }
+  }
+
+  @media(max-width: 640px) {
+    .content-title {
+      flex-direction: column;
+      align-items: flex-start;
+      form {
+        margin-top: 1rem;
+        width: 80% !important;
+      }
+    }
+  }
+
+  @media(max-width: 475px) {
+    .content-title {
+      flex-direction: column;
+      align-items: flex-start;
+      form {
+        margin-top: 1rem;
+        width: 100% !important;
+      }
+    }
+  }
+}

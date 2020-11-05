@@ -1,0 +1,228 @@
+@import '../../variables';
+
+#editRecipent, #addRecipent, #addReceivingMethod {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background: rgba(14, 7, 61, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+
+  .box {
+    width: 60%;
+    // height: 232px;
+    background-color: #F5F6F9;
+    position: relative;
+    padding: 2rem;
+
+    .heading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      padding: 1rem 2rem 2.5rem;
+
+      h2 {
+        text-align: center;
+        margin-bottom: 0;
+        color: #4A4B65;
+      }
+
+      span {
+        position: absolute;
+        right: 0;
+        color: #4A4B65;
+        cursor: pointer;
+      }
+    }
+
+    .form-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+
+      .shadow-box {
+        width: 49%;
+        padding: .5rem;
+        margin-bottom: 1rem;
+
+        span.icon {
+          width: 30px;
+          height: 30px;
+          margin-right: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        input {
+          border: none;
+          flex-grow: 1;
+          color: #B4BEC6;
+        }
+    
+        input.active {
+          color: #4A4B65;
+        }
+    
+        input:focus {
+          outline: none;
+        }
+    
+        input:disabled {
+          all: unset;
+          background-color: transparent;
+          color: #B4BEC6;
+        }
+    
+        input::placeholder {
+          color: #B4BEC6;
+        }
+
+      }
+    }
+
+    .btn-big-container {
+      display: flex;
+      justify-content: center;
+      padding: 1rem;
+
+      button {
+        width: 50%;
+        padding: 1rem;
+        background-color: #EDF4FF;
+        border: none;
+        border-radius: 6px;
+        border: 1px solid transparent;
+      }
+
+      button:focus {
+        outline: none;
+      }
+
+      button:hover {
+        border-color: #efefef;
+      }
+    }
+
+    .buttons-container {
+      display: flex;
+      justify-content: flex-end;
+      padding: 1rem;
+
+      button {
+        margin-left: 10px;
+        padding: .65rem 3rem;
+        border: 1px solid $blue; 
+        border-radius: 6px;
+        cursor: pointer;
+      }
+
+      button:focus {
+        outline: none;
+      }
+
+      button:nth-child(1) { 
+        color: $blue;
+        background-color: transparent;
+      }
+
+      button:nth-child(2) {
+        color: #fff;
+        background-color: $blue;
+      }
+    }
+  }
+
+  @media(max-width: 1125px) {
+    .box {
+      width: 85%;
+    }
+  }
+
+  @media(max-width: 975px) {
+    .box {
+      width: 95%;
+    }
+  }
+
+  @media(max-width: 660px) {
+    .box {
+      width: 100%;
+
+      .heading {
+        padding: 1rem 2rem 2rem;
+      }
+
+      .form-container {
+        .shadow-box {
+          width: 100%;
+          margin-bottom: .7rem;
+        }
+      }
+
+      .btn-big-container, .buttons-container {
+        padding: .7rem 1rem;
+      }
+    }
+  }
+}
+
+#addReceivingMethod {
+  .box {
+    width: 35%;
+
+    .form-container {
+
+      .shadow-box {
+        width: 100%;
+      }
+    }
+
+    .btn-big-container, .buttons-container {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .btn-big-container {
+      button {
+        width: 100%;
+      }
+    }
+  }
+
+  @media(max-width: 1125px) {
+    .box {
+      width: 50%;
+    }
+  }
+
+  @media(max-width: 1125px) {
+    .box {
+      width: 50%;
+    }
+  }
+
+  @media(max-width: 575px) {
+    .box {
+      width: 80%;
+    }
+  }
+
+  @media(max-width: 480px) {
+    .box {
+      width: 90%;
+    }
+  }
+
+  @media(max-width: 410px) {
+    .box {
+      width: 96%;
+      padding: 1rem;
+    }
+  }
+}

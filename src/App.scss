@@ -1,0 +1,169 @@
+@import "./variables";
+
+body {
+  margin: 0;
+  font-family: "Mulish", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root,
+.App {
+  height: 100%;
+}
+
+a {
+  color: $blue;
+}
+
+.greentext {
+  color: $green !important;
+}
+
+.page-title {
+  margin: 10px 0;
+
+  h1 {
+    font-size: 1rem;
+    color: $teal;
+  }
+}
+
+@media (min-width: 755px) {
+  // customize scrollbar
+
+  ::-webkit-scrollbar {
+    width: 7px;
+  }
+
+  // Track
+  ::-webkit-scrollbar-track {
+    background: #fff;
+  }
+
+  // Handle
+  ::-webkit-scrollbar-thumb {
+    background: lightgray;
+    border-radius: 50px;
+  }
+
+  // Handle hover
+  ::-webkit-scrollbar-thumb:hover {
+    background: darkgray;
+  }
+}
+
+.badge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3px 1rem;
+  border: 1px solid;
+  font-size: 11px;
+  font-weight: bold;
+  width: fit-content;
+  border-radius: 6px;
+}
+
+.badge.success {
+  border-color: #0fc578;
+  background: rgba(15, 197, 120, 0.2);
+  color: #129d62 !important;
+}
+
+.badge.warning {
+  background: rgba(255, 193, 7, 0.2);
+  border: 1px solid #fdc008;
+  color: #daa917 !important;
+}
+
+.badge.danger {
+  background: rgba(243, 67, 53, 0.2);
+  border: 1px solid #f34335;
+  color: #d63629 !important;
+}
+
+button.primary {
+  background-color: $blue;
+  border: 1px solid $blue;
+  width: fit-content;
+  padding: .7rem 2rem;
+  color: #fff;
+  border-radius: 6px;
+
+  a {
+    color: #fff;
+  }
+}
+
+button.primary.transparent {
+  background-color: transparent;
+  
+  a {
+    color: $blue;
+  }
+}
+
+button.primary:hover {
+  box-shadow: 0 0 3px 0 darken($color: $blue, $amount: 7);
+}
+
+.shadow-box {
+  display: flex;
+  padding: 3% 4%;
+  background: #ffffff;
+  box-shadow: 0px 2px 5px rgba(169, 181, 192, 0.2);
+  border: 2px solid transparent;
+  border-radius: 6px;
+  margin-bottom: 2rem;
+}
+
+.shadow-box.shadow-box-highlight {
+  background: linear-gradient(
+      0deg,
+      rgba(1, 94, 255, 0.07),
+      rgba(1, 94, 255, 0.07)
+    ),
+    #ffffff;
+
+  border: 2px solid $blue;
+  box-shadow: 0px 2px 5px rgba(169, 181, 192, 0.2);
+}
+
+#AppHideOnboarding #intro {
+  display: none !important;
+}
+
+.ant-tooltip.ant-tooltip-placement-bottomRight {
+  max-width: 310px !important;
+
+  .ant-tooltip-content {
+    position: relative;
+    right: -12px;
+
+    .ant-tooltip-arrow {
+      
+      top: -14px;
+      z-index: 100;
+    }
+  }
+}
+
+.ant-tooltip-inner {
+  background-color: #fff !important;
+  color: #8B9CA1 !important;
+  border-radius: 6px !important;
+  padding: 1.5rem !important;
+}
+
+.ant-tooltip-arrow-content {
+  background-color: #fff !important;
+}
+
+@import "~antd/dist/antd.css";

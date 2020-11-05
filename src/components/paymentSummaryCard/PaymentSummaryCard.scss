@@ -1,0 +1,33 @@
+@import '../../variables';
+
+#payment-summary-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 5%;
+
+  p {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 500;
+  }
+
+  span:nth-child(1) {
+    color: $teal;
+  }
+
+  span:last-child {
+    color: #4A4B65; 
+    display: flex;
+    align-items: center;
+
+    img {
+      margin-right: 5px !important;
+    }
+  }
+
+  p:last-child span:last-child {
+    font-size: 1.2rem;
+  }
+}
