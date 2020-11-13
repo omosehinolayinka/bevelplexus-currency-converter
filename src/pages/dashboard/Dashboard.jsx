@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from 'react-router-dom'
 import "./Dashboard.scss";
 
@@ -6,6 +6,39 @@ import Layout from "../../components/layout/LayoutAlt";
 import TransactionTable from '../../components/tables/TransactionsTable'
 
 function Dashboard({showTips}) {
+
+  useEffect(() => {
+    fetch('https://bp-user.herokuapp.com/graphql', {
+      method: "POST",
+      headers: {'content-type': 'application/json'},
+      body: JSON.stringify({
+        query: `
+          mutation login {
+            login(loginArgs: {
+              email: "ashtoonsandgraphics@gmail.com",
+              password: "12345678"
+            }) {
+              token,
+              user {
+                id,
+                firstName,
+                email,
+              }
+            }
+          }
+        `
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      const login = data.data.login;
+
+      localStorage.setItem("token", login.token);
+      localStorage.setItem("userId", login.user.id);
+    })
+    .catch(err => console.log(err))
+
+  }, [])
 
   return (
     <div id='dashboard'>

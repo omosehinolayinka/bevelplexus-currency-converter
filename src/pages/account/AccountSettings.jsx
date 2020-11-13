@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import "./AccountSettings.scss";
 import Layout from "../../components/layout/Layout";
 
 import { Tooltip } from "antd";
+import { Link } from "react-scroll"
 
 function AccountSettings({ showTips }) {
   const [email, setEmail] = useState("Jordywakman@gmail.com");
@@ -52,52 +53,55 @@ function AccountSettings({ showTips }) {
 
         <section className='main-wrapper'>
           <section className='tab-menu-container'>
-            <div
+            <Link
               className={
                 tab === "settings"
                   ? "shadow-box  menu-item shadow-box-highlight"
                   : "shadow-box  menu-item"
               }
               onClick={() => setTab("settings")}
+              to="accountSettings" smooth={true} duration={400}
             >
               <span className='icon'>
                 <img src='/assets/svg/gear.svg' alt='settings' />
               </span>
               <p>Account Settings</p>
-            </div>
+            </Link>
 
-            <div
+            <Link
               className={
                 tab === "verification"
                   ? "shadow-box  menu-item shadow-box-highlight"
                   : "shadow-box  menu-item"
               }
               onClick={() => setTab("verification")}
+              to="verificationSettings" smooth={true} duration={600}
             >
               <span className='icon'>
                 <img src='/assets/svg/flag.svg' alt='settings' />
               </span>
               <p>Verification Levels</p>
-            </div>
+            </Link>
 
-            <div
+            <Link
               className={
                 tab === "password"
                   ? "shadow-box  menu-item shadow-box-highlight"
                   : "shadow-box  menu-item"
               }
               onClick={() => setTab("password")}
+              to="changePassword" smooth={true} duration={800}
             >
               <span className='icon'>
                 <img src='/assets/svg/key.svg' alt='settings' />
               </span>
               <p>Change Password</p>
-            </div>
+            </Link>
           </section>
           <section className='tab-container'>
             <div className='page-header'>
-              <div className='content-title'>
-                <h2>Account Settings</h2>
+              <div id='accountSettings' className='content-title'>
+                <h2 >Account Settings</h2>
               </div>
               <div className='page-title'>
                 <h4>PERSONAL INFORMATION</h4>
@@ -155,7 +159,7 @@ function AccountSettings({ showTips }) {
               </div>
             </div>
 
-            <div className='page-header'>
+            <div id="verificationSettings" className='page-header'>
               <div className='content-title'>
                 <h2>Verification Levels</h2>
                 <span className='badge success'>50% VERIFIED</span>
@@ -229,7 +233,7 @@ function AccountSettings({ showTips }) {
               </div>
             </div>
 
-            <div className='page-header'>
+            <div id="changePassword" className='page-header'>
               <div className='content-title'>
                 <h2>Change Password</h2>
               </div>
