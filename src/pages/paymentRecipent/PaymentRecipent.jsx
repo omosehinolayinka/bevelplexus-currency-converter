@@ -112,15 +112,15 @@ function PaymentRecipent({ showTips }) {
                 }
               >
                 <Option value='jack'>
-                  Phillip Mango{" "}
+                  Phillip Mango
                   <img src='/assets/svg/green-check-alt.svg' alt='check' />
                 </Option>
                 <Option value='lucy'>
-                  Ellie Jean{" "}
+                  Ellie Jean
                   <img src='/assets/svg/green-check-alt.svg' alt='check' />
                 </Option>
                 <Option value='tom'>
-                  Oreva Daniels{" "}
+                  Oreva Daniels
                   <img src='/assets/svg/green-check-alt.svg' alt='check' />
                 </Option>
               </Select>

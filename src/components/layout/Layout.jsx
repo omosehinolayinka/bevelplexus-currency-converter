@@ -20,6 +20,10 @@ function Layout({ currentMenu, payProgress, children }) {
   useEffect(() => {
     setIntroPosition(introRef.current.offsetTop);
 
+    window.addEventListener("resize", () => {
+      setIntroPosition(introRef.current.offsetTop);
+    });
+
     setTimeout(() => {
       setShowIntro(true);
     }, 1000);

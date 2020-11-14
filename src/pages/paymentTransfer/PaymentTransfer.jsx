@@ -9,7 +9,7 @@ import CustomCheckbox from '../../components/customCheckbox/CustomCheckbox'
 import Modal from '../../components/addReceivingMethod/AddReceivingMethod'
 
 function PaymentTransfer({showTips}) {
-  const [plan, setPlan] = useState("individual");
+  const [plan, setPlan] = useState("free");
   const [showModal, setShowModal] = useState(false)
 
   return (

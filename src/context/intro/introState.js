@@ -9,15 +9,6 @@ import {
 const IntroState =  props => {
   const defaultState = {
     introStatus: true,
-    // introDetails: {
-    //   title: "",
-    //   message: "",
-    //   number: "",
-    //   next: "",
-    //   position: "",
-    //   showTips: false,
-    //   end: false
-    // }
   }
 
   const [state, dispatch] = useReducer(IntroReducer, defaultState);

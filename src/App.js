@@ -7,8 +7,15 @@ import {
 } from "react-router-dom";
 import "./App.scss";
 
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import {
+  ApolloClient,
+  createHttpLink,
+  InMemoryCache,
+  ApolloProvider,
+} from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
 import IntroState from "./context/intro/introState";
+import PaymentState from "./context/payment/paymentState";
 
 import Dashboard from "./pages/dashboard/Dashboard";
 import PaymentRecipent from "./pages/paymentRecipent/PaymentRecipent";
@@ -21,69 +28,72 @@ import AccountSettings from "./pages/account/AccountSettings";
 
 //apollo client init
 
+const httpLink = createHttpLink({
+  uri: "https://bp-transaction.herokuapp.com/graphql",
+});
+
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem("token");
+
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : "",
+    },
+  };
+});
+
 const client = new ApolloClient({
-  url: "https://bp-transaction.herokuapp.com/graphql",
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
 
 function App() {
-  const [intro, setIntro] = useState(true);
-
   return (
     <ApolloProvider client={client}>
       <IntroState>
-        <div className='App'>
-          <Router>
-            <Switch>
-              <Route
-                exact
-                path='/'
-                render={(props) => <Dashboard showTips={setIntro} />}
-              />
-              <Route exact path='/payment'>
-                <Redirect to='/payment/recipent' />
-              </Route>
-              <Route
-                exact
-                path='/payment/recipent'
-                render={(props) => <PaymentRecipent showTips={setIntro} />}
-              />
-              <Route
-                exact
-                path='/payment/transfer'
-                render={(props) => <PaymentTransfer showTips={setIntro} />}
-              />
-              <Route
-                exact
-                path='/payment/options'
-                render={(props) => <PaymentOptions showTips={setIntro} />}
-              />
-              <Route
-                exact
-                path='/payment/review'
-                render={(props) => <PaymentReview showTips={setIntro} />}
-              />
-              <Route
-                exact
-                path='/transactions'
-                render={(props) => <TransactionHistory showTips={setIntro} />}
-              />
-              <Route
-                exact
-                path='/recipents'
-                render={(props) => <Recipents showTips={setIntro} />}
-              />
-              <Route exact path='/account'>
-                <Redirect to='/account/settings' />
-              </Route>
-              <Route
-                exact
-                path='/account/settings'
-                render={(props) => <AccountSettings showTips={setIntro} />}
-              />
-            </Switch>
-          </Router>
-        </div>
+        <PaymentState>
+          <div className='App'>
+            <Router>
+              <Switch>
+                <Route exact path='/' component={Dashboard} />
+                <Route exact path='/payment'>
+                  <Redirect to='/payment/recipent' />
+                </Route>
+                <Route
+                  exact
+                  path='/payment/recipent'
+                  component={PaymentRecipent}
+                />
+                <Route
+                  exact
+                  path='/payment/transfer'
+                  component={PaymentTransfer}
+                />
+                <Route
+                  exact
+                  path='/payment/options'
+                  component={PaymentOptions}
+                />
+                <Route exact path='/payment/review' component={PaymentReview} />
+                <Route
+                  exact
+                  path='/transactions'
+                  component={TransactionHistory}
+                />
+                <Route exact path='/recipents' component={Recipents} />
+                <Route exact path='/account'>
+                  <Redirect to='/account/settings' />
+                </Route>
+                <Route
+                  exact
+                  path='/account/settings'
+                  component={AccountSettings}
+                />
+              </Switch>
+            </Router>
+          </div>
+        </PaymentState>
       </IntroState>
     </ApolloProvider>
   );
