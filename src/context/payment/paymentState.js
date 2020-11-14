@@ -1,7 +1,7 @@
 import React, { useReducer } from "react";
 import PaymentContext from "./paymentContext";
 import PaymentReducer from "./paymentReducer";
-import { gql, Query } from "@apollo/client";
+import { gql, useQuery } from "@apollo/client";
 
 import {
   GET_RECIPENT,
@@ -21,8 +21,8 @@ const PaymentState = (props) => {
       sendCurrency: "CAD",
       baseAmount: null,
       destinationCurrency: "BRL",
-      convertedAmount: 0.00,
-      actualAmount: "",
+      convertedAmount: null,
+      actualAmount: 0.0,
       fee: 0.0,
       rate: 0.0,
       receiveType: "SameDay",
@@ -53,30 +53,43 @@ const PaymentState = (props) => {
   const [state, dispatch] = useReducer(PaymentReducer, defaultState);
 
   // get fx rates
-  const getFxRates = (name, value) => {
-    // const FX_RATES = gql`
-    //   query GetExchangeRates {
-    //     rates(currency: "USD") {
-    //       currency
-    //       rate
-    //     }
-    //   }
-    // `;
+  const GetFxRates = (name, value) => {
+    const FX_RATES = gql`
+      query getFxRates {
+        getFxRate(
+          input: {
+            sendCurrency: "USD"
+            destinationCurrency: "NGN"
+            baseAmount: 1000
+            receiveType: SameDay
+          }
+        ) {
+          rate
+          fee
+          actualAmount
+          convertedAmount
+        }
+      }
+    `;
+
+    const { data } = useQuery(FX_RATES);
+
+    if(data) return console.log(data);
 
     dispatch({
       type: SET_FX_PARAMETERS,
       payload: {
         name,
-        value: parseFloat(value)
-      }
-    })
+        value,
+      },
+    });
   };
 
   return (
     <PaymentContext.Provider
       value={{
         state,
-        getFxRates
+        getFxRates: GetFxRates,
       }}
     >
       {props.children}

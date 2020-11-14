@@ -18,6 +18,10 @@ function Layout({ currentMenu, children }) {
   useEffect(() => {
     setIntroPosition(introRef.current.offsetTop);
 
+    showIntro && window.addEventListener("resize", () => {
+      setIntroPosition(introRef.current.offsetTop);
+    });
+
     setTimeout(() => {
       setShowIntro(true);
     }, 1000);

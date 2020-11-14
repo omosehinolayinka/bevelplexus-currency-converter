@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import "./CurrencyCalc.scss";
 
 import PaymentContext from "../../context/payment/paymentContext";
@@ -17,19 +17,19 @@ const CurrencyCalc = () => {
     fee,
     rate,
     receiveType,
-   } = paymentContext.state.fxDetails;
+  } = paymentContext.state.fxDetails;
 
   const handleClick = (e, name) => {
-    console.log("hello");
+    paymentContext.getFxRates(name, e.key);
   };
 
   const handleChange = (e) => {
     paymentContext.getFxRates(e.target.name, e.target.value);
-  }
+  };
 
   const sendCurrencyMenu = (
     <Menu
-      // trigger={handleClick("sendCurrency")}
+      onClick={(e) => handleClick(e, "sendCurrency")}
       name='sendCurrency'
       selectedKeys={sendCurrency}
     >
@@ -45,8 +45,7 @@ const CurrencyCalc = () => {
 
   const receiveCurrencyMenu = (
     <Menu
-      name='destinationCurrency'
-      onClick={handleClick("destinationCurrency")}
+      onClick={(e) => handleClick(e, "destinationCurrency")}
       selectedKeys={destinationCurrency}
     >
       <Menu.Item key='CAD'>
@@ -69,6 +68,7 @@ const CurrencyCalc = () => {
               type='number'
               name='baseAmount'
               placeholder='1,000'
+              value={baseAmount}
               onChange={handleChange}
             />
           </div>
@@ -93,21 +93,21 @@ const CurrencyCalc = () => {
             <span className='logic__symbols'>
               <small>–</small>
             </span>{" "}
-            20.20 {sendCurrency}
+            {fee} {sendCurrency}
             <span className='logic__description'>Fee (Including IOF)</span>
           </p>
           <p>
             <span className='logic__symbols'>
               <small>=</small>
             </span>{" "}
-            970.80 {sendCurrency}
+            {actualAmount} {sendCurrency}
             <span className='logic__description'>Amount we'll convert</span>
           </p>
           <p>
             <span className='logic__symbols'>
               <small>÷</small>
             </span>{" "}
-            2,27361
+            {rate}
             <span className='logic__description'>
               Commercial rate (144 hrs)
             </span>
@@ -121,6 +121,7 @@ const CurrencyCalc = () => {
               type='number'
               name='convertedAmount'
               placeholder='3,900'
+              value={convertedAmount}
               onChange={handleChange}
             />
           </div>
@@ -129,8 +130,7 @@ const CurrencyCalc = () => {
             <p className='currency-dropdown'>
               {destinationCurrency === "CAD" ? (
                 <img src='/assets/svg/canada-flag.svg' alt='cad flag' />
-              ) : destinationCurrency ===
-                "BRL" ? (
+              ) : destinationCurrency === "BRL" ? (
                 <img src='/assets/svg/brazil-flag.svg' alt='brl flag' />
               ) : (
                 ""

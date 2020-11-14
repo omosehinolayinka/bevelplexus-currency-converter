@@ -9,7 +9,7 @@ function Intro({ title, number, message, next, position, end }) {
 
   return (
     introContext.introStatus && (
-      <div id='intro'>
+      <div id='intro' style={{display: 'none'}}>
         <div className='box' style={{ top: `${position - 60}px` }}>
           <div className='wrap'>
             <div className='heading'>
