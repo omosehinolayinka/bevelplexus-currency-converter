@@ -6,7 +6,7 @@ import Sidebar from "./RightSidebar";
 import Header from "./Header";
 import Intro from "../../components/intro/Intro";
 
-function Layout({ currentMenu, showTips, children }) {
+function Layout({ currentMenu, children }) {
   const [showSidebar, setShowSidebar] = useState(false);
   const [rightSidebar, setRightSidebar] = useState(false);
   const [animate, setAnimate] = useState(false);
@@ -165,7 +165,6 @@ function Layout({ currentMenu, showTips, children }) {
                 : ""
             }
             position={introPosition}
-            showTips={showTips}
           />
         )}
       </section>

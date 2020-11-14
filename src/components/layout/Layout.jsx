@@ -6,14 +6,16 @@ import Header from "./Header";
 import PaymentSidebar from "./PaymentSidebar";
 import Intro from "../../components/intro/Intro";
 
-function Layout({ currentMenu, payProgress, showTips, children }) {
+
+
+function Layout({ currentMenu, payProgress, children }) {
   const [showSidebar, setShowSidebar] = useState(false);
   const [animate, setAnimate] = useState(false);
   const [introPosition, setIntroPosition] = useState();
   const [showIntro, setShowIntro] = useState(false);
-  // const [finishIntro, setFinishIntro] = useState(false)
 
   const introRef = useRef(null);
+  
 
   useEffect(() => {
     setIntroPosition(introRef.current.offsetTop);
@@ -172,7 +174,6 @@ function Layout({ currentMenu, payProgress, showTips, children }) {
                   : ""
               }
               position={introPosition}
-              showTips={showTips}
               end={currentMenu === 'account'}
             />
           )}

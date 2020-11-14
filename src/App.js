@@ -8,6 +8,7 @@ import {
 import "./App.scss";
 
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import IntroState from "./context/intro/introState";
 
 import Dashboard from "./pages/dashboard/Dashboard";
 import PaymentRecipent from "./pages/paymentRecipent/PaymentRecipent";
@@ -30,58 +31,60 @@ function App() {
 
   return (
     <ApolloProvider client={client}>
-      <div className='App' id={!intro ? "AppHideOnboarding" : ""}>
-        <Router>
-          <Switch>
-            <Route
-              exact
-              path='/'
-              render={(props) => <Dashboard showTips={setIntro} />}
-            />
-            <Route exact path='/payment'>
-              <Redirect to='/payment/recipent' />
-            </Route>
-            <Route
-              exact
-              path='/payment/recipent'
-              render={(props) => <PaymentRecipent showTips={setIntro} />}
-            />
-            <Route
-              exact
-              path='/payment/transfer'
-              render={(props) => <PaymentTransfer showTips={setIntro} />}
-            />
-            <Route
-              exact
-              path='/payment/options'
-              render={(props) => <PaymentOptions showTips={setIntro} />}
-            />
-            <Route
-              exact
-              path='/payment/review'
-              render={(props) => <PaymentReview showTips={setIntro} />}
-            />
-            <Route
-              exact
-              path='/transactions'
-              render={(props) => <TransactionHistory showTips={setIntro} />}
-            />
-            <Route
-              exact
-              path='/recipents'
-              render={(props) => <Recipents showTips={setIntro} />}
-            />
-            <Route exact path='/account'>
-              <Redirect to='/account/settings' />
-            </Route>
-            <Route
-              exact
-              path='/account/settings'
-              render={(props) => <AccountSettings showTips={setIntro} />}
-            />
-          </Switch>
-        </Router>
-      </div>
+      <IntroState>
+        <div className='App'>
+          <Router>
+            <Switch>
+              <Route
+                exact
+                path='/'
+                render={(props) => <Dashboard showTips={setIntro} />}
+              />
+              <Route exact path='/payment'>
+                <Redirect to='/payment/recipent' />
+              </Route>
+              <Route
+                exact
+                path='/payment/recipent'
+                render={(props) => <PaymentRecipent showTips={setIntro} />}
+              />
+              <Route
+                exact
+                path='/payment/transfer'
+                render={(props) => <PaymentTransfer showTips={setIntro} />}
+              />
+              <Route
+                exact
+                path='/payment/options'
+                render={(props) => <PaymentOptions showTips={setIntro} />}
+              />
+              <Route
+                exact
+                path='/payment/review'
+                render={(props) => <PaymentReview showTips={setIntro} />}
+              />
+              <Route
+                exact
+                path='/transactions'
+                render={(props) => <TransactionHistory showTips={setIntro} />}
+              />
+              <Route
+                exact
+                path='/recipents'
+                render={(props) => <Recipents showTips={setIntro} />}
+              />
+              <Route exact path='/account'>
+                <Redirect to='/account/settings' />
+              </Route>
+              <Route
+                exact
+                path='/account/settings'
+                render={(props) => <AccountSettings showTips={setIntro} />}
+              />
+            </Switch>
+          </Router>
+        </div>
+      </IntroState>
     </ApolloProvider>
   );
 }

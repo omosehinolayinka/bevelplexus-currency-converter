@@ -1,0 +1,4 @@
+export const SHOW_INTRO = "SHOW_INTRO";
+export const HIDE_INTRO = "HIDE_INTRO";
+// export const SET_INTRO_DETAILS = "SET_INTRO_DETAILS"
+// export const GET_INTRO_POSITION = "GET_INTRO_POSITION"
