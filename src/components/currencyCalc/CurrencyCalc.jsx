@@ -16,15 +16,27 @@ const CurrencyCalc = () => {
     actualAmount,
     fee,
     rate,
-    receiveType,
   } = paymentContext.state.fxDetails;
 
   const handleClick = (e, name) => {
-    paymentContext.getFxRates(name, e.key);
+    const data = {
+      sendCurrency: name === "sendCurrency" ? e.key : sendCurrency,
+      destinationCurrency: name === "destinationCurrency" ? e.key : destinationCurrency,
+      baseAmount,
+    };
+
+    paymentContext.getFxRates(data);
   };
 
   const handleChange = (e) => {
-    paymentContext.getFxRates(e.target.name, e.target.value);
+    const data = {
+      sendCurrency,
+      destinationCurrency,
+      baseAmount: e.target.value,
+      reverse: e.target.name === 'convertedAmount' ? true : false
+    };
+
+    paymentContext.getFxRates(data);
   };
 
   const sendCurrencyMenu = (
@@ -122,7 +134,7 @@ const CurrencyCalc = () => {
               name='convertedAmount'
               placeholder='3,900'
               value={convertedAmount}
-              onChange={handleChange}
+              disabled
             />
           </div>
 

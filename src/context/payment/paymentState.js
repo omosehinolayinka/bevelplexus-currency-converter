@@ -19,9 +19,9 @@ const PaymentState = (props) => {
     recipentId: "",
     fxDetails: {
       sendCurrency: "CAD",
-      baseAmount: null,
+      baseAmount: "",
       destinationCurrency: "BRL",
-      convertedAmount: null,
+      convertedAmount: "",
       actualAmount: 0.0,
       fee: 0.0,
       rate: 0.0,
@@ -51,15 +51,21 @@ const PaymentState = (props) => {
   };
 
   const [state, dispatch] = useReducer(PaymentReducer, defaultState);
+  const client = useApolloClient();
 
-  const FX_RATES = gql`
-    query getFxRates {
+  
+
+  // get fx rates
+  const GetFxRates = (params) => {
+
+    const FX_RATES = gql`
+    query getFxRates($send: String!, $dest: String!, $base: Float!, $type: String) {
       getFxRate(
         input: {
-          sendCurrency: "USD"
-          destinationCurrency: "NGN"
-          baseAmount: 1000
-          receiveType: SameDay
+          sendCurrency: $send
+          destinationCurrency: $dest
+          baseAmount: $base
+          receiveType: $type
         }
       ) {
         rate
@@ -70,25 +76,36 @@ const PaymentState = (props) => {
     }
   `;
 
-  const client = useApolloClient();
-
-  // get fx rates
-  const GetFxRates = (name, value) => {
-
     client
       .query({
         query: FX_RATES,
         fetchPolicy: "cache-first",
+        variables: {
+          send: params.sendCurrency,
+          dest: params.destinationCurrency,
+          base: params.baseAmount,
+          type: "SameDay"
+        }
       })
-      .then((data) => console.log(data));
+      .then((res) => {
 
-    dispatch({
-      type: SET_FX_PARAMETERS,
-      payload: {
-        name,
-        value,
-      },
-    });
+        const data = res.data.getFxRate
+        console.log(data);
+
+        dispatch({
+          type: SET_FX_PARAMETERS,
+          payload: {
+            sendCurrency: params.sendCurrency,
+            destinationCurrency: params.destinationCurrency,
+            baseAmount: params.baseAmount,
+            actualAmount: data.actualAmount,
+            fee: data.fee,
+            rate: data.rate,
+            convertedAmount: data.convertedAmount
+          },
+        });
+      })
+      .catch(err => console.log(err))
   };
 
   return (

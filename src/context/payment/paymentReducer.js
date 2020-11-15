@@ -7,7 +7,7 @@ export default (state, action) => {
         ...state,
         fxDetails: {
           ...state.fxDetails,
-          [action.payload.name]: action.payload.value
+          ...action.payload
         }
       };
     
