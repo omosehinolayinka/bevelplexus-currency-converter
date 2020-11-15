@@ -21,7 +21,8 @@ const CurrencyCalc = () => {
   const handleClick = (e, name) => {
     const data = {
       sendCurrency: name === "sendCurrency" ? e.key : sendCurrency,
-      destinationCurrency: name === "destinationCurrency" ? e.key : destinationCurrency,
+      destinationCurrency:
+        name === "destinationCurrency" ? e.key : destinationCurrency,
       baseAmount,
     };
 
@@ -32,12 +33,39 @@ const CurrencyCalc = () => {
     const data = {
       sendCurrency,
       destinationCurrency,
-      baseAmount: e.target.value,
-      reverse: e.target.name === 'convertedAmount' ? true : false
+      baseAmount: parseFloat(e.target.value),
+      reverse: e.target.name === "convertedAmount" ? true : false,
     };
 
     paymentContext.getFxRates(data);
   };
+
+  const currencies = [
+    {
+      name: "USD",
+      flag: "https://www.countryflags.io/us/flat/24.png",
+    },
+    {
+      name: "NGN",
+      flag: "https://www.countryflags.io/ng/flat/24.png",
+    },
+    {
+      name: "GBP",
+      flag: "https://www.countryflags.io/gb/flat/24.png",
+    },
+    {
+      name: "CAD",
+      flag: "https://www.countryflags.io/ca/flat/24.png",
+    },
+    {
+      name: "BRL",
+      flag: "https://www.countryflags.io/br/flat/24.png",
+    },
+    {
+      name: "EUR",
+      flag: "https://www.countryflags.io/fr/flat/24.png",
+    },
+  ];
 
   const sendCurrencyMenu = (
     <Menu
@@ -45,13 +73,11 @@ const CurrencyCalc = () => {
       name='sendCurrency'
       selectedKeys={sendCurrency}
     >
-      <Menu.Item key='CAD'>
-        <img src='/assets/svg/canada-flag.svg' alt='cad flag' /> CAD
-      </Menu.Item>
-
-      <Menu.Item key='BRL'>
-        <img src='/assets/svg/brazil-flag.svg' alt='brl flag' /> BRL
-      </Menu.Item>
+      {currencies.map((currency) => (
+        <Menu.Item key={currency.name}>
+          <img src={currency.flag} alt={currency.name} /> {currency.name}
+        </Menu.Item>
+      ))}
     </Menu>
   );
 
@@ -60,13 +86,11 @@ const CurrencyCalc = () => {
       onClick={(e) => handleClick(e, "destinationCurrency")}
       selectedKeys={destinationCurrency}
     >
-      <Menu.Item key='CAD'>
-        <img src='/assets/svg/canada-flag.svg' alt='cad flag' /> CAD
-      </Menu.Item>
-
-      <Menu.Item key='BRL'>
-        <img src='/assets/svg/brazil-flag.svg' alt='brl flag' /> BRL
-      </Menu.Item>
+      {currencies.map((currency) => (
+        <Menu.Item key={currency.name}>
+          <img src={currency.flag} alt={currency.name} /> {currency.name}
+        </Menu.Item>
+      ))}
     </Menu>
   );
 
@@ -87,14 +111,13 @@ const CurrencyCalc = () => {
 
           <Dropdown overlay={sendCurrencyMenu}>
             <p className='currency-dropdown'>
-              {sendCurrency === "CAD" ? (
-                <img src='/assets/svg/canada-flag.svg' alt='cad flag' />
-              ) : sendCurrency === "BRL" ? (
-                <img src='/assets/svg/brazil-flag.svg' alt='brl flag' />
-              ) : (
-                ""
-              )}
-              {sendCurrency}{" "}
+              <img
+                src={`https://www.countryflags.io/${sendCurrency
+                  .slice(0, 2)
+                  .toLowerCase()}/flat/24.png`}
+                alt={sendCurrency}
+              />
+              {sendCurrency}
               <span className='material-icons'>arrow_drop_down</span>
             </p>
           </Dropdown>
@@ -140,14 +163,13 @@ const CurrencyCalc = () => {
 
           <Dropdown overlay={receiveCurrencyMenu}>
             <p className='currency-dropdown'>
-              {destinationCurrency === "CAD" ? (
-                <img src='/assets/svg/canada-flag.svg' alt='cad flag' />
-              ) : destinationCurrency === "BRL" ? (
-                <img src='/assets/svg/brazil-flag.svg' alt='brl flag' />
-              ) : (
-                ""
-              )}
-              {destinationCurrency}{" "}
+              <img
+                src={`https://www.countryflags.io/${destinationCurrency
+                  .slice(0, 2)
+                  .toLowerCase()}/flat/24.png`}
+                alt={destinationCurrency}
+              />
+              {destinationCurrency}
               <span className='material-icons'>arrow_drop_down</span>
             </p>
           </Dropdown>

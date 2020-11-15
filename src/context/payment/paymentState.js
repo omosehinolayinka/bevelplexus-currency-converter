@@ -18,9 +18,9 @@ const PaymentState = (props) => {
     userId: "",
     recipentId: "",
     fxDetails: {
-      sendCurrency: "CAD",
+      sendCurrency: "USD",
       baseAmount: "",
-      destinationCurrency: "BRL",
+      destinationCurrency: "NGN",
       convertedAmount: "",
       actualAmount: 0.0,
       fee: 0.0,
@@ -53,43 +53,46 @@ const PaymentState = (props) => {
   const [state, dispatch] = useReducer(PaymentReducer, defaultState);
   const client = useApolloClient();
 
-  
-
   // get fx rates
   const GetFxRates = (params) => {
+    console.log(params);
 
     const FX_RATES = gql`
-    query getFxRates($send: String!, $dest: String!, $base: Float!, $type: String) {
-      getFxRate(
-        input: {
-          sendCurrency: $send
-          destinationCurrency: $dest
-          baseAmount: $base
-          receiveType: $type
-        }
+      query getFxRates(
+        $sendCurrency: String!
+        $destinationCurrency: String!
+        $baseAmount: Float!
+        $receiveType: ReceiveType!
       ) {
-        rate
-        fee
-        actualAmount
-        convertedAmount
+        getFxRate(
+          input: {
+            sendCurrency: $sendCurrency
+            destinationCurrency: $destinationCurrency
+            baseAmount: $baseAmount
+            receiveType: $receiveType
+          }
+        ) {
+          rate
+          fee
+          actualAmount
+          convertedAmount
+        }
       }
-    }
-  `;
+    `;
 
     client
       .query({
         query: FX_RATES,
         fetchPolicy: "cache-first",
         variables: {
-          send: params.sendCurrency,
-          dest: params.destinationCurrency,
-          base: params.baseAmount,
-          type: "SameDay"
-        }
+          sendCurrency: params.sendCurrency,
+          destinationCurrency: params.destinationCurrency,
+          baseAmount: params.baseAmount,
+          receiveType: "SameDay",
+        },
       })
       .then((res) => {
-
-        const data = res.data.getFxRate
+        const data = res.data.getFxRate;
         console.log(data);
 
         dispatch({
@@ -101,11 +104,21 @@ const PaymentState = (props) => {
             actualAmount: data.actualAmount,
             fee: data.fee,
             rate: data.rate,
-            convertedAmount: data.convertedAmount
+            convertedAmount: data.convertedAmount,
           },
         });
       })
-      .catch(err => console.log(err))
+      .catch((err) => console.log(err));
+
+
+      dispatch({
+        type: SET_FX_PARAMETERS,
+        payload: {
+          sendCurrency: params.sendCurrency,
+          destinationCurrency: params.destinationCurrency,
+          baseAmount: params.baseAmount
+        },
+      });
   };
 
   return (
