@@ -1,16 +1,16 @@
 import React, { useReducer } from "react";
 import PaymentContext from "./paymentContext";
 import PaymentReducer from "./paymentReducer";
-import { gql, useQuery } from "@apollo/client";
+import { gql, useApolloClient } from "@apollo/client";
 
 import {
-  GET_RECIPENT,
+  // GET_RECIPENT,
   SET_FX_PARAMETERS,
-  GET_FXRATE,
-  SET_TRANSACTION_TYPE,
-  SET_STARTEND_DATES,
-  SET_RECEIVING_METHOD,
-  SET_PAYMENT_OPTION,
+  // GET_FXRATE,
+  // SET_TRANSACTION_TYPE,
+  // SET_STARTEND_DATES,
+  // SET_RECEIVING_METHOD,
+  // SET_PAYMENT_OPTION,
 } from "../types";
 
 const PaymentState = (props) => {
@@ -52,29 +52,35 @@ const PaymentState = (props) => {
 
   const [state, dispatch] = useReducer(PaymentReducer, defaultState);
 
+  const FX_RATES = gql`
+    query getFxRates {
+      getFxRate(
+        input: {
+          sendCurrency: "USD"
+          destinationCurrency: "NGN"
+          baseAmount: 1000
+          receiveType: SameDay
+        }
+      ) {
+        rate
+        fee
+        actualAmount
+        convertedAmount
+      }
+    }
+  `;
+
+  const client = useApolloClient();
+
   // get fx rates
   const GetFxRates = (name, value) => {
-    const FX_RATES = gql`
-      query getFxRates {
-        getFxRate(
-          input: {
-            sendCurrency: "USD"
-            destinationCurrency: "NGN"
-            baseAmount: 1000
-            receiveType: SameDay
-          }
-        ) {
-          rate
-          fee
-          actualAmount
-          convertedAmount
-        }
-      }
-    `;
 
-    const { data } = useQuery(FX_RATES);
-
-    if(data) return console.log(data);
+    client
+      .query({
+        query: FX_RATES,
+        fetchPolicy: "cache-first",
+      })
+      .then((data) => console.log(data));
 
     dispatch({
       type: SET_FX_PARAMETERS,
