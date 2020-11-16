@@ -1,10 +1,11 @@
 export const SHOW_INTRO = "SHOW_INTRO";
 export const HIDE_INTRO = "HIDE_INTRO";
 export const GET_USER = "GET_USER";
-export const GET_RECIPENTS = "GET_RECIPENTS"
+export const GET_RECIPENTS = "GET_RECIPENTS";
 
+export const SHOW_ALERT = "SHOW_ALERT";
+export const SET_FX_PARAMETERS = "SET_FX_PARAMETERS";
 export const GET_RECIPENT = "GET_RECIPENT";
-export const SET_FX_PARAMETERS = 'SET_FX_PARAMETERS'
 export const GET_FXRATE = "GET_FXRATE";
 export const SET_TRANSACTION_TYPE = "SET_TRANSACTION_TYPE";
 export const SET_STARTEND_DATES = "SET_STARTEND_DATES";

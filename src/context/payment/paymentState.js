@@ -4,8 +4,9 @@ import PaymentReducer from "./paymentReducer";
 import { gql, useApolloClient } from "@apollo/client";
 
 import {
-  // GET_RECIPENT,
+  SHOW_ALERT,
   SET_FX_PARAMETERS,
+  // GET_RECIPENT,
   // GET_FXRATE,
   // SET_TRANSACTION_TYPE,
   // SET_STARTEND_DATES,
@@ -48,6 +49,10 @@ const PaymentState = (props) => {
     },
     paymentOption: "",
     referenceID: "",
+    alert: {
+      status: false,
+      message: ""
+    }
   };
 
   const [state, dispatch] = useReducer(PaymentReducer, defaultState);
@@ -55,8 +60,7 @@ const PaymentState = (props) => {
 
   // get fx rates
   const GetFxRates = (params) => {
-    console.log(params);
-
+  
     const FX_RATES = gql`
       query getFxRates(
         $sendCurrency: String!
@@ -80,45 +84,49 @@ const PaymentState = (props) => {
       }
     `;
 
-    client
-      .query({
-        query: FX_RATES,
-        fetchPolicy: "cache-first",
-        variables: {
-          sendCurrency: params.sendCurrency,
-          destinationCurrency: params.destinationCurrency,
-          baseAmount: params.baseAmount,
-          receiveType: "SameDay",
-        },
-      })
-      .then((res) => {
-        const data = res.data.getFxRate;
-        console.log(data);
+    dispatch({
+      type: SET_FX_PARAMETERS,
+      payload: params
+    });
 
-        dispatch({
-          type: SET_FX_PARAMETERS,
-          payload: {
+    if (params.baseAmount !== "") {
+      client
+        .query({
+          query: FX_RATES,
+          fetchPolicy: "cache-first",
+          variables: {
             sendCurrency: params.sendCurrency,
             destinationCurrency: params.destinationCurrency,
             baseAmount: params.baseAmount,
-            actualAmount: data.actualAmount,
-            fee: data.fee,
-            rate: data.rate,
-            convertedAmount: data.convertedAmount,
+            receiveType: "SameDay",
           },
+        })
+        .then((res) => {
+          const data = res.data.getFxRate;
+
+          dispatch({
+            type: SET_FX_PARAMETERS,
+            payload: {
+              sendCurrency: params.sendCurrency,
+              destinationCurrency: params.destinationCurrency,
+              baseAmount: params.baseAmount,
+              actualAmount: data.actualAmount,
+              fee: data.fee,
+              rate: data.rate,
+              convertedAmount: data.convertedAmount
+            },
+          });
+        })
+        .catch((err) => {
+          dispatch({
+            type: SHOW_ALERT,
+            payload: {
+              status: true,
+              message: "An error occurred, check your network"
+            }
+          })
         });
-      })
-      .catch((err) => console.log(err));
-
-
-      dispatch({
-        type: SET_FX_PARAMETERS,
-        payload: {
-          sendCurrency: params.sendCurrency,
-          destinationCurrency: params.destinationCurrency,
-          baseAmount: params.baseAmount
-        },
-      });
+    }
   };
 
   return (

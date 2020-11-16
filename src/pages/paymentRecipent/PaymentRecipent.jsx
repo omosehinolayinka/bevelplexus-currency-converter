@@ -124,17 +124,7 @@ function PaymentRecipent({ showTips }) {
                   <img src='/assets/svg/green-check-alt.svg' alt='check' />
                 </Option>
               </Select>
-              {/* <span className='material-icons'>arrow_drop_down</span> */}
-
-              {/* <Dropdown overlay={menu} placement='bottomCenter'>
-                <p>
-                  <span>
-                    <img src='/assets/svg/contact.svg' alt='contact' />
-                    Select recipent
-                  </span>
-                  <span className='material-icons'>arrow_drop_down</span>
-                </p>
-              </Dropdown> */}
+            
             </div>
 
             <div className='side-link'>

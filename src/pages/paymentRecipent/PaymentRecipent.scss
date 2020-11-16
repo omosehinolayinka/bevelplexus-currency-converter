@@ -104,7 +104,7 @@
 
       .shadow-box {
         padding: 0 4%;
-        width: 60%;
+        width: 55%;
         margin-bottom: 0;
         height: 55px;
         width: 380px;
@@ -156,22 +156,6 @@
           right: 35px;
         }
 
-        // .ant-dropdown-trigger {
-        //   display: flex;
-        //   align-items: center;
-        //   justify-content: space-between;
-        //   width: 100%;
-        //   color: #B4BEC6;
-        //   font-size: 14px;
-
-        //   span.material-icons {
-        //     align-self: flex-end;
-        //     float: right;
-        //     color: $darkteal;
-        //     display: flex;
-        //     align-items: center;
-        //   }
-        // }
       }
 
       .side-link {
@@ -200,7 +184,7 @@
     }
   }
 
-  @media(max-width: 430px) {
+  @media(max-width: 611px) {
     .section-two  {
 
       .box-container {

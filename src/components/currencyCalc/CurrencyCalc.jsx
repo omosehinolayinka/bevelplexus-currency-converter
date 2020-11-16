@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import "./CurrencyCalc.scss";
 
 import PaymentContext from "../../context/payment/paymentContext";
 
 import { Menu, Dropdown } from "antd";
+import { ToastContainer, toast } from "react-toastify";
 
 const CurrencyCalc = () => {
   const paymentContext = useContext(PaymentContext);
@@ -18,12 +20,23 @@ const CurrencyCalc = () => {
     rate,
   } = paymentContext.state.fxDetails;
 
+  paymentContext.state.alert.status &&
+    toast.error(paymentContext.state.alert.message, {
+      autoClose: 3000,
+      closeButton: true,
+      pauseOnHover: true,
+      position: "top-right",
+      hideProgressBar: true,
+      toastId: "Yes",
+    });
+
   const handleClick = (e, name) => {
     const data = {
       sendCurrency: name === "sendCurrency" ? e.key : sendCurrency,
       destinationCurrency:
         name === "destinationCurrency" ? e.key : destinationCurrency,
       baseAmount,
+      convertedAmount: baseAmount === "" ? "" : convertedAmount,
     };
 
     paymentContext.getFxRates(data);
@@ -33,7 +46,11 @@ const CurrencyCalc = () => {
     const data = {
       sendCurrency,
       destinationCurrency,
-      baseAmount: parseFloat(e.target.value),
+      baseAmount: parseFloat(e.target.value) || "",
+      convertedAmount: baseAmount === "" ? "" : convertedAmount,
+      actualAmount: baseAmount === "" ? 0 : actualAmount,
+      fee: baseAmount === "" ? 0 : fee,
+      rate: baseAmount === "" ? 0 : rate,
       reverse: e.target.name === "convertedAmount" ? true : false,
     };
 
@@ -61,10 +78,10 @@ const CurrencyCalc = () => {
       name: "BRL",
       flag: "https://www.countryflags.io/br/flat/24.png",
     },
-    {
-      name: "EUR",
-      flag: "https://www.countryflags.io/fr/flat/24.png",
-    },
+    // {
+    //   name: "EUR",
+    //   flag: "https://www.countryflags.io/eu/flat/24.png",
+    // },
   ];
 
   const sendCurrencyMenu = (
@@ -106,6 +123,7 @@ const CurrencyCalc = () => {
               placeholder='1,000'
               value={baseAmount}
               onChange={handleChange}
+              onKeyUp={handleChange}
             />
           </div>
 
@@ -180,9 +198,15 @@ const CurrencyCalc = () => {
         </div>
 
         <div className='form__submit'>
-          <button className='form__submit__button'>Send this Amount</button>
+          <Link to='/payment/recipent'>
+            <button type='button' className='form__submit__button'>
+              Send this Amount
+            </button>
+          </Link>
         </div>
       </form>
+
+      <ToastContainer />
     </div>
   );
 };

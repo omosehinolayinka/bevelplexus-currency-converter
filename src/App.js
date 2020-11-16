@@ -6,6 +6,7 @@ import {
   Switch,
 } from "react-router-dom";
 import "./App.scss";
+import 'react-toastify/dist/ReactToastify.css';
 
 import {
   ApolloClient,
