@@ -1,16 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import "./PaymentRecipent.scss";
 
 import Layout from "../../components/layout/Layout";
-import AddModal from '../../components/addRecipentModal/AddRecipent'
+import AddModal from "../../components/addRecipentModal/AddRecipent";
 import EditModal from "../../components/editRecipentModal/EditRecipent";
+
+import PaymentContext from "../../context/payment/paymentContext";
 
 import { Tooltip, Select } from "antd";
 
 function PaymentRecipent({ showTips }) {
-  const [payType, setPayType] = useState("individual");
-  const [showAddModal, setShowAddModal] = useState(false)
+  const paymentContext = useContext(PaymentContext);
+
+  const transactionType = paymentContext.state.transactionType;
+
+  const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
 
   const { Option } = Select;
@@ -66,22 +71,22 @@ function PaymentRecipent({ showTips }) {
           <div className='box-container'>
             <div
               className={
-                payType === "individual"
+                transactionType === "individual"
                   ? "shadow-box shadow-box-highlight"
                   : "shadow-box"
               }
-              onClick={() => setPayType("individual")}
+              onClick={() => paymentContext.setTransactionType("individual")}
             >
               <img src='/assets/svg/recipent.svg' alt='recipent' />
               <p>To Individual</p>
             </div>
             <div
               className={
-                payType === "tuition"
+                transactionType === "tuition"
                   ? "shadow-box shadow-box-highlight"
                   : "shadow-box"
               }
-              onClick={() => setPayType("tuition")}
+              onClick={() => paymentContext.setTransactionType("tuition")}
             >
               <img src='/assets/svg/school.svg' alt='school' />
               <p>Tuition Payment</p>
@@ -124,12 +129,11 @@ function PaymentRecipent({ showTips }) {
                   <img src='/assets/svg/green-check-alt.svg' alt='check' />
                 </Option>
               </Select>
-            
             </div>
 
             <div className='side-link'>
               <Link to='#'>
-                <div onClick={() => setShowAddModal(true)}> 
+                <div onClick={() => setShowAddModal(true)}>
                   Add new recipent
                 </div>
                 <Tooltip placement='bottomRight' title={text}>
@@ -159,7 +163,7 @@ function PaymentRecipent({ showTips }) {
                 <div className='user-details__avi'>
                   <img
                     src={
-                      payType === "individual"
+                      transactionType === "individual"
                         ? "/assets/img/avatar-square.png"
                         : "/assets/svg/institution.svg"
                     }
@@ -173,12 +177,12 @@ function PaymentRecipent({ showTips }) {
                 </div>
                 <span className='user-details__text-wrapper'>
                   <h3>
-                    {payType === "individual"
+                    {transactionType === "individual"
                       ? "Phillip Mango"
                       : "Toronto School"}
                   </h3>
                   <p>
-                    {payType === "individual"
+                    {transactionType === "individual"
                       ? "phillipmango@email.com"
                       : "contact@ubc.com"}
                   </p>
@@ -191,7 +195,7 @@ function PaymentRecipent({ showTips }) {
                   +1 610 435 6354
                 </p>
 
-                {payType === "individual" ? (
+                {transactionType === "individual" ? (
                   <React.Fragment>
                     <p>
                       <img src='/assets/svg/world.svg' alt='world' />

@@ -2,13 +2,14 @@ import React, { useReducer } from "react";
 import PaymentContext from "./paymentContext";
 import PaymentReducer from "./paymentReducer";
 import { gql, useApolloClient } from "@apollo/client";
+import { toast } from "react-toastify";
 
 import {
   SHOW_ALERT,
   SET_FX_PARAMETERS,
   // GET_RECIPENT,
   // GET_FXRATE,
-  // SET_TRANSACTION_TYPE,
+  SET_TRANSACTION_TYPE,
   // SET_STARTEND_DATES,
   // SET_RECEIVING_METHOD,
   // SET_PAYMENT_OPTION,
@@ -49,17 +50,15 @@ const PaymentState = (props) => {
     },
     paymentOption: "",
     referenceID: "",
-    alert: {
-      status: false,
-      message: ""
-    }
   };
 
   const [state, dispatch] = useReducer(PaymentReducer, defaultState);
   const client = useApolloClient();
 
   // get fx rates
-  const GetFxRates = (params) => {
+  const getFxRates = (params) => {
+
+    console.log(params.sendCurrency);
   
     const FX_RATES = gql`
       query getFxRates(
@@ -89,15 +88,25 @@ const PaymentState = (props) => {
       payload: params
     });
 
-    if (params.baseAmount !== "") {
+    if (params.baseAmount !== "" || (params.reverse && params.convertedAmount !== "") ) {
+
+      const obj = {
+        sendCurrency: params.reverse ? params.destinationCurrency : params.sendCurrency,
+        destinationCurrency: params.reverse ? params.sendCurrency : params.destinationCurrency,
+        baseAmount: params.reverse ? params.convertedAmount : params.baseAmount,
+        receiveType: "SameDay",
+      }
+
+      console.log(obj);
+
       client
         .query({
           query: FX_RATES,
           fetchPolicy: "cache-first",
           variables: {
-            sendCurrency: params.sendCurrency,
-            destinationCurrency: params.destinationCurrency,
-            baseAmount: params.baseAmount,
+            sendCurrency: params.reverse ? params.destinationCurrency : params.sendCurrency,
+            destinationCurrency: params.reverse ? params.sendCurrency : params.destinationCurrency,
+            baseAmount: params.reverse ? params.convertedAmount : params.baseAmount,
             receiveType: "SameDay",
           },
         })
@@ -109,31 +118,41 @@ const PaymentState = (props) => {
             payload: {
               sendCurrency: params.sendCurrency,
               destinationCurrency: params.destinationCurrency,
-              baseAmount: params.baseAmount,
+              baseAmount: params.reverse ? data.convertedAmount : params.baseAmount,
               actualAmount: data.actualAmount,
               fee: data.fee,
               rate: data.rate,
-              convertedAmount: data.convertedAmount
+              convertedAmount: params.reverse ? params.convertedAmount : data.convertedAmount
             },
           });
         })
         .catch((err) => {
-          dispatch({
-            type: SHOW_ALERT,
-            payload: {
-              status: true,
-              message: "An error occurred, check your network"
-            }
-          })
+          toast.error("Sorry, an error occured", {
+            autoClose: 3000,
+            closeButton: true,
+            pauseOnHover: true,
+            position: "top-right",
+            hideProgressBar: true,
+            toastId: "Yes",
+          });
         });
     }
   };
+
+  // set transaction type
+  const setTransactionType = (params) => {
+    dispatch({
+      type: SET_TRANSACTION_TYPE,
+      payload: params
+    });
+  }
 
   return (
     <PaymentContext.Provider
       value={{
         state,
-        getFxRates: GetFxRates,
+        getFxRates,
+        setTransactionType
       }}
     >
       {props.children}

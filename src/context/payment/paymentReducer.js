@@ -1,4 +1,4 @@
-import { SET_FX_PARAMETERS, SHOW_ALERT } from "../types";
+import { SET_FX_PARAMETERS, SET_TRANSACTION_TYPE } from "../types";
 
 export default (state, action) => {
   switch (action.type) {
@@ -7,18 +7,16 @@ export default (state, action) => {
         ...state,
         fxDetails: {
           ...state.fxDetails,
-          ...action.payload
-        }
+          ...action.payload,
+        },
       };
-    
-    case SHOW_ALERT:
+
+    case SET_TRANSACTION_TYPE:
       return {
         ...state,
-        alert: {
-          ...action.payload
-        }
-      }
-    
+        transactionType: action.payload,
+      };
+
     default:
       return state;
   }

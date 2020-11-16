@@ -5,7 +5,7 @@ import "./CurrencyCalc.scss";
 import PaymentContext from "../../context/payment/paymentContext";
 
 import { Menu, Dropdown } from "antd";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 
 const CurrencyCalc = () => {
   const paymentContext = useContext(PaymentContext);
@@ -19,16 +19,6 @@ const CurrencyCalc = () => {
     fee,
     rate,
   } = paymentContext.state.fxDetails;
-
-  paymentContext.state.alert.status &&
-    toast.error(paymentContext.state.alert.message, {
-      autoClose: 3000,
-      closeButton: true,
-      pauseOnHover: true,
-      position: "top-right",
-      hideProgressBar: true,
-      toastId: "Yes",
-    });
 
   const handleClick = (e, name) => {
     const data = {
@@ -46,8 +36,14 @@ const CurrencyCalc = () => {
     const data = {
       sendCurrency,
       destinationCurrency,
-      baseAmount: parseFloat(e.target.value) || "",
-      convertedAmount: baseAmount === "" ? "" : convertedAmount,
+      baseAmount:
+        e.target.name === "convertedAmount"
+          ? baseAmount
+          : parseFloat(e.target.value) || "",
+      convertedAmount:
+        e.target.name === "baseAmount"
+          ? convertedAmount
+          : parseFloat(e.target.value) || "",
       actualAmount: baseAmount === "" ? 0 : actualAmount,
       fee: baseAmount === "" ? 0 : fee,
       rate: baseAmount === "" ? 0 : rate,
@@ -175,7 +171,9 @@ const CurrencyCalc = () => {
               name='convertedAmount'
               placeholder='3,900'
               value={convertedAmount}
-              disabled
+              onChange={handleChange}
+              onKeyUp={handleChange}
+              // disabled
             />
           </div>
 
