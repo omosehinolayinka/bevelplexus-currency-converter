@@ -5,7 +5,6 @@ import { gql, useApolloClient } from "@apollo/client";
 import { toast } from "react-toastify";
 
 import {
-  SHOW_ALERT,
   SET_FX_PARAMETERS,
   // GET_RECIPENT,
   // GET_FXRATE,
@@ -57,8 +56,6 @@ const PaymentState = (props) => {
 
   // get fx rates
   const getFxRates = (params) => {
-
-    console.log(params.sendCurrency);
   
     const FX_RATES = gql`
       query getFxRates(
@@ -89,16 +86,7 @@ const PaymentState = (props) => {
     });
 
     if (params.baseAmount !== "" || (params.reverse && params.convertedAmount !== "") ) {
-
-      const obj = {
-        sendCurrency: params.reverse ? params.destinationCurrency : params.sendCurrency,
-        destinationCurrency: params.reverse ? params.sendCurrency : params.destinationCurrency,
-        baseAmount: params.reverse ? params.convertedAmount : params.baseAmount,
-        receiveType: "SameDay",
-      }
-
-      console.log(obj);
-
+      
       client
         .query({
           query: FX_RATES,
