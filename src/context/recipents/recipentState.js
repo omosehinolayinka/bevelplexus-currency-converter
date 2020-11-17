@@ -13,7 +13,9 @@ import { toast } from "react-toastify";
 import { GET_RECIPENTS, SELECT_RECIPENT } from "../types";
 
 const RecipentState = (props) => {
-  const defaultState = [];
+  const defaultState = {
+    recipents: []
+  };
 
   const [state, dispatch] = useReducer(RecipentReducer, defaultState);
 

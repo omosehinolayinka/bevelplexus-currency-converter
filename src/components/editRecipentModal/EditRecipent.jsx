@@ -1,21 +1,46 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import "./EditRecipent.scss";
 
-function EditRecipent({ action }) {
-  const [name, setName] = useState("Rayana Lubin");
-  const [email, setEmail] = useState("Jordywakman@gmail.com");
-  const [phone, setPhone] = useState("+87 456 899 2345");
-  const [country, setCountry] = useState("Canada");
-  const [bankName, setBankName] = useState("Zenith Bank");
-  const [bankNo, setBankNo] = useState("34567777777778");
+function EditRecipent({ action, recipentState }) {
+  const [recipient, setRecipient] = useState({
+    name: "",
+    email: "",
+    phoneNumber: "",
+    location: "",
+    bank: "",
+    bankName: "",
+    accountNumber: ""
+  });
+
+  useEffect(() => {
+    setRecipient({
+      ...recipient,
+      ...recipentState,
+      ...recipentState.bankInfo[0],
+      bankName: recipentState.name
+    });
+
+    // eslint-disable-next-line
+  }, []);
+
+  const handleChange = (e) => {
+
+    setRecipient({
+      ...recipient,
+      [e.target.name]: e.target.value,
+    });
+    
+  };
 
   return (
     <div id='editRecipent'>
       <div className='box'>
         <div className='heading'>
           <h2>Recipent Details</h2>
-          <span className='material-icons' onClick={() => action(false)} >clear</span>
+          <span className='material-icons' onClick={() => action(false)}>
+            clear
+          </span>
         </div>
 
         <div className='form-container'>
@@ -25,8 +50,9 @@ function EditRecipent({ action }) {
             </span>
             <input
               type='text'
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              name='name'
+              value={recipient.name}
+              onChange={handleChange}
             />
           </div>
 
@@ -36,8 +62,9 @@ function EditRecipent({ action }) {
             </span>
             <input
               type='text'
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              name='email'
+              value={recipient.email}
+              onChange={handleChange}
             />
           </div>
 
@@ -47,8 +74,9 @@ function EditRecipent({ action }) {
             </span>
             <input
               type='text'
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
+              name='phoneNumber'
+              value={recipient.phoneNumber}
+              onChange={handleChange}
             />
           </div>
 
@@ -58,8 +86,9 @@ function EditRecipent({ action }) {
             </span>
             <input
               type='text'
-              value={country}
-              onChange={(e) => setCountry(e.target.value)}
+              name='location'
+              value={recipient.location}
+              onChange={handleChange}
             />
           </div>
 
@@ -69,8 +98,9 @@ function EditRecipent({ action }) {
             </span>
             <input
               type='text'
-              value={bankName}
-              onChange={(e) => setBankName(e.target.value)}
+              name='bank'
+              value={recipient.bank}
+              onChange={handleChange}
             />
           </div>
 
@@ -80,17 +110,18 @@ function EditRecipent({ action }) {
             </span>
             <input
               type='text'
-              value={bankNo}
-              onChange={(e) => setBankNo(e.target.value)}
+              name='accountNumber'
+              value={recipient.accountNumber}
+              onChange={handleChange}
             />
           </div>
         </div>
 
-        <div className="btn-big-container">
-          <button> {name} </button>
+        <div className='btn-big-container'>
+          <button> {recipient.bankName} </button>
         </div>
 
-        <div className="buttons-container">
+        <div className='buttons-container'>
           <button onClick={() => action(false)}>Cancel</button>
           <button onClick={() => action(false)}>Save</button>
         </div>

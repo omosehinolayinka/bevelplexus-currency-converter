@@ -5,7 +5,7 @@ export default (state, action) => {
     case GET_RECIPENTS: 
       return {
         ...state,
-        ...action.payload
+        recipents: [...action.payload]
       }
   
     default:

@@ -64,6 +64,10 @@
           flex-grow: 1;
           color: #B4BEC6;
         }
+
+        input:focus {
+          color: #4A4B65;
+        }
     
         input.active {
           color: #4A4B65;

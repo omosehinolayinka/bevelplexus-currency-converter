@@ -4,84 +4,16 @@ import "./TransactionsTable.scss";
 
 import EditModal from "../editRecipentModal/EditRecipent";
 
-function RecipentsTable() {
+function RecipentsTable({ data }) {
   const [showEditModal, setShowEditModal] = useState(false);
+  const [recipent, setRecipent] = useState(null)
 
-  const tableData = [
-    {
-      key: 1,
-      avatar: "/assets/svg/institution.svg",
-      name: "Phillip Mango",
-      email: "phillipmango@gmail.com",
-      sendAmount: "1000",
-      sendCurrency: "CAD",
-      sendCurrencyFlag: "/assets/svg/canada-flag.svg",
-      receiveAmount: "3900",
-      receiveCurrency: "BRL",
-      receiveCurrencyFlag: "/assets/svg/brazil-flag.svg",
-      date: "Jun 6th 2020",
-      status: "completed",
-      exchangeRate: "3.90",
-      amountBF: "1000",
-      amountAF: "970",
-      link: "/payment",
-    },
+  const editRecipent = (recipent) => {
 
-    {
-      key: 2,
-      avatar: "/assets/svg/institution.svg",
-      name: "Phillip Mango",
-      email: "phillipmango@gmail.com",
-      sendAmount: "1000",
-      sendCurrency: "CAD",
-      sendCurrencyFlag: "/assets/svg/canada-flag.svg",
-      receiveAmount: "3900",
-      receiveCurrency: "BRL",
-      receiveCurrencyFlag: "/assets/svg/brazil-flag.svg",
-      date: "Jun 1st 2020",
-      status: "completed",
-      exchangeRate: "3.90",
-      amountBF: "1000",
-      amountAF: "970",
-      link: "/payment",
-    },
-    {
-      key: 3,
-      avatar: "/assets/svg/institution.svg",
-      name: "Erin Culhane",
-      email: "ericculhane@gmail.com",
-      sendAmount: "1000",
-      sendCurrency: "CAD",
-      sendCurrencyFlag: "/assets/svg/canada-flag.svg",
-      receiveAmount: "3900",
-      receiveCurrency: "BRL",
-      receiveCurrencyFlag: "/assets/svg/brazil-flag.svg",
-      date: "May 17th 2020",
-      status: "pending",
-      exchangeRate: "3.90",
-      amountBF: "1000",
-      amountAF: "970",
-      link: "/payment",
-    },
-    {
-      key: 4,
-      avatar: "/assets/svg/institution.svg",
-      name: "Erin Culhane",
-      email: "ericculhane@gmail.com",
-      sendAmount: "1000",
-      sendCurrency: "CAD",
-      sendCurrencyFlag: "/assets/svg/canada-flag.svg",
-      receiveAmount: "3900",
-      receiveCurrency: "BRL",
-      receiveCurrencyFlag: "/assets/svg/brazil-flag.svg",
-      date: "May 17th 2020",
-      status: "cancelled",
-      exchangeRate: "3.90",
-      amountBF: "1000",
-      amountAF: "970",
-      link: "/payment",
-    },
-  ];
+    setRecipent(recipent);
+
+    setShowEditModal(true);
+  }
 
   return (
     <div id='transaction-table' className='recipents-table'>
@@ -94,14 +26,14 @@ function RecipentsTable() {
         </colgroup>
 
         <tbody className='table-alt'>
-          {tableData.map((data) => (
-            <React.Fragment key={data.key}>
+          {data.map((data) => (
+            <React.Fragment key={data.id}>
               <tr className='collapsed'>
                 <td>
                   <div>
                     <section>
-                      <img src={data.avatar} alt='avatar' className='avatar-img' />
-                      <img src={data.receiveCurrencyFlag} alt='' className='img-attachment' />
+                      <img src="/assets/svg/institution.svg" alt='avatar' className='avatar-img' />
+                      <img src="/assets/svg/brazil-flag.svg" alt='' className='img-attachment' />
                     </section>
                     <p>
                       {data.name}
@@ -113,7 +45,7 @@ function RecipentsTable() {
                 <td>
                   <div>
                     <p>
-                      {data.date}
+                      May 17th 2020
                       <small>Last transaction date</small>
                     </p>
                   </div>
@@ -124,13 +56,11 @@ function RecipentsTable() {
                     <p>
                       <span className='icon-wrap'>
                         <span>
-                          {" "}
-                          {data.sendAmount} {data.sendCurrency}{" "}
+                          1000 CAD
                         </span>
                         <span className='material-icons'>arrow_right</span>
                         <span>
-                          {" "}
-                          {data.receiveAmount} {data.receiveCurrency}{" "}
+                          3900 BRL
                         </span>
                       </span>
                       <small>Last transaction amount</small>
@@ -142,7 +72,7 @@ function RecipentsTable() {
                   <div>
                     <button
                       className='primary transparent'
-                      onClick={() => setShowEditModal(true)}
+                      onClick={() => editRecipent(data)}
                       style={{
                         width: "48%",
                         height: "100%",
@@ -159,7 +89,7 @@ function RecipentsTable() {
                         padding: ".7rem 0",
                       }}
                     >
-                      <Link to={data.link}>Send Money</Link>
+                      <Link to='/payment'>Send Money</Link>
                     </button>
                   </div>
                 </td>
@@ -169,7 +99,7 @@ function RecipentsTable() {
         </tbody>
       </table>
 
-      {showEditModal && <EditModal action={setShowEditModal} />}
+      {showEditModal && <EditModal action={setShowEditModal} recipentState={recipent}  />}
     </div>
   );
 }
