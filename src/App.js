@@ -6,7 +6,7 @@ import {
   Switch,
 } from "react-router-dom";
 import "./App.scss";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 import {
   ApolloClient,
@@ -17,6 +17,7 @@ import {
 import { setContext } from "@apollo/client/link/context";
 import IntroState from "./context/intro/introState";
 import PaymentState from "./context/payment/paymentState";
+import RecipentState from "./context/recipents/recipentState";
 
 import Dashboard from "./pages/dashboard/Dashboard";
 import PaymentRecipent from "./pages/paymentRecipent/PaymentRecipent";
@@ -53,48 +54,54 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <IntroState>
-        <PaymentState>
-          <div className='App'>
-            <Router>
-              <Switch>
-                <Route exact path='/' component={Dashboard} />
-                <Route exact path='/payment'>
-                  <Redirect to='/payment/recipent' />
-                </Route>
-                <Route
-                  exact
-                  path='/payment/recipent'
-                  component={PaymentRecipent}
-                />
-                <Route
-                  exact
-                  path='/payment/transfer'
-                  component={PaymentTransfer}
-                />
-                <Route
-                  exact
-                  path='/payment/options'
-                  component={PaymentOptions}
-                />
-                <Route exact path='/payment/review' component={PaymentReview} />
-                <Route
-                  exact
-                  path='/transactions'
-                  component={TransactionHistory}
-                />
-                <Route exact path='/recipents' component={Recipents} />
-                <Route exact path='/account'>
-                  <Redirect to='/account/settings' />
-                </Route>
-                <Route
-                  exact
-                  path='/account/settings'
-                  component={AccountSettings}
-                />
-              </Switch>
-            </Router>
-          </div>
-        </PaymentState>
+        <RecipentState>
+          <PaymentState>
+            <div className='App'>
+              <Router>
+                <Switch>
+                  <Route exact path='/' component={Dashboard} />
+                  <Route exact path='/payment'>
+                    <Redirect to='/payment/recipent' />
+                  </Route>
+                  <Route
+                    exact
+                    path='/payment/recipent'
+                    component={PaymentRecipent}
+                  />
+                  <Route
+                    exact
+                    path='/payment/transfer'
+                    component={PaymentTransfer}
+                  />
+                  <Route
+                    exact
+                    path='/payment/options'
+                    component={PaymentOptions}
+                  />
+                  <Route
+                    exact
+                    path='/payment/review'
+                    component={PaymentReview}
+                  />
+                  <Route
+                    exact
+                    path='/transactions'
+                    component={TransactionHistory}
+                  />
+                  <Route exact path='/recipents' component={Recipents} />
+                  <Route exact path='/account'>
+                    <Redirect to='/account/settings' />
+                  </Route>
+                  <Route
+                    exact
+                    path='/account/settings'
+                    component={AccountSettings}
+                  />
+                </Switch>
+              </Router>
+            </div>
+          </PaymentState>
+        </RecipentState>
       </IntroState>
     </ApolloProvider>
   );

@@ -1,11 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { Link } from 'react-router-dom'
 import "./Dashboard.scss";
 
 import Layout from "../../components/layout/LayoutAlt";
 import TransactionTable from '../../components/tables/TransactionsTable'
 
+import RecipentContext from '../../context/recipents/recipentContext'
+
 function Dashboard({showTips}) {
+  const recipentContext = useContext(RecipentContext);
 
   useEffect(() => {
     fetch('https://bp-user.herokuapp.com/graphql', {
@@ -35,6 +38,9 @@ function Dashboard({showTips}) {
 
       localStorage.setItem("token", login.token);
       localStorage.setItem("userId", login.user.id);
+    })
+    .then(() => {
+      recipentContext.getRecipents();
     })
     .catch(err => console.log(err))
 
