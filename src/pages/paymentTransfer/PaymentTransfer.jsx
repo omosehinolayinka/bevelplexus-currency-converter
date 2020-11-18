@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import "./PaymentTransfer.scss";
 import "../paymentRecipient/PaymentRecipient.scss"
@@ -8,9 +8,29 @@ import Calculator from "../../components/currencyCalc/CurrencyCalc"
 import CustomCheckbox from '../../components/customCheckbox/CustomCheckbox'
 import Modal from '../../components/addReceivingMethod/AddReceivingMethod'
 
+import PaymentContext from '../../context/payment/paymentContext'
+
 function PaymentTransfer({showTips}) {
-  const [plan, setPlan] = useState("free");
+
+  const paymentContext = useContext(PaymentContext);
+  const receiveType = paymentContext.state.fxDetails.receiveType
+
   const [showModal, setShowModal] = useState(false)
+
+  const handleClick = (receiveType) => {
+    paymentContext.setReceiveType(receiveType);
+
+    getFxRates();
+  }
+
+  const getFxRates = () => {
+    const {
+      sendCurrency,
+      baseAmount,
+      destinationCurrency,
+    } = paymentContext.state.fxDetails;
+
+  }
 
   return (
     <div id='payment-transfer'>
@@ -27,11 +47,11 @@ function PaymentTransfer({showTips}) {
           <div className='box-container'>
             <div
               className={
-                plan === "free"
+                receiveType === "Delayed"
                   ? "shadow-box shadow-box-highlight"
                   : "shadow-box"
               }
-              onClick={() => setPlan("free")}
+              onClick={() => handleClick("Delayed")}
             >
               <img src='/assets/svg/calender.svg' alt='recipient' />
               <p className='flexible-text'>
@@ -41,11 +61,11 @@ function PaymentTransfer({showTips}) {
             </div>
             <div
               className={
-                plan === "paid"
+                receiveType === "SameDay"
                   ? "shadow-box shadow-box-highlight"
                   : "shadow-box"
               }
-              onClick={() => setPlan("paid")}
+              onClick={() => handleClick("SameDay")}
             >
               <img src='/assets/svg/hourglass.svg' alt='school' />
               <p className='flexible-text'>

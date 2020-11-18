@@ -17,6 +17,8 @@ const CurrencyCalc = () => {
     actualAmount,
     fee,
     rate,
+    receiveType,
+    reverse,
   } = paymentContext.state.fxDetails;
 
   const handleClick = (e, name) => {
@@ -26,27 +28,35 @@ const CurrencyCalc = () => {
         name === "destinationCurrency" ? e.key : destinationCurrency,
       baseAmount,
       convertedAmount: baseAmount === "" ? "" : convertedAmount,
+      receiveType,
+      reverse: reverse,
     };
 
     paymentContext.getFxRates(data);
   };
 
   const handleChange = (e) => {
+    if (e.target.name === "convertedAmount") {
+      paymentContext.setReverseCalc(true);
+      console.log(reverse);
+      sendFxRateRequest(e, true);
+    } else {
+      paymentContext.setReverseCalc(false);
+      sendFxRateRequest(e, false);
+    }
+  };
+
+  const sendFxRateRequest = (e, calcType) => {
     const data = {
       sendCurrency,
       destinationCurrency,
-      baseAmount:
-        e.target.name === "convertedAmount"
-          ? baseAmount
-          : parseFloat(e.target.value) || "",
-      convertedAmount:
-        e.target.name === "baseAmount"
-          ? convertedAmount
-          : parseFloat(e.target.value) || "",
+      baseAmount: reverse ? baseAmount : parseFloat(e.target.value) || "",
+      convertedAmount: !reverse ? convertedAmount : parseFloat(e.target.value) || "",
       actualAmount: baseAmount === "" ? 0 : actualAmount,
       fee: baseAmount === "" ? 0 : fee,
       rate: baseAmount === "" ? 0 : rate,
-      reverse: e.target.name === "convertedAmount" ? true : false,
+      receiveType: receiveType,
+      reverse: calcType
     };
 
     paymentContext.getFxRates(data);

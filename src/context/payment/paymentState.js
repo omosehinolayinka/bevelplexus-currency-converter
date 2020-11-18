@@ -9,6 +9,8 @@ import {
   SET_FX_PARAMETERS,
   SELECT_RECIPIENT,
   SET_TRANSACTION_TYPE,
+  SET_RECEIVE_TYPE,
+  CALCULATION_TYPE,
   // SET_STARTEND_DATES,
   // SET_RECEIVING_METHOD,
   // SET_PAYMENT_OPTION,
@@ -26,7 +28,8 @@ const PaymentState = (props) => {
       actualAmount: 0.0,
       fee: 0.0,
       rate: 0.0,
-      receiveType: "SameDay",
+      receiveType: "Delayed",
+      reverse: false
     },
     transactionType: "individual",
     startDate: "",
@@ -38,9 +41,18 @@ const PaymentState = (props) => {
   const [state, dispatch] = useReducer(PaymentReducer, defaultState);
   const client = useApolloClient();
 
+  // set calculation type
+  const setReverseCalc = (value) => {
+
+    dispatch({
+      type: CALCULATION_TYPE,
+      payload: value
+    })
+  }
+
   // get fx rates
   const getFxRates = (params) => {
-
+   
     dispatch({
       type: SET_FX_PARAMETERS,
       payload: params
@@ -56,7 +68,7 @@ const PaymentState = (props) => {
             sendCurrency: params.reverse ? params.destinationCurrency : params.sendCurrency,
             destinationCurrency: params.reverse ? params.sendCurrency : params.destinationCurrency,
             baseAmount: params.reverse ? params.convertedAmount : params.baseAmount,
-            receiveType: "SameDay",
+            receiveType: params.receiveType,
           },
         })
         .then((res) => {
@@ -75,7 +87,8 @@ const PaymentState = (props) => {
             },
           });
         })
-        .catch(() => {
+        .catch((err) => {
+          console.log(err);
           showError("Sorry, an error occured")
         });
     }
@@ -98,6 +111,16 @@ const PaymentState = (props) => {
     })
   }
 
+  // set transaction type
+  const setReceiveType = (receiveType, params) => {
+
+    dispatch({
+      type: SET_RECEIVE_TYPE,
+      payload: receiveType
+    })
+
+  }
+
   // show error
   const showError = (message) => {
     toast.error(message, {
@@ -114,9 +137,11 @@ const PaymentState = (props) => {
     <PaymentContext.Provider
       value={{
         state,
+        setReverseCalc,
         getFxRates,
         setTransactionType,
-        setCurrentRecipient
+        setCurrentRecipient,
+        setReceiveType
       }}
     >
       {props.children}

@@ -1,7 +1,22 @@
-import { SET_FX_PARAMETERS, SET_TRANSACTION_TYPE, SELECT_RECIPIENT } from "../types";
+import {
+  SET_FX_PARAMETERS,
+  SET_TRANSACTION_TYPE,
+  SELECT_RECIPIENT,
+  SET_RECEIVE_TYPE,
+  CALCULATION_TYPE,
+} from "../types";
 
 export default (state, action) => {
   switch (action.type) {
+    case CALCULATION_TYPE:
+      return {
+        ...state,
+        fxDetails: {
+          ...state.fxDetails,
+          reverse: action.payload
+        }
+      }
+
     case SET_FX_PARAMETERS:
       return {
         ...state,
@@ -17,11 +32,20 @@ export default (state, action) => {
         transactionType: action.payload,
       };
 
-    case SELECT_RECIPIENT: 
+    case SELECT_RECIPIENT:
       return {
         ...state,
-        recipient: action.payload
-      }
+        recipient: action.payload,
+      };
+
+    case SET_RECEIVE_TYPE:
+      return {
+        ...state,
+        fxDetails: {
+          ...state.fxDetails,
+          receiveType: action.payload
+        }
+      };
 
     default:
       return state;
