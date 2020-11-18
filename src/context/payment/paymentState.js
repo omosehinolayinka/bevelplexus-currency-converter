@@ -1,13 +1,13 @@
 import React, { useReducer } from "react";
 import PaymentContext from "./paymentContext";
 import PaymentReducer from "./paymentReducer";
-import { gql, useApolloClient } from "@apollo/client";
+import { useApolloClient } from "@apollo/client";
+import { queries as gql } from './gqlQueries'
 import { toast } from "react-toastify";
 
 import {
   SET_FX_PARAMETERS,
-  // GET_recipient,
-  // GET_FXRATE,
+  SELECT_RECIPIENT,
   SET_TRANSACTION_TYPE,
   // SET_STARTEND_DATES,
   // SET_RECEIVING_METHOD,
@@ -31,22 +31,6 @@ const PaymentState = (props) => {
     transactionType: "individual",
     startDate: "",
     completionDate: "",
-    recipient: {
-      name: "",
-      email: "",
-      avatarUrl: "",
-      flag: "",
-      phone: "",
-      location: "",
-      institutionAddress: "",
-      institutionScore: "",
-    },
-    receivingMethod: {
-      type: "",
-      bank: "",
-      accountName: "",
-      accountNumber: "",
-    },
     paymentOption: "",
     referenceID: "",
   };
@@ -56,29 +40,6 @@ const PaymentState = (props) => {
 
   // get fx rates
   const getFxRates = (params) => {
-  
-    const FX_RATES = gql`
-      query getFxRates(
-        $sendCurrency: String!
-        $destinationCurrency: String!
-        $baseAmount: Float!
-        $receiveType: ReceiveType!
-      ) {
-        getFxRate(
-          input: {
-            sendCurrency: $sendCurrency
-            destinationCurrency: $destinationCurrency
-            baseAmount: $baseAmount
-            receiveType: $receiveType
-          }
-        ) {
-          rate
-          fee
-          actualAmount
-          convertedAmount
-        }
-      }
-    `;
 
     dispatch({
       type: SET_FX_PARAMETERS,
@@ -89,7 +50,7 @@ const PaymentState = (props) => {
       
       client
         .query({
-          query: FX_RATES,
+          query: gql.GET_FX_RATES,
           fetchPolicy: "cache-first",
           variables: {
             sendCurrency: params.reverse ? params.destinationCurrency : params.sendCurrency,
@@ -114,15 +75,8 @@ const PaymentState = (props) => {
             },
           });
         })
-        .catch((err) => {
-          toast.error("Sorry, an error occured", {
-            autoClose: 3000,
-            closeButton: true,
-            pauseOnHover: true,
-            position: "top-right",
-            hideProgressBar: true,
-            toastId: "Yes",
-          });
+        .catch(() => {
+          showError("Sorry, an error occured")
         });
     }
   };
@@ -135,12 +89,34 @@ const PaymentState = (props) => {
     });
   }
 
+  // set current recipient
+  const setCurrentRecipient = (recipient) => {
+    console.log(recipient);
+    dispatch({
+      type: SELECT_RECIPIENT,
+      payload: recipient
+    })
+  }
+
+  // show error
+  const showError = (message) => {
+    toast.error(message, {
+      autoClose: 3000,
+      closeButton: true,
+      pauseOnHover: true,
+      position: "top-right",
+      hideProgressBar: true,
+      toastId: "Yes",
+    });
+  }
+
   return (
     <PaymentContext.Provider
       value={{
         state,
         getFxRates,
-        setTransactionType
+        setTransactionType,
+        setCurrentRecipient
       }}
     >
       {props.children}

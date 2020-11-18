@@ -104,24 +104,33 @@
 
       .shadow-box {
         padding: 0 4%;
-        width: 55%;
         margin-bottom: 0;
-        height: 55px;
-        width: 380px;
+        height: 47px;
+        width: 350px;
         box-sizing: border-box;
         display: flex;
         align-items: center;
         position: relative;
+        cursor: pointer;
 
         .ant-select {
           flex-grow: 1;
           border: none;
+          cursor: pointer;
+
+          .ant-select-selection-placeholder {
+            display: flex;
+            align-items: center;
+          }
 
           .ant-select-selector {
             border: none;
           }
 
           .ant-select-selection-item {
+            display: flex;
+            align-items: center;
+
             img {
               display: none;
             }
@@ -228,6 +237,10 @@
 
           a {
             font-size: 14px;
+          }
+
+          a.spacer {
+            visibility: hidden;
           }
         }
     

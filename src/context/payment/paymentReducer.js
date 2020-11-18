@@ -1,4 +1,4 @@
-import { SET_FX_PARAMETERS, SET_TRANSACTION_TYPE } from "../types";
+import { SET_FX_PARAMETERS, SET_TRANSACTION_TYPE, SELECT_RECIPIENT } from "../types";
 
 export default (state, action) => {
   switch (action.type) {
@@ -16,6 +16,12 @@ export default (state, action) => {
         ...state,
         transactionType: action.payload,
       };
+
+    case SELECT_RECIPIENT: 
+      return {
+        ...state,
+        recipient: action.payload
+      }
 
     default:
       return state;

@@ -137,6 +137,23 @@ button.primary:hover {
   box-shadow: 0px 2px 5px rgba(169, 181, 192, 0.2);
 }
 
+.shadow-box.error-notice {
+  display: flex;
+  flex-direction: column;
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 4rem !important;
+
+  span {
+    font-size: 3rem;
+    opacity: 0.2;
+  }
+
+  p {
+    opacity: 0.4;
+  }
+}
+
 #AppHideOnboarding #intro {
   display: none !important;
 }
