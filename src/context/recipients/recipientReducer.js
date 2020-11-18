@@ -1,4 +1,4 @@
-import {GET_RECIPIENTS, GET_RECIPIENT} from '../types'
+import {GET_RECIPIENTS } from '../types'
 
 export default (state, action) => {
   switch (action.type) {
