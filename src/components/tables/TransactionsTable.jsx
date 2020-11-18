@@ -78,7 +78,7 @@ function TransactionsTable() {
 
         <thead>
           <tr>
-            <td>RECIPENT</td>
+            <td>recipient</td>
             <td>TRANSACTION</td>
             <td>DATE</td>
             <td>STATUS</td>

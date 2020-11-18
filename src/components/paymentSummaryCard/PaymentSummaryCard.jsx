@@ -20,7 +20,7 @@ function paymentSummaryCard() {
       </p>
 
       <p>
-        <span>Recipent gets</span>
+        <span>recipient gets</span>
         <span>3,900 BRL</span>
       </p>
 

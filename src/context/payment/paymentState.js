@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 
 import {
   SET_FX_PARAMETERS,
-  // GET_RECIPENT,
+  // GET_recipient,
   // GET_FXRATE,
   SET_TRANSACTION_TYPE,
   // SET_STARTEND_DATES,
@@ -17,7 +17,7 @@ import {
 const PaymentState = (props) => {
   const defaultState = {
     userId: "",
-    recipentId: "",
+    recipientId: "",
     fxDetails: {
       sendCurrency: "USD",
       baseAmount: "",
@@ -31,7 +31,7 @@ const PaymentState = (props) => {
     transactionType: "individual",
     startDate: "",
     completionDate: "",
-    recipent: {
+    recipient: {
       name: "",
       email: "",
       avatarUrl: "",

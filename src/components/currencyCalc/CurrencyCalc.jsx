@@ -5,7 +5,6 @@ import "./CurrencyCalc.scss";
 import PaymentContext from "../../context/payment/paymentContext";
 
 import { Menu, Dropdown } from "antd";
-import { ToastContainer } from "react-toastify";
 
 const CurrencyCalc = () => {
   const paymentContext = useContext(PaymentContext);
@@ -196,15 +195,13 @@ const CurrencyCalc = () => {
         </div>
 
         <div className='form__submit'>
-          <Link to='/payment/recipent'>
+          <Link to='/payment/recipient'>
             <button type='button' className='form__submit__button'>
               Send this Amount
             </button>
           </Link>
         </div>
       </form>
-
-      <ToastContainer />
     </div>
   );
 };

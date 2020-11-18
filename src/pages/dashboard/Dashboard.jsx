@@ -5,10 +5,10 @@ import "./Dashboard.scss";
 import Layout from "../../components/layout/LayoutAlt";
 import TransactionTable from '../../components/tables/TransactionsTable'
 
-import RecipentContext from '../../context/recipents/recipentContext'
+import RecipientContext from '../../context/recipients/recipientContext'
 
 function Dashboard({showTips}) {
-  const recipentContext = useContext(RecipentContext);
+  const recipientContext = useContext(RecipientContext);
 
   useEffect(() => {
     fetch('https://bp-user.herokuapp.com/graphql', {
@@ -40,7 +40,7 @@ function Dashboard({showTips}) {
       localStorage.setItem("userId", login.user.id);
     })
     .then(() => {
-      recipentContext.getRecipents();
+      recipientContext.getRecipients();
     })
     .catch(err => console.log(err))
 

@@ -9,9 +9,10 @@ export const SET_STARTEND_DATES = "SET_STARTEND_DATES";
 export const SET_RECEIVING_METHOD = "SET_RECEIVING_METHOD";
 export const SET_PAYMENT_OPTION = "SET_PAYMENT_OPTION"
 
-export const GET_RECIPENTS = "GET_RECIPENTS"
-export const GET_RECIPENT = "GET_RECIPENT";
-export const SELECT_RECIPENT = "SELECT_RECIPENT";
-export const ADD_RECIPENT = "ADD_RECIPENT";
+export const GET_RECIPIENTS = "GET_recipientS"
+export const GET_RECIPIENT = "GET_recipient";
+export const SELECT_RECIPIENT = "SELECT_recipient";
+export const ADD_RECIPIENT = "ADD_recipient";
+export const UPDATE_RECIPIENT = "UPDATE_recipient"
 export const ADD_BANK_INFO = "ADD_BANK_INFO";
 export const UPDATE_BANK_INFO = "UPDAT_BANK_INFO"

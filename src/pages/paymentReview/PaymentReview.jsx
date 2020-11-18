@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "../paymentRecipent/PaymentRecipent.scss";
+import "../paymentRecipient/PaymentRecipient.scss";
 import "./PaymentReview.scss";
 
 import Layout from "../../components/layout/Layout";
@@ -19,7 +19,7 @@ function PaymentReview({showTips}) {
 
         <div className='section-three'>
           <div className='section-title'>
-            <p>Recipent Details</p>
+            <p>recipient Details</p>
           </div>
 
           <div className='box-container'>
@@ -97,7 +97,7 @@ function PaymentReview({showTips}) {
                 </p>
 
                 <p>
-                  <span>Recipent gets</span>
+                  <span>recipient gets</span>
                   <span>
                     <img src='/assets/svg/brazil-flag.svg' alt='brl' />
                     3,900 BRL

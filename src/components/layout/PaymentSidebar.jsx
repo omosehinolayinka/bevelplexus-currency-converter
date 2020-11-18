@@ -14,11 +14,11 @@ function PaymentSidebar({ payProgress }) {
           {payProgress > 1 ? (
             <React.Fragment>
               <img src='/assets/svg/green-check.svg' alt='check' />{" "}
-              <span><Link to='/payment/recipent'>Select recipent</Link></span>
+              <span><Link to='/payment/recipient'>Select recipient</Link></span>
             </React.Fragment>
           ) : (
             <React.Fragment>
-              <span className='label'>1</span> <span>Select recipent</span>
+              <span className='label'>1</span> <span>Select recipient</span>
             </React.Fragment>
           )}
         </li>

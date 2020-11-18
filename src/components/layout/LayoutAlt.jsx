@@ -57,7 +57,7 @@ function Layout({ currentMenu, children }) {
                 className={currentMenu === "payment" ? "active" : ""}
                 ref={currentMenu === "payment" ? introRef : null}
               >
-                <Link to='/payment/recipent'>
+                <Link to='/payment/recipient'>
                   <img src='/assets/svg/wallet-icon.svg' alt='home' />
                   Make payment
                 </Link>
@@ -72,12 +72,12 @@ function Layout({ currentMenu, children }) {
                 </Link>
               </li>
               <li
-                className={currentMenu === "recipents" ? "active" : ""}
-                ref={currentMenu === "recipents" ? introRef : null}
+                className={currentMenu === "recipients" ? "active" : ""}
+                ref={currentMenu === "recipients" ? introRef : null}
               >
-                <Link to='/recipents'>
+                <Link to='/recipients'>
                   <img src='/assets/svg/contact-icon.svg' alt='home' />
-                  Recipents
+                  recipients
                 </Link>
               </li>
               <li
@@ -123,8 +123,8 @@ function Layout({ currentMenu, children }) {
                 ? "Make Payment"
                 : currentMenu === "transaction"
                 ? "Transaction History"
-                : currentMenu === "recipents"
-                ? "Recipents"
+                : currentMenu === "recipients"
+                ? "recipients"
                 : currentMenu === "account"
                 ? "My Account"
                 : ""
@@ -136,7 +136,7 @@ function Layout({ currentMenu, children }) {
                 ? "Easily make a transfer here by selecting a recipient and amount"
                 : currentMenu === "transaction"
                 ? "View your Transaction History here to see all your payment activities"
-                : currentMenu === "recipents"
+                : currentMenu === "recipients"
                 ? "View and add information on your who you'll like to send money to"
                 : currentMenu === "account"
                 ? "You can easily manage your profile information and identification here"
@@ -149,7 +149,7 @@ function Layout({ currentMenu, children }) {
                 ? "2/5"
                 : currentMenu === "transaction"
                 ? "3/5"
-                : currentMenu === "recipents"
+                : currentMenu === "recipients"
                 ? "4/5"
                 : currentMenu === "account"
                 ? "5/5"
@@ -161,8 +161,8 @@ function Layout({ currentMenu, children }) {
                 : currentMenu === "payment"
                 ? "/transactions"
                 : currentMenu === "transaction"
-                ? "recipents"
-                : currentMenu === "recipents"
+                ? "recipients"
+                : currentMenu === "recipients"
                 ? "/account"
                 : currentMenu === "account"
                 ? "/"

@@ -1,29 +1,29 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import "../transactionHistory/TransactionHistory.scss";
-import "./Recipents.scss";
+import "./Recipients.scss";
 
 import Layout from "../../components/layout/Layout";
-import Table from "../../components/tables/RecipentsTable";
+import Table from "../../components/tables/RecipientsTable";
 import Pagination from "../../components/pagination/Pagination";
-import AddModal from "../../components/addRecipentModal/AddRecipent";
+import AddModal from "../../components/addRecipientModal/AddRecipientModal";
 
-import RecipentContext from "../../context/recipents/recipentContext";
+import RecipientContext from "../../context/recipients/recipientContext";
 
 function TransactionHistory({ showTips }) {
   const [showAddModal, setShowAddModal] = useState(false);
 
-  const recipentContext = useContext(RecipentContext);
+  const recipientContext = useContext(RecipientContext);
 
   useEffect(() => {
-    recipentContext.getRecipents();
+    recipientContext.getRecipients();
 
     // eslint-disable-next-line
   }, []);
 
   return (
-    <div id='recipents'>
-      <Layout currentMenu='recipents' showTips={showTips}>
+    <div id='recipients'>
+      <Layout currentMenu='recipients' showTips={showTips}>
         <div className='page-header'>
           <div className='page-title'>
             <h4>Transactions</h4>
@@ -31,9 +31,9 @@ function TransactionHistory({ showTips }) {
 
           <div className='content-title'>
             <h2>
-              Your recipents (5)
+              Your recipients (5)
               <div className='side-link' onClick={() => setShowAddModal(true)}>
-                <Link to='#'>Add new recipent</Link>
+                <Link to='#'>Add new recipient</Link>
               </div>
             </h2>
 
@@ -47,7 +47,7 @@ function TransactionHistory({ showTips }) {
         </div>
 
         <div className='table-container'>
-          <Table data={recipentContext.state.recipents} />
+          <Table data={recipientContext.state.recipients} />
         </div>
 
         <Pagination />

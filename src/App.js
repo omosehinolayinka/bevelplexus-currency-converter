@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import "./App.scss";
 import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 import {
   ApolloClient,
@@ -17,15 +18,15 @@ import {
 import { setContext } from "@apollo/client/link/context";
 import IntroState from "./context/intro/introState";
 import PaymentState from "./context/payment/paymentState";
-import RecipentState from "./context/recipents/recipentState";
+import RecipientState from "./context/recipients/recipientState";
 
 import Dashboard from "./pages/dashboard/Dashboard";
-import PaymentRecipent from "./pages/paymentRecipent/PaymentRecipent";
+import Paymentrecipient from "./pages/paymentRecipient/PaymentRecipient";
 import PaymentTransfer from "./pages/paymentTransfer/PaymentTransfer";
 import PaymentOptions from "./pages/paymentOptions/PaymentOptions";
 import PaymentReview from "./pages/paymentReview/PaymentReview";
 import TransactionHistory from "./pages/transactionHistory/TransactionHistory";
-import Recipents from "./pages/recipents/Recipents";
+import recipients from "./pages/recipients/Recipents";
 import AccountSettings from "./pages/account/AccountSettings";
 
 //apollo client init
@@ -54,19 +55,19 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <IntroState>
-        <RecipentState>
+        <RecipientState>
           <PaymentState>
             <div className='App'>
               <Router>
                 <Switch>
                   <Route exact path='/' component={Dashboard} />
                   <Route exact path='/payment'>
-                    <Redirect to='/payment/recipent' />
+                    <Redirect to='/payment/recipient' />
                   </Route>
                   <Route
                     exact
-                    path='/payment/recipent'
-                    component={PaymentRecipent}
+                    path='/payment/recipient'
+                    component={Paymentrecipient}
                   />
                   <Route
                     exact
@@ -88,7 +89,7 @@ function App() {
                     path='/transactions'
                     component={TransactionHistory}
                   />
-                  <Route exact path='/recipents' component={Recipents} />
+                  <Route exact path='/recipients' component={recipients} />
                   <Route exact path='/account'>
                     <Redirect to='/account/settings' />
                   </Route>
@@ -99,9 +100,10 @@ function App() {
                   />
                 </Switch>
               </Router>
+              <ToastContainer />
             </div>
           </PaymentState>
-        </RecipentState>
+        </RecipientState>
       </IntroState>
     </ApolloProvider>
   );

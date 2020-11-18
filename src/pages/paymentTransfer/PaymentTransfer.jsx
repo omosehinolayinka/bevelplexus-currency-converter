@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./PaymentTransfer.scss";
-import "../paymentRecipent/PaymentRecipent.scss"
+import "../paymentRecipient/PaymentRecipient.scss"
 
 import Layout from "../../components/layout/Layout";
 import Calculator from "../../components/currencyCalc/CurrencyCalc"
@@ -33,7 +33,7 @@ function PaymentTransfer({showTips}) {
               }
               onClick={() => setPlan("free")}
             >
-              <img src='/assets/svg/calender.svg' alt='recipent' />
+              <img src='/assets/svg/calender.svg' alt='recipient' />
               <p className='flexible-text'>
                 1-2 Business Day
                 <span>Free</span>
@@ -86,7 +86,7 @@ function PaymentTransfer({showTips}) {
         </div>
 
         <div className="section-four">
-        <Link to='/payment/recipent'><button className='left'>Previous</button></Link>
+        <Link to='/payment/recipient'><button className='left'>Previous</button></Link>
         <Link to='/payment/options'><button className='right'>Next</button></Link>
         </div>
       </Layout>

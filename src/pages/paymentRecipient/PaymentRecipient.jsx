@@ -1,16 +1,16 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import "./PaymentRecipent.scss";
+import "./PaymentRecipient.scss";
 
 import Layout from "../../components/layout/Layout";
-import AddModal from "../../components/addRecipentModal/AddRecipent";
-import EditModal from "../../components/editRecipentModal/EditRecipent";
+import AddModal from "../../components/addRecipientModal/AddRecipientModal";
+import EditModal from "../../components/editRecipientModal/EditRecipient";
 
 import PaymentContext from "../../context/payment/paymentContext";
 
 import { Tooltip, Select } from "antd";
 
-function PaymentRecipent({ showTips }) {
+function Paymentrecipient({ showTips }) {
   const paymentContext = useContext(PaymentContext);
 
   const transactionType = paymentContext.state.transactionType;
@@ -57,10 +57,10 @@ function PaymentRecipent({ showTips }) {
   );
 
   return (
-    <div id='payment-recipent'>
+    <div id='payment-recipient'>
       <Layout currentMenu='payment' payProgress='1' showTips={showTips}>
         <div className='page-title'>
-          <h1>Select Recipent</h1>
+          <h1>Select recipient</h1>
         </div>
 
         <div className='section-one'>
@@ -77,7 +77,7 @@ function PaymentRecipent({ showTips }) {
               }
               onClick={() => paymentContext.setTransactionType("individual")}
             >
-              <img src='/assets/svg/recipent.svg' alt='recipent' />
+              <img src='/assets/svg/recipient.svg' alt='recipient' />
               <p>To Individual</p>
             </div>
             <div
@@ -96,7 +96,7 @@ function PaymentRecipent({ showTips }) {
 
         <div className='section-two'>
           <div className='section-title'>
-            <p>Choose your recipent</p>
+            <p>Choose your recipient</p>
           </div>
 
           <div className='box-container'>
@@ -105,7 +105,7 @@ function PaymentRecipent({ showTips }) {
               <Select
                 showSearch
                 style={{ width: 200 }}
-                placeholder='Select recipent'
+                placeholder='Select recipient'
                 optionFilterProp='children'
                 onChange={onChange}
                 onFocus={onFocus}
@@ -131,7 +131,7 @@ function PaymentRecipent({ showTips }) {
             <div className='side-link'>
               <Link to='#'>
                 <div onClick={() => setShowAddModal(true)}>
-                  Add new recipent
+                  Add new recipient
                 </div>
                 <Tooltip placement='bottomRight' title={text}>
                   <span className='material-icons'> error_outline</span>
@@ -145,7 +145,7 @@ function PaymentRecipent({ showTips }) {
 
         <div className='section-three'>
           <div className='section-title'>
-            <p>Profile Recipent</p>
+            <p>Profile recipient</p>
           </div>
 
           <div className='box-container'>
@@ -238,4 +238,4 @@ function PaymentRecipent({ showTips }) {
   );
 }
 
-export default PaymentRecipent;
+export default Paymentrecipient;

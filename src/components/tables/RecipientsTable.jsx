@@ -1,22 +1,21 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./TransactionsTable.scss";
 
-import EditModal from "../editRecipentModal/EditRecipent";
+import EditModal from "../editRecipientModal/EditRecipient";
 
-function RecipentsTable({ data }) {
+function RecipientsTable({ data }) {
   const [showEditModal, setShowEditModal] = useState(false);
-  const [recipent, setRecipent] = useState(null)
+  const [recipient, setrecipient] = useState(null);
 
-  const editRecipent = (recipent) => {
-
-    setRecipent(recipent);
+  const editrecipient = (recipient) => {
+    setrecipient(recipient);
 
     setShowEditModal(true);
-  }
+  };
 
   return (
-    <div id='transaction-table' className='recipents-table'>
+    <div id='transaction-table' className='recipients-table'>
       <table className='mod-width'>
         <colgroup>
           <col style={{ width: "30%" }} />
@@ -32,8 +31,16 @@ function RecipentsTable({ data }) {
                 <td>
                   <div>
                     <section>
-                      <img src="/assets/svg/institution.svg" alt='avatar' className='avatar-img' />
-                      <img src="/assets/svg/brazil-flag.svg" alt='' className='img-attachment' />
+                      <img
+                        src='/assets/svg/institution.svg'
+                        alt='avatar'
+                        className='avatar-img'
+                      />
+                      <img
+                        src='/assets/svg/brazil-flag.svg'
+                        alt=''
+                        className='img-attachment'
+                      />
                     </section>
                     <p>
                       {data.name}
@@ -55,13 +62,9 @@ function RecipentsTable({ data }) {
                   <div>
                     <p>
                       <span className='icon-wrap'>
-                        <span>
-                          1000 CAD
-                        </span>
+                        <span>1000 CAD</span>
                         <span className='material-icons'>arrow_right</span>
-                        <span>
-                          3900 BRL
-                        </span>
+                        <span>3900 BRL</span>
                       </span>
                       <small>Last transaction amount</small>
                     </p>
@@ -72,14 +75,14 @@ function RecipentsTable({ data }) {
                   <div>
                     <button
                       className='primary transparent'
-                      onClick={() => editRecipent(data)}
+                      onClick={() => editrecipient(data)}
                       style={{
                         width: "48%",
                         height: "100%",
                         padding: ".7rem 0",
                       }}
                     >
-                      <Link to='#' >Edit</Link>
+                      <Link to='#'>Edit</Link>
                     </button>
                     <button
                       className='primary'
@@ -99,9 +102,11 @@ function RecipentsTable({ data }) {
         </tbody>
       </table>
 
-      {showEditModal && <EditModal action={setShowEditModal} recipentState={recipent}  />}
+      {showEditModal && (
+        <EditModal action={setShowEditModal} recipientState={recipient} />
+      )}
     </div>
   );
 }
 
-export default RecipentsTable;
+export default RecipientsTable;

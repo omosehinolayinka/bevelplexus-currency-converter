@@ -1,46 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
+import RecipeientContext from '../../context/recipients/recipientContext'
 
-import "./EditRecipent.scss";
+function Editrecipient({ action }) {
 
-function EditRecipent({ action, recipentState }) {
-  const [recipient, setRecipient] = useState({
-    name: "",
-    email: "",
-    phoneNumber: "",
-    location: "",
-    bank: "",
-    bankName: "",
-    accountNumber: ""
-  });
+  const recipientContext = useContext(RecipeientContext)
 
-  useEffect(() => {
-    setRecipient({
-      ...recipient,
-      ...recipentState,
-      ...recipentState.bankInfo[0],
-      bankName: recipentState.name
-    });
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [country, setCountry] = useState("");
+  const [bankName, setBankName] = useState("");
+  const [bankNo, setBankNo] = useState("");
 
-    // eslint-disable-next-line
-  }, []);
-
-  const handleChange = (e) => {
-
-    setRecipient({
-      ...recipient,
-      [e.target.name]: e.target.value,
-    });
-    
-  };
+  
 
   return (
-    <div id='editRecipent'>
+    <div id='addrecipient'>
       <div className='box'>
         <div className='heading'>
-          <h2>Recipent Details</h2>
-          <span className='material-icons' onClick={() => action(false)}>
-            clear
-          </span>
+          <h2>recipient Details</h2>
+          <span className='material-icons' onClick={() => action(false)} >clear</span>
         </div>
 
         <div className='form-container'>
@@ -50,9 +29,9 @@ function EditRecipent({ action, recipentState }) {
             </span>
             <input
               type='text'
-              name='name'
-              value={recipient.name}
-              onChange={handleChange}
+              value={name}
+              placeholder='Recipient Name'
+              onChange={(e) => setName(e.target.value)}
             />
           </div>
 
@@ -62,9 +41,9 @@ function EditRecipent({ action, recipentState }) {
             </span>
             <input
               type='text'
-              name='email'
-              value={recipient.email}
-              onChange={handleChange}
+              value={email}
+              placeholder='Email'
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
@@ -74,9 +53,9 @@ function EditRecipent({ action, recipentState }) {
             </span>
             <input
               type='text'
-              name='phoneNumber'
-              value={recipient.phoneNumber}
-              onChange={handleChange}
+              value={phone}
+              placeholder='Phone Number'
+              onChange={(e) => setPhone(e.target.value)}
             />
           </div>
 
@@ -86,9 +65,9 @@ function EditRecipent({ action, recipentState }) {
             </span>
             <input
               type='text'
-              name='location'
-              value={recipient.location}
-              onChange={handleChange}
+              value={country}
+              placeholder='Location'
+              onChange={(e) => setCountry(e.target.value)}
             />
           </div>
 
@@ -98,9 +77,9 @@ function EditRecipent({ action, recipentState }) {
             </span>
             <input
               type='text'
-              name='bank'
-              value={recipient.bank}
-              onChange={handleChange}
+              value={bankName}
+              placeholder='Bank'
+              onChange={(e) => setBankName(e.target.value)}
             />
           </div>
 
@@ -110,18 +89,18 @@ function EditRecipent({ action, recipentState }) {
             </span>
             <input
               type='text'
-              name='accountNumber'
-              value={recipient.accountNumber}
-              onChange={handleChange}
+              value={bankNo}
+              placeholder='Account Number'
+              onChange={(e) => setBankNo(e.target.value)}
             />
           </div>
         </div>
 
-        <div className='btn-big-container'>
-          <button> {recipient.bankName} </button>
+        <div className="btn-big-container">
+          <button> Account Holder's Name </button>
         </div>
 
-        <div className='buttons-container'>
+        <div className="buttons-container">
           <button onClick={() => action(false)}>Cancel</button>
           <button onClick={() => action(false)}>Save</button>
         </div>
@@ -130,4 +109,4 @@ function EditRecipent({ action, recipentState }) {
   );
 }
 
-export default EditRecipent;
+export default Editrecipient;

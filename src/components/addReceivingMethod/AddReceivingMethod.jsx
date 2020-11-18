@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function EditRecipent({ action }) {
+function Editrecipient({ action }) {
   const [bankName, setBankName] = useState("");
   const [bankNo, setBankNo] = useState("");
 
@@ -51,4 +51,4 @@ function EditRecipent({ action }) {
   );
 }
 
-export default EditRecipent;
+export default Editrecipient;
