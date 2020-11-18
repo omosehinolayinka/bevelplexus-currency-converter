@@ -21,14 +21,20 @@ export const ALL_RECIPIENTS = gql`
 `;
 
 export const NEW_RECIPIENT = gql`
-  mutation addRecipient {
+  mutation addRecipient(
+    $userId: String! 
+    $name: String! 
+    $email: String! 
+    $phoneNumber: String! 
+    $location: String!
+  ) {
     addRecipient(
       recipientArgs: {
-        userId: "923ekqje92"
-        name: "Hello"
-        email: "29eudnd"
-        phoneNumber: "21031839"
-        location: "dnajdn"
+        userId: $userId
+        name: $name
+        email: $email
+        phoneNumber:  $phoneNumber
+        location: $location
       }
     ) {
       id
@@ -37,23 +43,21 @@ export const NEW_RECIPIENT = gql`
       email
       phoneNumber
       location
-      bankInfo {
-        id
-        recipientId
-        accountNumber
-        bank
-      }
     }
   }
 `;
 
 export const ADD_BANK_INFO = gql`
-  mutation addBankInfo {
+  mutation addBankInfo(
+    $recipientId: String! 
+    $bank: String! 
+    $accountNumber: String!
+  ) {
     addBankInfo(
       bankInfoArgs: {
-        recipientId: "57ffbcc8-3901-4cff-b6a5-9bd923f1e2f2"
-        bank: "Stanbic IBTC bank"
-        accountNumber: "2028931018"
+        recipientId: $recipientId
+        bank: $bank
+        accountNumber: $accountNumber
       }
     ) {
       id

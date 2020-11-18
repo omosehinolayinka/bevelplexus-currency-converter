@@ -2,7 +2,7 @@ import React, { useReducer } from "react";
 import RecipientContext from "./recipientContext";
 import RecipientReducer from "./recipientReducer";
 import { ApolloClient, createHttpLink, InMemoryCache } from "@apollo/client";
-import { queries as gql }  from "./gqlQueries";
+import { queries as gql } from "./gqlQueries";
 import { setContext } from "@apollo/client/link/context";
 import { toast } from "react-toastify";
 
@@ -62,10 +62,46 @@ const RecipientState = (props) => {
   };
 
   // add recipents
-  const addRecipient = (data) => {};
+  const addRecipient = (data) => {
+   
+    client.mutate({
+      mutation: gql.NEW_RECIPIENT,
+      variables: {
+        userId: data.userId,
+        name: data.name,
+        email: data.email,
+        phoneNumber: data.phoneNumber,
+        location: data.location
+      }
+    })
+    .then(res => {
+      const id = res.data.addRecipient.id
+      addBankInfo(id, data)
+      getRecipients()
+    })
+    .catch(() => {
+      showError("Couldn't add recipient, please refresh")
+    })
+  };
 
   // add bank info
-  const addBankInfo = () => {};
+  const addBankInfo = (id, data) => {
+    client.mutate({
+      mutation: gql.ADD_BANK_INFO,
+      variables: {
+        recipientId: id,
+        bank: data.bank,
+        accountNumber: data.accountNumber
+      }
+    })
+    .then(() => {
+      getRecipients()
+      data.closeModal(false)
+    }) 
+    .catch(() => {
+      showError("Couldn't add bank details, please try again")
+    })
+  };
 
   // update recipients
   const updateRecipient = (data) => {
@@ -106,6 +142,7 @@ const RecipientState = (props) => {
       })
       .then(() => {
         getRecipients();
+        data.closeModal(false)
       })
       .catch(() => {
         showError("Coulnd't update bank info, check your network");
@@ -130,6 +167,7 @@ const RecipientState = (props) => {
         state,
         getRecipients,
         updateRecipient,
+        addRecipient
       }}
     >
       {props.children}

@@ -6,6 +6,7 @@ import RecipientContext from '../../context/recipients/recipientContext'
 function Editrecipient({ action, recipientState }) {
   const recipientContext = useContext(RecipientContext);
 
+  const [loading, setLoading] = useState(false)
   const [recipient, setRecipient] = useState({
     name: "",
     email: "",
@@ -13,7 +14,8 @@ function Editrecipient({ action, recipientState }) {
     location: "",
     bank: "",
     bankName: "",
-    accountNumber: ""
+    accountNumber: "",
+    closeModal: action
   });
 
   useEffect(() => {
@@ -37,8 +39,8 @@ function Editrecipient({ action, recipientState }) {
   };
 
   const submitrecipient = () => {
+    setLoading(true);
     recipientContext.updateRecipient(recipient);
-    action(false)
   }
 
   return (
@@ -131,7 +133,9 @@ function Editrecipient({ action, recipientState }) {
 
         <div className='buttons-container'>
           <button onClick={() => action(false)}>Cancel</button>
-          <button onClick={submitrecipient}>Save</button>
+          <button onClick={submitrecipient}> {
+            loading ? <img src="/assets/svg/spinner" alt="spinner"/> : "Save"
+          } </button>
         </div>
       </div>
     </div>
