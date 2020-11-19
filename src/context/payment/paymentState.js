@@ -12,9 +12,9 @@ import {
   SET_TRANSACTION_TYPE,
   SET_RECEIVE_TYPE,
   CALCULATION_TYPE,
+  SET_PAYMENT_OPTION,
   // SET_STARTEND_DATES,
   // SET_RECEIVING_METHOD,
-  // SET_PAYMENT_OPTION,
 } from "../types";
 
 const PaymentState = (props) => {
@@ -34,7 +34,7 @@ const PaymentState = (props) => {
       reverse: false
     },
     transactionType: "individual",
-    paymentOption: "",
+    paymentOption: "E-transfer",
     referenceID: "",
   };
 
@@ -121,6 +121,14 @@ const PaymentState = (props) => {
 
   }
 
+  //set payment option
+  const setPaymentOption = (value) => {
+    dispatch({
+      type: SET_PAYMENT_OPTION,
+      payload: value
+    })
+  }
+
   // show error
   const showError = (message) => {
     toast.error(message, {
@@ -141,7 +149,8 @@ const PaymentState = (props) => {
         getFxRates,
         setTransactionType,
         setCurrentRecipient,
-        setReceiveType
+        setReceiveType,
+        setPaymentOption
       }}
     >
       {props.children}

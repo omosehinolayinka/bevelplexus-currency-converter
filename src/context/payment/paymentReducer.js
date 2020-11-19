@@ -4,6 +4,7 @@ import {
   SELECT_RECIPIENT,
   SET_RECEIVE_TYPE,
   CALCULATION_TYPE,
+  SET_PAYMENT_OPTION,
 } from "../types";
 
 export default (state, action) => {
@@ -13,9 +14,9 @@ export default (state, action) => {
         ...state,
         fxDetails: {
           ...state.fxDetails,
-          reverse: action.payload
-        }
-      }
+          reverse: action.payload,
+        },
+      };
 
     case SET_FX_PARAMETERS:
       return {
@@ -43,8 +44,14 @@ export default (state, action) => {
         ...state,
         fxDetails: {
           ...state.fxDetails,
-          receiveType: action.payload
-        }
+          receiveType: action.payload,
+        },
+      };
+
+    case SET_PAYMENT_OPTION:
+      return {
+        ...state,
+        paymentOption: action.payload,
       };
 
     default:

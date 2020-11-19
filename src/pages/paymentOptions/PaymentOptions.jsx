@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { Link, Redirect } from "react-router-dom";
 import "./PaymentOptions.scss";
 import "../paymentRecipient/PaymentRecipient.scss";
 
@@ -7,8 +7,25 @@ import Layout from "../../components/layout/Layout";
 import CustomCheckbox from "../../components/customCheckbox/CustomCheckbox";
 import PaymentSummaryCard from '../../components/paymentSummaryCard/PaymentSummaryCard'
 
+import PaymentContext from '../../context/payment/paymentContext'
+
 function PaymentOptions({showTips}) {
-  const [selected, setSelected] = useState(1);
+  const paymentContext = useContext(PaymentContext);
+
+  const selected = paymentContext.state.paymentOption
+  const recipient = paymentContext.state.recipient;
+  const fx = paymentContext.state.fxDetails
+
+  const [summary, setSummary] = useState({
+    sendAmount: fx.sendAmount,
+    sendCurrency: fx.sendCurrency,
+    exchangeRate: fx.rate,
+    fees: "Free",
+    convertedAmount: fx.convertedAmount,
+    destinationCurrency: fx.destinationCurrency,
+    receivingMetod: selected
+  })
+
 
   const paymentMethods = [
     {
@@ -37,6 +54,15 @@ function PaymentOptions({showTips}) {
     },
   ]
 
+  const handleClick = (card) => {
+    paymentContext.setPaymentOption(card.title)
+
+    setSummary({
+      ...summary,
+      fees: card.cost
+    })
+  }
+
   return (
     <div id='payment-options'>
       <Layout currentMenu='payment' payProgress='3' showTips={showTips}>
@@ -51,9 +77,9 @@ function PaymentOptions({showTips}) {
             </div>
 
             {paymentMethods.map(card => (
-              <div className='shadow-box' key={card.key} onClick={() => setSelected(card.key)}>
+              <div className='shadow-box' key={card.key} onClick={() => handleClick(card)}>
                 <CustomCheckbox
-                  checked={selected === card.key}
+                  checked={selected === card.title}
                   title={card.title}
                   subLeft={`Transfer speed ${card.speed}`}
                   action={card.cost}
@@ -65,7 +91,7 @@ function PaymentOptions({showTips}) {
 
           <div className='section-two'>
           <div className='shadow-box'>
-            <PaymentSummaryCard />
+            <PaymentSummaryCard data={summary} />
           </div>  
           </div>
         </div>
@@ -75,9 +101,10 @@ function PaymentOptions({showTips}) {
             <button className='left'>Previous</button>
           </Link>
           <Link to='/payment/review'>
-            <button className='right'>Next</button>
+            <button className='right'>Pay</button>
           </Link>
         </div>
+        {!recipient && <Redirect to='/payment' />}
       </Layout>
     </div>
   );
