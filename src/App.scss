@@ -23,6 +23,20 @@ a {
   color: $blue;
 }
 
+a.spacer {
+  visibility: hidden;
+}
+
+a.disabled {
+  pointer-events: none;
+  cursor: not-allowed;
+
+  button {
+    opacity: 0.7;
+    cursor: not-allowed !important;
+  }
+}
+
 .greentext {
   color: $green !important;
 }

@@ -1,15 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
-function Editrecipient({ action }) {
+import RecipientContext from "../../context/recipients/recipientContext";
+
+function Editrecipient({ action, recipientState }) {
+  const recipientContext = useContext(RecipientContext);
+
   const [bankName, setBankName] = useState("");
   const [bankNo, setBankNo] = useState("");
+
+  const handleSubmit = () => {
+    const data = {
+      ...recipientState,
+      closeModal: action,
+    };
+
+    recipientContext.addRecipient(data)
+  };
 
   return (
     <div id='addReceivingMethod'>
       <div className='box'>
         <div className='heading'>
           <h2>Add Recieving Method</h2>
-          <span className='material-icons' onClick={() => action(false)} >clear</span>
+          <span className='material-icons' onClick={() => action(false)}>
+            clear
+          </span>
         </div>
 
         <div className='form-container'>
@@ -38,13 +53,13 @@ function Editrecipient({ action }) {
           </div>
         </div>
 
-        <div className="btn-big-container">
+        <div className='btn-big-container'>
           <button> Account Holder's Name </button>
         </div>
 
-        <div className="buttons-container">
+        <div className='buttons-container'>
           <button onClick={() => action(false)}>Cancel</button>
-          <button onClick={() => action(false)}>Save</button>
+          <button onClick={handleSubmit}>Save</button>
         </div>
       </div>
     </div>

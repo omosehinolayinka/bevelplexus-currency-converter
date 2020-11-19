@@ -4,6 +4,7 @@ import PaymentReducer from "./paymentReducer";
 import { useApolloClient } from "@apollo/client";
 import { queries as gql } from './gqlQueries'
 import { toast } from "react-toastify";
+import dateFormat from 'dateformat'
 
 import {
   SET_FX_PARAMETERS,
@@ -17,6 +18,7 @@ import {
 } from "../types";
 
 const PaymentState = (props) => {
+
   const defaultState = {
     userId: "",
     recipientId: "",
@@ -28,12 +30,10 @@ const PaymentState = (props) => {
       actualAmount: 0.0,
       fee: 0.0,
       rate: 0.0,
-      receiveType: "Delayed",
+      receiveType: "SameDay",
       reverse: false
     },
     transactionType: "individual",
-    startDate: "",
-    completionDate: "",
     paymentOption: "",
     referenceID: "",
   };
