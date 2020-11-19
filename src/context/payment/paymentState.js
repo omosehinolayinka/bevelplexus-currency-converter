@@ -103,7 +103,6 @@ const PaymentState = (props) => {
 
   // set current recipient
   const setCurrentRecipient = (recipient) => {
-    console.log(recipient);
     dispatch({
       type: SELECT_RECIPIENT,
       payload: recipient

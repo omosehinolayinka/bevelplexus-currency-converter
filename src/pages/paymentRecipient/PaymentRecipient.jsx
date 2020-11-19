@@ -146,7 +146,7 @@ function Paymentrecipient({ showTips }) {
             {transactionType === "individual" &&
             currentRecipient === undefined ? (
               <div className='shadow-box error-notice small'>
-                <span class='material-icons'>not_interested</span>
+                <span className='material-icons'>not_interested</span>
                 <p>No recipient selected</p>
               </div>
             ) : (
@@ -234,7 +234,7 @@ function Paymentrecipient({ showTips }) {
           <Link to='/'>
             <button className='left inactive'>Cancel</button>
           </Link>
-          <Link to={!currentRecipient ? '#' : '/payment/transfer'} className={!currentRecipient && 'disabled'}>
+          <Link to={!currentRecipient ? '#' : '/payment/transfer'} className={!currentRecipient ? 'disabled' : ""}>
             <button className='right'>Next</button>
           </Link>
         </div>

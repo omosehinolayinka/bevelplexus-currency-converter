@@ -25,7 +25,7 @@ function PaymentReview({showTips}) {
           <div className='box-container'>
             <div className='shadow-box'>
               <div className='action'>
-                <Link to='#'>Edit</Link>
+                <Link to='#' className="spacer">Edit</Link>
               </div>
 
               <div className='user-details'>
@@ -70,7 +70,7 @@ function PaymentReview({showTips}) {
           <div className='box-container'>
             <div className='shadow-box'>
               <div className='action'>
-                <Link to='#'>Edit</Link>
+                <Link to='#' className="spacer">Edit</Link>
               </div>
 
               <div className='box__title'>
@@ -119,7 +119,7 @@ function PaymentReview({showTips}) {
           <div className='box-container'>
             <div className='shadow-box'>
               <div className='action'>
-                <Link to='#'>Edit</Link>
+                <Link to='#' className="spacer">Edit</Link>
               </div>
 
               <div className='box__title'>
@@ -152,7 +152,7 @@ function PaymentReview({showTips}) {
         </div>
 
         <div className='section-four'>
-          <Link to='/payment/options'>
+          <Link to='/payment/options' className="spacer">
             <button className='left'>PREVIOUS</button>
           </Link>
           <Link to='/payment/review'>

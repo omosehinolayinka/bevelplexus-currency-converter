@@ -17,13 +17,13 @@ function PaymentOptions({showTips}) {
   const fx = paymentContext.state.fxDetails
 
   const [summary, setSummary] = useState({
-    sendAmount: fx.sendAmount,
+    sendAmount: fx.baseAmount,
     sendCurrency: fx.sendCurrency,
     exchangeRate: fx.rate,
     fees: "Free",
     convertedAmount: fx.convertedAmount,
     destinationCurrency: fx.destinationCurrency,
-    receivingMetod: selected
+    receivingMethod: selected
   })
 
 
@@ -44,13 +44,13 @@ function PaymentOptions({showTips}) {
       key: 3,
       title: 'Debit card',
       speed: '1 hour',
-      cost: '8.99 CAD',
+      cost: fx.baseAmount * 0.01,
     },
     {
       key: 4,
       title: 'Credit card',
       speed: '1 hour',
-      cost: '8.99 CAD',
+      cost: fx.baseAmount * 0.01,
     },
   ]
 
@@ -83,6 +83,7 @@ function PaymentOptions({showTips}) {
                   title={card.title}
                   subLeft={`Transfer speed ${card.speed}`}
                   action={card.cost}
+                  currency={fx.sendCurrency}
                   green={card.cost === 'Free'}
                 />
               </div>

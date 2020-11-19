@@ -134,7 +134,7 @@ function Editrecipient({ action, recipientState }) {
         <div className='buttons-container'>
           <button onClick={() => action(false)}>Cancel</button>
           <button onClick={submitrecipient}> {
-            loading ? <img src="/assets/svg/spinner" alt="spinner"/> : "Save"
+            loading ? <img src="/assets/svg/spinner.svg" alt="spinner"/> : "Save"
           } </button>
         </div>
       </div>
