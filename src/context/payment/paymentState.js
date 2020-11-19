@@ -4,7 +4,6 @@ import PaymentReducer from "./paymentReducer";
 import { useApolloClient } from "@apollo/client";
 import { queries as gql } from './gqlQueries'
 import { toast } from "react-toastify";
-import dateFormat from 'dateformat'
 
 import {
   SET_FX_PARAMETERS,
