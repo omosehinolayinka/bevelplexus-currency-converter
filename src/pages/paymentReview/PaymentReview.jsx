@@ -6,7 +6,7 @@ import "./PaymentReview.scss";
 import Layout from "../../components/layout/Layout";
 
 function PaymentReview({showTips}) {
-  const [completed, setCompleted] = useState(false);
+
   const [progress, setProgress] = useState('4')
 
   return (
@@ -155,7 +155,7 @@ function PaymentReview({showTips}) {
             <button className='left'>PREVIOUS</button>
           </Link>
           <Link to='/payment/review'>
-            <button className='right' onClick={() => [setCompleted(true), setProgress('5')]}>
+            <button className='right' onClick={() => setProgress('5')}>
               Home
             </button>
           </Link>
