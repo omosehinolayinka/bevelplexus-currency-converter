@@ -4,6 +4,7 @@ import "./PaymentOptions.scss";
 import "../paymentRecipient/PaymentRecipient.scss";
 
 import Layout from "../../components/layout/Layout";
+import Alert from "../../components/alert/Alert";
 import CustomCheckbox from "../../components/customCheckbox/CustomCheckbox";
 import PaymentSummaryCard from '../../components/paymentSummaryCard/PaymentSummaryCard'
 
@@ -25,6 +26,8 @@ function PaymentOptions({showTips}) {
     destinationCurrency: fx.destinationCurrency,
     receivingMethod: selected
   })
+
+  const [alert, setAlert] = useState(false)
 
 
   const paymentMethods = [
@@ -61,6 +64,21 @@ function PaymentOptions({showTips}) {
       ...summary,
       fees: card.cost
     })
+  }
+
+  const initiateTransaction = () => {
+    const transactionDetails = {
+      recipientId: recipient.id,
+      userId: localStorage.getItem("userId"),
+      bankInfoId: recipient.bankInfo[0].id,
+      sendCurrency: fx.sendCurrency,
+      destinationCurrency: fx.destinationCurrency,
+      baseAmount: fx.baseAmount,
+      transactionType: paymentContext.state.transactionType,
+      receiveType: fx.receiveType
+    }
+
+    paymentContext.createTransaction(transactionDetails, setAlert)
   }
 
   return (
@@ -102,9 +120,18 @@ function PaymentOptions({showTips}) {
             <button className='left'>Previous</button>
           </Link>
           <Link to='/payment/review'>
-            <button className='right'>Pay</button>
+            <button className='right' onClick={initiateTransaction}>Pay</button>
           </Link>
         </div>
+
+        {alert && (
+          <Alert
+            type='success'
+            title='Order Initiated'
+            body="You will be notified once it's complete"
+            action={() => setAlert(false)}
+          />
+        )}
         {!recipient && <Redirect to='/payment' />}
       </Layout>
     </div>

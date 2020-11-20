@@ -12,8 +12,7 @@ import {
   SET_RECEIVE_TYPE,
   CALCULATION_TYPE,
   SET_PAYMENT_OPTION,
-  // SET_STARTEND_DATES,
-  // SET_RECEIVING_METHOD,
+  NEW_TRANSACTION,
 } from "../types";
 
 const PaymentState = (props) => {
@@ -32,7 +31,7 @@ const PaymentState = (props) => {
       receiveType: "SameDay",
       reverse: false
     },
-    transactionType: "individual",
+    transactionType: "Individual",
     paymentOption: "E-transfer",
     referenceID: "",
   };
@@ -127,6 +126,24 @@ const PaymentState = (props) => {
     })
   }
 
+  // create transaction 
+  const createTransaction = (data, alert) => {
+  
+    client.mutate({
+      mutation: gql.CREATE_TRANSACTION,
+      variables: {...data}
+    })
+    .then(res => {
+      console.log(res);
+      alert(true)
+    })
+    .catch(err => {
+      console.log(err);
+    })
+    
+    
+  }
+
   // show error
   const showError = (message) => {
     toast.error(message, {
@@ -148,7 +165,8 @@ const PaymentState = (props) => {
         setTransactionType,
         setCurrentRecipient,
         setReceiveType,
-        setPaymentOption
+        setPaymentOption,
+        createTransaction
       }}
     >
       {props.children}

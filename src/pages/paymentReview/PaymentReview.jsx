@@ -4,7 +4,6 @@ import "../paymentRecipient/PaymentRecipient.scss";
 import "./PaymentReview.scss";
 
 import Layout from "../../components/layout/Layout";
-import Alert from "../../components/alert/Alert";
 
 function PaymentReview({showTips}) {
   const [completed, setCompleted] = useState(false);
@@ -157,19 +156,11 @@ function PaymentReview({showTips}) {
           </Link>
           <Link to='/payment/review'>
             <button className='right' onClick={() => [setCompleted(true), setProgress('5')]}>
-              Next
+              Home
             </button>
           </Link>
         </div>
 
-        {completed && (
-          <Alert
-            type='success'
-            title='Order Initiated'
-            body="You will be notified once it's complete"
-            action={() => setCompleted(false)}
-          />
-        )}
       </Layout>
     </div>
   );

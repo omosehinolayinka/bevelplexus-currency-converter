@@ -46,7 +46,6 @@ function Paymentrecipient({ showTips }) {
 
   useEffect(() => {
     recipientContext.getRecipients();
-    console.log(currentRecipient);
 
     // eslint-disable-next-line
   }, []);
@@ -70,22 +69,22 @@ function Paymentrecipient({ showTips }) {
           <div className='box-container'>
             <div
               className={
-                transactionType === "individual"
+                transactionType === "Individual"
                   ? "shadow-box shadow-box-highlight"
                   : "shadow-box"
               }
-              onClick={() => paymentContext.setTransactionType("individual")}
+              onClick={() => paymentContext.setTransactionType("Individual")}
             >
               <img src='/assets/svg/recipient.svg' alt='recipient' />
               <p>To Individual</p>
             </div>
             <div
               className={
-                transactionType === "tuition"
+                transactionType === "Tuition"
                   ? "shadow-box shadow-box-highlight"
                   : "shadow-box"
               }
-              onClick={() => paymentContext.setTransactionType("tuition")}
+              onClick={() => paymentContext.setTransactionType("Tuition")}
             >
               <img src='/assets/svg/school.svg' alt='school' />
               <p>Tuition Payment</p>
@@ -143,7 +142,7 @@ function Paymentrecipient({ showTips }) {
           </div>
 
           <div className='box-container'>
-            {transactionType === "individual" &&
+            {transactionType === "Individual" &&
             currentRecipient === undefined ? (
               <div className='shadow-box error-notice small'>
                 <span className='material-icons'>not_interested</span>
@@ -152,7 +151,7 @@ function Paymentrecipient({ showTips }) {
             ) : (
               <div className='shadow-box'>
                 <div className='action'>
-                  {transactionType === "individual" ? (
+                  {transactionType === "Individual" ? (
                     <Link to='#' onClick={() => setShowEditModal(true)}>
                       Edit
                     </Link>
@@ -165,7 +164,7 @@ function Paymentrecipient({ showTips }) {
                   <div className='user-details__avi'>
                     <img
                       src={
-                        transactionType === "individual"
+                        transactionType === "Individual"
                           ? "/assets/img/avatar-square.png"
                           : "/assets/svg/institution.svg"
                       }
@@ -179,12 +178,12 @@ function Paymentrecipient({ showTips }) {
                   </div>
                   <span className='user-details__text-wrapper'>
                     <h3>
-                      {transactionType === "individual"
+                      {transactionType === "Individual"
                         ? currentRecipient.name
                         : "Toronto School"}
                     </h3>
                     <p>
-                      {transactionType === "individual"
+                      {transactionType === "Individual"
                         ? currentRecipient.email
                         : "contact@ubc.com"}
                     </p>
@@ -194,12 +193,12 @@ function Paymentrecipient({ showTips }) {
                 <div className='contact-details'>
                   <p>
                     <img src='/assets/svg/smartphone.svg' alt='smartphone' />
-                    {transactionType === "individual"
+                    {transactionType === "Individual"
                       ? currentRecipient.phoneNumber
                       : "+1 610 435 6364"}
                   </p>
 
-                  {transactionType === "individual" ? (
+                  {transactionType === "Individual" ? (
                     <React.Fragment>
                       <p>
                         <img src='/assets/svg/world.svg' alt='world' />
