@@ -132,7 +132,7 @@ function PaymentOptions({showTips}) {
             action={() => setAlert(false)}
           />
         )}
-        {!recipient && <Redirect to='/payment' />}
+        {!recipient && <Redirect to='/payment/transfer' />}
       </Layout>
     </div>
   );

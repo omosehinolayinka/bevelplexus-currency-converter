@@ -5,6 +5,7 @@ import {
   SET_RECEIVE_TYPE,
   CALCULATION_TYPE,
   SET_PAYMENT_OPTION,
+  SET_REFERENCE,
 } from "../types";
 
 export default (state, action) => {
@@ -54,6 +55,11 @@ export default (state, action) => {
         paymentOption: action.payload,
       };
 
+    case SET_REFERENCE:
+      return {
+        ...state,
+        referenceID: action.payload,
+      };
     default:
       return state;
   }

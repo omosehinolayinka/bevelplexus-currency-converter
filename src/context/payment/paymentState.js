@@ -12,7 +12,7 @@ import {
   SET_RECEIVE_TYPE,
   CALCULATION_TYPE,
   SET_PAYMENT_OPTION,
-  NEW_TRANSACTION,
+  SET_REFERENCE
 } from "../types";
 
 const PaymentState = (props) => {
@@ -134,8 +134,14 @@ const PaymentState = (props) => {
       variables: {...data}
     })
     .then(res => {
-      console.log(res);
-      alert(true)
+      console.log(res.data);
+      const reference = res.data.createTransaction.reference
+
+      dispatch({
+        type: SET_REFERENCE,
+        payload: reference
+      })
+      alert(true);
     })
     .catch(err => {
       console.log(err);

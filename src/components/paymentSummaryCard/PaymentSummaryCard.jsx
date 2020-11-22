@@ -18,7 +18,11 @@ const PaymentSummaryCard = ({ data }) => {
 
       <p>
         <span>Fees</span>
-        <span className='greentext'> {data.fees} </span>
+        <span className='greentext'> 
+        {
+          data.fees === "Free" ? data.fees : `${data.fees} ${data.sendCurrency}`
+        } 
+        </span>
       </p>
 
       <p>
