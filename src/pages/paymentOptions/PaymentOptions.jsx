@@ -27,7 +27,8 @@ function PaymentOptions({showTips}) {
     receivingMethod: selected
   })
 
-  const [alert, setAlert] = useState(false)
+  const [alert, setAlert] = useState(false);
+  const [redirect, setRedirect] = useState(false)
 
 
   const paymentMethods = [
@@ -119,7 +120,7 @@ function PaymentOptions({showTips}) {
           <Link to='/payment/transfer'>
             <button className='left'>Previous</button>
           </Link>
-          <Link to='/payment/review'>
+          <Link to='#'>
             <button className='right' onClick={initiateTransaction}>Pay</button>
           </Link>
         </div>
@@ -129,10 +130,11 @@ function PaymentOptions({showTips}) {
             type='success'
             title='Order Initiated'
             body="You will be notified once it's complete"
-            action={() => setAlert(false)}
+            action={() => setRedirect(true)}
           />
         )}
         {!recipient && <Redirect to='/payment/transfer' />}
+        {redirect && <Redirect to='/payment/review' />}
       </Layout>
     </div>
   );

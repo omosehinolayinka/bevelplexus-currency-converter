@@ -7,7 +7,7 @@ function Alert({ type, title, body, action }) {
   return (
     <div id='alert'>
       <div className='box'>
-        <Link to='/'>
+        <Link to='/payment/review'>
           <button className='secondary' onClick={action}>
             <span className='material-icons'>clear</span>
           </button>

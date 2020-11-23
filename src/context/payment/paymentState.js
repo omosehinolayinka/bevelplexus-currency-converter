@@ -134,7 +134,7 @@ const PaymentState = (props) => {
       variables: {...data}
     })
     .then(res => {
-      console.log(res.data);
+    
       const reference = res.data.createTransaction.reference
 
       dispatch({
