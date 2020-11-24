@@ -1,23 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 // import { Link } from "react-router-dom";
 import "./AccountSettings.scss";
+
+import UserContext from "../../context/user/userContext";
+
 import Layout from "../../components/layout/Layout";
 
 import { Tooltip } from "antd";
 import { Link } from "react-scroll"
 
-function AccountSettings({ showTips }) {
-  const [email, setEmail] = useState("Jordywakman@gmail.com");
-  const [phone, setPhone] = useState("+87 456 899 2345");
+const AccountSettings = ({ showTips }) => {
+
+  const userContext = useContext(UserContext);
   const [tab, setTab] = useState("settings");
   const [disableMail, setDisableMail] = useState(true);
   const [disablePhone, setDisablePhone] = useState(true);
   const [file, setFile] = useState("choose");
 
+  const [user, setUser] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phoneNumber: "",
+  })
+
   const tooltipStyle = {
     display: 'flex',
     alignItems: 'flex-start',
   };
+  
+  useEffect(() => {
+    userContext.getUser(setUser);
+  }, [])
 
   const text = (
     <div style={tooltipStyle}>
@@ -29,6 +43,13 @@ function AccountSettings({ showTips }) {
       </p>
     </div>
   );
+
+  const handleChange = (e) => {
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value
+    })
+  }
 
   const handleFileUpload = () => {
     setFile("uploading");
@@ -113,13 +134,13 @@ function AccountSettings({ showTips }) {
                 <span className='icon'>
                   <img src='/assets/svg/user.svg' alt='settings' />
                 </span>
-                <input type='text' value='Jordyn' disabled />
+                <input type='text' value={user.firstName} disabled />
               </div>
               <div className='shadow-box input-item'>
                 <span className='icon'>
                   <img src='/assets/svg/user.svg' alt='settings' />
                 </span>
-                <input type='text' value='Workman' disabled />
+                <input type='text' value={user.lastName} disabled />
               </div>
               <div className='shadow-box input-item'>
                 <span className='icon'>
@@ -128,9 +149,10 @@ function AccountSettings({ showTips }) {
                 <input
                   className={!disableMail ? "active" : ""}
                   type='text'
-                  value={email}
+                  name="email"
+                  value={user.email}
                   disabled={disableMail}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => handleChange(e)}
                 />
                 <button
                   className='input-ctrl'
@@ -146,9 +168,10 @@ function AccountSettings({ showTips }) {
                 <input
                   className={!disablePhone ? "active" : ""}
                   type='text'
-                  value={phone}
+                  name="phoneNumber"
+                  value={user.phoneNumber}
                   disabled={disablePhone}
-                  onChange={(e) => setPhone(e.target.value)}
+                  onChange={(e) => handleChange(e)}
                 />
                 <button
                   className='input-ctrl'

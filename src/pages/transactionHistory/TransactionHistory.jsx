@@ -1,11 +1,23 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import "./TransactionHistory.scss";
 
 import Layout from "../../components/layout/Layout";
 import Table from '../../components/tables/TransactionTableAlt'
 import Pagination from '../../components/pagination/Pagination'
 
+import TransactionContext from '../../context/transactions/transactionContext'
+
 function TransactionHistory({showTips}) {
+
+  const transactionContext = useContext(TransactionContext);
+
+  useEffect(() => {
+    transactionContext.getTransactions();
+
+    // eslint-disable-next-line
+  }, [])
+
+  
   return (
     <div id='transaction-history'>
       <Layout currentMenu='transaction' showTips={showTips}>
@@ -27,7 +39,7 @@ function TransactionHistory({showTips}) {
         </div>
 
         <div className="table-container">
-          <Table />
+          <Table data={transactionContext.state.transactions} />
         </div>
 
         <Pagination />

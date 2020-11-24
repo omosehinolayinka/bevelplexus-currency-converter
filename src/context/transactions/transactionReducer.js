@@ -1,11 +1,11 @@
-import { GET_USER } from "../types";
+import { GET_TRANSACTIONS } from "../types";
 
 export default (state, action) => {
   switch (action.type) {
-    case GET_USER:
+    case GET_TRANSACTIONS:
       return {
         ...state,
-        user: action.payload,
+        transactions: [...action.payload]
       };
 
     default:

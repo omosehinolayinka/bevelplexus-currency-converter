@@ -1,8 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import "./TransactionsTable.scss";
+import {gql, useQuery} from '@apollo/client'
+import TransactionContext from '../../context/transactions/transactionContext'
+import dateFormat from "dateformat";
 
-function TransactionsTable() {
+function TransactionsTable( {data} ) {
+  const transactionContext = useContext(TransactionContext)
+
+
   const [expanded, setExpanded] = useState("");
 
   const toggleTableRow = (row) => {
@@ -96,15 +102,15 @@ function TransactionsTable() {
         </colgroup>
 
         <tbody className='table-alt'>
-          {tableData.map((data) => (
+          {data.map((data) => (
             <React.Fragment key={data.key}>
               <tr className={expanded === data.key ? "expanded" : "collapsed"}>
                 <td>
                   <div>
                     <section>
-                      <img src={data.avatar} alt='avatar' className='avatar-img' />
+                      <img src={data.transactionType === "Individual" ? "/assets/svg/avatar.svg" : "/assets/svg/institution.svg"} alt='avatar' className='avatar-img' />
                       <img
-                        src={data.receiveCurrencyFlag}
+                        src="/assets/svg/canada-flag.svg"
                         alt=''
                         className='img-attachment'
                       />

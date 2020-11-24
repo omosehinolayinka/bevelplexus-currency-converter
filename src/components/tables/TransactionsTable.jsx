@@ -1,15 +1,22 @@
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import "./TransactionsTable.scss";
 
+import { gql, useApolloClient } from "@apollo/client";
+
+import dateFormat from "dateformat";
+
 function TransactionsTable() {
-  const [expanded, setExpanded] = useState('');
+  const [expanded, setExpanded] = useState("");
 
-  const toggleTableRow = row => {
+  const toggleTableRow = (row) => {
+    expanded === row ? setExpanded("") : setExpanded(row);
+  };
 
-    expanded === row ? setExpanded('') 
-    : setExpanded(row)
-  }
+  // const getRecipient = (id, apollo) => {
+  //   const client = apollo()
+
+  // }
 
   const tableData = [
     {
@@ -17,17 +24,17 @@ function TransactionsTable() {
       avatar: "/assets/svg/avatar.svg",
       name: "Phillip Mango",
       sendAmount: "1000",
-      sendCurrency: 'CAD',
-      sendCurrencyFlag: '/assets/svg/canada-flag.svg',
+      sendCurrency: "CAD",
+      sendCurrencyFlag: "/assets/svg/canada-flag.svg",
       receiveAmount: "3900",
-      receiveCurrency: 'BRL',
-      receiveCurrencyFlag: '/assets/svg/brazil-flag.svg',
+      receiveCurrency: "BRL",
+      receiveCurrencyFlag: "/assets/svg/brazil-flag.svg",
       date: "2/4/2020",
       status: "completed",
       exchangeRate: "3.90",
       amountBF: "1000",
       amountAF: "970",
-      link: '#'
+      link: "#",
     },
 
     {
@@ -35,34 +42,34 @@ function TransactionsTable() {
       avatar: "/assets/svg/avatar.svg",
       name: "Phillip Mango",
       sendAmount: "1000",
-      sendCurrency: 'CAD',
-      sendCurrencyFlag: '/assets/svg/canada-flag.svg',
+      sendCurrency: "CAD",
+      sendCurrencyFlag: "/assets/svg/canada-flag.svg",
       receiveAmount: "3900",
-      receiveCurrency: 'BRL',
-      receiveCurrencyFlag: '/assets/svg/brazil-flag.svg',
+      receiveCurrency: "BRL",
+      receiveCurrencyFlag: "/assets/svg/brazil-flag.svg",
       date: "2/4/2020",
       status: "completed",
       exchangeRate: "3.90",
       amountBF: "1000",
       amountAF: "970",
-      link: '#'
+      link: "#",
     },
     {
       key: 3,
       avatar: "/assets/svg/avatar.svg",
       name: "Erin Culhane",
       sendAmount: "1000",
-      sendCurrency: 'CAD',
-      sendCurrencyFlag: '/assets/svg/canada-flag.svg',
+      sendCurrency: "CAD",
+      sendCurrencyFlag: "/assets/svg/canada-flag.svg",
       receiveAmount: "3900",
-      receiveCurrency: 'BRL',
-      receiveCurrencyFlag: '/assets/svg/brazil-flag.svg',
+      receiveCurrency: "BRL",
+      receiveCurrencyFlag: "/assets/svg/brazil-flag.svg",
       date: "2/4/2020",
       status: "pending",
       exchangeRate: "3.90",
       amountBF: "1000",
       amountAF: "970",
-      link: '#'
+      link: "#",
     },
   ];
 
@@ -91,16 +98,29 @@ function TransactionsTable() {
               <tr className={expanded === data.key ? "expanded" : "collapsed"}>
                 <td>
                   <div>
-                    <img src={data.avatar} alt='avatar' />
+                    <img
+                      src={
+                        data.transactionType === "Individual"
+                          ? "/assets/svg/avatar.svg"
+                          : "/assets/svg/institution.svg"
+                      }
+                      alt='avatar'
+                    />
                     <p> {data.name} </p>
                   </div>
                 </td>
 
                 <td>
                   <div>
-                    <span> {data.sendAmount} {data.sendCurrency} </span>
+                    <span>
+                      {" "}
+                      {data.sendAmount} {data.sendCurrency}{" "}
+                    </span>
                     <span className='material-icons'>arrow_right</span>
-                    <span> {data.receiveAmount} {data.receiveCurrency} </span>
+                    <span>
+                      {" "}
+                      {data.receiveAmount} {data.receiveCurrency}{" "}
+                    </span>
                   </div>
                 </td>
 
@@ -123,7 +143,10 @@ function TransactionsTable() {
                     >
                       {data.status.toUpperCase()}{" "}
                     </span>
-                    <button className='toggle' onClick={() => toggleTableRow(data.key)}>
+                    <button
+                      className='toggle'
+                      onClick={() => toggleTableRow(data.key)}
+                    >
                       <span className='material-icons'>
                         {expanded === data.key
                           ? "arrow_drop_up"
@@ -139,28 +162,38 @@ function TransactionsTable() {
                   <td colSpan='4'>
                     <div className='tr-extension__content'>
                       <div className='col-one'>
-                        <span className='flag'><img src={data.sendCurrencyFlag} alt="flag"/> </span>
+                        <span className='flag'>
+                          <img src={data.sendCurrencyFlag} alt='flag' />{" "}
+                        </span>
                         <span className='material-icons'>arrow_right</span>
-                        <span className='flag'><img src={data.receiveCurrencyFlag} alt="flag"/></span>
+                        <span className='flag'>
+                          <img src={data.receiveCurrencyFlag} alt='flag' />
+                        </span>
                       </div>
 
-                      <div className="col-two">
+                      <div className='col-two'>
                         <small>Exchange Rate</small>
                         <p> {data.exchangeRate} </p>
                       </div>
 
-                      <div className="col-three">
+                      <div className='col-three'>
                         <small>Amount (Before Fee)</small>
-                        <p>{data.amountAF} {data.sendCurrency}</p>
+                        <p>
+                          {data.amountAF} {data.sendCurrency}
+                        </p>
                       </div>
 
-                      <div className="col-two">
+                      <div className='col-two'>
                         <small>Amount (After Fee)</small>
-                        <p>{data.amountAF} {data.sendCurrency}</p>
+                        <p>
+                          {data.amountAF} {data.sendCurrency}
+                        </p>
                       </div>
 
-                      <div className="col-five">
-                        <button><Link to={data.link}>View Details</Link></button>
+                      <div className='col-five'>
+                        <button>
+                          <Link to={data.link}>View Details</Link>
+                        </button>
                       </div>
                     </div>
                   </td>
@@ -170,7 +203,6 @@ function TransactionsTable() {
           ))}
         </tbody>
       </table>
-
     </div>
   );
 }

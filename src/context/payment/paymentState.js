@@ -146,8 +146,6 @@ const PaymentState = (props) => {
     .catch(err => {
       console.log(err);
     })
-    
-    
   }
 
   // show error

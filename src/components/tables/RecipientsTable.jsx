@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./TransactionsTable.scss";
 
@@ -7,12 +7,19 @@ import EditModal from "../editRecipientModal/EditRecipient";
 function RecipientsTable({ data }) {
   const [showEditModal, setShowEditModal] = useState(false);
   const [recipient, setrecipient] = useState(null);
+  const [recipients, setRecipients] = useState([]);
 
   const editrecipient = (recipient) => {
     setrecipient(recipient);
 
     setShowEditModal(true);
   };
+
+  useEffect(() => {
+    setRecipients(data.reverse());
+
+    // eslint-disable-next-line
+  }, [])
 
   return (
     <div id='transaction-table' className='recipients-table'>
@@ -25,7 +32,7 @@ function RecipientsTable({ data }) {
         </colgroup>
 
         <tbody className='table-alt'>
-          {data.map((data) => (
+          {recipients.map((data) => (
             <React.Fragment key={data.id}>
               <tr className='collapsed'>
                 <td>

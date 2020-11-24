@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import "./Header.scss";
-
+import UserContext from "../../context/user/userContext";
 import { Dropdown, Button } from "antd";
 
 function Header({
@@ -12,6 +12,9 @@ function Header({
   sidebarStatus,
   animateSidebar,
 }) {
+
+  const userContext = useContext(UserContext);
+
   const menu = (
     <div id="profile-dropdown">
       <ul>
@@ -96,7 +99,7 @@ function Header({
         <Dropdown overlay={menu} placement='bottomRight' arrow>
           <Button>
             <img src='/assets/svg/avatar.svg' alt='avi' className='avatar' />
-            <span className='profile-name'>Jordyn Workman </span>
+            <span className='profile-name'>{userContext.state.user.firstName} {userContext.state.user.lastName} </span>
             <span className='material-icons'>arrow_drop_down</span>
           </Button>
         </Dropdown>
