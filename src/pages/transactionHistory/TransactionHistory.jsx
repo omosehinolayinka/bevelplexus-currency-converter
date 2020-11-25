@@ -27,7 +27,7 @@ function TransactionHistory({showTips}) {
           </div>
 
           <div className='content-title'>
-            <h2>Your Transactions (5)</h2>
+            <h2>Your Transactions {`(${transactionContext.state.transactions.length})`} </h2>
 
             <form>
               <label>
