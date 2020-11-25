@@ -40,9 +40,8 @@
 
     input {
       border: none;
-      flex-grow: 1;
       color: #B4BEC6;
-      flex-grow: 1;
+      flex-grow: 1 !important;
     }
 
     input.active {

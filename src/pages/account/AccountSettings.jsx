@@ -7,10 +7,9 @@ import UserContext from "../../context/user/userContext";
 import Layout from "../../components/layout/Layout";
 
 import { Tooltip } from "antd";
-import { Link } from "react-scroll"
+import { Link } from "react-scroll";
 
 const AccountSettings = ({ showTips }) => {
-
   const userContext = useContext(UserContext);
   const [tab, setTab] = useState("settings");
   const [disableMail, setDisableMail] = useState(true);
@@ -22,21 +21,27 @@ const AccountSettings = ({ showTips }) => {
     lastName: "",
     email: "",
     phoneNumber: "",
-  })
+  });
 
   const tooltipStyle = {
-    display: 'flex',
-    alignItems: 'flex-start',
+    display: "flex",
+    alignItems: "flex-start",
   };
-  
+
   useEffect(() => {
     userContext.getUser(setUser);
-  }, [])
+
+    // eslint-disable-next-line
+  }, []);
 
   const text = (
     <div style={tooltipStyle}>
-      <img src='/assets/svg/info-alt.svg' alt='icon' style={{margin: '5px 12px 0 0'}} />
-      <p style={{marginBottom: '0', fontSize: '13px'}}>
+      <img
+        src='/assets/svg/info-alt.svg'
+        alt='icon'
+        style={{ margin: "5px 12px 0 0" }}
+      />
+      <p style={{ marginBottom: "0", fontSize: "13px" }}>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec est
         ligula, accumsan nec fermentum nec, vulputate et tellus. In non tellus
         et erat dapibus aliquet.
@@ -47,9 +52,32 @@ const AccountSettings = ({ showTips }) => {
   const handleChange = (e) => {
     setUser({
       ...user,
-      [e.target.name]: e.target.value
-    })
-  }
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const updateUser = () => {
+    userContext.updateUser(user);
+    userContext.getUser(setUser);
+  };
+
+  const handleMailSubmit = () => {
+    if (disableMail === true) {
+      setDisableMail(false);
+    } else {
+      updateUser();
+      setDisableMail(true);
+    }
+  };
+
+  const handlePhoneSubmit = () => {
+    if (disablePhone === true) {
+      setDisablePhone(false);
+    } else {
+      updateUser();
+      setDisablePhone(true);
+    }
+  };
 
   const handleFileUpload = () => {
     setFile("uploading");
@@ -81,7 +109,9 @@ const AccountSettings = ({ showTips }) => {
                   : "shadow-box  menu-item"
               }
               onClick={() => setTab("settings")}
-              to="accountSettings" smooth={true} duration={400}
+              to='accountSettings'
+              smooth={true}
+              duration={400}
             >
               <span className='icon'>
                 <img src='/assets/svg/gear.svg' alt='settings' />
@@ -96,7 +126,9 @@ const AccountSettings = ({ showTips }) => {
                   : "shadow-box  menu-item"
               }
               onClick={() => setTab("verification")}
-              to="verificationSettings" smooth={true} duration={600}
+              to='verificationSettings'
+              smooth={true}
+              duration={600}
             >
               <span className='icon'>
                 <img src='/assets/svg/flag.svg' alt='settings' />
@@ -111,7 +143,9 @@ const AccountSettings = ({ showTips }) => {
                   : "shadow-box  menu-item"
               }
               onClick={() => setTab("password")}
-              to="changePassword" smooth={true} duration={800}
+              to='changePassword'
+              smooth={true}
+              duration={800}
             >
               <span className='icon'>
                 <img src='/assets/svg/key.svg' alt='settings' />
@@ -122,7 +156,7 @@ const AccountSettings = ({ showTips }) => {
           <section className='tab-container'>
             <div className='page-header'>
               <div id='accountSettings' className='content-title'>
-                <h2 >Account Settings</h2>
+                <h2>Account Settings</h2>
               </div>
               <div className='page-title'>
                 <h4>PERSONAL INFORMATION</h4>
@@ -149,14 +183,14 @@ const AccountSettings = ({ showTips }) => {
                 <input
                   className={!disableMail ? "active" : ""}
                   type='text'
-                  name="email"
+                  name='email'
                   value={user.email}
                   disabled={disableMail}
                   onChange={(e) => handleChange(e)}
                 />
                 <button
                   className='input-ctrl'
-                  onClick={() => setDisableMail(!disableMail)}
+                  onClick={() => handleMailSubmit()}
                 >
                   {disableMail ? "Change" : "Save"}
                 </button>
@@ -168,21 +202,21 @@ const AccountSettings = ({ showTips }) => {
                 <input
                   className={!disablePhone ? "active" : ""}
                   type='text'
-                  name="phoneNumber"
+                  name='phoneNumber'
                   value={user.phoneNumber}
                   disabled={disablePhone}
                   onChange={(e) => handleChange(e)}
                 />
                 <button
                   className='input-ctrl'
-                  onClick={() => setDisablePhone(!disablePhone)}
+                  onClick={() => handlePhoneSubmit()}
                 >
                   {disablePhone ? "Change" : "Save"}
                 </button>
               </div>
             </div>
 
-            <div id="verificationSettings" className='page-header'>
+            <div id='verificationSettings' className='page-header'>
               <div className='content-title'>
                 <h2>Verification Levels</h2>
                 <span className='badge success'>50% VERIFIED</span>
@@ -256,7 +290,7 @@ const AccountSettings = ({ showTips }) => {
               </div>
             </div>
 
-            <div id="changePassword" className='page-header'>
+            <div id='changePassword' className='page-header'>
               <div className='content-title'>
                 <h2>Change Password</h2>
               </div>
@@ -292,6 +326,6 @@ const AccountSettings = ({ showTips }) => {
       </Layout>
     </div>
   );
-}
+};
 
 export default AccountSettings;

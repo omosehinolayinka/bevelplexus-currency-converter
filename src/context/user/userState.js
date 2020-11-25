@@ -52,13 +52,35 @@ const UserState = (props) => {
 
       setUser && setUser(res.data.user)
     })
+  };
+
+  //update user details
+  const updateUser = ( details ) => {
+  
+    client.mutate({
+      mutation: gql.UPDATE_USER,
+      variables: {
+        userId: localStorage.getItem("userId"),
+        firstName: details.firstName,
+        lastName: details.lastName,
+        email: details.email,
+        phoneNumber: details.phoneNumber
+      }
+    })
+    .then(res => {
+      console.log(res);
+    })
+    .catch(err => {
+      console.log(err);
+    })
   }
 
   return (
     <UserContext.Provider
       value={{
         state,
-        getUser
+        getUser,
+        updateUser
       }}
     >
       {props.children}
