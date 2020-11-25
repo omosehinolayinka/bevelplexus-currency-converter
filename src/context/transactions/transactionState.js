@@ -25,8 +25,6 @@ const TransactionState = (props) => {
         fetchPolicy: "cache-first",
       })
       .then((res) => {
-        console.log(res.data);
-    
         dispatch({
           type: GET_TRANSACTIONS,
           payload: res.data.getAllTransaction

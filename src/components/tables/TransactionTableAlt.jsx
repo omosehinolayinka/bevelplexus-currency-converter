@@ -1,11 +1,9 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./TransactionsTable.scss";
-import TransactionContext from "../../context/transactions/transactionContext";
 import dateFormat from "dateformat";
 
 function TransactionsTable({ data }) {
-  const transactionContext = useContext(TransactionContext);
 
   const [expanded, setExpanded] = useState("");
 
@@ -45,7 +43,7 @@ function TransactionsTable({ data }) {
                         src={`https://www.countryflags.io/${data.destinationCurrency
                           .slice(0, 2)
                           .toLowerCase()}/flat/24.png`}
-                        alt=''
+                        alt='currency flag'
                         className='img-attachment'
                       />
                     </section>

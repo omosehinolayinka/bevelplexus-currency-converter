@@ -42,7 +42,7 @@ function RecipientsTable() {
                   <div>
                     <section>
                       <img
-                        src='/assets/svg/institution.svg'
+                        src='/assets/svg/avatar.svg'
                         alt='avatar'
                         className='avatar-img'
                       />
