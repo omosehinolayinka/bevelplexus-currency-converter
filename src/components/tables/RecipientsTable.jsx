@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import "./TransactionsTable.scss";
 
 import EditModal from "../editRecipientModal/EditRecipient";
 
+import PaymentContext from '../../context/payment/paymentContext'
+
 function RecipientsTable({ data }) {
+  const paymentContext = useContext(PaymentContext);
+
   const [showEditModal, setShowEditModal] = useState(false);
   const [recipient, setrecipient] = useState(null);
   const [recipients, setRecipients] = useState([]);
@@ -14,6 +18,10 @@ function RecipientsTable({ data }) {
 
     setShowEditModal(true);
   };
+
+  const selectRecipient = (data) => {
+    paymentContext.setCurrentRecipient(data);
+  }
 
   useEffect(() => {
     setRecipients(data.reverse());
@@ -99,7 +107,7 @@ function RecipientsTable({ data }) {
                         padding: ".7rem 0",
                       }}
                     >
-                      <Link to='/payment'>Send Money</Link>
+                      <Link onClick={() => selectRecipient(data)} to='/payment'>Send Money</Link>
                     </button>
                   </div>
                 </td>

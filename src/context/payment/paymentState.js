@@ -31,6 +31,9 @@ const PaymentState = (props) => {
       receiveType: "SameDay",
       reverse: false
     },
+    recipient: {
+      name: null
+    },
     transactionType: "Individual",
     paymentOption: "E-transfer",
     referenceID: "",

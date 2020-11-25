@@ -1,12 +1,27 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link } from 'react-router-dom'
 import "./Dashboard.scss";
 
 import Layout from "../../components/layout/LayoutAlt";
 import TransactionTable from '../../components/tables/TransactionsTable'
 
+import TransactionContext from '../../context/transactions/transactionContext'
 
 function Dashboard({showTips}) {
+
+  const transactionContext = useContext(TransactionContext);
+
+  // const [total, setTotal] = useState(0);
+
+  const total = () => {
+    let amount = 0;
+
+    transactionContext.state.transactions.forEach(item => {
+      amount += item.baseAmount
+    });
+
+    return amount
+  }
 
   return (
     <div id='dashboard'>
@@ -48,7 +63,7 @@ function Dashboard({showTips}) {
         </div>
 
         <div className="box-container double-box-container">
-          <div className="shadow-box box-two">
+          {/* <div className="shadow-box box-two">
             <div className="icon-container">
               <img src="/assets/svg/wallet-icon-alt.svg" alt="walllet"/>
             </div>
@@ -57,16 +72,16 @@ function Dashboard({showTips}) {
               <p>AVAILABLE CREDIT</p>
               <h4>13,750.00 NGL</h4>
             </div>
-          </div>
+          </div> */}
 
-          <div className="shadow-box box-three">
+          <div className="shadow-box box-three" style={{width: "100%"}}>
             <div className="icon-container">
               <img src="/assets/svg/transaction-icon-alt.svg" alt="transaction"/>
             </div>
 
             <div className="box-three__text-wrapper">
               <p>TOTAL TRANSACTIONS</p>
-              <h4>1,133,750.00 NGL</h4>
+              <h4>{total()} NGL</h4>
             </div>
           </div>
         </div>

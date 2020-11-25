@@ -1,6 +1,5 @@
 import { gql } from "@apollo/client";
 
-
 export const GET_ALL_TRANSACTIONS = gql`
   query getTransactions {
     getAllTransaction {
@@ -19,10 +18,14 @@ export const GET_ALL_TRANSACTIONS = gql`
       destinationCurrency
       convertedAmount
       createdAt
+      recipient {
+        name
+        email
+      }
     }
   }
 `;
 
 export const queries = {
-  GET_ALL_TRANSACTIONS
+  GET_ALL_TRANSACTIONS,
 };

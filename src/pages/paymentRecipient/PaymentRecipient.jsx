@@ -107,6 +107,7 @@ function Paymentrecipient({ showTips }) {
                 optionFilterProp='children'
                 onChange={onChange}
                 filterOption={true}
+                defaultValue={paymentContext.state.recipient.name}
               >
                 {allRecipients.map((recipient) => (
                   <Option
@@ -143,7 +144,7 @@ function Paymentrecipient({ showTips }) {
 
           <div className='box-container'>
             {transactionType === "Individual" &&
-            currentRecipient === undefined ? (
+            currentRecipient.name === null ? (
               <div className='shadow-box error-notice small'>
                 <span className='material-icons'>not_interested</span>
                 <p>No recipient selected</p>

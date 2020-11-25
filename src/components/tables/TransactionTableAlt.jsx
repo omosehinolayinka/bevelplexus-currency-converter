@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import "./TransactionsTable.scss";
-import {gql, useQuery} from '@apollo/client'
 import TransactionContext from '../../context/transactions/transactionContext'
 import dateFormat from "dateformat";
 
@@ -14,6 +13,8 @@ function TransactionsTable( {data} ) {
   const toggleTableRow = (row) => {
     expanded === row ? setExpanded("") : setExpanded(row);
   };
+
+  dateFormat.masks.custom = 'dd/mm/yyyy';
 
   const tableData = [
     {
@@ -116,8 +117,8 @@ function TransactionsTable( {data} ) {
                       />
                     </section>
                     <p>
-                      {data.name}
-                      <small> {data.email} </small>
+                      {data.recipient.name}
+                      <small> {data.recipient.email} </small>
                     </p>
                   </div>
                 </td>
@@ -125,7 +126,7 @@ function TransactionsTable( {data} ) {
                 <td>
                   <div>
                     <p>
-                      {data.date}
+                      {dateFormat(data.createdAt, "custom")}
                       <small>Last transaction date</small>
                     </p>
                   </div>

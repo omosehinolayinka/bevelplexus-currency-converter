@@ -33,7 +33,7 @@ const TransactionState = (props) => {
       })
       .catch((err) => {
         console.log(err);
-        showError("Failed to fetch recipients");
+        showError("Failed to fetch transactions");
       });
   };
 
