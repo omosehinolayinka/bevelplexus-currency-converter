@@ -47,7 +47,7 @@ function TransactionHistory({ showTips }) {
         </div>
 
         <div className='table-container'>
-          <Table data={recipientContext.state.recipients} />
+          <Table />
         </div>
 
         <Pagination />

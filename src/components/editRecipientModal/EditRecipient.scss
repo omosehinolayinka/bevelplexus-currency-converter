@@ -59,10 +59,16 @@
           justify-content: center;
         }
 
-        input {
+        input, .ant-select {
           border: none;
           flex-grow: 1;
           color: #B4BEC6;
+
+          .ant-select-selector {
+            border: none;
+            padding: 0;
+            box-shadow: none;
+          }
         }
 
         input:focus {

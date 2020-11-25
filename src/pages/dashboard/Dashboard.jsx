@@ -39,7 +39,7 @@ function Dashboard({showTips}) {
             <div className='user-details'>
               <div className='user-details__avi'>
                 <img src='/assets/img/avatar-square.png' alt='avi' />
-                <img src="/assets/svg/brazil-flag.svg" alt="" className="user-details__avi__flag"/>
+                {/* <img src="/assets/svg/brazil-flag.svg" alt="" className="user-details__avi__flag"/> */}
               </div>
               <span className='box-one__text-wrapper'>
                 <h3>Phillip Mango</h3>

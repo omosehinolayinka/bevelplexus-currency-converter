@@ -5,7 +5,7 @@ import TransactionContext from '../../context/transactions/transactionContext'
 import dateFormat from "dateformat";
 
 function TransactionsTable( {data} ) {
-  // const transactionContext = useContext(TransactionContext)
+  const transactionContext = useContext(TransactionContext)
 
 
   const [expanded, setExpanded] = useState("");

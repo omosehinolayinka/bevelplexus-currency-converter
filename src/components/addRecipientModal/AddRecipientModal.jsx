@@ -1,10 +1,13 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import RecipeientContext from "../../context/recipients/recipientContext";
+
+import { Select } from "antd";
+import locations from "../locations.json";
 
 function Editrecipient({ action }) {
   const recipientContext = useContext(RecipeientContext);
 
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const [newRecipient, setNewRecipient] = useState({
     userId: localStorage.getItem("userId"),
@@ -14,8 +17,12 @@ function Editrecipient({ action }) {
     location: "",
     bank: "",
     accountNumber: "",
-    closeModal: action 
+    closeModal: action,
   });
+
+  useEffect(() => {
+    console.log(locations);
+  }, []);
 
   const handleChange = (e) => {
     setNewRecipient({
@@ -24,10 +31,19 @@ function Editrecipient({ action }) {
     });
   };
 
+  const handleSelect = (value) => {
+    setNewRecipient({
+      ...newRecipient,
+      location: value
+    })
+  }
+
   const handleSubmit = () => {
     setLoading(true);
     recipientContext.addRecipient(newRecipient);
   };
+
+  const { Option } = Select;
 
   return (
     <div id='addrecipient'>
@@ -86,14 +102,21 @@ function Editrecipient({ action }) {
             <span className='icon'>
               <img src='/assets/svg/location-blue.svg' alt='location' />
             </span>
-            <input
-              required
-              type='text'
-              value={newRecipient.location}
+            <Select
+              showSearch
+              filterOption={true}
+              optionFilterProp='children'
+              onChange={handleSelect}
+              name='location'
               placeholder='location'
-              name="location"
-              onChange={handleChange}
-            />
+            >
+              {locations.map((location) => (
+                <Option key={location.code} value={location.name}>
+                  {location.name}
+                </Option>
+              ))}
+            </Select>
+            
           </div>
 
           <div className='shadow-box input-item'>
@@ -131,9 +154,14 @@ function Editrecipient({ action }) {
 
         <div className='buttons-container'>
           <button onClick={() => action(false)}>Cancel</button>
-          <button onClick={handleSubmit}> {
-            loading ? <img src="assets/svg/spinner.svg" alt="spinner"/> : "Save"
-          } </button>
+          <button onClick={handleSubmit}>
+            {" "}
+            {loading ? (
+              <img src='assets/svg/spinner.svg' alt='spinner' />
+            ) : (
+              "Save"
+            )}{" "}
+          </button>
         </div>
       </div>
     </div>

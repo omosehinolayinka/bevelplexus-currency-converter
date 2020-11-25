@@ -1,17 +1,18 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import "./TransactionsTable.scss";
 
 import EditModal from "../editRecipientModal/EditRecipient";
 
 import PaymentContext from '../../context/payment/paymentContext'
+import RecipientContext from "../../context/recipients/recipientContext";
 
-function RecipientsTable({ data }) {
+function RecipientsTable() {
   const paymentContext = useContext(PaymentContext);
+  const recipientContext = useContext(RecipientContext);
 
   const [showEditModal, setShowEditModal] = useState(false);
   const [recipient, setrecipient] = useState(null);
-  const [recipients, setRecipients] = useState([]);
 
   const editrecipient = (recipient) => {
     setrecipient(recipient);
@@ -22,12 +23,6 @@ function RecipientsTable({ data }) {
   const selectRecipient = (data) => {
     paymentContext.setCurrentRecipient(data);
   }
-
-  useEffect(() => {
-    setRecipients(data.reverse());
-
-    // eslint-disable-next-line
-  }, [])
 
   return (
     <div id='transaction-table' className='recipients-table'>
@@ -40,7 +35,7 @@ function RecipientsTable({ data }) {
         </colgroup>
 
         <tbody className='table-alt'>
-          {recipients.map((data) => (
+          {recipientContext.state.recipients.map((data) => (
             <React.Fragment key={data.id}>
               <tr className='collapsed'>
                 <td>
@@ -51,11 +46,11 @@ function RecipientsTable({ data }) {
                         alt='avatar'
                         className='avatar-img'
                       />
-                      <img
+                      {/* <img
                         src='/assets/svg/brazil-flag.svg'
                         alt=''
                         className='img-attachment'
-                      />
+                      /> */}
                     </section>
                     <p>
                       {data.name}

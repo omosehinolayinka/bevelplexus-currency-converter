@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./EditRecipient.scss";
-
+import locations from "../locations.json";
 import RecipientContext from '../../context/recipients/recipientContext'
+
+import { Select } from "antd";
 
 function Editrecipient({ action, recipientState }) {
   const recipientContext = useContext(RecipientContext);
@@ -38,10 +40,20 @@ function Editrecipient({ action, recipientState }) {
     
   };
 
+  const handleSelect = (value) => {
+    setRecipient({
+      ...recipient,
+      location: value
+    })
+  }
+
+
   const submitrecipient = () => {
     setLoading(true);
     recipientContext.updateRecipient(recipient);
   }
+
+  const { Option } = Select;
 
   return (
     <div id='editrecipient'>
@@ -94,12 +106,21 @@ function Editrecipient({ action, recipientState }) {
             <span className='icon'>
               <img src='/assets/svg/location-blue.svg' alt='location' />
             </span>
-            <input
-              type='text'
+            <Select
+              showSearch
+              filterOption={true}
+              optionFilterProp='children'
+              onChange={handleSelect}
               name='location'
+              placeholder='location'
               value={recipient.location}
-              onChange={handleChange}
-            />
+            >
+              {locations.map((location) => (
+                <Option key={location.code} value={location.name}>
+                  {location.name}
+                </Option>
+              ))}
+            </Select>
           </div>
 
           <div className='shadow-box input-item'>
