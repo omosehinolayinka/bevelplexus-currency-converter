@@ -20,12 +20,32 @@ export const ALL_RECIPIENTS = gql`
   }
 `;
 
+export const SINGLE_RECIPIENT = gql`
+  query recipient($id: String!) {
+    recipient(id: $id) {
+      id
+      userId
+      name
+      email
+      phoneNumber
+      location
+      updatedAt
+      bankInfo {
+        id
+        bank
+        recipientId
+        accountNumber
+      }
+    }
+  }
+`;
+
 export const NEW_RECIPIENT = gql`
   mutation addRecipient(
-    $userId: String! 
-    $name: String! 
-    $email: String! 
-    $phoneNumber: String! 
+    $userId: String!
+    $name: String!
+    $email: String!
+    $phoneNumber: String!
     $location: String!
   ) {
     addRecipient(
@@ -33,7 +53,7 @@ export const NEW_RECIPIENT = gql`
         userId: $userId
         name: $name
         email: $email
-        phoneNumber:  $phoneNumber
+        phoneNumber: $phoneNumber
         location: $location
       }
     ) {
@@ -49,8 +69,8 @@ export const NEW_RECIPIENT = gql`
 
 export const ADD_BANK_INFO = gql`
   mutation addBankInfo(
-    $recipientId: String! 
-    $bank: String! 
+    $recipientId: String!
+    $bank: String!
     $accountNumber: String!
   ) {
     addBankInfo(
@@ -128,10 +148,11 @@ export const UPDATED_BANK_INFO = gql`
 
 export const queries = {
   ALL_RECIPIENTS,
+  SINGLE_RECIPIENT,
   NEW_RECIPIENT,
   ADD_BANK_INFO,
   UPDATED_RECIPIENT_INFO,
-  UPDATED_BANK_INFO
-}
+  UPDATED_BANK_INFO,
+};
 
-export default queries
+export default queries;

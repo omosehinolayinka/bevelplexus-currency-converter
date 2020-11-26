@@ -2,12 +2,16 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 
 import PaymentContext from "../../context/payment/paymentContext";
+import RecipientContext from '../../context/recipients/recipientContext'
 
 function LastTransaction({ data }) {
   const paymentContext = useContext(PaymentContext);
+  const recipientContext = useContext(RecipientContext)
 
   const selectRecipient = () => {
-    paymentContext.setCurrentRecipient(data[0]);
+    const id = data[0].recipient.id
+    paymentContext.setCurrentRecipient(data[0])
+    recipientContext.getRecipient(id, paymentContext);
   };
 
   return (
@@ -37,7 +41,7 @@ function LastTransaction({ data }) {
       </div>
 
       <div className='box-one__cta'>
-        <Link to='/payment' > 
+        <Link to='/payment/transfer' onClick={selectRecipient} > 
           <button>Send Money</button>
         </Link>
       </div>

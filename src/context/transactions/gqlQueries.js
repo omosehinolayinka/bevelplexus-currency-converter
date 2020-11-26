@@ -19,6 +19,7 @@ export const GET_ALL_TRANSACTIONS = gql`
       convertedAmount
       createdAt
       recipient {
+        id
         name
         email
       }

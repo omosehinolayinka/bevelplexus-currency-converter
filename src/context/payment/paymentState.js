@@ -18,8 +18,6 @@ import {
 const PaymentState = (props) => {
 
   const defaultState = {
-    userId: "",
-    recipientId: "",
     fxDetails: {
       sendCurrency: "USD",
       baseAmount: "",

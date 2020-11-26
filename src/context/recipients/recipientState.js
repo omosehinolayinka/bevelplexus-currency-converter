@@ -61,6 +61,22 @@ const RecipientState = (props) => {
       });
   };
 
+  // get single recipient
+  const getRecipient = (id, callback) => {
+    client.query({
+      query: gql.SINGLE_RECIPIENT,
+      fetchPolicy: "cache-first",
+      variables: {
+        id: id
+      }
+    })
+    .then(res => {
+      console.log(res.data.recipient);
+      callback.setCurrentRecipient(res.data.recipient)
+    })
+    .catch(err => console.log(err))
+  }
+
   // add recipents
   const addRecipient = (data) => {
    
@@ -166,6 +182,7 @@ const RecipientState = (props) => {
       value={{
         state,
         getRecipients,
+        getRecipient,
         updateRecipient,
         addRecipient
       }}

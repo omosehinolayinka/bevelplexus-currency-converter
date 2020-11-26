@@ -14,7 +14,8 @@ import dateFormat from "dateformat";
 function PaymentTransfer({ showTips }) {
   const paymentContext = useContext(PaymentContext);
   const receiveType = paymentContext.state.fxDetails.receiveType;
-  const isEmpty = paymentContext.state.fxDetails.actualAmount > 0 ? false : true
+  const isEmpty =
+    paymentContext.state.fxDetails.actualAmount > 0 ? false : true;
 
   const recipient = paymentContext.state.recipient;
 
@@ -121,15 +122,14 @@ function PaymentTransfer({ showTips }) {
 
           <div className='box-container'>
             <div className='shadow-box'>
-              {recipient ? (
+              {!recipient.id && <Redirect to='/payment' />}
+              {recipient.bankInfo && (
                 <CustomCheckbox
                   checked={true}
                   title='Bank Deposit'
                   subLeft={recipient.bankInfo[0].bank}
                   subRight={`Account: ${recipient.bankInfo[0].accountNumber}`}
                 />
-              ) : (
-                <Redirect to='/payment' />
               )}
             </div>
           </div>
@@ -139,7 +139,10 @@ function PaymentTransfer({ showTips }) {
           <Link to='/payment/recipient'>
             <button className='left'>Previous</button>
           </Link>
-          <Link to={isEmpty ? '#' : '/payment/options'} className={isEmpty ? 'disabled' : ''}>
+          <Link
+            to={isEmpty ? "#" : "/payment/options"}
+            className={isEmpty ? "disabled" : ""}
+          >
             <button className='right'>Next</button>
           </Link>
         </div>
