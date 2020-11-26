@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import "./TransactionsTable.scss";
 
 import dateFormat from "dateformat";
@@ -14,7 +14,7 @@ function TransactionsTable( { data } ) {
   dateFormat.masks.custom = "dd/mm/yy";
 
   const transactions =  data.slice(0, 5);
-  
+
   return (
     <div id='transaction-table'>
       <table>
