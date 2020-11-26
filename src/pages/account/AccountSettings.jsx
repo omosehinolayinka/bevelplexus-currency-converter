@@ -16,11 +16,18 @@ const AccountSettings = ({ showTips }) => {
   const [disablePhone, setDisablePhone] = useState(true);
   const [file, setFile] = useState("choose");
 
+  const [loading, setLoading] = useState(false);
+
   const [user, setUser] = useState({
     firstName: "",
     lastName: "",
     email: "",
     phoneNumber: "",
+  });
+
+  const [password, setPassword] = useState({
+    oldPassword: "",
+    newPassword: "",
   });
 
   const tooltipStyle = {
@@ -54,6 +61,20 @@ const AccountSettings = ({ showTips }) => {
       ...user,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const handlePassword = (e) => {
+    setPassword({
+      ...password,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSave = () => {
+    setLoading(true)
+    setFile("choose");
+
+    userContext.resetPassword(password, setLoading);
   };
 
   const updateUser = () => {
@@ -304,13 +325,25 @@ const AccountSettings = ({ showTips }) => {
                 <span className='icon'>
                   <img src='/assets/svg/key.svg' alt='settings' />
                 </span>
-                <input type='text' placeholder='New password' />
+                <input
+                  type='password'
+                  name='oldPassword'
+                  placeholder='Old password'
+                  value={password.oldPassword}
+                  onChange={handlePassword}
+                />
               </div>
               <div className='shadow-box input-item'>
                 <span className='icon'>
                   <img src='/assets/svg/key.svg' alt='settings' />
                 </span>
-                <input type='text' placeholder='Confirm new password' />
+                <input
+                  type='password'
+                  name='newPassword'
+                  placeholder='New password'
+                  value={password.newPassword}
+                  onChange={handlePassword}
+                />
               </div>
             </div>
           </section>
@@ -318,8 +351,12 @@ const AccountSettings = ({ showTips }) => {
 
         <div className='save-button-container'>
           <Link to='#'>
-            <button className='right' onClick={() => setFile("choose")}>
-              Save Changes
+            <button className='right' onClick={handleSave}>
+              {loading ? (
+                <img src='/assets/svg/spinner.svg' alt='spinner' />
+              ) : (
+                "Save Changes"
+              )}
             </button>
           </Link>
         </div>

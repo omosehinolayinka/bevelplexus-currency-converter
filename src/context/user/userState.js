@@ -69,10 +69,30 @@ const UserState = (props) => {
     })
     .then(res => {
       console.log(res);
+
+      // show success alert
     })
     .catch(err => {
       console.log(err);
     })
+  }
+  
+
+  // reset password
+  const resetPassword = (data, setLoading) => {
+    client.mutate({
+      mutation: gql.RESET_PASSWORD,
+      variables: {
+        userId: localStorage.getItem("userId"),
+        oldPassword: data.oldPassword,
+        newPassword: data.newPassword
+      }
+    })
+    .then(res => {
+      console.log(res.data);
+      setLoading(false)
+    })
+    .catch(err => console.log(err))
   }
 
   return (
@@ -80,7 +100,8 @@ const UserState = (props) => {
       value={{
         state,
         getUser,
-        updateUser
+        updateUser,
+        resetPassword
       }}
     >
       {props.children}

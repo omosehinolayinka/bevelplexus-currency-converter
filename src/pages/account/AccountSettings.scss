@@ -287,6 +287,12 @@
       border-radius: 6px;
       border: none;
       cursor: pointer;
+
+      img {
+        height: 20px;
+        padding-right: 1rem;
+        padding-left: 1rem;
+      }
     }
 
     button:focus {

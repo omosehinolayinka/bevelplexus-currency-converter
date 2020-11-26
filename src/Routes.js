@@ -32,7 +32,7 @@ function Routes() {
           mutation login {
             login(loginArgs: {
               email: "ashtoonsandgraphics@gmail.com",
-              password: "12345678"
+              password: "87654321"
             }) {
               token,
               user {
