@@ -6,10 +6,14 @@ import { useApolloClient } from "@apollo/client";
 import { queries as gql } from "./gqlQueries";
 import { toast } from "react-toastify";
 
-import { GET_TRANSACTIONS } from "../types";
+import { GET_TRANSACTIONS, CHANGE_PAGE } from "../types";
 
 const TransactionState = (props) => {
   const defaultState = {
+    page: {
+      offset: 0,
+      limit: 5
+    },
     transactions: []
   };
 
@@ -18,11 +22,15 @@ const TransactionState = (props) => {
   const client = useApolloClient();
 
   // get all transactions
-  const getTransactions = () => {
+  const getTransactions = (page) => {
     client
       .query({
         query: gql.GET_ALL_TRANSACTIONS,
         fetchPolicy: "cache-first",
+        variables: {
+          offset: page.offset,
+          limit: page.limit
+        }
       })
       .then((res) => {
         dispatch({
@@ -35,6 +43,16 @@ const TransactionState = (props) => {
         showError("Failed to fetch transactions");
       });
   };
+
+  const changePage = (page) => {
+    dispatch({
+      type: CHANGE_PAGE,
+      payload: page
+    })
+
+    getTransactions(page)
+
+  }
 
   // show error notice
   const showError = (message) => {
@@ -53,6 +71,7 @@ const TransactionState = (props) => {
       value={{
         state,
         getTransactions,
+        changePage
       }}
     >
       {props.children}

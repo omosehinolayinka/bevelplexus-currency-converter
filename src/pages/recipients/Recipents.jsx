@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import "../transactionHistory/TransactionHistory.scss";
 import "./Recipients.scss";
 
+import { Pagination } from "antd";
+
 import Layout from "../../components/layout/Layout";
 import Table from "../../components/tables/RecipientsTable";
-import Pagination from "../../components/pagination/Pagination";
+// import Pagination from "../../components/pagination/Pagination";
 import AddModal from "../../components/addRecipientModal/AddRecipientModal";
 
 import RecipientContext from "../../context/recipients/recipientContext";
@@ -16,10 +18,21 @@ function TransactionHistory({ showTips }) {
   const recipientContext = useContext(RecipientContext);
 
   useEffect(() => {
-    recipientContext.getRecipients();
+    recipientContext.getRecipients(recipientContext.state.page);
 
     // eslint-disable-next-line
   }, []);
+
+  const changePage = (page) => {
+    const limit = page * 5
+
+    const values = {
+      offset: limit - 5,
+      limit: limit
+    }
+
+    recipientContext.changePage(values)
+  }
 
   return (
     <div id='recipients'>
@@ -31,7 +44,7 @@ function TransactionHistory({ showTips }) {
 
           <div className='content-title'>
             <h2>
-              Your recipients (5)
+              Your recipients ({recipientContext.state.total})
               <div className='side-link' onClick={() => setShowAddModal(true)}>
                 <Link to='#'>Add new recipient</Link>
               </div>
@@ -50,7 +63,15 @@ function TransactionHistory({ showTips }) {
           <Table />
         </div>
 
-        <Pagination />
+        <div className='pagination_container'>
+          <Pagination
+            defaultCurrent={1}
+            total={recipientContext.state.total || 1}
+            defaultPageSize={5}
+            onChange={changePage}
+          />
+        </div>
+        {/* <Pagination context={recipientContext} /> */}
       </Layout>
 
       {showAddModal && <AddModal action={setShowAddModal} />}

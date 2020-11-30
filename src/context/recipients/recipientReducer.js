@@ -1,11 +1,17 @@
-import {GET_RECIPIENTS } from '../types'
+import {GET_RECIPIENTS, CHANGE_PAGE } from '../types'
 
 export default (state, action) => {
   switch (action.type) {
     case GET_RECIPIENTS: 
       return {
         ...state,
-        recipients: [...action.payload]
+        ...action.payload
+      }
+    
+    case CHANGE_PAGE: 
+      return {
+        ...state,
+        page: {...action.payload}
       }
   
     default:

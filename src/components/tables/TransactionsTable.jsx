@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// import { Link } from "react-router-dom";
 import "./TransactionsTable.scss";
 
 import dateFormat from "dateformat";

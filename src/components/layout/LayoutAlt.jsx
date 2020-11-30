@@ -77,7 +77,7 @@ function Layout({ currentMenu, children }) {
               >
                 <Link to='/recipients'>
                   <img src='/assets/svg/contact-icon.svg' alt='home' />
-                  recipients
+                  Recipients
                 </Link>
               </li>
               <li

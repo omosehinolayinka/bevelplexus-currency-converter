@@ -8,13 +8,15 @@ import { toast } from "react-toastify";
 
 import {
   GET_RECIPIENTS,
-  // SELECT_RECIPIENT,
-  // UPDATE_RECIPIENT,
-  // UPDATE_BANK_INFO,
+  CHANGE_PAGE
 } from "../types";
 
 const RecipientState = (props) => {
   const defaultState = {
+    page: {
+      offset: 0,
+      limit: 5
+    },
     recipients: [],
   };
 
@@ -42,11 +44,15 @@ const RecipientState = (props) => {
   });
 
   // get all recipients
-  const getRecipients = () => {
+  const getRecipients = (page) => {
     client
       .query({
         query: gql.ALL_RECIPIENTS,
         fetchPolicy: "cache-first",
+        variables: {
+          offset: page.offset,
+          limit: page.limit
+        }
       })
       .then((res) => {
         const data = res.data.getAllRecipient;
@@ -165,6 +171,16 @@ const RecipientState = (props) => {
       });
   };
 
+  // change page
+  const changePage = (page) => {
+    dispatch({
+      type: CHANGE_PAGE,
+      payload: page
+    })
+
+    getRecipients(page);
+  }
+
   // show error notice
   const showError = (message) => {
     toast.error(message, {
@@ -184,7 +200,8 @@ const RecipientState = (props) => {
         getRecipients,
         getRecipient,
         updateRecipient,
-        addRecipient
+        addRecipient,
+        changePage
       }}
     >
       {props.children}

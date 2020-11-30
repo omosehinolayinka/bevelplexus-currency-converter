@@ -2,6 +2,8 @@ import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import "./TransactionsTable.scss";
 
+import dateFormat from 'dateformat'
+
 import EditModal from "../editRecipientModal/EditRecipient";
 
 import PaymentContext from '../../context/payment/paymentContext'
@@ -13,6 +15,8 @@ function RecipientsTable() {
 
   const [showEditModal, setShowEditModal] = useState(false);
   const [recipient, setrecipient] = useState(null);
+
+  dateFormat.masks.custom = "mmm dS yyyy";
 
   const editrecipient = (recipient) => {
     setrecipient(recipient);
@@ -62,7 +66,9 @@ function RecipientsTable() {
                 <td>
                   <div>
                     <p>
-                      May 17th 2020
+                      {
+                        data.transaction ? dateFormat(data.transaction.createdAt, "custom") : "No transactions"
+                      }
                       <small>Last transaction date</small>
                     </p>
                   </div>
@@ -71,11 +77,15 @@ function RecipientsTable() {
                 <td>
                   <div>
                     <p>
-                      <span className='icon-wrap'>
-                        <span>1000 CAD</span>
+                      {
+                        data.transaction ? (
+                          <span className='icon-wrap'>
+                        <span>{data.transaction.baseAmount} {data.transaction.sendCurrency}</span>
                         <span className='material-icons'>arrow_right</span>
-                        <span>3900 BRL</span>
+                        <span>{data.transaction.convertedAmount} {data.transaction.destinationCurrency}</span>
                       </span>
+                        ) : "No transactions"
+                      }
                       <small>Last transaction amount</small>
                     </p>
                   </div>

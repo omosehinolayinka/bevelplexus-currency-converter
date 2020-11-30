@@ -1,20 +1,30 @@
 import { gql } from "@apollo/client";
 
 export const ALL_RECIPIENTS = gql`
-  query getAllRecipient {
-    getAllRecipient {
-      id
-      userId
-      name
-      email
-      phoneNumber
-      location
-      updatedAt
-      bankInfo {
+  query getAllRecipient($offset: Float!, $limit: Float!) {
+    getAllRecipient(offset: $offset, limit: $limit) {
+      total
+      recipients {
         id
-        bank
-        recipientId
-        accountNumber
+        userId
+        name
+        email
+        phoneNumber
+        location
+        updatedAt
+        transaction {
+          createdAt
+          sendCurrency
+          baseAmount
+          destinationCurrency
+          convertedAmount
+        }
+        bankInfo {
+          id
+          bank
+          recipientId
+          accountNumber
+        }
       }
     }
   }

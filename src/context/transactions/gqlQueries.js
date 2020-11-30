@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const GET_ALL_TRANSACTIONS = gql`
-  query getTransactions {
-    getAllTransaction {
+  query getTransactions($offset: Float!, $limit: Float!) {
+    getAllTransaction(offset: $offset, limit: $limit) {
       id
       status
       transactionType

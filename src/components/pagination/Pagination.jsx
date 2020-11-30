@@ -1,7 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-function Pagination() {
+function Pagination( { context } ) {
   const [current, setCurrent] = useState(1);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState();
+
+  console.log(Math.ceil((context.state.total)/5));
 
   const styledPagination = {
     display: "flex",
@@ -59,22 +64,6 @@ function Pagination() {
           onClick={() => setCurrent(3)}
         >
           3
-        </button>
-
-        <button style={styledBtn}>. .</button>
-
-        <button
-          style={current === 12 ? styledBtnActive : styledBtn}
-          onClick={() => setCurrent(12)}
-        >
-          12
-        </button>
-
-        <button
-          style={current === 13 ? styledBtnActive : styledBtn}
-          onClick={() => setCurrent(13)}
-        >
-          13
         </button>
 
         <button style={styledBtn}>

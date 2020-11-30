@@ -1,9 +1,11 @@
 import React, { useContext, useEffect } from "react";
 import "./TransactionHistory.scss";
 
+import { Pagination } from "antd";
+
 import Layout from "../../components/layout/Layout";
 import Table from '../../components/tables/TransactionTableAlt'
-import Pagination from '../../components/pagination/Pagination'
+// import Pagination from '../../components/pagination/Pagination'
 
 import TransactionContext from '../../context/transactions/transactionContext'
 
@@ -12,10 +14,22 @@ function TransactionHistory({showTips}) {
   const transactionContext = useContext(TransactionContext);
 
   useEffect(() => {
-    transactionContext.getTransactions();
+    transactionContext.getTransactions(transactionContext.state.page);
 
     // eslint-disable-next-line
   }, [])
+
+
+  const changePage = (page) => {
+    const limit = page * 5
+
+    const values = {
+      offset: limit - 5,
+      limit: limit
+    }
+
+    transactionContext.changePage(values)
+  }
 
   
   return (
@@ -42,7 +56,16 @@ function TransactionHistory({showTips}) {
           <Table data={transactionContext.state.transactions} />
         </div>
 
-        <Pagination />
+        <div className='pagination_container'>
+          <Pagination
+            defaultCurrent={1}
+            total={transactionContext.state.transactions.length || 1}
+            defaultPageSize={5}
+            onChange={changePage}
+          />
+        </div>
+
+        {/* <Pagination /> */}
       </Layout>
     </div>
   );
