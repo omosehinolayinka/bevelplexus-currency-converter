@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 function Pagination( { context } ) {
   const [current, setCurrent] = useState(1);
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState();
 
   console.log(Math.ceil((context.state.total)/5));
 

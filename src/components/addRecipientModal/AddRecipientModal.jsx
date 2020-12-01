@@ -4,6 +4,8 @@ import RecipeientContext from "../../context/recipients/recipientContext";
 import { Select } from "antd";
 import locations from "../locations.json";
 
+import axios from "axios";
+
 function Editrecipient({ action }) {
   const recipientContext = useContext(RecipeientContext);
 
@@ -17,12 +19,9 @@ function Editrecipient({ action }) {
     location: "",
     bank: "",
     accountNumber: "",
+    acctName: "Account Holder's Name",
     closeModal: action,
   });
-
-  useEffect(() => {
-    console.log(locations);
-  }, []);
 
   const handleChange = (e) => {
     setNewRecipient({
@@ -31,12 +30,28 @@ function Editrecipient({ action }) {
     });
   };
 
+  const handleBank = (e) => {
+    handleChange(e);
+    if (e.target.value.length === 10) {
+      axios
+        .get(`https://app.nuban.com.ng/api/NUBAN-YGFQUYCA353?acc_no=${e.target.value}`)
+        .then((res) =>{
+          setNewRecipient({
+            ...newRecipient,
+            bank: res.data[0].bank_name,
+            acctName: res.data[0].account_name
+          })
+        })
+        .catch((err) => console.log(err));
+    }
+  };
+
   const handleSelect = (value) => {
     setNewRecipient({
       ...newRecipient,
-      location: value
-    })
-  }
+      location: value,
+    });
+  };
 
   const handleSubmit = () => {
     setLoading(true);
@@ -116,7 +131,6 @@ function Editrecipient({ action }) {
                 </Option>
               ))}
             </Select>
-            
           </div>
 
           <div className='shadow-box input-item'>
@@ -129,6 +143,7 @@ function Editrecipient({ action }) {
               value={newRecipient.bank}
               placeholder='Bank'
               name='bank'
+              disabled
               onChange={handleChange}
             />
           </div>
@@ -143,13 +158,13 @@ function Editrecipient({ action }) {
               value={newRecipient.accountNumber}
               placeholder='Account Number'
               name='accountNumber'
-              onChange={handleChange}
+              onChange={handleBank}
             />
           </div>
         </div>
 
         <div className='btn-big-container'>
-          <button> Account Holder's Name </button>
+          <button> {newRecipient.acctName} </button>
         </div>
 
         <div className='buttons-container'>

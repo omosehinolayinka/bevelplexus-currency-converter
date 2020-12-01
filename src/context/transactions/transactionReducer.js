@@ -5,7 +5,7 @@ export default (state, action) => {
     case GET_TRANSACTIONS:
       return {
         ...state,
-        transactions: [...action.payload],
+        ...action.payload,
       };
 
     case CHANGE_PAGE:

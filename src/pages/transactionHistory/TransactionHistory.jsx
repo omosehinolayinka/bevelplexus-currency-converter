@@ -41,7 +41,7 @@ function TransactionHistory({showTips}) {
           </div>
 
           <div className='content-title'>
-            <h2>Your Transactions {`(${transactionContext.state.transactions.length})`} </h2>
+            <h2>Your Transactions {`(${transactionContext.state.total})`} </h2>
 
             <form>
               <label>
@@ -59,7 +59,7 @@ function TransactionHistory({showTips}) {
         <div className='pagination_container'>
           <Pagination
             defaultCurrent={1}
-            total={transactionContext.state.transactions.length || 1}
+            total={transactionContext.state.total || 1}
             defaultPageSize={5}
             onChange={changePage}
           />
