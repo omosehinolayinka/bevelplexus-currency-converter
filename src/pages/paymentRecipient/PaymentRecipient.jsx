@@ -45,7 +45,10 @@ function Paymentrecipient({ showTips }) {
   );
 
   useEffect(() => {
-    recipientContext.getRecipients();
+    recipientContext.getRecipients({
+      offset: 0,
+      limit: 1000
+    });
 
     // eslint-disable-next-line
   }, []);

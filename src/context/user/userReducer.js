@@ -8,6 +8,12 @@ export default (state, action) => {
         user: action.payload,
       };
 
+    // case SET_VERIFICATION:
+    //   return {
+    //     ...state,
+    //     verification: action.payload,
+    //   };
+
     default:
       return state;
   }

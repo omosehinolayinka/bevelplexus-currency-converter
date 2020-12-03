@@ -14,10 +14,22 @@ export const GET_USER = gql`
         isIdentityVerified
         isPhoneNumberVerified
         isSchoolEnrollmentVerified
+        identityDocumentUrl
       }
     }
   }
 `;
+
+// export const VERIFICATION = gql`
+//   query($userId: String!) {
+//     getUserVerification(userId: $userId) {
+//       isEmailVerified
+//       isIdentityVerified
+//       isPhoneNumberVerified
+//       isSchoolEnrollmentVerified
+//     }
+//   }
+// `;
 
 export const UPDATE_USER = gql`
   mutation updateUser(
@@ -63,5 +75,6 @@ export const RESET_PASSWORD = gql`
 export const queries = {
   GET_USER,
   UPDATE_USER,
-  RESET_PASSWORD
+  RESET_PASSWORD,
+  // VERIFICATION
 };

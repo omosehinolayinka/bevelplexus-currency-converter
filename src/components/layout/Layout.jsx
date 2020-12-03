@@ -27,6 +27,8 @@ function Layout({ currentMenu, payProgress, children }) {
     setTimeout(() => {
       setShowIntro(true);
     }, 1000);
+
+    // eslint-disable-next-line
   }, []);
 
   return (

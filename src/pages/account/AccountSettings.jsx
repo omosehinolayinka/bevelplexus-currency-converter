@@ -5,8 +5,9 @@ import "./AccountSettings.scss";
 import UserContext from "../../context/user/userContext";
 
 import Layout from "../../components/layout/Layout";
+import VerificationBox from "../../components/verificationBox/VerificationBox";
+import VerificationBoxFile from "../../components/verificationBox/VerificationBoxFile";
 
-import { Tooltip } from "antd";
 import { Link } from "react-scroll";
 
 const AccountSettings = ({ showTips }) => {
@@ -14,7 +15,7 @@ const AccountSettings = ({ showTips }) => {
   const [tab, setTab] = useState("settings");
   const [disableMail, setDisableMail] = useState(true);
   const [disablePhone, setDisablePhone] = useState(true);
-  const [file, setFile] = useState("choose");
+  const [reset, setReset] = useState(true);
 
   const [loading, setLoading] = useState(false);
 
@@ -30,31 +31,11 @@ const AccountSettings = ({ showTips }) => {
     newPassword: "",
   });
 
-  const tooltipStyle = {
-    display: "flex",
-    alignItems: "flex-start",
-  };
-
   useEffect(() => {
     userContext.getUser(setUser);
 
     // eslint-disable-next-line
   }, []);
-
-  const text = (
-    <div style={tooltipStyle}>
-      <img
-        src='/assets/svg/info-alt.svg'
-        alt='icon'
-        style={{ margin: "5px 12px 0 0" }}
-      />
-      <p style={{ marginBottom: "0", fontSize: "13px" }}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec est
-        ligula, accumsan nec fermentum nec, vulputate et tellus. In non tellus
-        et erat dapibus aliquet.
-      </p>
-    </div>
-  );
 
   const handleChange = (e) => {
     setUser({
@@ -71,9 +52,8 @@ const AccountSettings = ({ showTips }) => {
   };
 
   const handleSave = () => {
-    setLoading(true)
-    setFile("choose");
-
+    setLoading(true);
+    setReset(true);
     userContext.resetPassword(password, setLoading);
   };
 
@@ -98,14 +78,6 @@ const AccountSettings = ({ showTips }) => {
       updateUser();
       setDisablePhone(true);
     }
-  };
-
-  const handleFileUpload = () => {
-    setFile("uploading");
-
-    setTimeout(() => {
-      setFile("completed");
-    }, 3500);
   };
 
   return (
@@ -245,70 +217,8 @@ const AccountSettings = ({ showTips }) => {
             </div>
 
             <div className='box-wrapper'>
-              <div className='box-container'>
-                <div className='shadow-box shadow-box-highlight'>
-                  <div className='box-heading'>
-                    <h3>LEVEL 1</h3>
-                    <Tooltip placement='bottomRight' title={text}>
-                      <img src='/assets/svg/info.svg' alt='icon' />
-                    </Tooltip>
-                  </div>
-
-                  <div className='subtitle'>
-                    <p>$1000 Dollar Limit</p>
-                  </div>
-
-                  <div className='wrap'>
-                    <p>Personal info </p>
-                    <p>Phone Verification</p>
-                    <p className='fade-text'>School information</p>
-                    <p>Verification</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className='box-container'>
-                <div className='shadow-box'>
-                  <div className='box-heading'>
-                    <h3>LEVEL 2</h3>
-                    <Tooltip placement='bottomRight' title={text}>
-                      <img src='/assets/svg/info.svg' alt='icon' />
-                    </Tooltip>
-                  </div>
-
-                  <div className='subtitle'>
-                    <p>$2000 Dollar Limit</p>
-                  </div>
-
-                  <div className='wrap'>
-                    <p>
-                      To upgrade to this level, upload your XXXX Document Below{" "}
-                    </p>
-                  </div>
-                </div>
-                <label>
-                  <input
-                    type='file'
-                    name='file'
-                    id='choose-file'
-                    onChange={handleFileUpload}
-                  />
-                  {file === "choose" ? (
-                    <div className='shadow-box button'>Choose File</div>
-                  ) : file === "uploading" ? (
-                    <div className='shadow-box button'>
-                      <span className='progress'></span>{" "}
-                      <span>Uploading File</span>
-                    </div>
-                  ) : file === "completed" ? (
-                    <div className='shadow-box button green'>
-                      File uploaded <span className='material-icons'>done</span>
-                    </div>
-                  ) : (
-                    ""
-                  )}
-                </label>
-              </div>
+              <VerificationBox />
+              <VerificationBoxFile reset={reset} setReset={setReset} />
             </div>
 
             <div id='changePassword' className='page-header'>
@@ -333,7 +243,13 @@ const AccountSettings = ({ showTips }) => {
                   onChange={handlePassword}
                 />
               </div>
-              <div className='shadow-box input-item'>
+              <div
+                className={`shadow-box input-item ${
+                  password.newPassword.length < 8 &&
+                  password.newPassword.length > 0 &&
+                  "incorrect"
+                }`}
+              >
                 <span className='icon'>
                   <img src='/assets/svg/key.svg' alt='settings' />
                 </span>
@@ -350,7 +266,17 @@ const AccountSettings = ({ showTips }) => {
         </section>
 
         <div className='save-button-container'>
-          <Link to='#'>
+          <Link
+            to='#'
+            className={
+              password.newPassword === "" ||
+              password.oldPassword === "" ||
+              (password.newPassword.length < 8 &&
+                password.newPassword.length > 0)
+                ? "disabled"
+                : ""
+            }
+          >
             <button className='right' onClick={handleSave}>
               {loading ? (
                 <img src='/assets/svg/spinner.svg' alt='spinner' />

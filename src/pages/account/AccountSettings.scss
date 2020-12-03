@@ -115,6 +115,15 @@
     .input-item {
       width: 49%;
       margin-bottom: 1.2rem;
+      border: 1px solid transparent;
+    }
+
+    .input-item.incorrect {
+      border-color: red;
+    }
+
+    input:focus {
+      color: #4A4B65;
     }
 
     @media(max-width: 655px) {
@@ -166,6 +175,23 @@
 
         .wrap {
           margin-top: 1rem;
+
+          p {
+            display: flex;
+            align-items: center;
+
+            img {
+              margin-left: .5rem;
+              width: 13px;
+            }
+
+            .material-icons {
+              width: 13px;
+              margin-left: .5rem;
+              font-size: 15px;
+              color: red;
+            }
+          }
 
           .fade-text {
             color: #818299;
