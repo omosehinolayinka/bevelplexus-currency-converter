@@ -31,8 +31,8 @@ function Routes() {
         query: `
           mutation login {
             login(loginArgs: {
-              email: "ashtoonsandgraphics@gmail.com",
-              password: "87654321"
+              email: "techkadet@gmail.com",
+              password: "#Kadet123"
             }) {
               token,
               user {

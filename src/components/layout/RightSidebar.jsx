@@ -217,7 +217,7 @@ function RightSidebar({ collapsed, collapseRightSidebar }) {
                     alt='avi'
                     className='avatar'
                   />
-                  <span className='profile-name'>Jordyn Workman </span>
+                  <span className='profile-name'>{userContext.state.user.firstName} {userContext.state.user.lastName} </span>
                   <span className='material-icons'>arrow_drop_down</span>
                 </Button>
               </Dropdown>
@@ -254,8 +254,8 @@ function RightSidebar({ collapsed, collapseRightSidebar }) {
               </div>
 
               <div className='mini-profile__details'>
-                <p>Jordyn Workman</p>
-                <p>jordynw@email.com</p>
+                <p>{userContext.state.user.firstName} {userContext.state.user.lastName}</p>
+                <p>{userContext.state.user.email}</p>
               </div>
 
               <div className='mini-profile__notification'>
