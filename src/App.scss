@@ -162,14 +162,29 @@ button.primary:hover {
   align-items: center !important;
   padding: 4rem !important;
 
-  span {
+  i {
     font-size: 3rem;
     opacity: 0.2;
+    margin-bottom: .5rem;
   }
 
   p {
     opacity: 0.4;
+    margin-bottom: 0;
   }
+}
+
+.shadow-box.error-notice.transparent {
+  background: transparent;
+}
+
+p.empty-text {
+  width: 100%;
+  font-size: 1.1rem;
+  text-align: center;
+  font-weight: 400;
+  opacity: 0.5;
+  color: #abb4ce;
 }
 
 #AppHideOnboarding #intro {

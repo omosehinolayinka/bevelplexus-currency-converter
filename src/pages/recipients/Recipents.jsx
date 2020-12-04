@@ -24,15 +24,15 @@ function TransactionHistory({ showTips }) {
   }, []);
 
   const changePage = (page) => {
-    const limit = page * 5
+    const limit = page * 5;
 
     const values = {
       offset: limit - 5,
-      limit: limit
-    }
+      limit: limit,
+    };
 
-    recipientContext.changePage(values)
-  }
+    recipientContext.changePage(values);
+  };
 
   return (
     <div id='recipients'>
@@ -44,7 +44,7 @@ function TransactionHistory({ showTips }) {
 
           <div className='content-title'>
             <h2>
-              Your recipients ({recipientContext.state.total})
+              Your recipients ({recipientContext.state.total || "0"})
               <div className='side-link' onClick={() => setShowAddModal(true)}>
                 <Link to='#'>Add new recipient</Link>
               </div>
@@ -60,7 +60,14 @@ function TransactionHistory({ showTips }) {
         </div>
 
         <div className='table-container'>
-          <Table />
+          {recipientContext.state.recipients.length !== 0 ? (
+            <Table />
+          ) : (
+            <div className='shadow-box error-notice small transparent' >
+              <i class='fas fa-ghost'></i>
+              <p>You haven't added any recipients</p>
+            </div>
+          )}
         </div>
 
         <div className='pagination_container'>

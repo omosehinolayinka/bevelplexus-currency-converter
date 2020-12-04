@@ -4,34 +4,31 @@ import "./TransactionHistory.scss";
 import { Pagination } from "antd";
 
 import Layout from "../../components/layout/Layout";
-import Table from '../../components/tables/TransactionTableAlt'
+import Table from "../../components/tables/TransactionTableAlt";
 // import Pagination from '../../components/pagination/Pagination'
 
-import TransactionContext from '../../context/transactions/transactionContext'
+import TransactionContext from "../../context/transactions/transactionContext";
 
-function TransactionHistory({showTips}) {
-
+function TransactionHistory({ showTips }) {
   const transactionContext = useContext(TransactionContext);
 
   useEffect(() => {
     transactionContext.getTransactions(transactionContext.state.page);
 
     // eslint-disable-next-line
-  }, [])
-
+  }, []);
 
   const changePage = (page) => {
-    const limit = page * 5
+    const limit = page * 5;
 
     const values = {
       offset: limit - 5,
-      limit: limit
-    }
+      limit: limit,
+    };
 
-    transactionContext.changePage(values)
-  }
+    transactionContext.changePage(values);
+  };
 
-  
   return (
     <div id='transaction-history'>
       <Layout currentMenu='transaction' showTips={showTips}>
@@ -41,7 +38,9 @@ function TransactionHistory({showTips}) {
           </div>
 
           <div className='content-title'>
-            <h2>Your Transactions {`(${transactionContext.state.total})`} </h2>
+            <h2>
+              Your Transactions ({transactionContext.state.total || "0"}){" "}
+            </h2>
 
             <form>
               <label>
@@ -52,8 +51,15 @@ function TransactionHistory({showTips}) {
           </div>
         </div>
 
-        <div className="table-container">
-          <Table data={transactionContext.state.transactions} />
+        <div className='table-container'>
+          {transactionContext.state.transactions.length !== 0 ? (
+            <Table data={transactionContext.state.transactions} />
+          ) : (
+            <div className='shadow-box error-notice small transparent'>
+              <i class='fas fa-ghost'></i>
+              <p>You haven't made any transactions yet</p>
+            </div>
+          )}
         </div>
 
         <div className='pagination_container'>

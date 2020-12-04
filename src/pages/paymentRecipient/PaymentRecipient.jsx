@@ -149,7 +149,7 @@ function Paymentrecipient({ showTips }) {
             {transactionType === "Individual" &&
             currentRecipient.name === null ? (
               <div className='shadow-box error-notice small'>
-                <span className='material-icons'>not_interested</span>
+                <i class="fas fa-ghost"></i>
                 <p>No recipient selected</p>
               </div>
             ) : (

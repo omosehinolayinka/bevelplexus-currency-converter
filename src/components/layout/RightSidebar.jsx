@@ -238,6 +238,12 @@ function RightSidebar({ collapsed, collapseRightSidebar }) {
                   alt=''
                   className='ellipse'
                 />
+
+                <img
+                  src='assets/svg/ellipse-cover.svg'
+                  alt=''
+                  className='ellipse inverted'
+                />
                 <div className='avatar-container'>
                   <img
                     src='/assets/img/profileimage.png'

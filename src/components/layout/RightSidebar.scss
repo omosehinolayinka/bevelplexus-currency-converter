@@ -114,6 +114,12 @@
           right: 0;
         }
 
+        .ellipse.inverted {
+          transform: scaleX(-1) scaleY(-1);
+          left: 0;
+          bottom: -1.3px;
+        }
+
         .avatar-container {
           position: absolute;
           top: 0;

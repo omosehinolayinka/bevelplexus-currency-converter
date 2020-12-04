@@ -22,16 +22,15 @@ function Dashboard({ showTips }) {
   };
 
   useEffect(() => {
-    
-    const page ={
+    const page = {
       offset: 0,
-      limit: 5
-    }
+      limit: 5,
+    };
 
     transactionContext.getTransactions(page);
 
     // eslint-disable-next-line
-  }, [])
+  }, []);
 
   return (
     <div id='dashboard'>
@@ -45,9 +44,11 @@ function Dashboard({ showTips }) {
             <h2>Send Again</h2>
           </div>
 
-          {
-            transactionContext.state.transactions.length > 0 && <LastTransaction data={transactionContext.state.transactions} />
-          }
+          {transactionContext.state.transactions.length > 0 ? (
+            <LastTransaction data={transactionContext.state.transactions} />
+          ) : (
+            <p className='empty-text'>Your last transaction will appear here</p>
+          )}
         </div>
 
         <div className='box-container double-box-container'>
@@ -86,7 +87,13 @@ function Dashboard({ showTips }) {
           </div>
 
           <div className='box-one__content'>
-            <TransactionTable data={transactionContext.state.transactions} />
+            {transactionContext.state.transactions.length > 0 ? (
+              <TransactionTable data={transactionContext.state.transactions} />
+            ) : (
+              <p className='empty-text' style={{marginTop: "1rem"}}>
+                You have not made any transactions yet
+              </p>
+            )}
           </div>
         </div>
       </Layout>
