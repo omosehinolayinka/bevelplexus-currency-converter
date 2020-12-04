@@ -53,8 +53,6 @@ function Routes() {
         localStorage.setItem("userId", login.user.id);
       })
       .then(() => {
-    
-
         userContext.getUser();
         recipientContext.getRecipients(recipientContext.state.page);
         transactionContext.getTransactions(transactionContext.state.page);

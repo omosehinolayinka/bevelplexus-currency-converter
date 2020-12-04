@@ -1,9 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
 import { Tooltip } from "antd";
 
-function VerificationBoxFile( { reset, setReset } ) {
+import UserContext from "../../context/user/userContext";
+
+function VerificationBoxFile({ reset, setReset }) {
   const [file, setFile] = useState("choose");
+
+  const userContext = useContext(UserContext);
+
+  const {
+    isEmailVerified,
+    isIdentityVerified,
+    isPhoneNumberVerified,
+    isSchoolEnrollmentVerified,
+    identityDocumentUrl,
+  } = userContext.state.user.userVerification;
 
   const tooltipStyle = {
     display: "flex",
@@ -27,7 +39,7 @@ function VerificationBoxFile( { reset, setReset } ) {
 
   const handleFileUpload = () => {
     setFile("uploading");
-    setReset(false)
+    setReset(false);
 
     setTimeout(() => {
       setFile("completed");
@@ -49,30 +61,43 @@ function VerificationBoxFile( { reset, setReset } ) {
         </div>
 
         <div className='wrap'>
-          <p>To upgrade to this level, upload your XXXX Document Below </p>
+          {isEmailVerified && isPhoneNumberVerified && !isIdentityVerified ? (
+            <p>
+              To upload a photo of a valid ID, to complete Level 1 verification
+              before upgrading to level 2
+            </p>
+          ) : isIdentityVerified && isEmailVerified && isPhoneNumberVerified ? (
+            <p>
+              To upgrade to this level, upload your identity Document Below{" "}
+            </p>
+          ) : (
+            <p>Please complete level one verification first </p>
+          )}
         </div>
       </div>
-      <label>
-        <input
-          type='file'
-          name='file'
-          id='choose-file'
-          onChange={handleFileUpload}
-        />
-        {reset === true ? (
-          <div className='shadow-box button'>Choose File</div>
-        ) : file === "uploading" ? (
-          <div className='shadow-box button'>
-            <span className='progress'></span> <span>Uploading File</span>
-          </div>
-        ) : file === "completed" ? (
-          <div className='shadow-box button green'>
-            File uploaded <span className='material-icons'>done</span>
-          </div>
-        ) : (
-          ""
-        )}
-      </label>
+      {isEmailVerified && isPhoneNumberVerified && (
+        <label>
+          <input
+            type='file'
+            name='file'
+            id='choose-file'
+            onChange={handleFileUpload}
+          />
+          {reset === true ? (
+            <div className='shadow-box button'>Choose File</div>
+          ) : file === "uploading" ? (
+            <div className='shadow-box button'>
+              <span className='progress'></span> <span>Uploading File</span>
+            </div>
+          ) : file === "completed" ? (
+            <div className='shadow-box button green'>
+              File uploaded <span className='material-icons'>done</span>
+            </div>
+          ) : (
+            ""
+          )}
+        </label>
+      )}
     </div>
   );
 }

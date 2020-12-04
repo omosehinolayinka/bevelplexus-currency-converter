@@ -114,7 +114,7 @@ function Paymentrecipient({ showTips }) {
               >
                 {allRecipients.map((recipient) => (
                   <Option
-                    value={recipient.name}
+                    value={recipient.id}
                     key={recipient.id}
                     name={recipient}
                   >

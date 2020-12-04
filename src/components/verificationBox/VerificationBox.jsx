@@ -39,7 +39,15 @@ function VerificationBox() {
     <div className='box-container'>
       <div className='shadow-box shadow-box-highlight'>
         <div className='box-heading'>
-          <h3>LEVEL 1</h3>
+          <h3>
+            LEVEL{" "}
+            {isEmailVerified &&
+            isPhoneNumberVerified &&
+            isIdentityVerified &&
+            identityDocumentUrl
+              ? "2"
+              : "1"}
+          </h3>
           <Tooltip placement='bottomRight' title={text}>
             <img src='/assets/svg/info.svg' alt='icon' />
           </Tooltip>
@@ -68,12 +76,12 @@ function VerificationBox() {
           </p>
           {userContext.state.user.userType !== "Regular" && (
             <p className='fade-text'>
-              School information{" "}
+              School information
               {isSchoolEnrollmentVerified ? (
                 <img src='/assets/svg/green-check-alt.svg' alt='' />
               ) : (
                 <span class='material-icons'>close</span>
-              )}{" "}
+              )}
             </p>
           )}
           <p>

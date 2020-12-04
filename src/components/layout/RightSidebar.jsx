@@ -1,54 +1,122 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import "./RightSidebar.scss";
 
 import Calculator from "../currencyCalc/CurrencyCalc";
 
+import UserContext from "../../context/user/userContext";
+
 import { Dropdown, Tooltip, Button } from "antd";
 
 function RightSidebar({ collapsed, collapseRightSidebar }) {
+  const userContext = useContext(UserContext);
+
+  const {
+    isEmailVerified,
+    isIdentityVerified,
+    isPhoneNumberVerified,
+    isSchoolEnrollmentVerified,
+    identityDocumentUrl,
+  } = userContext.state.user.userVerification;
+
+  const getRegularVerification = () => {
+    let status = 0;
+
+    const verification = [
+      isEmailVerified,
+      isPhoneNumberVerified,
+      isIdentityVerified,
+      identityDocumentUrl,
+    ];
+
+    verification.forEach((item) => {
+      item === true && status++;
+    });
+
+    switch (status) {
+      case 0:
+        return "0% VERIFIED";
+      case 1:
+        return "25% VERIFIED";
+      case 2:
+        return "50% VERIFIED";
+      case 3:
+        return "75% VERIFIED";
+      case 4:
+        return "100% VERIFIED";
+
+      default:
+        break;
+    }
+  };
+
+  const getStudentVerification = () => {};
+
   const menu = (
-    <div id="profile-dropdown">
+    <div id='profile-dropdown'>
       <ul>
-        <li><Link to='/account'>View my account</Link></li>
-        <li><Link to='/transactions'>Transaction history</Link></li>
+        <li>
+          <Link to='/account'>View my account</Link>
+        </li>
+        <li>
+          <Link to='/transactions'>Transaction history</Link>
+        </li>
       </ul>
 
-      <Link to='/' className='logout-link' >Logout</Link>
+      <Link to='/' className='logout-link'>
+        Logout
+      </Link>
     </div>
   );
 
-  const notifications = (<div id='notifications-dropdown'>
-    <div className="pointer"></div>
-    <div className="top-border"></div>
-    
-    <ul>
-      <li> 
-        <img src="assets/svg/greendot.svg" alt=""/>
-        <p>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit nostrud amet.</p>
-      </li>
+  const notifications = (
+    <div id='notifications-dropdown'>
+      <div className='pointer'></div>
+      <div className='top-border'></div>
 
-      <li> 
-        <img src="assets/svg/greendot.svg" alt=""/>
-        <p>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit</p>
-      </li>
+      <ul>
+        <li>
+          <img src='assets/svg/greendot.svg' alt='' />
+          <p>
+            Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
+            sint. Velit nostrud amet.
+          </p>
+        </li>
 
-      <li> 
-        <img src="assets/svg/greendot.svg" alt=""/>
-        <p>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit</p>
-      </li>
+        <li>
+          <img src='assets/svg/greendot.svg' alt='' />
+          <p>
+            Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
+            sint. Velit
+          </p>
+        </li>
 
-      <li> 
-        <img src="assets/svg/orangecheck.svg" alt=""/>
-        <p>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit</p>
-      </li>
+        <li>
+          <img src='assets/svg/greendot.svg' alt='' />
+          <p>
+            Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
+            sint. Velit
+          </p>
+        </li>
 
-      <li> 
-        <img src="assets/svg/orangecheck.svg" alt=""/>
-        <p>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit</p>
-      </li>
-    </ul>
-  </div>);
+        <li>
+          <img src='assets/svg/orangecheck.svg' alt='' />
+          <p>
+            Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
+            sint. Velit
+          </p>
+        </li>
+
+        <li>
+          <img src='assets/svg/orangecheck.svg' alt='' />
+          <p>
+            Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
+            sint. Velit
+          </p>
+        </li>
+      </ul>
+    </div>
+  );
 
   const tooltipStyle = {
     display: "flex",
@@ -153,7 +221,13 @@ function RightSidebar({ collapsed, collapseRightSidebar }) {
               </div>
 
               <div className='mini-profile__notification'>
-                <span className='badge success'>50% VERIFICATION</span>
+                {userContext.state.user.userType === "Regular" ? (
+                  <span className='badge success'>
+                    {getRegularVerification()}
+                  </span>
+                ) : (
+                  getStudentVerification()
+                )}
                 <Tooltip placement='bottomRight' title={text}>
                   <span className='material-icons'>error_outline</span>
                 </Tooltip>

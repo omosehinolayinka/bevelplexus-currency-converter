@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import RecipeientContext from "../../context/recipients/recipientContext";
 
 import { Select } from "antd";
@@ -124,6 +124,7 @@ function Editrecipient({ action }) {
               onChange={handleSelect}
               name='location'
               placeholder='location'
+              autocomplete="off"
             >
               {locations.map((location) => (
                 <Option key={location.code} value={location.name}>

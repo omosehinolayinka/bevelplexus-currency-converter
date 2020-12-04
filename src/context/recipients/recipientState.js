@@ -85,7 +85,7 @@ const RecipientState = (props) => {
 
   // add recipents
   const addRecipient = (data) => {
-   
+    console.log(data);
     client.mutate({
       mutation: gql.NEW_RECIPIENT,
       variables: {
@@ -97,6 +97,7 @@ const RecipientState = (props) => {
       }
     })
     .then(res => {
+      console.log(res.data);
       const id = res.data.addRecipient.id
       addBankInfo(id, data)
       getRecipients()
@@ -108,6 +109,7 @@ const RecipientState = (props) => {
 
   // add bank info
   const addBankInfo = (id, data) => {
+    console.log(id, data);
     client.mutate({
       mutation: gql.ADD_BANK_INFO,
       variables: {
