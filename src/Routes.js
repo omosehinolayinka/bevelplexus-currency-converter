@@ -24,6 +24,9 @@ function Routes() {
   const transactionContext = useContext(TransactionContext);
 
   useEffect(() => {
+
+    localStorage.clear()
+
     fetch("https://bp-user.herokuapp.com/graphql", {
       method: "POST",
       headers: { "content-type": "application/json" },
