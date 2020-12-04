@@ -63,12 +63,25 @@ function VerificationBoxFile({ reset, setReset }) {
         <div className='wrap'>
           {isEmailVerified && isPhoneNumberVerified && !isIdentityVerified ? (
             <p>
-              To upload a photo of a valid ID, to complete Level 1 verification
+              Upload a photo of a valid ID, to complete Level 1 verification
               before upgrading to level 2
             </p>
-          ) : isIdentityVerified && isEmailVerified && isPhoneNumberVerified ? (
+          ) : isIdentityVerified &&
+            isEmailVerified &&
+            isPhoneNumberVerified &&
+            !identityDocumentUrl ? (
             <p>
               To upgrade to this level, upload your identity Document Below{" "}
+            </p>
+          ) : userContext.state.userType === "Student" &&
+            isIdentityVerified &&
+            isEmailVerified &&
+            isPhoneNumberVerified &&
+            identityDocumentUrl &&
+            !isSchoolEnrollmentVerified ? (
+            <p>
+              To upgrade to this level, upload your school enrollment Document
+              Below
             </p>
           ) : (
             <p>Please complete level one verification first </p>

@@ -80,6 +80,14 @@ const AccountSettings = ({ showTips }) => {
     }
   };
 
+  const {
+    isEmailVerified,
+    isIdentityVerified,
+    isPhoneNumberVerified,
+    isSchoolEnrollmentVerified,
+    identityDocumentUrl,
+  } = userContext.state.user.userVerification;
+
   return (
     <div id='account'>
       <Layout currentMenu='account' showTips={showTips}>
@@ -218,7 +226,17 @@ const AccountSettings = ({ showTips }) => {
 
             <div className='box-wrapper'>
               <VerificationBox />
-              <VerificationBoxFile reset={reset} setReset={setReset} />
+              {!isIdentityVerified ||
+              !isEmailVerified ||
+              !isPhoneNumberVerified ||
+              !identityDocumentUrl ? (
+                <VerificationBoxFile reset={reset} setReset={setReset} />
+              ) : userContext.state.user.userType === "Student" &&
+                !isSchoolEnrollmentVerified ? (
+                <VerificationBoxFile reset={reset} setReset={setReset} />
+              ) : (
+                ""
+              )}
             </div>
 
             <div id='changePassword' className='page-header'>

@@ -46,6 +46,13 @@ function VerificationBox() {
             isIdentityVerified &&
             identityDocumentUrl
               ? "2"
+              : userContext.state.user.userType === "Student" &&
+                isEmailVerified &&
+                isPhoneNumberVerified &&
+                isIdentityVerified &&
+                identityDocumentUrl &&
+                isSchoolEnrollmentVerified
+              ? "2"
               : "1"}
           </h3>
           <Tooltip placement='bottomRight' title={text}>
@@ -85,8 +92,17 @@ function VerificationBox() {
             </p>
           )}
           <p>
-            Identity Verification
-            {isIdentityVerified && identityDocumentUrl ? (
+            ID Verification
+            {isIdentityVerified ? (
+              <img src='/assets/svg/green-check-alt.svg' alt='' />
+            ) : (
+              <span class='material-icons'>close</span>
+            )}
+          </p>
+
+          <p>
+            Identity Document
+            {identityDocumentUrl ? (
               <img src='/assets/svg/green-check-alt.svg' alt='' />
             ) : (
               <span class='material-icons'>close</span>
