@@ -195,6 +195,10 @@
   margin-right: 370px;
   padding: 70px 20px;
 
+  @media(max-width: 725px) {
+    height: auto;
+  }
+
   header {
     display: none;
   }
