@@ -1618,3 +1618,4 @@
 [0930/105708.385:ERROR:crash_report_database_win.cc(469)] failed to stat report
 [0930/105708.385:ERROR:crash_report_database_win.cc(469)] failed to stat report
 [0930/105708.385:ERROR:crash_report_database_win.cc(469)] failed to stat report
+[1204/122507.522:ERROR:filesystem_win.cc(129)] GetFileAttributes C:\Users\Collins\AppData\Local\Google\Chrome\User Data\Crashpad\attachments\6fa7e5ef-f06b-45f3-8f65-b64104d9e3e4: The system cannot find the path specified. (0x3)

@@ -50,7 +50,39 @@ function RightSidebar({ collapsed, collapseRightSidebar }) {
     }
   };
 
-  const getStudentVerification = () => {};
+  const getStudentVerification = () => {
+    let status = 0;
+
+    const verification = [
+      isEmailVerified,
+      isPhoneNumberVerified,
+      isIdentityVerified,
+      identityDocumentUrl,
+      isSchoolEnrollmentVerified,
+    ];
+
+    verification.forEach((item) => {
+      item === true && status++;
+    });
+
+    switch (status) {
+      case 0:
+        return "0% VERIFIED";
+      case 1:
+        return "20% VERIFIED";
+      case 2:
+        return "40% VERIFIED";
+      case 3:
+        return "60% VERIFIED";
+      case 4:
+        return "80% VERIFIED";
+      case 5:
+        return "100% VERIFIED";
+
+      default:
+        break;
+    }
+  };
 
   const menu = (
     <div id='profile-dropdown'>
@@ -232,10 +264,17 @@ function RightSidebar({ collapsed, collapseRightSidebar }) {
                   <span className='material-icons'>error_outline</span>
                 </Tooltip>
               </div>
-
               <div className='mini-profile__cta'>
                 <Link to='/account'>
-                  <button>Complete Your Profile</button>
+                  {userContext.state.user.userType === "Regular" &&
+                  getRegularVerification() === "100% VERIFIED" ? (
+                    <button>View Profile</button>
+                  ) : userContext.state.user.userType === "Regular" &&
+                    getStudentVerification() === "100% VERIFIED" ? (
+                    <button>View Profile</button>
+                  ) : (
+                    <button>Complete Your Profile</button>
+                  )}
                 </Link>
               </div>
             </div>

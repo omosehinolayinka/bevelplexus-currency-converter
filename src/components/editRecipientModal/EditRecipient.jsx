@@ -1,57 +1,119 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./EditRecipient.scss";
 import locations from "../locations.json";
-import RecipientContext from '../../context/recipients/recipientContext'
+import RecipientContext from "../../context/recipients/recipientContext";
 
+import axios from "axios";
 import { Select } from "antd";
 
 function Editrecipient({ action, recipientState }) {
   const recipientContext = useContext(RecipientContext);
 
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const [disableBank, setDisableBank] = useState(false);
   const [recipient, setRecipient] = useState({
     name: "",
     email: "",
     phoneNumber: "",
     location: "",
     bank: "",
-    bankName: "",
+    acctName: "Please wait...",
     accountNumber: "",
-    closeModal: action
+    closeModal: action,
+    // loading: setLoading
   });
+
+  const invalidCheck = [
+    recipient.name,
+    recipient.email,
+    recipient.phoneNumber,
+    recipient.location,
+    recipient.bank,
+    recipient.accountNumber,
+    recipient.acctName,
+  ];
 
   useEffect(() => {
     setRecipient({
       ...recipient,
       ...recipientState,
       ...recipientState.bankInfo[0],
-      bankName: recipientState.name
     });
 
     // eslint-disable-next-line
   }, []);
 
-  const handleChange = (e) => {
+  const getAccountDetails = (number) => {
+    axios
+      .get(
+        `https://app.nuban.com.ng/api/NUBAN-YGFQUYCA353?acc_no=${number}`
+      )
+      .then((res) => {
+        setRecipient({
+          ...recipient,
+          bank: res.data[0].bank_name,
+          acctName: res.data[0].account_name,
+        });
+      })
+      .catch((err) => console.log(err));
+  };
 
+  const handleChange = (e) => {
     setRecipient({
       ...recipient,
       [e.target.name]: e.target.value,
     });
-    
+  };
+
+  const handleBank = (e) => {
+    const num = e.target.value;
+
+    if (e.target.value.length === 10) {
+      setDisableBank(true);
+
+      setRecipient({
+        ...recipient,
+        accountNumber: num,
+        bank: "Fetching...",
+        acctName: "Fetching...",
+      });
+
+      axios
+        .get(
+          `https://app.nuban.com.ng/api/NUBAN-YGFQUYCA353?acc_no=${e.target.value}`
+        )
+        .then((res) => {
+          setRecipient({
+            ...recipient,
+            accountNumber: num,
+            bank: res.data[0].bank_name,
+            acctName: res.data[0].account_name,
+          });
+
+          setDisableBank(false);
+        })
+        .catch((err) => console.log(err));
+    } else {
+      setRecipient({
+        ...recipient,
+        accountNumber: num,
+        bank: "",
+        acctName: "Account holder's name",
+      });
+    }
   };
 
   const handleSelect = (value) => {
     setRecipient({
       ...recipient,
-      location: value
-    })
-  }
-
+      location: value,
+    });
+  };
 
   const submitrecipient = () => {
     setLoading(true);
     recipientContext.updateRecipient(recipient);
-  }
+  };
 
   const { Option } = Select;
 
@@ -70,9 +132,11 @@ function Editrecipient({ action, recipientState }) {
             <span className='icon'>
               <img src='/assets/svg/contact.svg' alt='name' />
             </span>
+            <input type='hidden' value='something' />
             <input
               type='text'
               name='name'
+              autocomplete='off'
               value={recipient.name}
               onChange={handleChange}
             />
@@ -85,6 +149,7 @@ function Editrecipient({ action, recipientState }) {
             <input
               type='text'
               name='email'
+              autoComplete='new-password'
               value={recipient.email}
               onChange={handleChange}
             />
@@ -97,6 +162,7 @@ function Editrecipient({ action, recipientState }) {
             <input
               type='text'
               name='phoneNumber'
+              autoComplete='new-password'
               value={recipient.phoneNumber}
               onChange={handleChange}
             />
@@ -112,6 +178,7 @@ function Editrecipient({ action, recipientState }) {
               optionFilterProp='children'
               onChange={handleSelect}
               name='location'
+              autoComplete='dontshow'
               placeholder='location'
               value={recipient.location}
             >
@@ -130,6 +197,7 @@ function Editrecipient({ action, recipientState }) {
             <input
               type='text'
               name='bank'
+              disabled
               value={recipient.bank}
               onChange={handleChange}
             />
@@ -141,21 +209,36 @@ function Editrecipient({ action, recipientState }) {
             </span>
             <input
               type='text'
+              autoComplete='new-password'
               name='accountNumber'
+              disabled={disableBank}
               value={recipient.accountNumber}
-              onChange={handleChange}
+              onChange={handleBank}
             />
           </div>
         </div>
 
         <div className='btn-big-container'>
-          <button> {recipient.bankName} </button>
+          <button> {getAccountDetails(recipient.accountNumber) || recipient.acctName} </button>
         </div>
 
         <div className='buttons-container'>
           <button onClick={() => action(false)}>Cancel</button>
-          <button onClick={submitrecipient}> 
-            {loading ? <img src="/assets/svg/spinner.svg" alt="spinner"/> : "Save"} 
+          <button
+            className={
+              invalidCheck.includes("") ||
+              invalidCheck.includes("Fetching...") ||
+              invalidCheck.includes("Please wait...")
+                ? "disabled"
+                : ""
+            }
+            onClick={submitrecipient}
+          >
+            {loading ? (
+              <img src='/assets/svg/spinner.svg' alt='spinner' />
+            ) : (
+              "Save"
+            )}
           </button>
         </div>
       </div>

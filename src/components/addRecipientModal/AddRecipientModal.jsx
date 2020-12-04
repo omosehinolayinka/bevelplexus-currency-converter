@@ -10,7 +10,7 @@ function Editrecipient({ action }) {
   const recipientContext = useContext(RecipeientContext);
 
   const [loading, setLoading] = useState(false);
-
+  const [disableBank, setDisableBank] = useState(false);
   const [newRecipient, setNewRecipient] = useState({
     userId: localStorage.getItem("userId"),
     name: "",
@@ -21,7 +21,18 @@ function Editrecipient({ action }) {
     accountNumber: "",
     acctName: "Account Holder's Name",
     closeModal: action,
+    // loading: setLoading
   });
+
+  const invalidCheck = [
+    newRecipient.name,
+    newRecipient.email,
+    newRecipient.phoneNumber,
+    newRecipient.location,
+    newRecipient.bank,
+    newRecipient.accountNumber,
+    newRecipient.acctName,
+  ];
 
   const handleChange = (e) => {
     setNewRecipient({
@@ -31,16 +42,31 @@ function Editrecipient({ action }) {
   };
 
   const handleBank = (e) => {
-    handleChange(e);
+    const num = e.target.value;
+
+    setNewRecipient({
+      ...newRecipient,
+      accountNumber: num,
+      bank: "Fetching...",
+      acctName: "Fetching...",
+    });
+
     if (e.target.value.length === 10) {
+      setDisableBank(true);
+
       axios
-        .get(`https://app.nuban.com.ng/api/NUBAN-YGFQUYCA353?acc_no=${e.target.value}`)
-        .then((res) =>{
+        .get(
+          `https://app.nuban.com.ng/api/NUBAN-YGFQUYCA353?acc_no=${e.target.value}`
+        )
+        .then((res) => {
           setNewRecipient({
             ...newRecipient,
+            accountNumber: num,
             bank: res.data[0].bank_name,
-            acctName: res.data[0].account_name
-          })
+            acctName: res.data[0].account_name,
+          });
+
+          setDisableBank(false);
         })
         .catch((err) => console.log(err));
     }
@@ -124,7 +150,7 @@ function Editrecipient({ action }) {
               onChange={handleSelect}
               name='location'
               placeholder='location'
-              autocomplete="off"
+              autoComplete='dontshow'
             >
               {locations.map((location) => (
                 <Option key={location.code} value={location.name}>
@@ -156,6 +182,7 @@ function Editrecipient({ action }) {
             <input
               required
               type='text'
+              disabled={disableBank}
               value={newRecipient.accountNumber}
               placeholder='Account Number'
               name='accountNumber'
@@ -170,7 +197,17 @@ function Editrecipient({ action }) {
 
         <div className='buttons-container'>
           <button onClick={() => action(false)}>Cancel</button>
-          <button onClick={handleSubmit}>
+          <button
+            className={
+              invalidCheck.includes("") ||
+              invalidCheck.includes("Fetching...") ||
+              invalidCheck.includes("Please wait...") ||
+              invalidCheck.includes("Account Holder's Name")
+                ? "disabled"
+                : ""
+            }
+            onClick={handleSubmit}
+          >
             {" "}
             {loading ? (
               <img src='assets/svg/spinner.svg' alt='spinner' />

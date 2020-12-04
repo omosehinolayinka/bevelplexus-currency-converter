@@ -97,10 +97,8 @@ const RecipientState = (props) => {
       }
     })
     .then(res => {
-      console.log(res.data);
       const id = res.data.addRecipient.id
       addBankInfo(id, data)
-      getRecipients()
     })
     .catch(() => {
       showError("Couldn't add recipient, please refresh")
@@ -119,11 +117,13 @@ const RecipientState = (props) => {
       }
     })
     .then(() => {
-      getRecipients()
+      getRecipients(defaultState.page)
+      showSuccess("Recipient Added")
       data.closeModal(false)
     }) 
     .catch(() => {
       showError("Couldn't add bank details, please try again")
+      // data.loading(false)
     })
   };
 
@@ -144,11 +144,9 @@ const RecipientState = (props) => {
       .then(() => {
         updateBank(data);
       })
-      .then(() => {
-        getRecipients();
-      })
       .catch(() => {
-        showError("Unexpected error, check your network");
+        showError("Error updating recipient");
+        // data.loading(false)
       });
   };
 
@@ -165,11 +163,13 @@ const RecipientState = (props) => {
         },
       })
       .then(() => {
-        getRecipients();
-        data.closeModal(false)
+        getRecipients(defaultState.page);
+        showSuccess("Recipient Updated")
+        data.closeModal(false);
       })
       .catch(() => {
         showError("Coulnd't update bank info, check your network");
+        data.loading(false)
       });
   };
 
@@ -186,6 +186,18 @@ const RecipientState = (props) => {
   // show error notice
   const showError = (message) => {
     toast.error(message, {
+      autoClose: 3000,
+      closeButton: true,
+      pauseOnHover: true,
+      position: "top-right",
+      hideProgressBar: true,
+      toastId: "Yes",
+    });
+  };
+
+  // show success notice
+  const showSuccess = (message) => {
+    toast.success(message, {
       autoClose: 3000,
       closeButton: true,
       pauseOnHover: true,

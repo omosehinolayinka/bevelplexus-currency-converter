@@ -202,6 +202,10 @@ button.primary:hover {
   background-color: #fff !important;
 }
 
+.ant-select-single .ant-select-selector .ant-select-selection-search {
+  left: 0 !important;
+}
+
 .pagination_container {
   display: flex;
   justify-content: center;

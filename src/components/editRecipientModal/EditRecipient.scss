@@ -87,6 +87,7 @@
           all: unset;
           background-color: transparent;
           color: #B4BEC6;
+          width: 100%;
         }
     
         input::placeholder {
@@ -147,6 +148,12 @@
         img {
           max-height: 100%;
         }
+      }
+
+      button.disabled {
+        pointer-events: none;
+        cursor: not-allowed;
+        opacity: 0.3;
       }
 
       button:focus {
