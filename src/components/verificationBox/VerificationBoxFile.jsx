@@ -37,9 +37,25 @@ function VerificationBoxFile({ reset, setReset }) {
     </div>
   );
 
-  const handleFileUpload = () => {
+  const handleFileUpload = ({
+    target: {
+      validity,
+      files: [file],
+    },
+  }) => {
     setFile("uploading");
     setReset(false);
+
+    if (
+      userContext.state.userType === "Student" &&
+      isIdentityVerified &&
+      identityDocumentUrl
+    ) {
+      console.log("student verification");
+    } else {
+      const data = { file }
+      validity.valid && userContext.verifyIdentity(data);
+    }
 
     setTimeout(() => {
       setFile("completed");
@@ -88,7 +104,10 @@ function VerificationBoxFile({ reset, setReset }) {
           )}
         </div>
       </div>
-      {isEmailVerified && isPhoneNumberVerified && (
+
+      {!isIdentityVerified ||
+      !identityDocumentUrl ||
+      !isSchoolEnrollmentVerified ? (
         <label>
           <input
             type='file'
@@ -110,6 +129,8 @@ function VerificationBoxFile({ reset, setReset }) {
             ""
           )}
         </label>
+      ) : (
+        ""
       )}
     </div>
   );

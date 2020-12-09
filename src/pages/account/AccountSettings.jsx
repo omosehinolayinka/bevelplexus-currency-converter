@@ -54,7 +54,19 @@ const AccountSettings = ({ showTips }) => {
   const handleSave = () => {
     setLoading(true);
     setReset(true);
-    userContext.resetPassword(password, setLoading);
+
+    if (
+      password.newPassword === "" ||
+      password.oldPassword === "" ||
+      (password.newPassword.length < 8 && password.newPassword.length > 0)
+    ) {
+
+      setTimeout(() => {
+        setLoading(false)
+      }, 2000);
+    } else {
+      userContext.resetPassword(password, setLoading);
+    }
   };
 
   const updateUser = () => {
@@ -284,17 +296,7 @@ const AccountSettings = ({ showTips }) => {
         </section>
 
         <div className='save-button-container'>
-          <Link
-            to='#'
-            className={
-              password.newPassword === "" ||
-              password.oldPassword === "" ||
-              (password.newPassword.length < 8 &&
-                password.newPassword.length > 0)
-                ? "disabled"
-                : ""
-            }
-          >
+          <Link to='#'>
             <button className='right' onClick={handleSave}>
               {loading ? (
                 <img src='/assets/svg/spinner.svg' alt='spinner' />

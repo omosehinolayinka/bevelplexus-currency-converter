@@ -20,17 +20,6 @@ export const GET_USER = gql`
   }
 `;
 
-// export const VERIFICATION = gql`
-//   query($userId: String!) {
-//     getUserVerification(userId: $userId) {
-//       isEmailVerified
-//       isIdentityVerified
-//       isPhoneNumberVerified
-//       isSchoolEnrollmentVerified
-//     }
-//   }
-// `;
-
 export const UPDATE_USER = gql`
   mutation updateUser(
     $userId: String!
@@ -72,9 +61,19 @@ export const RESET_PASSWORD = gql`
   }
 `;
 
+export const VERIFY_IDENTITY = gql`
+  mutation verifyIdentity($file: Upload!, $userId: String!) {
+    verifyIdentity(file: $file, userId: $userId) {
+      userId
+      updatedAt
+    }
+  }
+`;
+
 export const queries = {
   GET_USER,
   UPDATE_USER,
   RESET_PASSWORD,
+  VERIFY_IDENTITY,
   // VERIFICATION
 };

@@ -70,7 +70,7 @@ function VerificationBox() {
             {isEmailVerified ? (
               <img src='/assets/svg/green-check-alt.svg' alt='' />
             ) : (
-              <span class='material-icons'>close</span>
+              <span className='material-icons'>close</span>
             )}
           </p>
           <p>
@@ -78,7 +78,7 @@ function VerificationBox() {
             {isPhoneNumberVerified ? (
               <img src='/assets/svg/green-check-alt.svg' alt='' />
             ) : (
-              <span class='material-icons'>close</span>
+              <span className='material-icons'>close</span>
             )}
           </p>
           {userContext.state.user.userType !== "Regular" && (
@@ -87,7 +87,7 @@ function VerificationBox() {
               {isSchoolEnrollmentVerified ? (
                 <img src='/assets/svg/green-check-alt.svg' alt='' />
               ) : (
-                <span class='material-icons'>close</span>
+                <span className='material-icons'>close</span>
               )}
             </p>
           )}
@@ -96,7 +96,7 @@ function VerificationBox() {
             {isIdentityVerified ? (
               <img src='/assets/svg/green-check-alt.svg' alt='' />
             ) : (
-              <span class='material-icons'>close</span>
+              <span className='material-icons'>close</span>
             )}
           </p>
 
@@ -105,7 +105,7 @@ function VerificationBox() {
             {identityDocumentUrl ? (
               <img src='/assets/svg/green-check-alt.svg' alt='' />
             ) : (
-              <span class='material-icons'>close</span>
+              <span className='material-icons'>close</span>
             )}
           </p>
         </div>

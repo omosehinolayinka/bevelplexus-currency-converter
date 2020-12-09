@@ -107,6 +107,20 @@ const UserState = (props) => {
       });
   };
 
+  //verify identity
+  const verifyIdentity = ( data ) => {
+    console.log(data)
+    client.mutate({
+      mutation: gql.VERIFY_IDENTITY,
+      variables: {
+        file: data,
+        userId: localStorage.getItem("userId")
+      }
+    })
+    .then(res => console.log(res))
+    .catch(err => console.log(err.message))
+  }
+
   // show error notice
   const showError = (message) => {
     toast.error(message, {
@@ -155,6 +169,7 @@ const UserState = (props) => {
         getUser,
         updateUser,
         resetPassword,
+        verifyIdentity,
         // getVerification,
       }}
     >
