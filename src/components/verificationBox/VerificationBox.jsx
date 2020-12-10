@@ -40,7 +40,7 @@ function VerificationBox() {
       <div className='shadow-box shadow-box-highlight'>
         <div className='box-heading'>
           <h3>
-            LEVEL{" "}
+            LEVEL
             {isEmailVerified &&
             isPhoneNumberVerified &&
             isIdentityVerified &&
@@ -61,7 +61,21 @@ function VerificationBox() {
         </div>
 
         <div className='subtitle'>
-          <p>$1000 Dollar Limit</p>
+          <p>
+          {isEmailVerified &&
+            isPhoneNumberVerified &&
+            isIdentityVerified &&
+            identityDocumentUrl
+              ? "$2000 Dollar Limit"
+              : userContext.state.user.userType === "Student" &&
+                isEmailVerified &&
+                isPhoneNumberVerified &&
+                isIdentityVerified &&
+                identityDocumentUrl &&
+                isSchoolEnrollmentVerified
+              ? "$2000 Dollar Limit"
+              : "$1000 Dollar Limit"}
+          </p>
         </div>
 
         <div className='wrap'>

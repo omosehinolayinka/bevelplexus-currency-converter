@@ -53,13 +53,9 @@ function VerificationBoxFile({ reset, setReset }) {
     ) {
       console.log("student verification");
     } else {
-      const data = { file }
-      validity.valid && userContext.verifyIdentity(data);
+      // const data = { file };
+      validity.valid && userContext.verifyIdentity(file, setFile);
     }
-
-    setTimeout(() => {
-      setFile("completed");
-    }, 3500);
   };
 
   return (

@@ -3,7 +3,14 @@ import UserContext from "./userContext";
 import UserReducer from "./userReducer";
 import { queries as gql } from "./gqlQueries";
 import { setContext } from "@apollo/client/link/context";
-import { ApolloClient, createHttpLink, InMemoryCache } from "@apollo/client";
+import {
+  ApolloClient,
+  createHttpLink,
+  // createUploadLink,
+  InMemoryCache,
+} from "@apollo/client";
+
+import {createUploadLink} from 'apollo-upload-client';
 
 import { toast } from "react-toastify";
 
@@ -108,18 +115,38 @@ const UserState = (props) => {
   };
 
   //verify identity
-  const verifyIdentity = ( data ) => {
-    console.log(data)
-    client.mutate({
-      mutation: gql.VERIFY_IDENTITY,
-      variables: {
-        file: data,
-        userId: localStorage.getItem("userId")
-      }
-    })
-    .then(res => console.log(res))
-    .catch(err => console.log(err.message))
-  }
+  const verifyIdentity = (file, setFile) => {
+    const link = createUploadLink({
+      uri: "https://bp-user.herokuapp.com/graphql"
+    });
+
+    const authLink = setContext((_, { headers }) => {
+      const token = localStorage.getItem("token");
+  
+      return {
+        headers: {
+          ...headers,
+          authorization: token ? `Bearer ${token}` : "",
+        },
+      };
+    });
+
+    const uploadClient = new ApolloClient({
+      link: authLink.concat(link),
+      cache: new InMemoryCache(),
+    });
+
+    uploadClient
+      .mutate({
+        mutation: gql.VERIFY_IDENTITY,
+        variables: {
+          file: file ,
+          userId: localStorage.getItem("userId"),
+        },
+      })
+      .then(() => setFile("completed"))
+      .catch(() => showError("Couldn't upload file, try again"));
+  };
 
   // show error notice
   const showError = (message) => {
