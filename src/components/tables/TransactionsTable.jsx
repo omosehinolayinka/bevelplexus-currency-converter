@@ -91,7 +91,7 @@ function TransactionsTable( { data } ) {
                     <span
                     style={{fontSize: "0.6rem"}}
                       className={
-                        data.status === "completed"
+                        data.status === "Completed"
                           ? "badge success"
                           : data.status === "In Progress"
                           ? "badge warning"

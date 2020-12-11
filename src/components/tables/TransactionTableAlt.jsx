@@ -86,7 +86,7 @@ function TransactionsTable({ data }) {
                   <div>
                     <span
                       className={
-                        data.status === "completed"
+                        data.status === "Completed"
                           ? "badge success"
                           : data.status === "In Progress"
                           ? "badge warning"

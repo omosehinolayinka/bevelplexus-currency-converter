@@ -36,7 +36,7 @@ function PaymentReview({ showTips }) {
 
         <div className='section-three'>
           <div className='section-title'>
-            <p>recipient Details</p>
+            <p>Recipient Details</p>
           </div>
 
           <div className='box-container'>
