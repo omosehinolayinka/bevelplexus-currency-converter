@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./TransactionsTable.scss";
 
 import dateFormat from "dateformat";
+
+import TransactionContext from "../../context/transactions/transactionContext"
 
 function TransactionsTable( { data } ) {
   const [expanded, setExpanded] = useState("");
@@ -13,6 +15,19 @@ function TransactionsTable( { data } ) {
   dateFormat.masks.custom = "dd/mm/yy";
 
   const transactions =  data.slice(0, 5);
+
+  const transactionContext = useContext(TransactionContext);
+
+  useEffect(() => {
+    const page = {
+      offset: 0,
+      limit: 5,
+    };
+
+    transactionContext.getTransactions(page);
+
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <div id='transaction-table'>

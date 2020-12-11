@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import "./Dashboard.scss";
 
@@ -20,17 +20,6 @@ function Dashboard({ showTips }) {
 
     return amount;
   };
-
-  useEffect(() => {
-    const page = {
-      offset: 0,
-      limit: 5,
-    };
-
-    transactionContext.getTransactions(page);
-
-    // eslint-disable-next-line
-  }, []);
 
   return (
     <div id='dashboard'>
@@ -90,7 +79,7 @@ function Dashboard({ showTips }) {
             {transactionContext.state.transactions.length > 0 ? (
               <TransactionTable data={transactionContext.state.transactions} />
             ) : (
-              <p className='empty-text' style={{marginTop: "1rem"}}>
+              <p className='empty-text' style={{ marginTop: "1rem" }}>
                 You have not made any transactions yet
               </p>
             )}
