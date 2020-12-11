@@ -7,16 +7,20 @@ function Alert({ type, title, body, action }) {
   return (
     <div id='alert'>
       <div className='box'>
-        <Link to='/payment/review'>
+        {/* <Link to='#'>
           <button className='secondary' onClick={action}>
             <span className='material-icons'>clear</span>
           </button>
-        </Link>
+        </Link> */}
 
         <div className='wrap'>
           {type === "error" ? (
             <p className='icon danger'>
               <span className='material-icons danger'>priority_high</span>
+            </p>
+          ) : type === 'warning' ? (
+            <p className='icon warning'>
+              <span className='material-icons warning'>error</span>
             </p>
           ) : (
             <p className='icon success'>
@@ -25,6 +29,7 @@ function Alert({ type, title, body, action }) {
           )}
           <h2 className='heading'> {title} </h2>
           <p className='body'> {body} </p>
+          <button className="primary" onClick={action}>Proceed</button>
         </div>
       </div>
     </div>

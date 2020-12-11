@@ -13,11 +13,24 @@
   z-index: 100;
 
   .box {
-    width: 370px;
-    height: 232px;
+    
+    height: auto;
     background-color: #fff;
     border-radius: 6px;
     position: relative;
+    padding: 1rem;
+
+    @media(min-width: 1000px) {
+      width: 40%;
+    }
+
+    @media(max-width: 999px) {
+      width: 60%;
+    }
+
+    @media(max-width: 600px) {
+      width: 85%;
+    }
 
     .wrap {
       display: flex;
@@ -28,6 +41,7 @@
       height: 100%;
       position: relative;
       top: 1rem;
+      padding: 0 1rem 1rem;
 
       p.icon {
         border: 1px solid transparent;
@@ -45,6 +59,10 @@
 
         span.success {
           color: $green;
+        }
+
+        span.warning {
+          color: #daa917;
         }
 
         span {
@@ -67,8 +85,19 @@
 
       p.body {
         font-size: 1rem;
-        color: #B4BEC6;
+        color: #788691;
         text-align: center;
+      }
+
+      button.primary {
+        margin: 1rem 0;
+        width: 70%;
+        border: none;
+        display: block;
+        position: static;
+        background-color: $blue;
+        color: #fff;
+        padding: .7rem 0;
       }
     }
 

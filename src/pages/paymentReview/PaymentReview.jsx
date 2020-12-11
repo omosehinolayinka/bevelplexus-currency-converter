@@ -151,30 +151,30 @@ function PaymentReview({ showTips }) {
               </div>
 
               <div className='box__title'>
-                <h3>E-Transfer</h3>
+                <h3> {paymentContext.state.paymentOption} </h3>
               </div>
 
               <div id='payment-summary-card'>
-                <p>
-                  <span>Bank:</span>
-                  <span>Access (Diamond Bank)</span>
-                </p>
+                <div className='payment-method'>
+                  <p>
+                    <span>Bank:</span>
+                    <span>Access (Diamond Bank)</span>
+                  </p>
 
-                <p>
-                  <span>Account Name:</span>
-                  <span>Bevel Plexus Texnologies</span>
-                </p>
+                  <p>
+                    <span>Account Name:</span>
+                    <span>Bevel Plexus Texnologies</span>
+                  </p>
 
-                <p>
-                  <span>Account Number:</span>
-                  <span className='greentext'>0110214749</span>
-                </p>
+                  <p>
+                    <span>Account Number:</span>
+                    <span className='greentext'>0110214749</span>
+                  </p>
+                </div>
 
-                <p>
+                <p className="reference-id">
                   <span>Deposit Reference:</span>
-                  <span>
-                    { paymentContext.state.referenceID }
-                  </span>
+                  <span>{paymentContext.state.referenceID}</span>
                 </p>
               </div>
             </div>

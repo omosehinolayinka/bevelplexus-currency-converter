@@ -142,10 +142,12 @@ const PaymentState = (props) => {
         type: SET_REFERENCE,
         payload: reference
       })
+
       alert(true);
     })
     .catch(err => {
       console.log(err);
+      alert(true);
     })
   }
 

@@ -120,16 +120,16 @@ function PaymentOptions({showTips}) {
           <Link to='/payment/transfer'>
             <button className='left'>Previous</button>
           </Link>
-          <Link to='/payment/review'>
+          <Link to='#'>
             <button className='right' onClick={initiateTransaction}>Pay</button>
           </Link>
         </div>
 
         {alert && (
           <Alert
-            type='success'
+            type='warning'
             title='Order Initiated'
-            body="You will be notified once it's complete"
+            body="Please read the INSTRUCTIONS on the next screen to complete payment process for this transaction"
             action={() => setRedirect(true)}
           />
         )}
