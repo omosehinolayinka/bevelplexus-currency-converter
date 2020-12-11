@@ -120,7 +120,7 @@ function PaymentOptions({showTips}) {
           <Link to='/payment/transfer'>
             <button className='left'>Previous</button>
           </Link>
-          <Link to='#'>
+          <Link to='/payment/review'>
             <button className='right' onClick={initiateTransaction}>Pay</button>
           </Link>
         </div>

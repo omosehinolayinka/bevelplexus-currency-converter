@@ -33,6 +33,8 @@ const TransactionState = (props) => {
         }
       })
       .then((res) => {
+        console.log(page);
+        console.log(res);
         dispatch({
           type: GET_TRANSACTIONS,
           payload: res.data.getAllTransaction
