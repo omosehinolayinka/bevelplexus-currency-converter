@@ -24,7 +24,7 @@ const UserState = (props) => {
         isIdentityVerified: false,
         isPhoneNumberVerified: false,
         isSchoolEnrollmentVerified: false,
-        identityDocumentUrl: false,
+        identityDocumentUrl: "",
       },
     },
   };

@@ -31,6 +31,7 @@ function RightSidebar({ collapsed, collapseRightSidebar }) {
 
     verification.forEach((item) => {
       item === true && status++;
+      typeof(item) === "string" && status++
     });
 
     switch (status) {
@@ -217,7 +218,10 @@ function RightSidebar({ collapsed, collapseRightSidebar }) {
                     alt='avi'
                     className='avatar'
                   />
-                  <span className='profile-name'>{userContext.state.user.firstName} {userContext.state.user.lastName} </span>
+                  <span className='profile-name'>
+                    {userContext.state.user.firstName}{" "}
+                    {userContext.state.user.lastName}{" "}
+                  </span>
                   <span className='material-icons'>arrow_drop_down</span>
                 </Button>
               </Dropdown>
@@ -254,7 +258,10 @@ function RightSidebar({ collapsed, collapseRightSidebar }) {
               </div>
 
               <div className='mini-profile__details'>
-                <p>{userContext.state.user.firstName} {userContext.state.user.lastName}</p>
+                <p>
+                  {userContext.state.user.firstName}{" "}
+                  {userContext.state.user.lastName}
+                </p>
                 <p>{userContext.state.user.email}</p>
               </div>
 
@@ -264,7 +271,9 @@ function RightSidebar({ collapsed, collapseRightSidebar }) {
                     {getRegularVerification()}
                   </span>
                 ) : (
-                  getStudentVerification()
+                  <span className='badge success'>
+                    getStudentVerification()
+                  </span>
                 )}
                 <Tooltip placement='bottomRight' title={text}>
                   <span className='material-icons'>error_outline</span>

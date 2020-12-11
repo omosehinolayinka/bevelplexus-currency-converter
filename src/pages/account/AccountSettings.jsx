@@ -60,9 +60,8 @@ const AccountSettings = ({ showTips }) => {
       password.oldPassword === "" ||
       (password.newPassword.length < 8 && password.newPassword.length > 0)
     ) {
-
       setTimeout(() => {
-        setLoading(false)
+        setLoading(false);
       }, 2000);
     } else {
       userContext.resetPassword(password, setLoading);
@@ -99,6 +98,72 @@ const AccountSettings = ({ showTips }) => {
     isSchoolEnrollmentVerified,
     identityDocumentUrl,
   } = userContext.state.user.userVerification;
+
+  const getRegularVerification = () => {
+    let status = 0;
+
+    const verification = [
+      isEmailVerified,
+      isPhoneNumberVerified,
+      isIdentityVerified,
+      identityDocumentUrl,
+    ];
+
+    verification.forEach((item) => {
+      item === true && status++;
+      typeof(item) === "string" && status++
+    });
+
+    switch (status) {
+      case 0:
+        return "0% VERIFIED";
+      case 1:
+        return "25% VERIFIED";
+      case 2:
+        return "50% VERIFIED";
+      case 3:
+        return "75% VERIFIED";
+      case 4:
+        return "100% VERIFIED";
+
+      default:
+        break;
+    }
+  };
+
+  const getStudentVerification = () => {
+    let status = 0;
+
+    const verification = [
+      isEmailVerified,
+      isPhoneNumberVerified,
+      isIdentityVerified,
+      identityDocumentUrl,
+      isSchoolEnrollmentVerified,
+    ];
+
+    verification.forEach((item) => {
+      item === true && status++;
+    });
+
+    switch (status) {
+      case 0:
+        return "0% VERIFIED";
+      case 1:
+        return "20% VERIFIED";
+      case 2:
+        return "40% VERIFIED";
+      case 3:
+        return "60% VERIFIED";
+      case 4:
+        return "80% VERIFIED";
+      case 5:
+        return "100% VERIFIED";
+
+      default:
+        break;
+    }
+  };
 
   return (
     <div id='account'>
@@ -232,7 +297,11 @@ const AccountSettings = ({ showTips }) => {
             <div id='verificationSettings' className='page-header'>
               <div className='content-title'>
                 <h2>Verification Levels</h2>
-                <span className='badge success'>50% VERIFIED</span>
+                <span className='badge success'>
+                  {userContext.state.user.userType === "Regular"
+                    ? getRegularVerification()
+                    : getStudentVerification()}
+                </span>
               </div>
             </div>
 
