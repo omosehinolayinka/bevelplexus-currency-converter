@@ -145,9 +145,8 @@ const PaymentState = (props) => {
 
       alert(true);
     })
-    .catch(err => {
-      console.log(err);
-      alert(true);
+    .catch(() => {
+      showError("Couldn't process transaction, please try again")
     })
   }
 
@@ -162,6 +161,18 @@ const PaymentState = (props) => {
       toastId: "Yes",
     });
   }
+
+    // show success notice
+    // const showSuccess = (message) => {
+    //   toast.success(message, {
+    //     autoClose: 3000,
+    //     closeButton: true,
+    //     pauseOnHover: true,
+    //     position: "top-right",
+    //     hideProgressBar: true,
+    //     toastId: "Yes",
+    //   });
+    // };
 
   return (
     <PaymentContext.Provider
