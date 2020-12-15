@@ -10,7 +10,7 @@ import {
   InMemoryCache,
 } from "@apollo/client";
 
-import {createUploadLink} from 'apollo-upload-client';
+import { createUploadLink } from "apollo-upload-client";
 
 import { toast } from "react-toastify";
 
@@ -24,7 +24,7 @@ const UserState = (props) => {
         isIdentityVerified: false,
         isPhoneNumberVerified: false,
         isSchoolEnrollmentVerified: false,
-        identityDocumentUrl: "",
+        isUtilityBillVerified: false,
       },
     },
   };
@@ -49,6 +49,16 @@ const UserState = (props) => {
 
   const client = new ApolloClient({
     link: authLink.concat(httpLink),
+    cache: new InMemoryCache(),
+  });
+
+  // create client upload link
+  const link = createUploadLink({
+    uri: "https://bp-user.herokuapp.com/graphql",
+  });
+
+  const uploadClient = new ApolloClient({
+    link: authLink.concat(link),
     cache: new InMemoryCache(),
   });
 
@@ -116,31 +126,39 @@ const UserState = (props) => {
 
   //verify identity
   const verifyIdentity = (file, setFile) => {
-    const link = createUploadLink({
-      uri: "https://bp-user.herokuapp.com/graphql"
-    });
-
-    const authLink = setContext((_, { headers }) => {
-      const token = localStorage.getItem("token");
-  
-      return {
-        headers: {
-          ...headers,
-          authorization: token ? `Bearer ${token}` : "",
-        },
-      };
-    });
-
-    const uploadClient = new ApolloClient({
-      link: authLink.concat(link),
-      cache: new InMemoryCache(),
-    });
-
     uploadClient
       .mutate({
         mutation: gql.VERIFY_IDENTITY,
         variables: {
-          file: file ,
+          file: file,
+          userId: localStorage.getItem("userId"),
+        },
+      })
+      .then(() => setFile("completed"))
+      .catch(() => showError("Couldn't upload file, try again"));
+  };
+
+  //verify utility
+  const verifyUtility = (file, setFile) => {
+    uploadClient
+      .mutate({
+        mutation: gql.VERIFY_UTILITY,
+        variables: {
+          file: file,
+          userId: localStorage.getItem("userId"),
+        },
+      })
+      .then(() => setFile("completed"))
+      .catch(() => showError("Couldn't upload file, try again"));
+  };
+
+  //verify enrollment
+  const verifyEnrollment = (file, setFile) => {
+    uploadClient
+      .mutate({
+        mutation: gql.VERIFY_ENROLLMENT,
+        variables: {
+          file: file,
           userId: localStorage.getItem("userId"),
         },
       })
@@ -172,23 +190,6 @@ const UserState = (props) => {
     });
   };
 
-  // // check user verification level
-  // const getVerification = () => {
-  //   client.query({
-  //     query: gql.VERIFICATION,
-  //     variables: {
-  //       userId: localStorage.getItem("userId"),
-  //     },
-  //   })
-  //   .then(res => {
-  //     dispatch({
-  //       type: SET_VERIFICATION,
-  //       payload: res.data.getUserVerification
-  //     })
-  //   })
-  //   .catch(err => console.log(err))
-  // };
-
   return (
     <UserContext.Provider
       value={{
@@ -197,7 +198,8 @@ const UserState = (props) => {
         updateUser,
         resetPassword,
         verifyIdentity,
-        // getVerification,
+        verifyUtility,
+        verifyEnrollment,
       }}
     >
       {props.children}

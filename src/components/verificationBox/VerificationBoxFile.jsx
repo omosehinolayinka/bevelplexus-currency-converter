@@ -14,7 +14,7 @@ function VerificationBoxFile({ reset, setReset }) {
     isIdentityVerified,
     isPhoneNumberVerified,
     isSchoolEnrollmentVerified,
-    identityDocumentUrl,
+    isUtilityBillVerified,
   } = userContext.state.user.userVerification;
 
   const tooltipStyle = {
@@ -49,11 +49,12 @@ function VerificationBoxFile({ reset, setReset }) {
     if (
       userContext.state.userType === "Student" &&
       isIdentityVerified &&
-      identityDocumentUrl
+      isUtilityBillVerified
     ) {
-      console.log("student verification");
+      validity.valid && userContext.verifyEnrollment(file, setFile)
+    } else if (isIdentityVerified) {
+      validity.valid && userContext.verifyUtility(file, setFile)
     } else {
-      // const data = { file };
       validity.valid && userContext.verifyIdentity(file, setFile);
     }
   };
@@ -78,18 +79,12 @@ function VerificationBoxFile({ reset, setReset }) {
               Upload a photo of a valid ID, to complete Level 1 verification
               before upgrading to level 2
             </p>
-          ) : isIdentityVerified &&
-            isEmailVerified &&
-            isPhoneNumberVerified &&
-            !identityDocumentUrl ? (
+          ) : isIdentityVerified && !isUtilityBillVerified ? (
             <p>
-              To upgrade to this level, upload your identity Document Below{" "}
+              To upgrade to this level, upload a photo of your utility bill
+              Below{" "}
             </p>
-          ) : userContext.state.userType === "Student" &&
-            isIdentityVerified &&
-            isEmailVerified &&
-            isPhoneNumberVerified &&
-            identityDocumentUrl &&
+          ) : userContext.state.user.userType === "Student" &&
             !isSchoolEnrollmentVerified ? (
             <p>
               To upgrade to this level, upload your school enrollment Document
@@ -101,9 +96,9 @@ function VerificationBoxFile({ reset, setReset }) {
         </div>
       </div>
 
-      {!isIdentityVerified ||
-      !identityDocumentUrl ||
-      !isSchoolEnrollmentVerified ? (
+      {(isEmailVerified && isPhoneNumberVerified && !isIdentityVerified) ||
+      (isEmailVerified && isPhoneNumberVerified && !isUtilityBillVerified) ||
+      (isEmailVerified && isPhoneNumberVerified && !isSchoolEnrollmentVerified) ? (
         <label>
           <input
             type='file'

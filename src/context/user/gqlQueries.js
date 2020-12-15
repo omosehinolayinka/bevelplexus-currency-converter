@@ -14,7 +14,7 @@ export const GET_USER = gql`
         isIdentityVerified
         isPhoneNumberVerified
         isSchoolEnrollmentVerified
-        identityDocumentUrl
+        isUtilityBillVerified
       }
     }
   }
@@ -70,10 +70,31 @@ export const VERIFY_IDENTITY = gql`
   }
 `;
 
+export const VERIFY_UTILITY = gql`
+  mutation verifyUtilityBill($file: Upload!, $userId: String!) {
+    verifyUtilityBill(file: $file, userId: $userId) {
+      userId
+      updatedAt
+    }
+  }
+`;
+
+export const VERIFY_ENROLLMENT = gql`
+  mutation verifyEnrollment($file: Upload!, $userId: String!) {
+    verifyEnrollment(file: $file, userId: $userId) {
+      userId
+      updatedAt
+    }
+  }
+`;
+
+
+
 export const queries = {
   GET_USER,
   UPDATE_USER,
   RESET_PASSWORD,
   VERIFY_IDENTITY,
-  // VERIFICATION
+  VERIFY_UTILITY,
+  VERIFY_ENROLLMENT
 };

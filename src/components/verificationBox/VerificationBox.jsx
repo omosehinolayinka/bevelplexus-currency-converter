@@ -12,7 +12,7 @@ function VerificationBox() {
     isIdentityVerified,
     isPhoneNumberVerified,
     isSchoolEnrollmentVerified,
-    identityDocumentUrl,
+    isUtilityBillVerified,
   } = userContext.state.user.userVerification;
 
   const tooltipStyle = {
@@ -41,16 +41,16 @@ function VerificationBox() {
         <div className='box-heading'>
           <h3>
             LEVEL
-            {isEmailVerified &&
+            {userContext.state.user.userType === "Regular" && isEmailVerified &&
             isPhoneNumberVerified &&
             isIdentityVerified &&
-            identityDocumentUrl
+            isUtilityBillVerified
               ? "2"
               : userContext.state.user.userType === "Student" &&
                 isEmailVerified &&
                 isPhoneNumberVerified &&
                 isIdentityVerified &&
-                identityDocumentUrl &&
+                isUtilityBillVerified &&
                 isSchoolEnrollmentVerified
               ? "2"
               : "1"}
@@ -62,16 +62,16 @@ function VerificationBox() {
 
         <div className='subtitle'>
           <p>
-          {isEmailVerified &&
+          {userContext.state.user.userType === "Regular" && isEmailVerified &&
             isPhoneNumberVerified &&
             isIdentityVerified &&
-            identityDocumentUrl
+            isUtilityBillVerified
               ? "$2000 Dollar Limit"
               : userContext.state.user.userType === "Student" &&
                 isEmailVerified &&
                 isPhoneNumberVerified &&
                 isIdentityVerified &&
-                identityDocumentUrl &&
+                isUtilityBillVerified &&
                 isSchoolEnrollmentVerified
               ? "$2000 Dollar Limit"
               : "$1000 Dollar Limit"}
@@ -115,8 +115,8 @@ function VerificationBox() {
           </p>
 
           <p>
-            Identity Document
-            {identityDocumentUrl ? (
+            Utility bill verifiation
+            {isUtilityBillVerified ? (
               <img src='/assets/svg/green-check-alt.svg' alt='' />
             ) : (
               <span className='material-icons'>close</span>

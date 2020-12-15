@@ -16,7 +16,7 @@ function RightSidebar({ collapsed, collapseRightSidebar }) {
     isIdentityVerified,
     isPhoneNumberVerified,
     isSchoolEnrollmentVerified,
-    identityDocumentUrl,
+    isUtilityBillVerified,
   } = userContext.state.user.userVerification;
 
   const getRegularVerification = () => {
@@ -26,12 +26,11 @@ function RightSidebar({ collapsed, collapseRightSidebar }) {
       isEmailVerified,
       isPhoneNumberVerified,
       isIdentityVerified,
-      identityDocumentUrl,
+      isUtilityBillVerified,
     ];
 
     verification.forEach((item) => {
       item === true && status++;
-      typeof(item) === "string" && status++
     });
 
     switch (status) {
@@ -58,7 +57,7 @@ function RightSidebar({ collapsed, collapseRightSidebar }) {
       isEmailVerified,
       isPhoneNumberVerified,
       isIdentityVerified,
-      identityDocumentUrl,
+      isUtilityBillVerified,
       isSchoolEnrollmentVerified,
     ];
 

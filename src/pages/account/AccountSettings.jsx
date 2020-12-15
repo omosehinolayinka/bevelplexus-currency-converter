@@ -96,7 +96,7 @@ const AccountSettings = ({ showTips }) => {
     isIdentityVerified,
     isPhoneNumberVerified,
     isSchoolEnrollmentVerified,
-    identityDocumentUrl,
+    isUtilityBillVerified,
   } = userContext.state.user.userVerification;
 
   const getRegularVerification = () => {
@@ -106,12 +106,11 @@ const AccountSettings = ({ showTips }) => {
       isEmailVerified,
       isPhoneNumberVerified,
       isIdentityVerified,
-      identityDocumentUrl,
+      isUtilityBillVerified,
     ];
 
     verification.forEach((item) => {
       item === true && status++;
-      typeof(item) === "string" && status++
     });
 
     switch (status) {
@@ -138,7 +137,7 @@ const AccountSettings = ({ showTips }) => {
       isEmailVerified,
       isPhoneNumberVerified,
       isIdentityVerified,
-      identityDocumentUrl,
+      isUtilityBillVerified,
       isSchoolEnrollmentVerified,
     ];
 
@@ -310,7 +309,7 @@ const AccountSettings = ({ showTips }) => {
               {!isIdentityVerified ||
               !isEmailVerified ||
               !isPhoneNumberVerified ||
-              !identityDocumentUrl ? (
+              !isUtilityBillVerified ? (
                 <VerificationBoxFile reset={reset} setReset={setReset} />
               ) : userContext.state.user.userType === "Student" &&
                 !isSchoolEnrollmentVerified ? (
