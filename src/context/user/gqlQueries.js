@@ -16,6 +16,17 @@ export const GET_USER = gql`
         isSchoolEnrollmentVerified
         isUtilityBillVerified
       }
+      regularAccountDetail {
+        city
+        country
+        countryIso3Code
+      }
+      studentAccountDetail {
+        country
+        countryIso3Code
+        school
+        course
+      }
     }
   }
 `;
