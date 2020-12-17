@@ -2,7 +2,7 @@ import React, { useReducer } from "react";
 import PaymentContext from "./paymentContext";
 import PaymentReducer from "./paymentReducer";
 import { useApolloClient } from "@apollo/client";
-import { queries as gql } from './gqlQueries'
+import { queries as gql } from "./gqlQueries";
 import { toast } from "react-toastify";
 
 import {
@@ -12,11 +12,11 @@ import {
   SET_RECEIVE_TYPE,
   CALCULATION_TYPE,
   SET_PAYMENT_OPTION,
-  SET_REFERENCE
+  SET_REFERENCE,
+  SET_PAYMENT_METHODS,
 } from "../types";
 
 const PaymentState = (props) => {
-
   const defaultState = {
     fxDetails: {
       sendCurrency: "USD",
@@ -27,14 +27,18 @@ const PaymentState = (props) => {
       fee: 0.0,
       rate: 0.0,
       receiveType: "SameDay",
-      reverse: false
+      reverse: false,
     },
     recipient: {
-      name: null
+      name: null,
     },
     transactionType: "Individual",
     paymentOption: "E-transfer",
     referenceID: "",
+    paymentOptions: {
+      banks: [],
+      eTransfers: []
+    }
   };
 
   const [state, dispatch] = useReducer(PaymentReducer, defaultState);
@@ -42,31 +46,37 @@ const PaymentState = (props) => {
 
   // set calculation type
   const setReverseCalc = (value) => {
-
     dispatch({
       type: CALCULATION_TYPE,
-      payload: value
-    })
-  }
+      payload: value,
+    });
+  };
 
   // get fx rates
   const getFxRates = (params) => {
-   
     dispatch({
       type: SET_FX_PARAMETERS,
-      payload: params
+      payload: params,
     });
 
-    if (params.baseAmount !== "" || (params.reverse && params.convertedAmount !== "") ) {
-      
+    if (
+      params.baseAmount !== "" ||
+      (params.reverse && params.convertedAmount !== "")
+    ) {
       client
         .query({
           query: gql.GET_FX_RATES,
           fetchPolicy: "cache-first",
           variables: {
-            sendCurrency: params.reverse ? params.destinationCurrency : params.sendCurrency,
-            destinationCurrency: params.reverse ? params.sendCurrency : params.destinationCurrency,
-            baseAmount: params.reverse ? params.convertedAmount : params.baseAmount,
+            sendCurrency: params.reverse
+              ? params.destinationCurrency
+              : params.sendCurrency,
+            destinationCurrency: params.reverse
+              ? params.sendCurrency
+              : params.destinationCurrency,
+            baseAmount: params.reverse
+              ? params.convertedAmount
+              : params.baseAmount,
             receiveType: params.receiveType,
           },
         })
@@ -78,17 +88,21 @@ const PaymentState = (props) => {
             payload: {
               sendCurrency: params.sendCurrency,
               destinationCurrency: params.destinationCurrency,
-              baseAmount: params.reverse ? data.convertedAmount : params.baseAmount,
+              baseAmount: params.reverse
+                ? data.convertedAmount
+                : params.baseAmount,
               actualAmount: data.actualAmount,
               fee: data.fee,
               rate: data.rate,
-              convertedAmount: params.reverse ? params.convertedAmount : data.convertedAmount
+              convertedAmount: params.reverse
+                ? params.convertedAmount
+                : data.convertedAmount,
             },
           });
         })
         .catch((err) => {
           console.log(err);
-          showError("Sorry, an error occured")
+          showError("Sorry, an error occured");
         });
     }
   };
@@ -97,56 +111,85 @@ const PaymentState = (props) => {
   const setTransactionType = (params) => {
     dispatch({
       type: SET_TRANSACTION_TYPE,
-      payload: params
+      payload: params,
     });
-  }
+  };
 
   // set current recipient
   const setCurrentRecipient = (recipient) => {
     dispatch({
       type: SELECT_RECIPIENT,
-      payload: recipient
-    })
-  }
+      payload: recipient,
+    });
+  };
 
   // set transaction type
   const setReceiveType = (receiveType, params) => {
-
     dispatch({
       type: SET_RECEIVE_TYPE,
-      payload: receiveType
-    })
-
-  }
+      payload: receiveType,
+    });
+  };
 
   //set payment option
   const setPaymentOption = (value) => {
     dispatch({
       type: SET_PAYMENT_OPTION,
-      payload: value
-    })
-  }
+      payload: value,
+    });
+  };
 
-  // create transaction 
+  // create transaction
   const createTransaction = (data, alert) => {
-  
-    client.mutate({
-      mutation: gql.CREATE_TRANSACTION,
-      variables: {...data}
-    })
-    .then(res => {
-    
-      const reference = res.data.createTransaction.reference
-
-      dispatch({
-        type: SET_REFERENCE,
-        payload: reference
+    client
+      .mutate({
+        mutation: gql.CREATE_TRANSACTION,
+        variables: { ...data },
       })
+      .then((res) => {
+        const reference = res.data.createTransaction.reference;
 
-      alert(true);
+        dispatch({
+          type: SET_REFERENCE,
+          payload: reference,
+        });
+
+        getCountryId(data.destinationCurrency, alert)
+        // alert(true);
+      })
+      .catch((err) => {
+        console.log(err);
+        showError("Couldn't process transaction, please try again");
+      });
+  };
+
+  const getCountryId = (currency, alert) => {
+    client.query({
+      query: gql.GET_COUNTRY_ID,
+      variables: { currencyCode: currency },
+    })
+    .then((res) => {
+      getPaymentMethods(res.data.getCountryByCurrencyCode.id, alert)
     })
     .catch(() => {
-      showError("Couldn't process transaction, please try again")
+      showError("Opps! Your transaction may have not been proccessed correctly, please try again")
+    })
+  };
+
+  const getPaymentMethods = (id, alert) => {
+    client.query({
+      query: gql.GET_PAYMENT_METHODS,
+      variables: {countryId: id}
+    })
+    .then((res) => {
+      dispatch({
+        type: SET_PAYMENT_METHODS,
+        payload: res.data.getPaymentOptionsByCountry
+      })
+      alert(true)
+    })
+    .catch(err => {
+      console.log(err)
     })
   }
 
@@ -160,19 +203,19 @@ const PaymentState = (props) => {
       hideProgressBar: true,
       toastId: "Yes",
     });
-  }
+  };
 
-    // show success notice
-    // const showSuccess = (message) => {
-    //   toast.success(message, {
-    //     autoClose: 3000,
-    //     closeButton: true,
-    //     pauseOnHover: true,
-    //     position: "top-right",
-    //     hideProgressBar: true,
-    //     toastId: "Yes",
-    //   });
-    // };
+  // show success notice
+  // const showSuccess = (message) => {
+  //   toast.success(message, {
+  //     autoClose: 3000,
+  //     closeButton: true,
+  //     pauseOnHover: true,
+  //     position: "top-right",
+  //     hideProgressBar: true,
+  //     toastId: "Yes",
+  //   });
+  // };
 
   return (
     <PaymentContext.Provider
@@ -184,7 +227,7 @@ const PaymentState = (props) => {
         setCurrentRecipient,
         setReceiveType,
         setPaymentOption,
-        createTransaction
+        createTransaction,
       }}
     >
       {props.children}
