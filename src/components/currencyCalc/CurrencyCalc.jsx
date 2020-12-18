@@ -182,7 +182,7 @@ const CurrencyCalc = () => {
               value={convertedAmount}
               onChange={handleChange}
               onKeyUp={handleChange}
-              // disabled
+              disabled
             />
           </div>
 

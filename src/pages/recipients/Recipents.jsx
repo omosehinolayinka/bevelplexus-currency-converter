@@ -50,12 +50,12 @@ function TransactionHistory({ showTips }) {
               </div>
             </h2>
 
-            <form>
+            {/* <form>
               <label>
                 <span className='material-icons'>search</span>
                 <input type='text' placeholder='Search' />
               </label>
-            </form>
+            </form> */}
           </div>
         </div>
 

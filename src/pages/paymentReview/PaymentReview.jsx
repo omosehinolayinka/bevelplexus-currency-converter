@@ -156,78 +156,62 @@ function PaymentReview({ showTips }) {
 
               <div id='payment-summary-card'>
                 {paymentContext.state.paymentOption === "Bank payment" ? (
-                  <div className='payment-method'>
-                    <p>
-                      <span>Bank:</span>
-                      <span>Access (Diamond Bank)</span>
-                    </p>
+                  paymentContext.state.paymentOptions.banks.map(
+                    (bank, index) => (
+                      <div className='payment-method' key={index}>
+                        <p>
+                          <span>Bank:</span>
+                          <span> {bank.bankName} </span>
+                        </p>
 
-                    <p>
-                      <span>Account Name:</span>
-                      <span>Bevel Plexus Texnologies</span>
-                    </p>
+                        <p>
+                          <span>Account Name:</span>
+                          <span> {bank.accountName} </span>
+                        </p>
 
-                    <p>
-                      <span>Account Number:</span>
-                      <span className='greentext'>0110214749</span>
-                    </p>
-                  </div>
+                        <p>
+                          <span>Account Number:</span>
+                          <span className='greentext'>
+                            {" "}
+                            {bank.accountNumber}{" "}
+                          </span>
+                        </p>
+
+                        {bank.transitOrSortCode !== null && (
+                          <p>
+                            <span>Transit/Sort Code:</span>
+                            <span className='greentext'>
+                              {" "}
+                              {bank.transitOrSortCode}{" "}
+                            </span>
+                          </p>
+                        )}
+                      </div>
+                    )
+                  )
                 ) : paymentContext.state.paymentOption === "E-transfer" ? (
-                  <React.Fragment>
-                    <div className='payment-method'>
-                      <p>
-                        <b>CashApp</b>
-                      </p>
+                  paymentContext.state.paymentOptions.eTransfers.map(
+                    (option, index) => (
+                      <React.Fragment>
+                        <div className='payment-method'>
+                          <p>
+                            <b> {option.name} </b>
+                          </p>
 
-                      <p>
-                        <span>Cashapp ID:</span>
-                        <span className='greentext'>$bevelplexus</span>
-                      </p>
+                          <p>
+                            <span>{option.label}:</span>
+                            <span className='greentext'>
+                              {option.username}
+                            </span>
+                          </p>
 
-                      <p className='instructions'>
-                        Please cashapp{" "}
-                        {paymentContext.state.fxDetails.baseAmount}{" "}
-                        {paymentContext.state.fxDetails.sendCurrency} into the
-                        cashapp id above to complete this transaction
-                      </p>
-                    </div>
-
-                    <div className='payment-method'>
-                      <p>
-                        <b>Venmo</b>
-                      </p>
-
-                      <p>
-                        <span>Number:</span>
-                        <span className='greentext'>+1 (444) 000 0000</span>
-                      </p>
-
-                      <p className='instructions'>
-                        Please send{" "}
-                        {paymentContext.state.fxDetails.baseAmount}{" "}
-                        {paymentContext.state.fxDetails.sendCurrency} to the venmo
-                        phone number above to complete this transaction
-                      </p>
-                    </div>
-
-                    <div className='payment-method'>
-                      <p>
-                        <b>Paypal</b>
-                      </p>
-
-                      <p>
-                        <span>Email:</span>
-                        <span className='greentext'>payment@bevelplexus.com</span>
-                      </p>
-
-                      <p className='instructions'>
-                        Please send{" "}
-                        {paymentContext.state.fxDetails.baseAmount}{" "}
-                        {paymentContext.state.fxDetails.sendCurrency} through paypal to the email
-                        above to complete this transaction
-                      </p>
-                    </div>
-                  </React.Fragment>
+                          <p className='instructions'>
+                          {option.instructions}
+                          </p>
+                        </div>
+                      </React.Fragment>
+                    )
+                  )
                 ) : (
                   <div className='payment-method'>
                     <p>No payment methods available</p>
