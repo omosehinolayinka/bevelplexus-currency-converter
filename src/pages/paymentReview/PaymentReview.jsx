@@ -156,7 +156,7 @@ function PaymentReview({ showTips }) {
               </div>
 
               <div className='box__title'>
-                <h3> {paymentContext.state.paymentOption} </h3>
+                <h3> {paymentContext.state.paymentOption} Instructions</h3>
               </div>
 
               <div id='payment-summary-card'>
