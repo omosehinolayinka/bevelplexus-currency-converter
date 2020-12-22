@@ -66,19 +66,12 @@ export const GET_COUNTRY_ID = gql`
 
 export const GET_PAYMENT_METHODS = gql`
   query getPaymentOptionsByCountry($countryId: String!) {
-    getPaymentOptionsByCountry(countryId: $countryId) {
-      banks {
+    getPaymentChannelByCountryId(countryId: $countryId) {
+      paymentType
+      header
+      paymentProperties {
         label
-        bankName
-        accountName
-        accountNumber
-        transitOrSortCode
-      }
-      eTransfers {
-        name
-        instructions
-        label
-        username
+        value
       }
     }
   }
@@ -88,5 +81,5 @@ export const queries = {
   GET_FX_RATES,
   CREATE_TRANSACTION,
   GET_COUNTRY_ID,
-  GET_PAYMENT_METHODS
+  GET_PAYMENT_METHODS,
 };

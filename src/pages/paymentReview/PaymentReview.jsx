@@ -10,8 +10,6 @@ import PaymentContext from "../../context/payment/paymentContext";
 function PaymentReview({ showTips }) {
   const paymentContext = useContext(PaymentContext);
 
-  const [progress, setProgress] = useState("4");
-
   const { name, email, phoneNumber, location } = paymentContext.state.recipient;
 
   const {
@@ -27,9 +25,16 @@ function PaymentReview({ showTips }) {
       ? "Free"
       : baseAmount * 0.01;
 
+  const banks = paymentContext.state.paymentOptions.filter(
+    (item) => item.paymentType === "Bank"
+  );
+  const eTransfers = paymentContext.state.paymentOptions.filter(
+    (item) => item.paymentType === "ETransfer"
+  );
+
   return (
     <div id='payment-review'>
-      <Layout currentMenu='payment' payProgress={progress} showTips={showTips}>
+      <Layout currentMenu='payment' payProgress="5" showTips={showTips}>
         <div className='page-title'>
           <h1>Review</h1>
         </div>
@@ -156,62 +161,54 @@ function PaymentReview({ showTips }) {
 
               <div id='payment-summary-card'>
                 {paymentContext.state.paymentOption === "Bank payment" ? (
-                  paymentContext.state.paymentOptions.banks.map(
-                    (bank, index) => (
-                      <div className='payment-method' key={index}>
-                        <p>
-                          <span>Bank:</span>
-                          <span> {bank.bankName} </span>
-                        </p>
-
-                        <p>
-                          <span>Account Name:</span>
-                          <span> {bank.accountName} </span>
-                        </p>
-
-                        <p>
-                          <span>Account Number:</span>
-                          <span className='greentext'>
-                            {" "}
-                            {bank.accountNumber}{" "}
-                          </span>
-                        </p>
-
-                        {bank.transitOrSortCode !== null && (
-                          <p>
-                            <span>Transit/Sort Code:</span>
-                            <span className='greentext'>
-                              {" "}
-                              {bank.transitOrSortCode}{" "}
-                            </span>
-                          </p>
-                        )}
-                      </div>
-                    )
-                  )
-                ) : paymentContext.state.paymentOption === "E-transfer" ? (
-                  paymentContext.state.paymentOptions.eTransfers.map(
-                    (option, index) => (
-                      <React.Fragment>
+                  <React.Fragment>
+                    {banks.map((option, index) => (
+                      <React.Fragment key={index}>
                         <div className='payment-method'>
                           <p>
-                            <b> {option.name} </b>
+                            <b> {option.header} </b>
                           </p>
 
-                          <p>
-                            <span>{option.label}:</span>
-                            <span className='greentext'>
-                              {option.username}
-                            </span>
-                          </p>
-
-                          <p className='instructions'>
-                          {option.instructions}
-                          </p>
+                          {option.paymentProperties.map((item, index) => (
+                            <p key={index}>
+                              <span>{item.label}:</span>
+                              <span className='greentext'>{item.value}</span>
+                            </p>
+                          ))}
                         </div>
                       </React.Fragment>
-                    )
-                  )
+                    ))}
+                    {banks.length < 1 && (
+                      <div className='payment-method'>
+                        <p>No banks available at the moment</p>
+                      </div>
+                    )}
+                  </React.Fragment>
+                ) : paymentContext.state.paymentOption === "E-transfer" ? (
+                  <React.Fragment>
+                    {eTransfers.map((option, index) => (
+                      <React.Fragment key={index}>
+                        <div className='payment-method'>
+                          <p>
+                            <b> {option.header} </b>
+                          </p>
+
+                          {option.paymentProperties.map((item, index) => (
+                            <p key={index}>
+                              <span>{item.label}:</span>
+                              <span className='greentext'>{item.value}</span>
+                            </p>
+                          ))}
+                        </div>
+                      </React.Fragment>
+                    ))}
+
+                    {eTransfers.length < 1 && (
+                      <div className='payment-method'>
+                        <p>No banks available at the moment</p>
+                      </div>
+                    )}
+                  </React.Fragment>
                 ) : (
                   <div className='payment-method'>
                     <p>No payment methods available</p>
@@ -231,8 +228,8 @@ function PaymentReview({ showTips }) {
           <Link to='/payment/options' className='spacer'>
             <button className='left'>PREVIOUS</button>
           </Link>
-          <Link to='/payment/review'>
-            <button className='right' onClick={() => setProgress("5")}>
+          <Link to='/'>
+            <button className='right' onClick={() => paymentContext.resetState()}>
               Home
             </button>
           </Link>

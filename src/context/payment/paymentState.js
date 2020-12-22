@@ -14,6 +14,7 @@ import {
   SET_PAYMENT_OPTION,
   SET_REFERENCE,
   SET_PAYMENT_METHODS,
+  RESET_STATE
 } from "../types";
 
 const PaymentState = (props) => {
@@ -35,10 +36,7 @@ const PaymentState = (props) => {
     transactionType: "Individual",
     paymentOption: "E-transfer",
     referenceID: "",
-    paymentOptions: {
-      banks: [],
-      eTransfers: []
-    }
+    paymentOptions: []
   };
 
   const [state, dispatch] = useReducer(PaymentReducer, defaultState);
@@ -184,12 +182,20 @@ const PaymentState = (props) => {
     .then((res) => {
       dispatch({
         type: SET_PAYMENT_METHODS,
-        payload: res.data.getPaymentOptionsByCountry
+        payload: res.data.getPaymentChannelByCountryId
       })
       alert(true)
     })
     .catch(err => {
       console.log(err)
+      showError("Error in getting payment options")
+    })
+  }
+
+  const resetState = () => {
+    dispatch({
+      type: RESET_STATE,
+      payload: defaultState
     })
   }
 
@@ -228,6 +234,7 @@ const PaymentState = (props) => {
         setReceiveType,
         setPaymentOption,
         createTransaction,
+        resetState
       }}
     >
       {props.children}

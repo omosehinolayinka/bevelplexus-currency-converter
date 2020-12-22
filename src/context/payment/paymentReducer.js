@@ -6,7 +6,8 @@ import {
   CALCULATION_TYPE,
   SET_PAYMENT_OPTION,
   SET_REFERENCE,
-  SET_PAYMENT_METHODS
+  SET_PAYMENT_METHODS,
+  RESET_STATE,
 } from "../types";
 
 export default (state, action) => {
@@ -65,8 +66,13 @@ export default (state, action) => {
     case SET_PAYMENT_METHODS:
       return {
         ...state,
-        paymentOptions: action.payload
-      }
+        paymentOptions: action.payload,
+      };
+
+    case RESET_STATE:
+      return {
+        ...action.payload,
+      };
 
     default:
       return state;

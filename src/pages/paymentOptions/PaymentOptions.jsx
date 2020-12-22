@@ -29,7 +29,7 @@ function PaymentOptions({showTips}) {
 
   const [alert, setAlert] = useState(false);
   const [redirect, setRedirect] = useState(false)
-
+  const [progress, setProgress] = useState("3");
 
   const paymentMethods = [
     {
@@ -79,12 +79,14 @@ function PaymentOptions({showTips}) {
       receiveType: fx.receiveType
     }
 
+    setProgress("4")
+
     paymentContext.createTransaction(transactionDetails, setAlert)
   }
 
   return (
     <div id='payment-options'>
-      <Layout currentMenu='payment' payProgress='3' showTips={showTips}>
+      <Layout currentMenu='payment' payProgress={progress} showTips={showTips}>
         <div className='page-title'>
           <h1>Payment</h1>
         </div>
