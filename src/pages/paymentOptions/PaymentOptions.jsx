@@ -4,7 +4,7 @@ import "./PaymentOptions.scss";
 import "../paymentRecipient/PaymentRecipient.scss";
 
 import Layout from "../../components/layout/Layout";
-import Alert from "../../components/alert/Alert";
+
 import CustomCheckbox from "../../components/customCheckbox/CustomCheckbox";
 import PaymentSummaryCard from '../../components/paymentSummaryCard/PaymentSummaryCard'
 
@@ -27,7 +27,6 @@ function PaymentOptions({showTips}) {
     receivingMethod: selected
   })
 
-  const [alert, setAlert] = useState(false);
   const [redirect, setRedirect] = useState(false)
   const [progress, setProgress] = useState("3");
 
@@ -81,7 +80,7 @@ function PaymentOptions({showTips}) {
 
     setProgress("4")
 
-    paymentContext.createTransaction(transactionDetails, setAlert)
+    paymentContext.createTransaction(transactionDetails, setRedirect)
   }
 
   return (
@@ -127,14 +126,6 @@ function PaymentOptions({showTips}) {
           </Link>
         </div>
 
-        {alert && (
-          <Alert
-            type='warning'
-            title='Order Initiated'
-            body="Please read the INSTRUCTIONS on the next screen to complete payment process for this transaction"
-            action={() => setRedirect(true)}
-          />
-        )}
         {!recipient && <Redirect to='/payment/transfer' />}
         {redirect && <Redirect to='/payment/review' />}
       </Layout>

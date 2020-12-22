@@ -89,6 +89,13 @@
         text-align: center;
       }
 
+      a {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
       button.primary {
         margin: 1rem 0;
         width: 70%;

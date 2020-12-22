@@ -138,7 +138,7 @@ const PaymentState = (props) => {
   };
 
   // create transaction
-  const createTransaction = (data, alert) => {
+  const createTransaction = (data, redirect) => {
     client
       .mutate({
         mutation: gql.CREATE_TRANSACTION,
@@ -152,7 +152,7 @@ const PaymentState = (props) => {
           payload: reference,
         });
 
-        getCountryId(data.destinationCurrency, alert)
+        getCountryId(data.destinationCurrency, redirect)
         // alert(true);
       })
       .catch((err) => {
@@ -161,20 +161,20 @@ const PaymentState = (props) => {
       });
   };
 
-  const getCountryId = (currency, alert) => {
+  const getCountryId = (currency, redirect) => {
     client.query({
       query: gql.GET_COUNTRY_ID,
       variables: { currencyCode: currency },
     })
     .then((res) => {
-      getPaymentMethods(res.data.getCountryByCurrencyCode.id, alert)
+      getPaymentMethods(res.data.getCountryByCurrencyCode.id, redirect)
     })
     .catch(() => {
       showError("Opps! Your transaction may have not been proccessed correctly, please try again")
     })
   };
 
-  const getPaymentMethods = (id, alert) => {
+  const getPaymentMethods = (id, redirect) => {
     client.query({
       query: gql.GET_PAYMENT_METHODS,
       variables: {countryId: id}
@@ -184,7 +184,7 @@ const PaymentState = (props) => {
         type: SET_PAYMENT_METHODS,
         payload: res.data.getPaymentChannelByCountryId
       })
-      alert(true)
+      redirect(true)
     })
     .catch(err => {
       console.log(err)

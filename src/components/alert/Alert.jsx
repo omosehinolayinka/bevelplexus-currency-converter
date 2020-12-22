@@ -1,17 +1,14 @@
 import React from "react";
-// import { Link } from "react-router-dom";
+import * as Scroll from 'react-scroll';
 
 import "./Alert.scss";
 
 function Alert({ type, title, body, action }) {
+  let Anchor = Scroll.Link;
+
   return (
     <div id='alert'>
       <div className='box'>
-        {/* <Link to='#'>
-          <button className='secondary' onClick={action}>
-            <span className='material-icons'>clear</span>
-          </button>
-        </Link> */}
 
         <div className='wrap'>
           {type === "error" ? (
@@ -29,7 +26,11 @@ function Alert({ type, title, body, action }) {
           )}
           <h2 className='heading'> {title} </h2>
           <p className='body'> {body} </p>
-          <button className="primary" onClick={action}>Proceed</button>
+
+          <Anchor to='paymentInstructions' smooth={true} duration={1000}>
+            <button className="primary" onClick={action}>Proceed</button>
+          </Anchor>
+          {/* <button className="primary" onClick={action}>Proceed</button> */}
         </div>
       </div>
     </div>

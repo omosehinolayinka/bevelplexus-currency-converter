@@ -1,15 +1,18 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Link, Redirect } from "react-router-dom";
 import "../paymentRecipient/PaymentRecipient.scss";
 import "./PaymentReview.scss";
 
 import Layout from "../../components/layout/Layout";
+import Alert from "../../components/alert/Alert";
 
 import PaymentContext from "../../context/payment/paymentContext";
 
 function PaymentReview({ showTips }) {
-  const paymentContext = useContext(PaymentContext);
+  const [alert, setAlert] = useState(true);
+  const [animate, isAnimated] = useState(false);
 
+  const paymentContext = useContext(PaymentContext);
   const { name, email, phoneNumber, location } = paymentContext.state.recipient;
 
   const {
@@ -146,9 +149,9 @@ function PaymentReview({ showTips }) {
           </div>
         </div>
 
-        <div className='section-three bank-details-box'>
+        <div className="section-three bank-details-box" id="paymentInstructions">
           <div className='box-container'>
-            <div className='shadow-box'>
+            <div className={`shadow-box ${animate && 'shadow-box-highlight animated'}`}>
               <div className='action'>
                 <Link to='#' className='spacer'>
                   Edit
@@ -235,6 +238,15 @@ function PaymentReview({ showTips }) {
           </Link>
         </div>
       </Layout>
+
+      {alert && (
+          <Alert
+            type='warning'
+            title='Order Initiated'
+            body="Please read the INSTRUCTIONS on the next screen to complete payment process for this transaction"
+            action={() => [setAlert(false), isAnimated(true)]}
+          />
+        )}
 
       {paymentContext.reference === "" && <Redirect to='/payment/options' />}
     </div>

@@ -155,6 +155,38 @@ button.primary:hover {
   box-shadow: 0px 2px 5px rgba(169, 181, 192, 0.2);
 }
 
+.shadow-box.shadow-box-highlight.animated {
+  background: #ffffff;
+  border-color: #005cfa42;
+  background: linear-gradient(
+      0deg,
+      rgba(1, 94, 255, 0.041),
+      rgba(1, 94, 255, 0.047)
+    ),
+    #ffffff;
+
+    background: linear-gradient(
+      0deg,
+      rgba(1, 94, 255, 0.07),
+      rgba(1, 94, 255, 0.07)
+    ),
+    #ffffff;
+
+  animation-name: fade;
+  animation-delay: 1s;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+
+  @keyframes fade {
+    to {
+      background: #fff;
+      border-color: transparent;
+    }
+  }
+}
+
 .shadow-box.error-notice {
   display: flex;
   flex-direction: column;
