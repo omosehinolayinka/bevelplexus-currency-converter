@@ -11,14 +11,16 @@ function Editrecipient({ action, recipientState }) {
 
   const [loading, setLoading] = useState(false);
   const [disableBank, setDisableBank] = useState(false);
+  const [acctBox, showAcctBox] = useState(false);
   const [recipient, setRecipient] = useState({
     name: "",
     email: "",
     phoneNumber: "",
     location: "",
-    bank: "",
+    bank: "-",
     acctName: "Please wait...",
     accountNumber: "",
+    bankCode: "",
     closeModal: action,
     // loading: setLoading
   });
@@ -43,21 +45,6 @@ function Editrecipient({ action, recipientState }) {
     // eslint-disable-next-line
   }, []);
 
-  const getAccountDetails = (number) => {
-    axios
-      .get(
-        `https://app.nuban.com.ng/api/NUBAN-YGFQUYCA353?acc_no=${number}`
-      )
-      .then((res) => {
-        setRecipient({
-          ...recipient,
-          bank: res.data[0].bank_name,
-          acctName: res.data[0].account_name,
-        });
-      })
-      .catch((err) => console.log(err));
-  };
-
   const handleChange = (e) => {
     setRecipient({
       ...recipient,
@@ -68,15 +55,17 @@ function Editrecipient({ action, recipientState }) {
   const handleBank = (e) => {
     const num = e.target.value;
 
+    showAcctBox(true);
+
+    setRecipient({
+      ...recipient,
+      accountNumber: num,
+      bank: "Fetching...",
+      acctName: "Fetching...",
+    });
+
     if (e.target.value.length === 10) {
       setDisableBank(true);
-
-      setRecipient({
-        ...recipient,
-        accountNumber: num,
-        bank: "Fetching...",
-        acctName: "Fetching...",
-      });
 
       axios
         .get(
@@ -88,16 +77,26 @@ function Editrecipient({ action, recipientState }) {
             accountNumber: num,
             bank: res.data[0].bank_name,
             acctName: res.data[0].account_name,
+            bankCode: res.data[0].bank_code,
           });
 
           setDisableBank(false);
         })
-        .catch((err) => console.log(err));
+        .catch(() => {
+          setRecipient({
+            ...recipient,
+            accountNumber: num,
+            bank: "Invalid Acct No",
+            acctName: "Invalid Acct No",
+          });
+
+          setDisableBank(false);
+        });
     } else {
       setRecipient({
         ...recipient,
         accountNumber: num,
-        bank: "",
+        bank: "-",
         acctName: "Account holder's name",
       });
     }
@@ -218,8 +217,11 @@ function Editrecipient({ action, recipientState }) {
           </div>
         </div>
 
-        <div className='btn-big-container'>
-          <button> {getAccountDetails(recipient.accountNumber) || recipient.acctName} </button>
+        <div
+          className='btn-big-container'
+          style={{ visibility: acctBox ? "visible" : "hidden" }}
+        >
+          <button>{recipient.acctName}</button>
         </div>
 
         <div className='buttons-container'>

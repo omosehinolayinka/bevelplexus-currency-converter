@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { Link, Redirect } from "react-router-dom";
 import "../paymentRecipient/PaymentRecipient.scss";
 import "./PaymentReview.scss";

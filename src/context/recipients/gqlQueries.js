@@ -82,12 +82,14 @@ export const ADD_BANK_INFO = gql`
     $recipientId: String!
     $bank: String!
     $accountNumber: String!
+    $bankCode: String!
   ) {
     addBankInfo(
       bankInfoArgs: {
         recipientId: $recipientId
         bank: $bank
         accountNumber: $accountNumber
+        bankCode: $bankCode
       }
     ) {
       id
@@ -139,6 +141,7 @@ export const UPDATED_BANK_INFO = gql`
     $recipientId: String!
     $bank: String!
     $accountNumber: String!
+    $bankCode: String!
   ) {
     updateBankInfo(
       bankInfoId: $bankInfoId
@@ -146,6 +149,7 @@ export const UPDATED_BANK_INFO = gql`
         recipientId: $recipientId
         bank: $bank
         accountNumber: $accountNumber
+        bankCode: $bankCode
       }
     ) {
       id

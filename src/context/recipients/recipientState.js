@@ -113,7 +113,8 @@ const RecipientState = (props) => {
       variables: {
         recipientId: id,
         bank: data.bank,
-        accountNumber: data.accountNumber
+        accountNumber: data.accountNumber,
+        bankCode: data.bankCode
       }
     })
     .then(() => {
@@ -160,6 +161,7 @@ const RecipientState = (props) => {
           recipientId: data.bankInfo[0].recipientId,
           bank: data.bank,
           accountNumber: data.accountNumber,
+          bankCode: data.bankCode
         },
       })
       .then(() => {

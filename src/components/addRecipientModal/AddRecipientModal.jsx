@@ -17,9 +17,10 @@ function Editrecipient({ action }) {
     email: "",
     phoneNumber: "",
     location: "",
-    bank: "",
+    bank: "-",
     accountNumber: "",
     acctName: "Account Holder's Name",
+    bankCode: "",
     closeModal: action,
     // loading: setLoading
   });
@@ -64,11 +65,28 @@ function Editrecipient({ action }) {
             accountNumber: num,
             bank: res.data[0].bank_name,
             acctName: res.data[0].account_name,
+            bankCode: res.data[0].bank_code,
           });
 
           setDisableBank(false);
         })
-        .catch((err) => console.log(err));
+        .catch(() => {
+          setNewRecipient({
+            ...newRecipient,
+            accountNumber: num,
+            bank: "Invalid Acct No",
+            acctName: "Invalid Acct No",
+          });
+
+          setDisableBank(false);
+        });
+    } else {
+      setNewRecipient({
+        ...newRecipient,
+        accountNumber: num,
+        bank: "-",
+        acctName: "Account holder's name",
+      });
     }
   };
 
@@ -202,7 +220,8 @@ function Editrecipient({ action }) {
               invalidCheck.includes("") ||
               invalidCheck.includes("Fetching...") ||
               invalidCheck.includes("Please wait...") ||
-              invalidCheck.includes("Account Holder's Name")
+              invalidCheck.includes("Account Holder's Name") ||
+              invalidCheck.includes("Invalid Acct No")
                 ? "disabled"
                 : ""
             }
