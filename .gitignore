@@ -10,6 +10,7 @@
 
 # production
 /build
+/payment
 
 # misc
 .DS_Store
