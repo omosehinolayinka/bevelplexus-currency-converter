@@ -55,7 +55,7 @@ function Dashboard({ showTips }) {
           <div className='shadow-box box-three' style={{ width: "100%" }}>
             <div className='icon-container'>
               <img
-                src='/assets/svg/transaction-icon-alt.svg'
+                src='./assets/svg/transaction-icon-alt.svg'
                 alt='transaction'
               />
             </div>

@@ -59,7 +59,7 @@ function PaymentTransfer({ showTips }) {
               }
               onClick={() => handleClick("Delayed")}
             >
-              <img src='/assets/svg/calender.svg' alt='recipient' />
+              <img src='./assets/svg/calender.svg' alt='recipient' />
               <p className='flexible-text'>
                 1-2 Business Day
                 <span>Free</span>
@@ -73,7 +73,7 @@ function PaymentTransfer({ showTips }) {
               }
               onClick={() => handleClick("SameDay")}
             >
-              <img src='/assets/svg/hourglass.svg' alt='school' />
+              <img src='./assets/svg/hourglass.svg' alt='school' />
               <p className='flexible-text'>
                 Same day
                 <span>1% of transaction</span>

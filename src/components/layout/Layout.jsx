@@ -15,7 +15,7 @@ function Layout({ currentMenu, payProgress, children }) {
   const [showIntro, setShowIntro] = useState(false);
 
   const introRef = useRef(null);
-  
+
 
   useEffect(() => {
     setIntroPosition(introRef.current.offsetTop);
@@ -43,7 +43,7 @@ function Layout({ currentMenu, payProgress, children }) {
           className={showSidebar ? "sidebar-expanded" : ""}
         >
           <div className='logo-container'>
-            <img src='/assets/svg/logo.svg' alt='' />
+            <img src='./assets/svg/logo.svg' alt='' />
           </div>
 
           <nav>
@@ -53,7 +53,7 @@ function Layout({ currentMenu, payProgress, children }) {
                 ref={currentMenu === "dashboard" ? introRef : null}
               >
                 <Link to='/'>
-                  <img src='/assets/svg/home-icon.svg' alt='home' />
+                  <img src='./assets/svg/home-icon.svg' alt='home' />
                   Dashboard
                 </Link>
               </li>
@@ -62,7 +62,7 @@ function Layout({ currentMenu, payProgress, children }) {
                 ref={currentMenu === "payment" ? introRef : null}
               >
                 <Link to='/payment'>
-                  <img src='/assets/svg/wallet-icon.svg' alt='home' />
+                  <img src='./assets/svg/wallet-icon.svg' alt='home' />
                   Make payment
                 </Link>
               </li>
@@ -71,7 +71,7 @@ function Layout({ currentMenu, payProgress, children }) {
                 ref={currentMenu === "transaction" ? introRef : null}
               >
                 <Link to='/transactions'>
-                  <img src='/assets/svg/hourglass-icon.svg' alt='home' />
+                  <img src='./assets/svg/hourglass-icon.svg' alt='home' />
                   Transaction history
                 </Link>
               </li>
@@ -80,7 +80,7 @@ function Layout({ currentMenu, payProgress, children }) {
                 ref={currentMenu === "recipients" ? introRef : null}
               >
                 <Link to='/recipients'>
-                  <img src='/assets/svg/contact-icon.svg' alt='home' />
+                  <img src='./assets/svg/contact-icon.svg' alt='home' />
                   Recipients
                 </Link>
               </li>
@@ -89,7 +89,7 @@ function Layout({ currentMenu, payProgress, children }) {
                 ref={currentMenu === "account" ? introRef : null}
               >
                 <Link to='/account'>
-                  <img src='/assets/svg/user-icon.svg' alt='home' />
+                  <img src='./assets/svg/user-icon.svg' alt='home' />
                   My Account
                 </Link>
               </li>
@@ -97,7 +97,7 @@ function Layout({ currentMenu, payProgress, children }) {
           </nav>
 
           <div className='bg-shape'>
-            <img src='/assets/svg/sidebar-shape.svg' alt='' />
+            <img src='./assets/svg/sidebar-shape.svg' alt='' />
           </div>
         </aside>
 
