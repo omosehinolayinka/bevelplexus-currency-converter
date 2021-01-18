@@ -231,7 +231,7 @@ function PaymentReview({ showTips }) {
           <Link to='/payment/options' className='spacer'>
             <button className='left'>PREVIOUS</button>
           </Link>
-          <Link to='/'>
+          <Link to='/dashboard'>
             <button className='right' onClick={() => paymentContext.resetState()}>
               Home
             </button>
