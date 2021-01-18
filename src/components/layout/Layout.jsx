@@ -52,7 +52,7 @@ function Layout({ currentMenu, payProgress, children }) {
                 className={currentMenu === "dashboard" ? "active" : ""}
                 ref={currentMenu === "dashboard" ? introRef : null}
               >
-                <Link to='/'>
+                <Link to='/dashboard'>
                   <img src='/assets/svg/home-icon.svg' alt='home' />
                   Dashboard
                 </Link>
