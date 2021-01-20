@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -19,56 +19,39 @@ import RecipientContext from "./context/recipients/recipientContext";
 import TransactionContext from "./context/transactions/transactionContext";
 
 function Routes() {
+  const [isAuthenticated, setIsAuthenticated] = useState();
+
   const userContext = useContext(UserContext);
   const recipientContext = useContext(RecipientContext);
   const transactionContext = useContext(TransactionContext);
 
   useEffect(() => {
-    localStorage.clear();
+    const fetchData = () => {
+      userContext.getUser();
+      recipientContext.getRecipients(recipientContext.state.page);
+      transactionContext.getTransactions(transactionContext.state.page);
+    };
 
-    fetch("https://bp-user.herokuapp.com/graphql", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({
-        query: `
-          mutation login {
-            login(loginArgs: {
-              email: "techkadet@gmail.com",
-              password: "#Kadet123"
-            }) {
-              token,
-              user {
-                id,
-                firstName,
-                email,
-              }
-            }
-          }
-        `,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        const login = data.data.login;
-
-        localStorage.setItem("token", login.token);
-        localStorage.setItem("userId", login.user.id);
-      })
-      .then(() => {
-        userContext.getUser();
-        recipientContext.getRecipients(recipientContext.state.page);
-        transactionContext.getTransactions(transactionContext.state.page);
-      })
-      .catch((err) => console.log(err));
+    localStorage.getItem("token")
+      ? setIsAuthenticated(true, fetchData())
+      : setIsAuthenticated(false);
 
     // eslint-disable-next-line
   }, []);
+
+  if (isAuthenticated === false) {
+    return (
+      <Router>
+        <Redirect to="/" />
+      </Router>
+    );
+  }
 
   return (
     <React.Fragment>
       <Router basename="/payment">
         <Switch>
-          <Route exact path="/" component={Dashboard} />
+          <Route exact path="/dashboard" component={Dashboard} />
           <Route exact path="/payment">
             <Redirect to="/payment/recipient" />
           </Route>
