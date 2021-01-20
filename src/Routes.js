@@ -42,29 +42,29 @@ function Routes() {
   if (isAuthenticated === false) {
     return (
       <Router>
-        <Redirect to='/' />
+        <Redirect to="/" />
       </Router>
     );
   }
 
   return (
     <React.Fragment>
-      <Router>
+      <Router basename="/payment">
         <Switch>
-          <Route exact path='/dashboard' component={Dashboard} />
-          <Route exact path='/payment'>
-            <Redirect to='/payment/recipient' />
+          <Route exact path="/dashboard" component={Dashboard} />
+          <Route exact path="/payment">
+            <Redirect to="/payment/recipient" />
           </Route>
-          <Route exact path='/payment/recipient' component={Paymentrecipient} />
-          <Route exact path='/payment/transfer' component={PaymentTransfer} />
-          <Route exact path='/payment/options' component={PaymentOptions} />
-          <Route exact path='/payment/review' component={PaymentReview} />
-          <Route exact path='/transactions' component={TransactionHistory} />
-          <Route exact path='/recipients' component={recipients} />
-          <Route exact path='/account'>
-            <Redirect to='/account/settings' />
+          <Route exact path="/payment/recipient" component={Paymentrecipient} />
+          <Route exact path="/payment/transfer" component={PaymentTransfer} />
+          <Route exact path="/payment/options" component={PaymentOptions} />
+          <Route exact path="/payment/review" component={PaymentReview} />
+          <Route exact path="/transactions" component={TransactionHistory} />
+          <Route exact path="/recipients" component={recipients} />
+          <Route exact path="/account">
+            <Redirect to="/account/settings" />
           </Route>
-          <Route exact path='/account/settings' component={AccountSettings} />
+          <Route exact path="/account/settings" component={AccountSettings} />
         </Switch>
       </Router>
     </React.Fragment>

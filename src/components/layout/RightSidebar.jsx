@@ -158,7 +158,7 @@ function RightSidebar({ collapsed, collapseRightSidebar }) {
   const text = (
     <div style={tooltipStyle}>
       <img
-        src='/assets/svg/info-alt.svg'
+        src='./assets/svg/info-alt.svg'
         alt='icon'
         style={{ margin: "5px 12px 0 0" }}
       />
@@ -202,7 +202,7 @@ function RightSidebar({ collapsed, collapseRightSidebar }) {
                 <Dropdown overlay={notifications} placement='bottomRight'>
                   <div>
                     <img
-                      src='/assets/svg/bell-icon-light.svg'
+                      src='./assets/svg/bell-icon-light.svg'
                       alt='notifications'
                     />
                     <span></span>
@@ -213,7 +213,7 @@ function RightSidebar({ collapsed, collapseRightSidebar }) {
               <Dropdown overlay={menu} placement='bottomRight' arrow>
                 <Button>
                   <img
-                    src='/assets/svg/avatar.svg'
+                    src='./assets/svg/avatar.svg'
                     alt='avi'
                     className='avatar'
                   />
@@ -249,7 +249,7 @@ function RightSidebar({ collapsed, collapseRightSidebar }) {
                 />
                 <div className='avatar-container'>
                   <img
-                    src='/assets/img/profileimage.png'
+                    src='./assets/img/profileimage.png'
                     alt='avatar'
                     className='avatar'
                   />

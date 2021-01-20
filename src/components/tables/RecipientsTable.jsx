@@ -46,12 +46,12 @@ function RecipientsTable() {
                   <div>
                     <section>
                       <img
-                        src='/assets/svg/avatar.svg'
+                        src='./assets/svg/avatar.svg'
                         alt='avatar'
                         className='avatar-img'
                       />
                       {/* <img
-                        src='/assets/svg/brazil-flag.svg'
+                        src='./assets/svg/brazil-flag.svg'
                         alt=''
                         className='img-attachment'
                       /> */}

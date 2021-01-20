@@ -191,7 +191,7 @@ const AccountSettings = ({ showTips }) => {
               duration={400}
             >
               <span className='icon'>
-                <img src='/assets/svg/gear.svg' alt='settings' />
+                <img src='./assets/svg/gear.svg' alt='settings' />
               </span>
               <p>Account Settings</p>
             </Link>
@@ -208,7 +208,7 @@ const AccountSettings = ({ showTips }) => {
               duration={600}
             >
               <span className='icon'>
-                <img src='/assets/svg/flag.svg' alt='settings' />
+                <img src='./assets/svg/flag.svg' alt='settings' />
               </span>
               <p>Verification Levels</p>
             </Link>
@@ -225,7 +225,7 @@ const AccountSettings = ({ showTips }) => {
               duration={800}
             >
               <span className='icon'>
-                <img src='/assets/svg/key.svg' alt='settings' />
+                <img src='./assets/svg/key.svg' alt='settings' />
               </span>
               <p>Change Password</p>
             </Link>
@@ -243,19 +243,19 @@ const AccountSettings = ({ showTips }) => {
             <div className='form-container'>
               <div className='shadow-box input-item'>
                 <span className='icon'>
-                  <img src='/assets/svg/user.svg' alt='settings' />
+                  <img src='./assets/svg/user.svg' alt='settings' />
                 </span>
                 <input type='text' value={user.firstName} disabled />
               </div>
               <div className='shadow-box input-item'>
                 <span className='icon'>
-                  <img src='/assets/svg/user.svg' alt='settings' />
+                  <img src='./assets/svg/user.svg' alt='settings' />
                 </span>
                 <input type='text' value={user.lastName} disabled />
               </div>
               <div className='shadow-box input-item'>
                 <span className='icon'>
-                  <img src='/assets/svg/mail.svg' alt='settings' />
+                  <img src='./assets/svg/mail.svg' alt='settings' />
                 </span>
                 <input
                   className={!disableMail ? "active" : ""}
@@ -274,7 +274,7 @@ const AccountSettings = ({ showTips }) => {
               </div>
               <div className='shadow-box input-item'>
                 <span className='icon'>
-                  <img src='/assets/svg/mail.svg' alt='settings' />
+                  <img src='./assets/svg/mail.svg' alt='settings' />
                 </span>
                 <input
                   className={!disablePhone ? "active" : ""}
@@ -331,7 +331,7 @@ const AccountSettings = ({ showTips }) => {
             <div className='form-container'>
               <div className='shadow-box input-item'>
                 <span className='icon'>
-                  <img src='/assets/svg/key.svg' alt='settings' />
+                  <img src='./assets/svg/key.svg' alt='settings' />
                 </span>
                 <input
                   type='password'
@@ -349,7 +349,7 @@ const AccountSettings = ({ showTips }) => {
                 }`}
               >
                 <span className='icon'>
-                  <img src='/assets/svg/key.svg' alt='settings' />
+                  <img src='./assets/svg/key.svg' alt='settings' />
                 </span>
                 <input
                   type='password'
@@ -367,7 +367,7 @@ const AccountSettings = ({ showTips }) => {
           <Link to='#'>
             <button className='right' onClick={handleSave}>
               {loading ? (
-                <img src='/assets/svg/spinner.svg' alt='spinner' />
+                <img src='./assets/svg/spinner.svg' alt='spinner' />
               ) : (
                 "Save Changes"
               )}

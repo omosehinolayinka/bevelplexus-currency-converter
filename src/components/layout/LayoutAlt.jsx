@@ -18,9 +18,10 @@ function Layout({ currentMenu, children }) {
   useEffect(() => {
     setIntroPosition(introRef.current.offsetTop);
 
-    showIntro && window.addEventListener("resize", () => {
-      setIntroPosition(introRef.current.offsetTop);
-    });
+    showIntro &&
+      window.addEventListener("resize", () => {
+        setIntroPosition(introRef.current.offsetTop);
+      });
 
     setTimeout(() => {
       setShowIntro(true);
@@ -30,7 +31,7 @@ function Layout({ currentMenu, children }) {
   }, []);
 
   return (
-    <div id='layout' className='withRightSidebar'>
+    <div id="layout" className="withRightSidebar">
       <section
         className={
           showSidebar === true ? "sidebar-wrapper" : "sidebar-wrapper-closed"
@@ -40,8 +41,8 @@ function Layout({ currentMenu, children }) {
           id={animate ? "animate" : ""}
           className={showSidebar ? "sidebar-expanded" : ""}
         >
-          <div className='logo-container'>
-            <img src='/assets/svg/logo.svg' alt='' />
+          <div className="logo-container">
+            <img src="./assets/svg/logo.svg" alt="" />
           </div>
 
           <nav>
@@ -50,8 +51,8 @@ function Layout({ currentMenu, children }) {
                 className={currentMenu === "dashboard" ? "active" : ""}
                 ref={currentMenu === "dashboard" ? introRef : null}
               >
-                <Link to='/dashboard'>
-                  <img src='/assets/svg/home-icon.svg' alt='home' />
+                <Link to="/dashboard">
+                  <img src="./assets/svg/home-icon.svg" alt="home" />
                   Dashboard
                 </Link>
               </li>
@@ -59,8 +60,8 @@ function Layout({ currentMenu, children }) {
                 className={currentMenu === "payment" ? "active" : ""}
                 ref={currentMenu === "payment" ? introRef : null}
               >
-                <Link to='/payment/recipient'>
-                  <img src='/assets/svg/wallet-icon.svg' alt='home' />
+                <Link to="/payment/recipient">
+                  <img src="./assets/svg/wallet-icon.svg" alt="home" />
                   Make payment
                 </Link>
               </li>
@@ -68,8 +69,8 @@ function Layout({ currentMenu, children }) {
                 className={currentMenu === "transaction" ? "active" : ""}
                 ref={currentMenu === "transaction" ? introRef : null}
               >
-                <Link to='/transactions'>
-                  <img src='/assets/svg/hourglass-icon.svg' alt='home' />
+                <Link to="/transactions">
+                  <img src="./assets/svg/hourglass-icon.svg" alt="home" />
                   Transaction history
                 </Link>
               </li>
@@ -77,8 +78,8 @@ function Layout({ currentMenu, children }) {
                 className={currentMenu === "recipients" ? "active" : ""}
                 ref={currentMenu === "recipients" ? introRef : null}
               >
-                <Link to='/recipients'>
-                  <img src='/assets/svg/contact-icon.svg' alt='home' />
+                <Link to="/recipients">
+                  <img src="./assets/svg/contact-icon.svg" alt="home" />
                   Recipients
                 </Link>
               </li>
@@ -86,26 +87,26 @@ function Layout({ currentMenu, children }) {
                 className={currentMenu === "account" ? "active" : ""}
                 ref={currentMenu === "account" ? introRef : null}
               >
-                <Link to='/account'>
-                  <img src='/assets/svg/user-icon.svg' alt='home' />
+                <Link to="/account">
+                  <img src="./assets/svg/user-icon.svg" alt="home" />
                   My Account
                 </Link>
               </li>
             </ul>
           </nav>
 
-          <div className='bg-shape'>
-            <img src='/assets/svg/sidebar-shape.svg' alt='bg-shape' />
+          <div className="bg-shape">
+            <img src="./assets/svg/sidebar-shape.svg" alt="bg-shape" />
           </div>
         </aside>
 
         <div
-          className='close-section'
+          className="close-section"
           onClick={() => setShowSidebar(false)}
         ></div>
       </section>
 
-      <section className='main-content'>
+      <section className="main-content">
         <Header
           withRightSidebar={true}
           collapseRightSidebar={setRightSidebar}
