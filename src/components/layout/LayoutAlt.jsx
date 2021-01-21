@@ -60,7 +60,7 @@ function Layout({ currentMenu, children }) {
                 className={currentMenu === "payment" ? "active" : ""}
                 ref={currentMenu === "payment" ? introRef : null}
               >
-                <Link to="/payment/recipient">
+                <Link to="/dashboard/recipient">
                   <img src="./assets/svg/wallet-icon.svg" alt="home" />
                   Make payment
                 </Link>
@@ -160,7 +160,7 @@ function Layout({ currentMenu, children }) {
             }
             next={
               currentMenu === "dashboard"
-                ? "/payment"
+                ? "/dashboard"
                 : currentMenu === "payment"
                 ? "/transactions"
                 : currentMenu === "transaction"

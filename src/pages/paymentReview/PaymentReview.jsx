@@ -228,7 +228,7 @@ function PaymentReview({ showTips }) {
         </div>
 
         <div className='section-four'>
-          <Link to='/payment/options' className='spacer'>
+          <Link to='/dashboard/options' className='spacer'>
             <button className='left'>PREVIOUS</button>
           </Link>
           <Link to='/dashboard'>
@@ -248,7 +248,7 @@ function PaymentReview({ showTips }) {
           />
         )}
 
-      {paymentContext.reference === "" && <Redirect to='/payment/options' />}
+      {paymentContext.reference === "" && <Redirect to='/dashboard/options' />}
     </div>
   );
 }

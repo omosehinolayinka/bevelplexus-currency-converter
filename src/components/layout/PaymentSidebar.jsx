@@ -14,7 +14,7 @@ function PaymentSidebar({ payProgress }) {
           {payProgress > 1 ? (
             <React.Fragment>
               <img src='./assets/svg/green-check.svg' alt='check' />{" "}
-              <span><Link to='/payment/recipient'>Select recipient</Link></span>
+              <span><Link to='/dashboard/recipient'>Select recipient</Link></span>
             </React.Fragment>
           ) : (
             <React.Fragment>
@@ -27,7 +27,7 @@ function PaymentSidebar({ payProgress }) {
           {payProgress > 2 ? (
             <React.Fragment>
               <img src='./assets/svg/green-check.svg' alt='check' />{" "}
-              <span><Link to='/payment/transfer'>Transfer details</Link></span>
+              <span><Link to='/dashboard/transfer'>Transfer details</Link></span>
             </React.Fragment>
           ) : (
             <React.Fragment>
@@ -40,7 +40,7 @@ function PaymentSidebar({ payProgress }) {
           {payProgress > 3 ? (
             <React.Fragment>
               <img src='./assets/svg/green-check.svg' alt='check' />{" "}
-              <span><Link to='/payment/options'>Payment</Link></span>
+              <span><Link to='/dashboard/options'>Payment</Link></span>
             </React.Fragment>
           ) : (
             <React.Fragment>
@@ -53,7 +53,7 @@ function PaymentSidebar({ payProgress }) {
           {payProgress > 4 ? (
             <React.Fragment>
               <img src='./assets/svg/green-check.svg' alt='check' />{" "}
-              <span><Link to='/payment/review'>Review</Link></span>
+              <span><Link to='/dashboard/review'>Review</Link></span>
             </React.Fragment>
           ) : (
             <React.Fragment>
