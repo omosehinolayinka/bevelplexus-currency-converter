@@ -25,7 +25,7 @@ function VerificationBoxFile({ reset, setReset }) {
   const text = (
     <div style={tooltipStyle}>
       <img
-        src='/assets/svg/info-alt.svg'
+        src='./assets/svg/info-alt.svg'
         alt='icon'
         style={{ margin: "5px 12px 0 0" }}
       />
@@ -65,7 +65,7 @@ function VerificationBoxFile({ reset, setReset }) {
         <div className='box-heading'>
           <h3>LEVEL 2</h3>
           <Tooltip placement='bottomRight' title={text}>
-            <img src='/assets/svg/info.svg' alt='icon' />
+            <img src='./assets/svg/info.svg' alt='icon' />
           </Tooltip>
         </div>
 

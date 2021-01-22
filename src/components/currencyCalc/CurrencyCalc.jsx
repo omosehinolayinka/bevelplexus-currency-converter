@@ -205,7 +205,7 @@ const CurrencyCalc = () => {
         </div>
 
         <div className='form__submit'>
-          <Link to='/payment/recipient'>
+          <Link to='/dashboard/recipient'>
             <button type='button' className='form__submit__button'>
               Send this Amount
             </button>

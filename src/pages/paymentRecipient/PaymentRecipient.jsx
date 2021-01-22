@@ -32,7 +32,7 @@ function Paymentrecipient({ showTips }) {
   const text = (
     <div style={tooltipStyle}>
       <img
-        src='/assets/svg/info-alt.svg'
+        src='./assets/svg/info-alt.svg'
         alt='icon'
         style={{ margin: "5px 12px 0 0" }}
       />
@@ -78,7 +78,7 @@ function Paymentrecipient({ showTips }) {
               }
               onClick={() => paymentContext.setTransactionType("Individual")}
             >
-              <img src='/assets/svg/recipient.svg' alt='recipient' />
+              <img src='./assets/svg/recipient.svg' alt='recipient' />
               <p>To Individual</p>
             </div>
             <div
@@ -89,7 +89,7 @@ function Paymentrecipient({ showTips }) {
               }
               onClick={() => paymentContext.setTransactionType("Tuition")}
             >
-              <img src='/assets/svg/school.svg' alt='school' />
+              <img src='./assets/svg/school.svg' alt='school' />
               <p>Tuition Payment</p>
             </div>
           </div>
@@ -102,7 +102,7 @@ function Paymentrecipient({ showTips }) {
 
           <div className='box-container'>
             <div className='shadow-box'>
-              <img src='/assets/svg/contact.svg' alt='contact' />
+              <img src='./assets/svg/contact.svg' alt='contact' />
               <Select
                 showSearch
                 style={{ width: 200 }}
@@ -119,7 +119,7 @@ function Paymentrecipient({ showTips }) {
                     name={recipient}
                   >
                     {recipient.name}
-                    <img src='/assets/svg/green-check-alt.svg' alt='check' />
+                    <img src='./assets/svg/green-check-alt.svg' alt='check' />
                   </Option>
                 ))}
               </Select>
@@ -175,7 +175,7 @@ function Paymentrecipient({ showTips }) {
                       alt='avi'
                     />
                     <img
-                      src='/assets/svg/brazil-flag.svg'
+                      src='./assets/svg/brazil-flag.svg'
                       alt=''
                       className='user-details__avi__flag'
                     />
@@ -196,7 +196,7 @@ function Paymentrecipient({ showTips }) {
 
                 <div className='contact-details'>
                   <p>
-                    <img src='/assets/svg/smartphone.svg' alt='smartphone' />
+                    <img src='./assets/svg/smartphone.svg' alt='smartphone' />
                     {transactionType === "Individual"
                       ? currentRecipient.phoneNumber
                       : "+1 610 435 6364"}
@@ -205,24 +205,24 @@ function Paymentrecipient({ showTips }) {
                   {transactionType === "Individual" ? (
                     <React.Fragment>
                       <p>
-                        <img src='/assets/svg/world.svg' alt='world' />
+                        <img src='./assets/svg/world.svg' alt='world' />
                         {currentRecipient.location}
                       </p>
                     </React.Fragment>
                   ) : (
                     <React.Fragment>
                       <p>
-                        <img src='/assets/svg/student.svg' alt='world' />
+                        <img src='./assets/svg/student.svg' alt='world' />
                         2.512
                       </p>
 
                       <p>
-                        <img src='/assets/svg/world.svg' alt='world' />
+                        <img src='./assets/svg/world.svg' alt='world' />
                         Canada
                       </p>
 
                       <p>
-                        <img src='/assets/svg/location.svg' alt='world' />
+                        <img src='./assets/svg/location.svg' alt='world' />
                         255 Wellington St W, Toronto, M5V 3P6
                       </p>
                     </React.Fragment>
@@ -237,7 +237,7 @@ function Paymentrecipient({ showTips }) {
           <Link to='/dashboard'>
             <button className='left inactive'>Cancel</button>
           </Link>
-          <Link to={!currentRecipient ? '#' : '/payment/transfer'} className={!currentRecipient ? 'disabled' : ""}>
+          <Link to={!currentRecipient ? '#' : '/dashboard/transfer'} className={!currentRecipient ? 'disabled' : ""}>
             <button className='right'>Next</button>
           </Link>
         </div>

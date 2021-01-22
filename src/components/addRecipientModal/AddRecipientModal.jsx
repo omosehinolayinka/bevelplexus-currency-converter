@@ -117,7 +117,7 @@ function Editrecipient({ action }) {
         <div className='form-container'>
           <div className='shadow-box input-item'>
             <span className='icon'>
-              <img src='/assets/svg/contact.svg' alt='name' />
+              <img src='./assets/svg/contact.svg' alt='name' />
             </span>
             <input
               required
@@ -131,7 +131,7 @@ function Editrecipient({ action }) {
 
           <div className='shadow-box input-item'>
             <span className='icon'>
-              <img src='/assets/svg/mail.svg' alt='settings' />
+              <img src='./assets/svg/mail.svg' alt='settings' />
             </span>
             <input
               required
@@ -145,7 +145,7 @@ function Editrecipient({ action }) {
 
           <div className='shadow-box input-item'>
             <span className='icon'>
-              <img src='/assets/svg/world-blue.svg' alt='phone' />
+              <img src='./assets/svg/world-blue.svg' alt='phone' />
             </span>
             <input
               required
@@ -159,7 +159,7 @@ function Editrecipient({ action }) {
 
           <div className='shadow-box input-item'>
             <span className='icon'>
-              <img src='/assets/svg/location-blue.svg' alt='location' />
+              <img src='./assets/svg/location-blue.svg' alt='location' />
             </span>
             <Select
               showSearch
@@ -180,7 +180,7 @@ function Editrecipient({ action }) {
 
           <div className='shadow-box input-item'>
             <span className='icon'>
-              <img src='/assets/svg/bank.svg' alt='bank' />
+              <img src='./assets/svg/bank.svg' alt='bank' />
             </span>
             <input
               required
@@ -195,7 +195,7 @@ function Editrecipient({ action }) {
 
           <div className='shadow-box input-item'>
             <span className='icon'>
-              <img src='/assets/svg/hashtag.svg' alt='number' />
+              <img src='./assets/svg/hashtag.svg' alt='number' />
             </span>
             <input
               required

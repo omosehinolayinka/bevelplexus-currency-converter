@@ -59,7 +59,7 @@ function PaymentTransfer({ showTips }) {
               }
               onClick={() => handleClick("Delayed")}
             >
-              <img src='/assets/svg/calender.svg' alt='recipient' />
+              <img src='./assets/svg/calender.svg' alt='recipient' />
               <p className='flexible-text'>
                 1-2 Business Day
                 <span>Free</span>
@@ -73,7 +73,7 @@ function PaymentTransfer({ showTips }) {
               }
               onClick={() => handleClick("SameDay")}
             >
-              <img src='/assets/svg/hourglass.svg' alt='school' />
+              <img src='./assets/svg/hourglass.svg' alt='school' />
               <p className='flexible-text'>
                 Same day
                 <span>1% of transaction</span>
@@ -122,7 +122,7 @@ function PaymentTransfer({ showTips }) {
 
           <div className='box-container'>
             <div className='shadow-box'>
-              {!recipient.id && <Redirect to='/payment' />}
+              {!recipient.id && <Redirect to='/dashboard' />}
               {recipient.bankInfo && (
                 <CustomCheckbox
                   checked={true}
@@ -136,11 +136,11 @@ function PaymentTransfer({ showTips }) {
         </div>
 
         <div className='section-four'>
-          <Link to='/payment/recipient'>
+          <Link to='/dashboard/recipient'>
             <button className='left'>Previous</button>
           </Link>
           <Link
-            to={isEmpty ? "#" : "/payment/options"}
+            to={isEmpty ? "#" : "/dashboard/options"}
             className={isEmpty ? "disabled" : ""}
           >
             <button className='right'>Next</button>

@@ -18,7 +18,7 @@ function LastTransaction({ data }) {
     <div className='box-one__content'>
       <div className='user-details'>
         <div className='user-details__avi'>
-          <img src='/assets/img/avatar-square.png' alt='avi' />
+          <img src='./assets/img/avatar-square.png' alt='avi' />
           {/* <img src="/assets/svg/brazil-flag.svg" alt="" className="user-details__avi__flag"/> */}
         </div>
         <span className='box-one__text-wrapper'>
@@ -41,7 +41,7 @@ function LastTransaction({ data }) {
       </div>
 
       <div className='box-one__cta'>
-        <Link to='/payment/transfer' onClick={selectRecipient} > 
+        <Link to='/dashboard/transfer' onClick={selectRecipient} >
           <button>Send Money</button>
         </Link>
       </div>

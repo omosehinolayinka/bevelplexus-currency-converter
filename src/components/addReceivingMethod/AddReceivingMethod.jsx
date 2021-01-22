@@ -30,7 +30,7 @@ function Editrecipient({ action, recipientState }) {
         <div className='form-container'>
           <div className='shadow-box input-item'>
             <span className='icon'>
-              <img src='/assets/svg/bank.svg' alt='bank' />
+              <img src='./assets/svg/bank.svg' alt='bank' />
             </span>
             <input
               type='text'
@@ -42,7 +42,7 @@ function Editrecipient({ action, recipientState }) {
 
           <div className='shadow-box input-item'>
             <span className='icon'>
-              <img src='/assets/svg/hashtag.svg' alt='number' />
+              <img src='./assets/svg/hashtag.svg' alt='number' />
             </span>
             <input
               type='text'

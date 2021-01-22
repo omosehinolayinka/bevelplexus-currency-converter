@@ -46,12 +46,12 @@ function RecipientsTable() {
                   <div>
                     <section>
                       <img
-                        src='/assets/svg/avatar.svg'
+                        src='./assets/svg/avatar.svg'
                         alt='avatar'
                         className='avatar-img'
                       />
                       {/* <img
-                        src='/assets/svg/brazil-flag.svg'
+                        src='./assets/svg/brazil-flag.svg'
                         alt=''
                         className='img-attachment'
                       /> */}
@@ -112,7 +112,7 @@ function RecipientsTable() {
                         padding: ".7rem 0",
                       }}
                     >
-                      <Link onClick={() => selectRecipient(data)} to='/payment'>Send Money</Link>
+                      <Link onClick={() => selectRecipient(data)} to='/dashboard'>Send Money</Link>
                     </button>
                   </div>
                 </td>

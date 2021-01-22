@@ -57,9 +57,9 @@ function PaymentReview({ showTips }) {
 
               <div className='user-details'>
                 <div className='user-details__avi'>
-                  <img src='/assets/img/avatar-square.png' alt='avi' />
+                  <img src='./assets/img/avatar-square.png' alt='avi' />
                   <img
-                    src='/assets/svg/brazil-flag.svg'
+                    src='./assets/svg/brazil-flag.svg'
                     alt=''
                     className='user-details__avi__flag'
                   />
@@ -80,12 +80,12 @@ function PaymentReview({ showTips }) {
 
               <div className='contact-details'>
                 <p>
-                  <img src='/assets/svg/smartphone.svg' alt='smartphone' />
+                  <img src='./assets/svg/smartphone.svg' alt='smartphone' />
                   {phoneNumber}
                 </p>
 
                 <p>
-                  <img src='/assets/svg/world.svg' alt='world' />
+                  <img src='./assets/svg/world.svg' alt='world' />
                   {location}
                 </p>
               </div>
@@ -110,7 +110,7 @@ function PaymentReview({ showTips }) {
                 <p>
                   <span>Send Amount</span>
                   <span>
-                    <img src='/assets/svg/canada-flag.svg' alt='cad' />
+                    <img src='./assets/svg/canada-flag.svg' alt='cad' />
                     {baseAmount} {sendCurrency}
                   </span>
                 </p>
@@ -128,7 +128,7 @@ function PaymentReview({ showTips }) {
                 <p>
                   <span>recipient gets</span>
                   <span>
-                    <img src='/assets/svg/brazil-flag.svg' alt='brl' />
+                    <img src='./assets/svg/brazil-flag.svg' alt='brl' />
                     {convertedAmount} {destinationCurrency}
                   </span>
                 </p>
@@ -228,7 +228,7 @@ function PaymentReview({ showTips }) {
         </div>
 
         <div className='section-four'>
-          <Link to='/payment/options' className='spacer'>
+          <Link to='/dashboard/options' className='spacer'>
             <button className='left'>PREVIOUS</button>
           </Link>
           <Link to='/dashboard'>
@@ -248,7 +248,7 @@ function PaymentReview({ showTips }) {
           />
         )}
 
-      {paymentContext.reference === "" && <Redirect to='/payment/options' />}
+      {paymentContext.reference === "" && <Redirect to='/dashboard/options' />}
     </div>
   );
 }
