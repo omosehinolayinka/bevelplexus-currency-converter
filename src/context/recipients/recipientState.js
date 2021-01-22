@@ -24,7 +24,7 @@ const RecipientState = (props) => {
 
   // create a custom client for recipient enpoint
   const httpLink = createHttpLink({
-    uri: "https://bp-user.herokuapp.com/graphql",
+    uri: process.env.REACT_APP_USER_API,
   });
 
   const authLink = setContext((_, { headers }) => {
