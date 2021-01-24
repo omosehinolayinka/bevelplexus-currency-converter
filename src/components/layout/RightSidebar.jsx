@@ -271,7 +271,7 @@ function RightSidebar({ collapsed, collapseRightSidebar }) {
                   </span>
                 ) : (
                   <span className='badge success'>
-                    getStudentVerification()
+                    {getStudentVerification()}
                   </span>
                 )}
                 <Tooltip placement='bottomRight' title={text}>
