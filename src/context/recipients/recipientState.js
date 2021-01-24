@@ -55,8 +55,7 @@ const RecipientState = (props) => {
         }
       })
       .then((res) => {
-        const data = res.data.getAllRecipient;
-
+        const data = res.data.recipientByUser;
         dispatch({
           type: GET_RECIPIENTS,
           payload: data,
