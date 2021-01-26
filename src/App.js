@@ -22,7 +22,7 @@ import UserState from "./context/user/userState";
 //apollo client init
 
 const httpLink = createHttpLink({
-  uri: "https://bp-transaction.herokuapp.com/graphql",
+  uri: process.env.REACT_APP_PAYMENTAPI,
 });
 
 const authLink = setContext((_, { headers }) => {

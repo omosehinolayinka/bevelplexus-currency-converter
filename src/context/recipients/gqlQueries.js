@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const ALL_RECIPIENTS = gql`
-  query getAllRecipient($offset: Float!, $limit: Float!) {
-    getAllRecipient(offset: $offset, limit: $limit) {
+  query recipientByUser($offset: Float!, $limit: Float!) {
+    recipientByUser(offset: $offset, limit: $limit) {
       total
       recipients {
         id
