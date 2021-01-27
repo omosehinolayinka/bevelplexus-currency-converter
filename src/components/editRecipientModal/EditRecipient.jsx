@@ -22,7 +22,6 @@ function Editrecipient({ action, recipientState }) {
     accountNumber: "",
     bankCode: "",
     closeModal: action,
-    // loading: setLoading
   });
 
   const invalidCheck = [
@@ -32,7 +31,6 @@ function Editrecipient({ action, recipientState }) {
     recipient.location,
     recipient.bank,
     recipient.accountNumber,
-    recipient.acctName,
   ];
 
   useEffect(() => {
@@ -215,6 +213,38 @@ function Editrecipient({ action, recipientState }) {
               onChange={handleBank}
             />
           </div>
+
+          {recipient.location === "Canada" && (
+            <div className='shadow-box input-item'>
+              <span className='icon'>
+                <img src='./assets/svg/hashtag.svg' alt='number' />
+              </span>
+              <input
+                required
+                type='text'
+                value={recipient.transitCode}
+                placeholder='Transit Code'
+                name='transitCode'
+                onChange={handleChange}
+              />
+            </div>
+          )}
+
+          {recipient.location === "United Kingdom" && (
+            <div className='shadow-box input-item'>
+              <span className='icon'>
+                <img src='./assets/svg/hashtag.svg' alt='number' />
+              </span>
+              <input
+                required
+                type='text'
+                value={recipient.sortCode}
+                placeholder='Sort Code'
+                name='sortCode'
+                onChange={handleChange}
+              />
+            </div>
+          )}
         </div>
 
         <div
