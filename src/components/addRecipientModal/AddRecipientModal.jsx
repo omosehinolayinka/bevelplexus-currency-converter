@@ -215,9 +215,9 @@ function Editrecipient({ action }) {
               <input
                 required
                 type='text'
-                value={newRecipient.transitCode}
+                value={newRecipient.transitNumber}
                 placeholder='Transit Code'
-                name='transitCode'
+                name='transitNumber'
                 onChange={handleChange}
               />
             </div>
@@ -231,9 +231,9 @@ function Editrecipient({ action }) {
               <input
                 required
                 type='text'
-                value={newRecipient.sortCode}
+                value={newRecipient.swiftCode}
                 placeholder='Sort Code'
-                name='sortCode'
+                name='swiftCode'
                 onChange={handleChange}
               />
             </div>
