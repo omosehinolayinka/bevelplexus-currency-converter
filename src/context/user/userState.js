@@ -31,9 +31,12 @@ const UserState = (props) => {
 
   const [state, dispatch] = useReducer(UserReducer, defaultState);
 
+  // user api from env file or default value
+  const userApi = process.env.REACT_APP_USER_API || "https://bp-user.herokuapp.com/graphql"
+
   // create a custom client for recipient enpoint
   const httpLink = createHttpLink({
-    uri: process.env.REACT_APP_USER_API,
+    uri: userApi,
   });
 
   const authLink = setContext((_, { headers }) => {
@@ -54,7 +57,7 @@ const UserState = (props) => {
 
   // create client upload link
   const link = createUploadLink({
-    uri: process.env.REACT_APP_USER_API,
+    uri: userApi,
   });
 
   const uploadClient = new ApolloClient({
