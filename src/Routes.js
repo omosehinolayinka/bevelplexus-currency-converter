@@ -20,29 +20,26 @@ import TransactionContext from "./context/transactions/transactionContext";
 
 function Routes() {
   const [isAuthenticated, setIsAuthenticated] = useState();
-  const [redirect, setRedirect] = useState(false);
 
   const userContext = useContext(UserContext);
   const recipientContext = useContext(RecipientContext);
   const transactionContext = useContext(TransactionContext);
 
-  const fetchData = () => {
-    userContext.getUser();
-    recipientContext.getRecipients(recipientContext.state.page);
-    transactionContext.getTransactions(transactionContext.state.page);
-  };
-
-  const defaultRoute = () => {
-    setRedirect(true, fetchData());
-  };
-
   useEffect(() => {
     localStorage.getItem("token")
-      ? setIsAuthenticated(true, defaultRoute())
+      ? setIsAuthenticated(true)
       : setIsAuthenticated(false);
+  }, []);
+
+  useEffect(() => {
+    if (isAuthenticated === true) {
+      userContext.getUser();
+      recipientContext.getRecipients(recipientContext.state.page);
+      transactionContext.getTransactions(transactionContext.state.page);
+    }
 
     // eslint-disable-next-line
-  }, []);
+  }, [isAuthenticated])
 
   if (isAuthenticated === false) {
     return (
@@ -55,7 +52,7 @@ function Routes() {
   return (
     <React.Fragment>
       <Router>
-        {redirect && <Redirect to='/dashboard' />}
+        {isAuthenticated === true && <Redirect to='/dashboard' />}
         <Switch>
           <Route exact path="/dashboard" component={Dashboard} />
           <Route exact path="/dashboard">
