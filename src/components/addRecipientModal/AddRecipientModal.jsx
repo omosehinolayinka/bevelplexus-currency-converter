@@ -17,12 +17,11 @@ function Editrecipient({ action }) {
     email: "",
     phoneNumber: "",
     location: "",
-    bank: "-",
+    bank: "Bank Name",
     accountNumber: "",
     acctName: "Account Holder's Name",
     bankCode: "",
     closeModal: action,
-    // loading: setLoading
   });
 
   const invalidCheck = [
@@ -207,6 +206,38 @@ function Editrecipient({ action }) {
               onChange={handleBank}
             />
           </div>
+
+          {newRecipient.location === "Canada" && (
+            <div className='shadow-box input-item'>
+              <span className='icon'>
+                <img src='./assets/svg/hashtag.svg' alt='number' />
+              </span>
+              <input
+                required
+                type='text'
+                value={newRecipient.transitCode}
+                placeholder='Transit Code'
+                name='transitCode'
+                onChange={handleChange}
+              />
+            </div>
+          )}
+
+          {newRecipient.location === "United Kingdom" && (
+            <div className='shadow-box input-item'>
+              <span className='icon'>
+                <img src='./assets/svg/hashtag.svg' alt='number' />
+              </span>
+              <input
+                required
+                type='text'
+                value={newRecipient.sortCode}
+                placeholder='Sort Code'
+                name='sortCode'
+                onChange={handleChange}
+              />
+            </div>
+          )}
         </div>
 
         <div className='btn-big-container'>
