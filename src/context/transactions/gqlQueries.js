@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 
 export const GET_ALL_TRANSACTIONS = gql`
   query getTransactions($offset: Float!, $limit: Float!) {
-    getAllTransaction(offset: $offset, limit: $limit) {
+    getTransactionByUser(offset: $offset, limit: $limit) {
       total
       transactions {
         id
