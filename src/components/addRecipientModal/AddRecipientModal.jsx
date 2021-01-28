@@ -216,7 +216,7 @@ function Editrecipient({ action }) {
                 required
                 type='text'
                 value={newRecipient.transitCode}
-                placeholder='Transit Code'
+                placeholder='Transit Number'
                 name='transitCode'
                 onChange={handleChange}
               />
