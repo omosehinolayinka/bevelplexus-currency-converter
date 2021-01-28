@@ -83,6 +83,7 @@ export const ADD_BANK_INFO = gql`
     $bank: String!
     $accountNumber: String!
     $bankCode: String!
+    $transitOrSortCode: String
   ) {
     addBankInfo(
       bankInfoArgs: {
@@ -90,6 +91,7 @@ export const ADD_BANK_INFO = gql`
         bank: $bank
         accountNumber: $accountNumber
         bankCode: $bankCode
+        transitOrSortCode: $transitOrSortCode
       }
     ) {
       id
