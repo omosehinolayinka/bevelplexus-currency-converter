@@ -116,7 +116,8 @@ const RecipientState = (props) => {
         recipientId: id,
         bank: data.bank,
         accountNumber: data.accountNumber,
-        bankCode: data.bankCode
+        bankCode: data.bankCode,
+        transitOrSortCode: data.transitOrSortCode
       }
     })
     .then(() => {
