@@ -26,7 +26,6 @@ export const GET_FX_RATES = gql`
 export const CREATE_TRANSACTION = gql`
   mutation createTransaction(
     $recipientId: String!
-    $userId: String!
     $bankInfoId: String!
     $sendCurrency: String!
     $destinationCurrency: String!
@@ -37,7 +36,6 @@ export const CREATE_TRANSACTION = gql`
     createTransaction(
       args: {
         recipientId: $recipientId
-        userId: $userId
         bankInfoId: $bankInfoId
         sendCurrency: $sendCurrency
         destinationCurrency: $destinationCurrency
