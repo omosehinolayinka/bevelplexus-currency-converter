@@ -35,7 +35,7 @@ const TransactionState = (props) => {
       .then((res) => {
         dispatch({
           type: GET_TRANSACTIONS,
-          payload: res.data.getAllTransaction
+          payload: res.data.getTransactionByUser
         })
       })
       .catch((err) => {

@@ -95,7 +95,7 @@ const RecipientState = (props) => {
         email: data.email,
         phoneNumber: data.phoneNumber,
         location: data.location,
-        bankCode: data.transitNumber || data.swiftCode
+        bankCode: data.transitOrSortCode
       }
     })
     .then(res => {
@@ -116,7 +116,8 @@ const RecipientState = (props) => {
         recipientId: id,
         bank: data.bank,
         accountNumber: data.accountNumber,
-        bankCode: data.bankCode
+        bankCode: data.bankCode,
+        transitOrSortCode: data.transitOrSortCode
       }
     })
     .then(() => {
@@ -142,7 +143,7 @@ const RecipientState = (props) => {
           email: data.email,
           phoneNumber: data.phoneNumber,
           location: data.location,
-          bankCode: data.transitNumber || data.swiftCode
+          bankCode: data.transitOrSortCode
         },
       })
       .then(() => {
@@ -164,7 +165,8 @@ const RecipientState = (props) => {
           recipientId: data.bankInfo[0].recipientId,
           bank: data.bank,
           accountNumber: data.accountNumber,
-          bankCode: data.bankCode
+          bankCode: data.bankCode,
+          transitOrSortCode: data.transitOrSortCode
         },
       })
       .then(() => {

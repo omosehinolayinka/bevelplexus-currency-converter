@@ -52,7 +52,6 @@ export const SINGLE_RECIPIENT = gql`
 
 export const NEW_RECIPIENT = gql`
   mutation addRecipient(
-    $userId: String!
     $name: String!
     $email: String!
     $phoneNumber: String!
@@ -60,7 +59,6 @@ export const NEW_RECIPIENT = gql`
   ) {
     addRecipient(
       recipientArgs: {
-        userId: $userId
         name: $name
         email: $email
         phoneNumber: $phoneNumber
@@ -83,6 +81,7 @@ export const ADD_BANK_INFO = gql`
     $bank: String!
     $accountNumber: String!
     $bankCode: String!
+    $transitOrSortCode: String
   ) {
     addBankInfo(
       bankInfoArgs: {
@@ -90,6 +89,7 @@ export const ADD_BANK_INFO = gql`
         bank: $bank
         accountNumber: $accountNumber
         bankCode: $bankCode
+        transitOrSortCode: $transitOrSortCode
       }
     ) {
       id
@@ -103,7 +103,6 @@ export const ADD_BANK_INFO = gql`
 export const UPDATED_RECIPIENT_INFO = gql`
   mutation updateRecipient(
     $recipientId: String!
-    $userId: String!
     $name: String!
     $email: String!
     $phoneNumber: String!
@@ -112,7 +111,6 @@ export const UPDATED_RECIPIENT_INFO = gql`
     updateRecipient(
       recipientId: $recipientId
       recipientArgs: {
-        userId: $userId
         name: $name
         email: $email
         phoneNumber: $phoneNumber
