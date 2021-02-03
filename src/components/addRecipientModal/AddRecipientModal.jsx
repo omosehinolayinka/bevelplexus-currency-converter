@@ -17,7 +17,7 @@ function Editrecipient({ action }) {
     email: "",
     phoneNumber: "",
     location: "",
-    bank: "Bank Name",
+    bank: "",
     accountNumber: "",
     acctName: "Account Holder's Name",
     bankCode: "",
@@ -44,15 +44,17 @@ function Editrecipient({ action }) {
   const handleBank = (e) => {
     const num = e.target.value;
 
-    setNewRecipient({
-      ...newRecipient,
-      accountNumber: num,
-      bank: "Fetching...",
-      acctName: "Fetching...",
-    });
+    
 
-    if (e.target.value.length === 10) {
+    if (e.target.value.length === 10 && newRecipient.location === "Nigeria") {
       setDisableBank(true);
+
+      setNewRecipient({
+        ...newRecipient,
+        accountNumber: num,
+        bank: "Fetching...",
+        acctName: "Fetching...",
+      });
 
       axios
         .get(
@@ -83,8 +85,8 @@ function Editrecipient({ action }) {
       setNewRecipient({
         ...newRecipient,
         accountNumber: num,
-        bank: "-",
-        acctName: "Account holder's name",
+        // bank: "-",
+        // acctName: "Account holder's name",
       });
     }
   };
@@ -166,7 +168,7 @@ function Editrecipient({ action }) {
               optionFilterProp='children'
               onChange={handleSelect}
               name='location'
-              placeholder='location'
+              placeholder='Location'
               autoComplete='dontshow'
             >
               {locations.map((location) => (
@@ -175,21 +177,6 @@ function Editrecipient({ action }) {
                 </Option>
               ))}
             </Select>
-          </div>
-
-          <div className='shadow-box input-item'>
-            <span className='icon'>
-              <img src='./assets/svg/bank.svg' alt='bank' />
-            </span>
-            <input
-              required
-              type='text'
-              value={newRecipient.bank}
-              placeholder='Bank'
-              name='bank'
-              disabled
-              onChange={handleChange}
-            />
           </div>
 
           <div className='shadow-box input-item'>
@@ -204,6 +191,21 @@ function Editrecipient({ action }) {
               placeholder='Account Number'
               name='accountNumber'
               onChange={handleBank}
+            />
+          </div>
+
+          <div className='shadow-box input-item'>
+            <span className='icon'>
+              <img src='./assets/svg/bank.svg' alt='bank' />
+            </span>
+            <input
+              required
+              type='text'
+              value={newRecipient.bank}
+              placeholder='Bank Name'
+              name='bank'
+              disabled= {newRecipient.location === "Nigeria"}
+              onChange={handleChange}
             />
           </div>
 
@@ -240,9 +242,11 @@ function Editrecipient({ action }) {
           )}
         </div>
 
-        <div className='btn-big-container'>
-          <button> {newRecipient.acctName} </button>
-        </div>
+        {newRecipient.location === "Nigeria" && (
+          <div className='btn-big-container'>
+            <button> {newRecipient.acctName} </button>
+          </div>
+        )}
 
         <div className='buttons-container'>
           <button onClick={() => action(false)}>Cancel</button>
