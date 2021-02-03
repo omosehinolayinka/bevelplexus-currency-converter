@@ -169,16 +169,16 @@ function Paymentrecipient({ showTips }) {
                     <img
                       src={
                         transactionType === "Individual"
-                          ? "/assets/img/avatar-square.png"
-                          : "/assets/svg/institution.svg"
+                          ? "./assets/img/avatar-square.png"
+                          : "./assets/svg/institution.svg"
                       }
                       alt='avi'
                     />
-                    <img
+                    {/* <img
                       src='./assets/svg/brazil-flag.svg'
-                      alt=''
+                      alt='flag'
                       className='user-details__avi__flag'
-                    />
+                    /> */}
                   </div>
                   <span className='user-details__text-wrapper'>
                     <h3>
