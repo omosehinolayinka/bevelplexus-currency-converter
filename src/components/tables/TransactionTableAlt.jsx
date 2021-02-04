@@ -33,8 +33,8 @@ function TransactionsTable({ data }) {
                       <img
                         src={
                           data.transactionType === "Individual"
-                            ? "/assets/svg/avatar.svg"
-                            : "/assets/svg/institution.svg"
+                            ? "./assets/svg/avatar.svg"
+                            : "./assets/svg/institution.svg"
                         }
                         alt='avatar'
                         className='avatar-img'
