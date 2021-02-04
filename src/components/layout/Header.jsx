@@ -22,7 +22,7 @@ function Header({
         <li><Link to='/transactions'>Transaction history</Link></li>
       </ul>
 
-      <Link to='/' className='logout-link' >Logout</Link>
+      <Link to={process.env.REACT_APP_BASEURL} className='logout-link' >Logout</Link>
     </div>
   );
 
