@@ -26,8 +26,6 @@ function Editrecipient({ action, recipientState }) {
 
   const invalidCheck = [
     recipient.name,
-    recipient.email,
-    recipient.phoneNumber,
     recipient.location,
     recipient.bank,
     recipient.accountNumber,

@@ -26,12 +26,9 @@ function Editrecipient({ action }) {
 
   const invalidCheck = [
     newRecipient.name,
-    newRecipient.email,
-    newRecipient.phoneNumber,
     newRecipient.location,
     newRecipient.bank,
     newRecipient.accountNumber,
-    newRecipient.acctName,
   ];
 
   const handleChange = (e) => {
@@ -135,7 +132,6 @@ function Editrecipient({ action }) {
               <img src='./assets/svg/mail.svg' alt='settings' />
             </span>
             <input
-              required
               type='text'
               value={newRecipient.email}
               placeholder='Email'
@@ -149,7 +145,6 @@ function Editrecipient({ action }) {
               <img src='./assets/svg/world-blue.svg' alt='phone' />
             </span>
             <input
-              required
               type='text'
               value={newRecipient.phoneNumber}
               placeholder='Phone Number'
@@ -255,7 +250,6 @@ function Editrecipient({ action }) {
               invalidCheck.includes("") ||
               invalidCheck.includes("Fetching...") ||
               invalidCheck.includes("Please wait...") ||
-              invalidCheck.includes("Account Holder's Name") ||
               invalidCheck.includes("Invalid Acct No")
                 ? "disabled"
                 : ""
