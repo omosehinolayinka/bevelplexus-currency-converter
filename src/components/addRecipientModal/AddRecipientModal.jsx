@@ -31,7 +31,6 @@ function Editrecipient({ action }) {
     newRecipient.location,
     newRecipient.bank,
     newRecipient.accountNumber,
-    newRecipient.acctName,
   ];
 
   const handleChange = (e) => {
@@ -255,7 +254,6 @@ function Editrecipient({ action }) {
               invalidCheck.includes("") ||
               invalidCheck.includes("Fetching...") ||
               invalidCheck.includes("Please wait...") ||
-              invalidCheck.includes("Account Holder's Name") ||
               invalidCheck.includes("Invalid Acct No")
                 ? "disabled"
                 : ""
