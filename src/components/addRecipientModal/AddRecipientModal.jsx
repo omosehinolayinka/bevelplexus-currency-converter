@@ -26,8 +26,6 @@ function Editrecipient({ action }) {
 
   const invalidCheck = [
     newRecipient.name,
-    newRecipient.email,
-    newRecipient.phoneNumber,
     newRecipient.location,
     newRecipient.bank,
     newRecipient.accountNumber,
@@ -134,7 +132,6 @@ function Editrecipient({ action }) {
               <img src='./assets/svg/mail.svg' alt='settings' />
             </span>
             <input
-              required
               type='text'
               value={newRecipient.email}
               placeholder='Email'
@@ -148,7 +145,6 @@ function Editrecipient({ action }) {
               <img src='./assets/svg/world-blue.svg' alt='phone' />
             </span>
             <input
-              required
               type='text'
               value={newRecipient.phoneNumber}
               placeholder='Phone Number'
