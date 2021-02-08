@@ -187,7 +187,7 @@ const PaymentState = (props) => {
       })
       .catch(() => {
         alertContext.showAlert({
-          type: "error",
+          type: "warning",
           title: "Opps!",
           body: "Your transaction may have not been proccessed correctly, please try again",
           action() {
