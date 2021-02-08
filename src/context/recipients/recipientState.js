@@ -1,10 +1,11 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useContext } from "react";
 import RecipientContext from "./recipientContext";
 import RecipientReducer from "./recipientReducer";
 import { ApolloClient, createHttpLink, InMemoryCache } from "@apollo/client";
 import { queries as gql } from "./gqlQueries";
 import { setContext } from "@apollo/client/link/context";
-import { toast } from "react-toastify";
+
+import AlertContext from "../alert/alertContext";
 
 import {
   GET_RECIPIENTS,
@@ -21,6 +22,7 @@ const RecipientState = (props) => {
   };
 
   const [state, dispatch] = useReducer(RecipientReducer, defaultState);
+  const alertContext = useContext(AlertContext)
 
   // user api from env file or default value
   const userApi = process.env.REACT_APP_USER_API || "https://bp-user.herokuapp.com/graphql"
@@ -65,7 +67,14 @@ const RecipientState = (props) => {
         });
       })
       .catch(() => {
-        showError("Failed to fetch recipients");
+        alertContext.showAlert({
+          type: "error",
+          title: "Opps!",
+          body: "Failed to fetch recipients",
+          action() {
+            alertContext.hideAlert()
+          }
+        });
       });
   };
 
@@ -82,7 +91,16 @@ const RecipientState = (props) => {
       console.log(res.data.recipient);
       callback.setCurrentRecipient(res.data.recipient)
     })
-    .catch(err => console.log(err))
+    .catch(() => {
+      alertContext.showAlert({
+        type: "error",
+        title: "Opps!",
+        body: "We are finding it difficult to get this recipient's details. Please try again",
+        action() {
+          alertContext.hideAlert()
+        }
+      });
+    })
   }
 
   // add recipents
@@ -103,7 +121,14 @@ const RecipientState = (props) => {
       addBankInfo(id, data)
     })
     .catch(() => {
-      showError("Couldn't add recipient, please refresh")
+      alertContext.showAlert({
+        type: "error",
+        title: "Opps!",
+        body: "Couldn't add recipient, please try again",
+        action() {
+          alertContext.hideAlert()
+        }
+      });
     })
   };
 
@@ -122,12 +147,25 @@ const RecipientState = (props) => {
     })
     .then(() => {
       getRecipients(defaultState.page)
-      showSuccess("Recipient Added")
+      alertContext.showAlert({
+        type: "success",
+        title: "Success!",
+        body: `${data.name} has been added as a recipient`,
+        action() {
+          alertContext.hideAlert()
+        }
+      });
       data.closeModal(false)
     }) 
     .catch(() => {
-      showError("Couldn't add bank details, please try again")
-      // data.loading(false)
+      alertContext.showAlert({
+        type: "error",
+        title: "Opps!",
+        body: "Couldn't add bank details, please try again",
+        action() {
+          alertContext.hideAlert()
+        }
+      });
     })
   };
 
@@ -150,8 +188,14 @@ const RecipientState = (props) => {
         updateBank(data);
       })
       .catch(() => {
-        showError("Error updating recipient");
-        // data.loading(false)
+        alertContext.showAlert({
+          type: "error",
+          title: "Opps!",
+          body: "Error updating recipient, please try again",
+          action() {
+            alertContext.hideAlert()
+          }
+        });
       });
   };
 
@@ -171,11 +215,25 @@ const RecipientState = (props) => {
       })
       .then(() => {
         getRecipients(defaultState.page);
-        showSuccess("Recipient Updated")
+        alertContext.showAlert({
+          type: "success",
+          title: "Success!",
+          body: `${data.name}'s details have been updated successfully`,
+          action() {
+            alertContext.hideAlert()
+          }
+        });
         data.closeModal(false);
       })
       .catch(() => {
-        showError("Coulnd't update bank info, check your network");
+        alertContext.showAlert({
+          type: "error",
+          title: "Opps!",
+          body: "Coulnd't update bank info, check your network and try again",
+          action() {
+            alertContext.hideAlert()
+          }
+        });
         data.loading(false)
       });
   };
@@ -189,30 +247,6 @@ const RecipientState = (props) => {
 
     getRecipients(page);
   }
-
-  // show error notice
-  const showError = (message) => {
-    toast.error(message, {
-      autoClose: 3000,
-      closeButton: true,
-      pauseOnHover: true,
-      position: "top-right",
-      hideProgressBar: true,
-      toastId: "Yes",
-    });
-  };
-
-  // show success notice
-  const showSuccess = (message) => {
-    toast.success(message, {
-      autoClose: 3000,
-      closeButton: true,
-      pauseOnHover: true,
-      position: "top-right",
-      hideProgressBar: true,
-      toastId: "Yes",
-    });
-  };
 
   return (
     <RecipientContext.Provider

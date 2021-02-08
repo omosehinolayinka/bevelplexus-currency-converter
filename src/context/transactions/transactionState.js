@@ -1,10 +1,11 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useContext } from "react";
 import TransactionReducer from "./transactionReducer";
 import TransactionContext from "./transactionContext";
 
+import AlertContext from "../alert/alertContext";
+
 import { useApolloClient } from "@apollo/client";
 import { queries as gql } from "./gqlQueries";
-import { toast } from "react-toastify";
 
 import { GET_TRANSACTIONS, CHANGE_PAGE } from "../types";
 
@@ -18,7 +19,7 @@ const TransactionState = (props) => {
   };
 
   const [state, dispatch] = useReducer(TransactionReducer, defaultState);
-
+  const alertContext = useContext(AlertContext)
   const client = useApolloClient();
 
   // get all transactions
@@ -40,7 +41,15 @@ const TransactionState = (props) => {
       })
       .catch((err) => {
         console.log(err);
-        showError("Failed to fetch transactions");
+
+        alertContext.showAlert({
+          type: "error",
+          title: "Opps!",
+          body: "Failed to fetch transactions, please try again",
+          action() {
+            alertContext.hideAlert()
+          }
+        });
       });
   };
 
@@ -51,20 +60,7 @@ const TransactionState = (props) => {
     })
 
     getTransactions(page)
-
   }
-
-  // show error notice
-  const showError = (message) => {
-    toast.error(message, {
-      autoClose: 3000,
-      closeButton: true,
-      pauseOnHover: true,
-      position: "top-right",
-      hideProgressBar: true,
-      toastId: "Yes",
-    });
-  };
 
   return (
     <TransactionContext.Provider

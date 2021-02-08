@@ -1,18 +1,19 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, Redirect } from "react-router-dom";
 import "../paymentRecipient/PaymentRecipient.scss";
 import "./PaymentReview.scss";
 
 import Layout from "../../components/layout/Layout";
-import Alert from "../../components/alert/Alert";
 
 import PaymentContext from "../../context/payment/paymentContext";
+import AlertContext from "../../context/alert/alertContext";
 
 function PaymentReview({ showTips }) {
-  const [alert, setAlert] = useState(true);
   const [animate, isAnimated] = useState(false);
 
   const paymentContext = useContext(PaymentContext);
+  const alertContext = useContext(AlertContext)
+
   const { name, email, phoneNumber, location } = paymentContext.state.recipient;
 
   const {
@@ -34,6 +35,25 @@ function PaymentReview({ showTips }) {
   const eTransfers = paymentContext.state.paymentOptions.filter(
     (item) => item.paymentType === "ETransfer"
   );
+
+  useEffect(() => {
+    alertContext.showAlert({
+      type: "warning",
+      title: "Order Initiated",
+      body: "Please read the INSTRUCTIONS on the next screen to complete payment process for this transaction",
+      anchor: {
+        target: "paymentInstructions",
+        smooth: true,
+        duration: 1000
+      },
+      action() {
+        alertContext.hideAlert()
+        isAnimated(true)
+      }
+    });
+
+    //eslint-disable-next-line
+  }, [])
 
   return (
     <div id='payment-review'>
@@ -238,15 +258,6 @@ function PaymentReview({ showTips }) {
           </Link>
         </div>
       </Layout>
-
-      {alert && (
-          <Alert
-            type='warning'
-            title='Order Initiated'
-            body="Please read the INSTRUCTIONS on the next screen to complete payment process for this transaction"
-            action={() => [setAlert(false), isAnimated(true)]}
-          />
-        )}
 
       {paymentContext.reference === "" && <Redirect to='/dashboard/options' />}
     </div>
