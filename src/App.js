@@ -3,7 +3,8 @@ import React from "react";
 import "./App.scss";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
-import Routes from './Routes'
+import Alert from "./components/alert/Alert";
+import Routes from "./Routes";
 import {
   ApolloClient,
   createHttpLink,
@@ -12,17 +13,18 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import IntroState from "./context/intro/introState";
+import AlertState from "./context/alert/alertState";
 import PaymentState from "./context/payment/paymentState";
 import RecipientState from "./context/recipients/recipientState";
 import TransactionState from "./context/transactions/transactionState";
 import UserState from "./context/user/userState";
 
-
-
 //apollo client init
 
 // payment api from env file or default value
-const paymentApi = process.env.REACT_APP_PAYMENTAPI || "https://bp-transaction.herokuapp.com/graphql"
+const paymentApi =
+  process.env.REACT_APP_PAYMENTAPI ||
+  "https://bp-transaction.herokuapp.com/graphql";
 
 const httpLink = createHttpLink({
   uri: paymentApi,
@@ -48,18 +50,21 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <IntroState>
-        <UserState>
-          <RecipientState>
-            <PaymentState>
-              <TransactionState>
-                <div className='App'>
-                  <Routes />
-                  <ToastContainer />
-                </div>
-              </TransactionState>
-            </PaymentState>
-          </RecipientState>
-        </UserState>
+        <AlertState>
+          <UserState>
+            <RecipientState>
+              <PaymentState>
+                <TransactionState>
+                  <div className='App'>
+                    <Routes />
+                    <ToastContainer />
+                    <Alert />
+                  </div>
+                </TransactionState>
+              </PaymentState>
+            </RecipientState>
+          </UserState>
+        </AlertState>
       </IntroState>
     </ApolloProvider>
   );

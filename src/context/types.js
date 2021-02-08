@@ -1,5 +1,9 @@
 export const SHOW_INTRO = "SHOW_INTRO";
 export const HIDE_INTRO = "HIDE_INTRO";
+
+export const SHOW_ALERT = "SHOW_ALERT";
+export const HIDE_ALERT = "HIDE_ALERT";
+
 export const GET_USER = "GET_USER";
 
 export const SET_FX_PARAMETERS = "SET_FX_PARAMETERS";

@@ -1,9 +1,10 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useContext } from "react";
 import PaymentContext from "./paymentContext";
 import PaymentReducer from "./paymentReducer";
 import { useApolloClient } from "@apollo/client";
 import { queries as gql } from "./gqlQueries";
-import { toast } from "react-toastify";
+
+import AlertContext from "../alert/alertContext";
 
 import {
   SET_FX_PARAMETERS,
@@ -14,7 +15,7 @@ import {
   SET_PAYMENT_OPTION,
   SET_REFERENCE,
   SET_PAYMENT_METHODS,
-  RESET_STATE
+  RESET_STATE,
 } from "../types";
 
 const PaymentState = (props) => {
@@ -36,11 +37,12 @@ const PaymentState = (props) => {
     transactionType: "Individual",
     paymentOption: "E-transfer",
     referenceID: "",
-    paymentOptions: []
+    paymentOptions: [],
   };
 
   const [state, dispatch] = useReducer(PaymentReducer, defaultState);
   const client = useApolloClient();
+  const alertContext = useContext(AlertContext);
 
   // set calculation type
   const setReverseCalc = (value) => {
@@ -98,9 +100,15 @@ const PaymentState = (props) => {
             },
           });
         })
-        .catch((err) => {
-          console.log(err);
-          showError("Sorry, an error occured");
+        .catch(() => {
+          alertContext.showAlert({
+            type: "error",
+            title: "Opps!",
+            body: "Couldn't get fx rates, please try again",
+            action() {
+              alertContext.hideAlert()
+            }
+          });
         });
     }
   };
@@ -152,76 +160,74 @@ const PaymentState = (props) => {
           payload: reference,
         });
 
-        getCountryId(data.destinationCurrency, redirect)
+        getCountryId(data.destinationCurrency, redirect);
         // alert(true);
       })
       .catch((err) => {
         console.log(err);
-        showError("Couldn't process transaction, please try again");
+        alertContext.showAlert({
+          type: "error",
+          title: "Opps!",
+          body: "Couldn't process transaction, please try again",
+          action() {
+            alertContext.hideAlert()
+          }
+        });
       });
   };
 
   const getCountryId = (currency, redirect) => {
-    client.query({
-      query: gql.GET_COUNTRY_ID,
-      variables: { currencyCode: currency },
-    })
-    .then((res) => {
-      getPaymentMethods(res.data.getCountryByCurrencyCode.id, redirect)
-    })
-    .catch(() => {
-      showError("Opps! Your transaction may have not been proccessed correctly, please try again")
-    })
+    client
+      .query({
+        query: gql.GET_COUNTRY_ID,
+        variables: { currencyCode: currency },
+      })
+      .then((res) => {
+        getPaymentMethods(res.data.getCountryByCurrencyCode.id, redirect);
+      })
+      .catch(() => {
+        alertContext.showAlert({
+          type: "error",
+          title: "Opps!",
+          body: "Your transaction may have not been proccessed correctly, please try again",
+          action() {
+            alertContext.hideAlert()
+          }
+        });
+      });
   };
 
   const getPaymentMethods = (id, redirect) => {
-    client.query({
-      query: gql.GET_PAYMENT_METHODS,
-      variables: {countryId: id}
-    })
-    .then((res) => {
-      dispatch({
-        type: SET_PAYMENT_METHODS,
-        payload: res.data.getPaymentChannelByCountryId
+    client
+      .query({
+        query: gql.GET_PAYMENT_METHODS,
+        variables: { countryId: id },
       })
-      redirect(true)
-    })
-    .catch(err => {
-      console.log(err)
-      showError("Error in getting payment options")
-    })
-  }
+      .then((res) => {
+        dispatch({
+          type: SET_PAYMENT_METHODS,
+          payload: res.data.getPaymentChannelByCountryId,
+        });
+        redirect(true);
+      })
+      .catch(() => {
+        alertContext.showAlert({
+          type: "error",
+          title: "Opps!",
+          body: "Error in getting payment options, please try again",
+          action() {
+            alertContext.hideAlert()
+          }
+        });
+      });
+  };
 
   const resetState = () => {
     dispatch({
       type: RESET_STATE,
-      payload: defaultState
-    })
-  }
-
-  // show error
-  const showError = (message) => {
-    toast.error(message, {
-      autoClose: 3000,
-      closeButton: true,
-      pauseOnHover: true,
-      position: "top-right",
-      hideProgressBar: true,
-      toastId: "Yes",
+      payload: defaultState,
     });
   };
-
-  // show success notice
-  // const showSuccess = (message) => {
-  //   toast.success(message, {
-  //     autoClose: 3000,
-  //     closeButton: true,
-  //     pauseOnHover: true,
-  //     position: "top-right",
-  //     hideProgressBar: true,
-  //     toastId: "Yes",
-  //   });
-  // };
 
   return (
     <PaymentContext.Provider
@@ -234,7 +240,7 @@ const PaymentState = (props) => {
         setReceiveType,
         setPaymentOption,
         createTransaction,
-        resetState
+        resetState,
       }}
     >
       {props.children}
