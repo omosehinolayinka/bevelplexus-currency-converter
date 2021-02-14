@@ -62,32 +62,23 @@ const CurrencyCalc = () => {
     paymentContext.getFxRates(data);
   };
 
-  const currencies = [
-    {
-      name: "USD",
-      flag: "https://www.countryflags.io/us/flat/24.png",
-    },
-    {
-      name: "NGN",
-      flag: "https://www.countryflags.io/ng/flat/24.png",
-    },
-    {
-      name: "GBP",
-      flag: "https://www.countryflags.io/gb/flat/24.png",
-    },
-    {
-      name: "CAD",
-      flag: "https://www.countryflags.io/ca/flat/24.png",
-    },
-    {
-      name: "BRL",
-      flag: "https://www.countryflags.io/br/flat/24.png",
-    },
-    // {
-    //   name: "EUR",
-    //   flag: "https://www.countryflags.io/eu/flat/24.png",
-    // },
-  ];
+  const addFlagsToCountries = () => {
+    const countries = paymentContext.state.countries;
+
+    const withFlags = countries.map(ct => {
+
+      const flagCode = ct.countryCode.slice(0, 2).toLowerCase()
+
+      return {
+        ...ct,
+        flag: `https://www.countryflags.io/${flagCode}/flat/24.png`
+      }
+    })
+
+    return withFlags;
+  }
+
+  const currencies = addFlagsToCountries();
 
   const sendCurrencyMenu = (
     <Menu
@@ -96,8 +87,8 @@ const CurrencyCalc = () => {
       selectedKeys={sendCurrency}
     >
       {currencies.map((currency) => (
-        <Menu.Item key={currency.name}>
-          <img src={currency.flag} alt={currency.name} /> {currency.name}
+        <Menu.Item key={currency.currencyCode}>
+          <img src={currency.flag} alt={currency.currencyCode} /> {currency.currencyCode}
         </Menu.Item>
       ))}
     </Menu>
@@ -109,8 +100,8 @@ const CurrencyCalc = () => {
       selectedKeys={destinationCurrency}
     >
       {currencies.map((currency) => (
-        <Menu.Item key={currency.name}>
-          <img src={currency.flag} alt={currency.name} /> {currency.name}
+        <Menu.Item key={currency.currencyCode}>
+          <img src={currency.flag} alt={currency.currencyCode} /> {currency.currencyCode}
         </Menu.Item>
       ))}
     </Menu>

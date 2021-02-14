@@ -3,6 +3,7 @@ import PaymentContext from "./paymentContext";
 import PaymentReducer from "./paymentReducer";
 import { useApolloClient } from "@apollo/client";
 import { queries as gql } from "./gqlQueries";
+import { GET_ALL_COUNTRIES } from "./gqlQueries"
 
 import AlertContext from "../alert/alertContext";
 
@@ -16,6 +17,7 @@ import {
   SET_REFERENCE,
   SET_PAYMENT_METHODS,
   RESET_STATE,
+  SET_COUNTRIES,
 } from "../types";
 
 const PaymentState = (props) => {
@@ -38,6 +40,7 @@ const PaymentState = (props) => {
     paymentOption: "E-transfer",
     referenceID: "",
     paymentOptions: [],
+    countries: [],
   };
 
   const [state, dispatch] = useReducer(PaymentReducer, defaultState);
@@ -106,8 +109,8 @@ const PaymentState = (props) => {
             title: "Opps!",
             body: "Couldn't get fx rates, please try again",
             action() {
-              alertContext.hideAlert()
-            }
+              alertContext.hideAlert();
+            },
           });
         });
     }
@@ -170,10 +173,24 @@ const PaymentState = (props) => {
           title: "Opps!",
           body: "Couldn't process transaction, please try again",
           action() {
-            alertContext.hideAlert()
-          }
+            alertContext.hideAlert();
+          },
         });
       });
+  };
+
+  const getAllCountries = () => {
+    client
+      .query({
+        query: GET_ALL_COUNTRIES,
+      })
+      .then((res) => {
+        dispatch({
+          type: SET_COUNTRIES,
+          payload: res.data.getAllCountry
+        })
+      })
+      .catch((err) => console.log(err));
   };
 
   const getCountryId = (currency, redirect) => {
@@ -189,10 +206,11 @@ const PaymentState = (props) => {
         alertContext.showAlert({
           type: "warning",
           title: "Opps!",
-          body: "Your transaction may have not been proccessed correctly, please try again",
+          body:
+            "Your transaction may have not been proccessed correctly, please try again",
           action() {
-            alertContext.hideAlert()
-          }
+            alertContext.hideAlert();
+          },
         });
       });
   };
@@ -216,8 +234,8 @@ const PaymentState = (props) => {
           title: "Opps!",
           body: "Error in getting payment options, please try again",
           action() {
-            alertContext.hideAlert()
-          }
+            alertContext.hideAlert();
+          },
         });
       });
   };
@@ -235,6 +253,7 @@ const PaymentState = (props) => {
         state,
         setReverseCalc,
         getFxRates,
+        getAllCountries,
         setTransactionType,
         setCurrentRecipient,
         setReceiveType,

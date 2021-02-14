@@ -17,6 +17,7 @@ import AccountSettings from "./pages/account/AccountSettings";
 import UserContext from "./context/user/userContext";
 import RecipientContext from "./context/recipients/recipientContext";
 import TransactionContext from "./context/transactions/transactionContext";
+import PaymentContext from "./context/payment/paymentContext"
 
 function Routes() {
   const [isAuthenticated, setIsAuthenticated] = useState();
@@ -24,6 +25,7 @@ function Routes() {
   const userContext = useContext(UserContext);
   const recipientContext = useContext(RecipientContext);
   const transactionContext = useContext(TransactionContext);
+  const paymentContext = useContext(PaymentContext);
 
   useEffect(() => {
     localStorage.getItem("token")
@@ -36,6 +38,7 @@ function Routes() {
       userContext.getUser();
       recipientContext.getRecipients(recipientContext.state.page);
       transactionContext.getTransactions(transactionContext.state.page);
+      paymentContext.getAllCountries();
     }
 
     // eslint-disable-next-line
