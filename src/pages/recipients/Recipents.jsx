@@ -7,7 +7,6 @@ import { Pagination } from "antd";
 
 import Layout from "../../components/layout/Layout";
 import Table from "../../components/tables/RecipientsTable";
-// import Pagination from "../../components/pagination/Pagination";
 import AddModal from "../../components/addRecipientModal/AddRecipientModal";
 
 import RecipientContext from "../../context/recipients/recipientContext";

@@ -53,6 +53,17 @@ export const CREATE_TRANSACTION = gql`
   }
 `;
 
+export const GET_ALL_COUNTRIES = gql`
+  query getAllCountry {
+    getAllCountry {
+      name
+      id
+      countryCode
+      currencyCode
+    }
+  }
+`;
+
 export const GET_COUNTRY_ID = gql`
   query getCountryByCurrencyCode($currencyCode: String!) {
     getCountryByCurrencyCode(currencyCode: $currencyCode) {
