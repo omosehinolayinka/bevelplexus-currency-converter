@@ -5,7 +5,12 @@ import { Tooltip } from "antd";
 import UserContext from "../../context/user/userContext";
 
 function VerificationBox() {
+
   const userContext = useContext(UserContext);
+
+  const redirect = () => {
+    window.location = process.env.REACT_APP_BASEURL || "https://app.bevelplexus.com";
+  };
 
   const {
     isEmailVerified,
@@ -41,7 +46,8 @@ function VerificationBox() {
         <div className='box-heading'>
           <h3>
             LEVEL
-            {userContext.state.user.userType === "Regular" && isEmailVerified &&
+            {userContext.state.user.userType === "Regular" &&
+            isEmailVerified &&
             isPhoneNumberVerified &&
             isIdentityVerified &&
             isUtilityBillVerified
@@ -62,7 +68,8 @@ function VerificationBox() {
 
         <div className='subtitle'>
           <p>
-          {userContext.state.user.userType === "Regular" && isEmailVerified &&
+            {userContext.state.user.userType === "Regular" &&
+            isEmailVerified &&
             isPhoneNumberVerified &&
             isIdentityVerified &&
             isUtilityBillVerified
@@ -95,7 +102,7 @@ function VerificationBox() {
               <span className='material-icons'>close</span>
             )}
           </p>
-          {userContext.state.user.userType !== "Regular" && (
+          {/* {userContext.state.user.userType !== "Regular" && (
             <p className='fade-text'>
               School information
               {isSchoolEnrollmentVerified ? (
@@ -104,7 +111,7 @@ function VerificationBox() {
                 <span className='material-icons'>close</span>
               )}
             </p>
-          )}
+          )} */}
           <p>
             ID Verification
             {isIdentityVerified ? (
@@ -114,16 +121,22 @@ function VerificationBox() {
             )}
           </p>
 
-          <p>
+          {/* <p>
             Utility bill verifiation
             {isUtilityBillVerified ? (
               <img src='./assets/svg/green-check-alt.svg' alt='' />
             ) : (
               <span className='material-icons'>close</span>
             )}
-          </p>
+          </p> */}
         </div>
       </div>
+
+      {(!isEmailVerified || !isPhoneNumberVerified || !isIdentityVerified) && (
+        <label onClick={() => redirect()}>
+          <div className='shadow-box buttons'>Complete Verification</div>
+        </label>
+      )}
     </div>
   );
 }

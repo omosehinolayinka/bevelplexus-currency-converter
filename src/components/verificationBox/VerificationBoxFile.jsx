@@ -17,6 +17,9 @@ function VerificationBoxFile({ reset, setReset }) {
     isUtilityBillVerified,
   } = userContext.state.user.userVerification;
 
+  const levelOneComplete =
+    isEmailVerified && isPhoneNumberVerified && isIdentityVerified;
+
   const tooltipStyle = {
     display: "flex",
     alignItems: "flex-start",
@@ -51,9 +54,9 @@ function VerificationBoxFile({ reset, setReset }) {
       isIdentityVerified &&
       isUtilityBillVerified
     ) {
-      validity.valid && userContext.verifyEnrollment(file, setFile)
+      validity.valid && userContext.verifyEnrollment(file, setFile);
     } else if (isIdentityVerified) {
-      validity.valid && userContext.verifyUtility(file, setFile)
+      validity.valid && userContext.verifyUtility(file, setFile);
     } else {
       validity.valid && userContext.verifyIdentity(file, setFile);
     }
@@ -74,21 +77,38 @@ function VerificationBoxFile({ reset, setReset }) {
         </div>
 
         <div className='wrap'>
-          {isEmailVerified && isPhoneNumberVerified && !isIdentityVerified ? (
-            <p>
-              Upload a photo of a valid ID, to complete Level 1 verification
-              before upgrading to level 2
+          {userContext.state.user.userType !== "Regular" && (
+            <p className='fade-text'>
+              School information
+              {isSchoolEnrollmentVerified ? (
+                <img src='./assets/svg/green-check-alt.svg' alt='' />
+              ) : (
+                <span className='material-icons'>close</span>
+              )}
             </p>
+          )}
+
+          <p>
+            Utility bill verifiation
+            {isUtilityBillVerified ? (
+              <img src='./assets/svg/green-check-alt.svg' alt='' />
+            ) : (
+              <span className='material-icons'>close</span>
+            )}
+          </p>
+
+          <br />
+
+          {isEmailVerified && isPhoneNumberVerified && !isIdentityVerified ? (
+            <p>Complete Level 1 verification before upgrading to level 2</p>
           ) : isIdentityVerified && !isUtilityBillVerified ? (
             <p>
-              To upgrade to this level, upload a photo of your utility bill
-              Below{" "}
+              Upload a photo of a valid utility bill with your address to upgrade your account
             </p>
           ) : userContext.state.user.userType === "Student" &&
             !isSchoolEnrollmentVerified ? (
             <p>
-              To upgrade to this level, upload your school enrollment Document
-              Below
+              Upload a photo of a valid school enrollment Document to upgrade your account
             </p>
           ) : (
             <p>Please complete level one verification first </p>
@@ -96,9 +116,8 @@ function VerificationBoxFile({ reset, setReset }) {
         </div>
       </div>
 
-      {(isEmailVerified && isPhoneNumberVerified && !isIdentityVerified) ||
-      (isEmailVerified && isPhoneNumberVerified && !isUtilityBillVerified) ||
-      (isEmailVerified && isPhoneNumberVerified && !isSchoolEnrollmentVerified) ? (
+      {(levelOneComplete && !isUtilityBillVerified) ||
+      (levelOneComplete && !isSchoolEnrollmentVerified) ? (
         <label>
           <input
             type='file'
