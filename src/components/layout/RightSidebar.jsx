@@ -11,6 +11,10 @@ import { Dropdown, Tooltip, Button } from "antd";
 function RightSidebar({ collapsed, collapseRightSidebar }) {
   const userContext = useContext(UserContext);
 
+  const logout = () => {
+    window.location = process.env.REACT_APP_BASEURL || "https://app.bevelplexus.com";
+  }
+
   const {
     isEmailVerified,
     isIdentityVerified,
@@ -95,7 +99,7 @@ function RightSidebar({ collapsed, collapseRightSidebar }) {
         </li>
       </ul>
 
-      <Link to='/' className='logout-link'>
+      <Link onClick={() => logout()} className='logout-link'>
         Logout
       </Link>
     </div>

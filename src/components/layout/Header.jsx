@@ -15,6 +15,10 @@ function Header({
 
   const userContext = useContext(UserContext);
 
+  const logout = () => {
+    window.location = process.env.REACT_APP_BASEURL || "https://app.bevelplexus.com";
+  }
+
   const menu = (
     <div id="profile-dropdown">
       <ul>
@@ -22,7 +26,7 @@ function Header({
         <li><Link to='/transactions'>Transaction history</Link></li>
       </ul>
 
-      <Link to={process.env.REACT_APP_BASEURL} className='logout-link' >Logout</Link>
+      <Link onClick={() => logout()} className='logout-link' >Logout</Link>
     </div>
   );
 
