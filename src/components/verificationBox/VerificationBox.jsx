@@ -9,7 +9,7 @@ function VerificationBox() {
   const userContext = useContext(UserContext);
 
   const redirect = () => {
-    window.location = process.env.REACT_APP_BASEURL || "https://app.bevelplexus.com";
+    window.location = `${process.env.REACT_APP_BASEURL}/complete-verification` || "https://app.bevelplexus.com/complete-verification";
   };
 
   const {
