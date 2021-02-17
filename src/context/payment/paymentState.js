@@ -66,7 +66,8 @@ const PaymentState = (props) => {
       params.baseAmount !== "" ||
       (params.reverse && params.convertedAmount !== "")
     ) {
-      client
+      setTimeout(() => {
+        client
         .query({
           query: gql.GET_FX_RATES,
           fetchPolicy: "cache-first",
@@ -113,6 +114,7 @@ const PaymentState = (props) => {
             },
           });
         });
+      }, 2000);
     }
   };
 

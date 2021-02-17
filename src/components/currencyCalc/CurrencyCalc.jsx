@@ -50,8 +50,8 @@ const CurrencyCalc = () => {
     const data = {
       sendCurrency,
       destinationCurrency,
-      baseAmount: reverse ? baseAmount : parseFloat(e.target.value) || "",
-      convertedAmount: !reverse ? convertedAmount : parseFloat(e.target.value) || "",
+      baseAmount: reverse === true ? "" : parseFloat(e.target.value) || "",
+      convertedAmount: reverse === false ? "" : parseFloat(e.target.value) || "",
       actualAmount: baseAmount === "" ? 0 : actualAmount,
       fee: baseAmount === "" ? 0 : fee,
       rate: baseAmount === "" ? 0 : rate,
@@ -173,7 +173,7 @@ const CurrencyCalc = () => {
               value={convertedAmount}
               onChange={handleChange}
               onKeyUp={handleChange}
-              disabled
+              // disabled
             />
           </div>
 
