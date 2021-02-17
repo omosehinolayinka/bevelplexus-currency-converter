@@ -134,7 +134,7 @@ function VerificationBox() {
 
       {(!isEmailVerified || !isPhoneNumberVerified || !isIdentityVerified) && (
         <label onClick={() => redirect()}>
-          <div className='shadow-box buttons'>Complete Verification</div>
+          <div className='shadow-box button'>Complete Verification</div>
         </label>
       )}
     </div>
