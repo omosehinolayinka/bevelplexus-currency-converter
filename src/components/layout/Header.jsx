@@ -26,7 +26,7 @@ function Header({
         <li><Link to='/transactions'>Transaction history</Link></li>
       </ul>
 
-      <Link onClick={() => logout()} className='logout-link' >Logout</Link>
+      <Link to="#" onClick={() => logout()} className='logout-link' >Logout</Link>
     </div>
   );
 

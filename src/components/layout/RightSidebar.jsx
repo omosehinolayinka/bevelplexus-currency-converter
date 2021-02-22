@@ -99,7 +99,7 @@ function RightSidebar({ collapsed, collapseRightSidebar }) {
         </li>
       </ul>
 
-      <Link onClick={() => logout()} className='logout-link'>
+      <Link to="#" onClick={() => logout()} className='logout-link'>
         Logout
       </Link>
     </div>

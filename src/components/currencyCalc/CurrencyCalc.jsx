@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import "./CurrencyCalc.scss";
 
@@ -7,6 +7,7 @@ import PaymentContext from "../../context/payment/paymentContext";
 import { Menu, Dropdown } from "antd";
 
 const CurrencyCalc = () => {
+  const [tempValue, setTempValue] = useState("")
   const paymentContext = useContext(PaymentContext);
 
   const {
@@ -24,8 +25,7 @@ const CurrencyCalc = () => {
   const handleClick = (e, name) => {
     const data = {
       sendCurrency: name === "sendCurrency" ? e.key : sendCurrency,
-      destinationCurrency:
-        name === "destinationCurrency" ? e.key : destinationCurrency,
+      destinationCurrency: name === "destinationCurrency" ? e.key : destinationCurrency,
       baseAmount,
       convertedAmount: baseAmount === "" ? "" : convertedAmount,
       receiveType,
@@ -36,14 +36,16 @@ const CurrencyCalc = () => {
   };
 
   const handleChange = (e) => {
+
     if (e.target.name === "convertedAmount") {
       paymentContext.setReverseCalc(true);
-      console.log(reverse);
       sendFxRateRequest(e, true);
     } else {
       paymentContext.setReverseCalc(false);
       sendFxRateRequest(e, false);
     }
+
+    setTempValue(e.target.value)
   };
 
   const sendFxRateRequest = (e, calcType) => {
@@ -51,12 +53,13 @@ const CurrencyCalc = () => {
       sendCurrency,
       destinationCurrency,
       baseAmount: reverse === true ? "" : parseFloat(e.target.value) || "",
-      convertedAmount: reverse === false ? "" : parseFloat(e.target.value) || "",
+      convertedAmount:
+        reverse === false ? "" : parseFloat(e.target.value) || "",
       actualAmount: baseAmount === "" ? 0 : actualAmount,
       fee: baseAmount === "" ? 0 : fee,
       rate: baseAmount === "" ? 0 : rate,
       receiveType: receiveType,
-      reverse: calcType
+      reverse: calcType,
     };
 
     paymentContext.getFxRates(data);
@@ -65,18 +68,17 @@ const CurrencyCalc = () => {
   const addFlagsToCountries = () => {
     const countries = paymentContext.state.countries;
 
-    const withFlags = countries.map(ct => {
-
-      const flagCode = ct.countryCode.slice(0, 2).toLowerCase()
+    const withFlags = countries.map((ct) => {
+      const flagCode = ct.countryCode.slice(0, 2).toLowerCase();
 
       return {
         ...ct,
-        flag: `https://www.countryflags.io/${flagCode}/flat/24.png`
-      }
-    })
+        flag: `https://www.countryflags.io/${flagCode}/flat/24.png`,
+      };
+    });
 
     return withFlags;
-  }
+  };
 
   const currencies = addFlagsToCountries();
 
@@ -88,7 +90,8 @@ const CurrencyCalc = () => {
     >
       {currencies.map((currency) => (
         <Menu.Item key={currency.currencyCode}>
-          <img src={currency.flag} alt={currency.currencyCode} /> {currency.currencyCode}
+          <img src={currency.flag} alt={currency.currencyCode} />{" "}
+          {currency.currencyCode}
         </Menu.Item>
       ))}
     </Menu>
@@ -101,7 +104,8 @@ const CurrencyCalc = () => {
     >
       {currencies.map((currency) => (
         <Menu.Item key={currency.currencyCode}>
-          <img src={currency.flag} alt={currency.currencyCode} /> {currency.currencyCode}
+          <img src={currency.flag} alt={currency.currencyCode} />{" "}
+          {currency.currencyCode}
         </Menu.Item>
       ))}
     </Menu>
@@ -117,7 +121,7 @@ const CurrencyCalc = () => {
               type='number'
               name='baseAmount'
               placeholder='1,000'
-              value={baseAmount}
+              value={reverse === false ? tempValue : baseAmount}
               onChange={handleChange}
               onKeyUp={handleChange}
             />
@@ -170,7 +174,7 @@ const CurrencyCalc = () => {
               type='number'
               name='convertedAmount'
               placeholder='3,900'
-              value={convertedAmount}
+              value={reverse === true ? tempValue : convertedAmount}
               onChange={handleChange}
               onKeyUp={handleChange}
               // disabled
