@@ -104,7 +104,9 @@ const PaymentState = (props) => {
           });
         })
         .catch((err) => {
-          err.message !== "Response not successful: Received status code 400" &&
+          if (
+            err.message !== "Response not successful: Received status code 400"
+          ) {
             alertContext.showAlert({
               type: "error",
               title: "Opps!",
@@ -113,6 +115,7 @@ const PaymentState = (props) => {
                 alertContext.hideAlert();
               },
             });
+          }
         });
     }
   };
