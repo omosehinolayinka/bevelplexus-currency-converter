@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./EditRecipient.scss";
-import locations from "../locations.json";
 import RecipientContext from "../../context/recipients/recipientContext";
+import PaymentContext from "../../context/payment/paymentContext"
 
 import axios from "axios";
 import { Select } from "antd";
 
 function Editrecipient({ action, recipientState }) {
   const recipientContext = useContext(RecipientContext);
+  const paymentContext = useContext(PaymentContext);
 
   const [loading, setLoading] = useState(false);
   const [disableBank, setDisableBank] = useState(false);
@@ -30,6 +31,14 @@ function Editrecipient({ action, recipientState }) {
     recipient.bank,
     recipient.accountNumber,
   ];
+
+  const locations = paymentContext.state.countries.map(ct => {
+
+    return {
+      code: ct.countryCode,
+      name: ct.name
+    }
+  })
 
   useEffect(() => {
     setRecipient({

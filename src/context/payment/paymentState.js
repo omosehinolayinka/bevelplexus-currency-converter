@@ -3,7 +3,7 @@ import PaymentContext from "./paymentContext";
 import PaymentReducer from "./paymentReducer";
 import { useApolloClient } from "@apollo/client";
 import { queries as gql } from "./gqlQueries";
-import { GET_ALL_COUNTRIES } from "./gqlQueries"
+import { GET_ALL_COUNTRIES } from "./gqlQueries";
 
 import AlertContext from "../alert/alertContext";
 
@@ -66,8 +66,7 @@ const PaymentState = (props) => {
       params.baseAmount !== "" ||
       (params.reverse && params.convertedAmount !== "")
     ) {
-      setTimeout(() => {
-        client
+      client
         .query({
           query: gql.GET_FX_RATES,
           fetchPolicy: "cache-first",
@@ -104,17 +103,17 @@ const PaymentState = (props) => {
             },
           });
         })
-        .catch(() => {
-          alertContext.showAlert({
-            type: "error",
-            title: "Opps!",
-            body: "Couldn't get fx rates, please try again",
-            action() {
-              alertContext.hideAlert();
-            },
-          });
+        .catch((err) => {
+          err.message !== "Response not successful: Received status code 400" &&
+            alertContext.showAlert({
+              type: "error",
+              title: "Opps!",
+              body: "Couldn't get fx rates, please try again",
+              action() {
+                alertContext.hideAlert();
+              },
+            });
         });
-      }, 2000);
     }
   };
 
@@ -189,8 +188,8 @@ const PaymentState = (props) => {
       .then((res) => {
         dispatch({
           type: SET_COUNTRIES,
-          payload: res.data.getAllCountry
-        })
+          payload: res.data.getAllCountry,
+        });
       })
       .catch((err) => console.log(err));
   };
