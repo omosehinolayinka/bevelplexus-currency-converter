@@ -5,14 +5,14 @@ export default (state, action) => {
     case GET_USER:
       return {
         ...state,
-        user: action.payload,
+        user: {
+          ...action.payload,
+          userVerification: {
+            ...action.payload.userVerification,
+            isIdentityVerified: action.payload.userKyc.isVerified
+          }
+        },
       };
-
-    // case SET_VERIFICATION:
-    //   return {
-    //     ...state,
-    //     verification: action.payload,
-    //   };
 
     default:
       return state;
