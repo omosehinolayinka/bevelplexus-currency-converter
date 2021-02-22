@@ -11,10 +11,12 @@ export const GET_USER = gql`
       userType
       userVerification {
         isEmailVerified
-        isIdentityVerified
         isPhoneNumberVerified
         isSchoolEnrollmentVerified
         isUtilityBillVerified
+      }
+      userKyc {
+        isVerified
       }
       regularAccountDetail {
         city
