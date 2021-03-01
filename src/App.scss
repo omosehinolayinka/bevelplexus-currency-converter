@@ -108,6 +108,12 @@ a.disabled {
   color: #d63629 !important;
 }
 
+.badge.default {
+  background: rgba(71, 71, 71, 0.2);
+  border: 1px solid grey;
+  color: rgb(56, 56, 56) !important;
+}
+
 button.primary {
   background-color: $blue;
   border: 1px solid $blue;
