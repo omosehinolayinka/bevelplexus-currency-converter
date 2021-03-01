@@ -3,9 +3,9 @@ import "./TransactionsTable.scss";
 
 import dateFormat from "dateformat";
 
-import TransactionContext from "../../context/transactions/transactionContext"
+import TransactionContext from "../../context/transactions/transactionContext";
 
-function TransactionsTable( { data } ) {
+function TransactionsTable({ data }) {
   const [expanded, setExpanded] = useState("");
 
   const toggleTableRow = (row) => {
@@ -14,7 +14,7 @@ function TransactionsTable( { data } ) {
 
   dateFormat.masks.custom = "dd/mm/yy";
 
-  const transactions =  data.slice(0, 5);
+  const transactions = data.slice(0, 5);
 
   const transactionContext = useContext(TransactionContext);
 
@@ -28,6 +28,34 @@ function TransactionsTable( { data } ) {
 
     // eslint-disable-next-line
   }, []);
+
+  const getBadge = (status) => {
+    switch (status) {
+      case "In Progress":
+        return "badge warning";
+
+      case "In Transit":
+        return "badge warning";
+
+      case "In Waiting":
+        return "badge warning";
+
+      case "Received":
+        return "badge warning";
+
+      case "Failed":
+        return "badge error";
+
+      case "Cancelled":
+        return "badge default";
+
+      case "Completed":
+        return "badge success";
+
+      default:
+        return "badge warning";
+    }
+  };
 
   return (
     <div id='transaction-table'>
@@ -62,18 +90,21 @@ function TransactionsTable( { data } ) {
                       }
                       alt='avatar'
                     />
-                    <p style={{fontSize: "0.9rem"}}> {data.recipient.name} </p>
+                    <p style={{ fontSize: "0.9rem" }}>
+                      {" "}
+                      {data.recipient.name}{" "}
+                    </p>
                   </div>
                 </td>
 
                 <td>
                   <div>
-                    <span style={{fontSize: "0.8rem"}}>
+                    <span style={{ fontSize: "0.8rem" }}>
                       {" "}
                       {data.baseAmount} {data.sendCurrency}{" "}
                     </span>
                     <span className='material-icons'>arrow_right</span>
-                    <span style={{fontSize: "0.8rem"}}>
+                    <span style={{ fontSize: "0.8rem" }}>
                       {" "}
                       {data.convertedAmount} {data.destinationCurrency}{" "}
                     </span>
@@ -82,21 +113,18 @@ function TransactionsTable( { data } ) {
 
                 <td>
                   <div>
-                    <span style={{fontSize: "0.8rem"}}> {dateFormat(data.createdAt, "custom")} </span>
+                    <span style={{ fontSize: "0.8rem" }}>
+                      {" "}
+                      {dateFormat(data.createdAt, "custom")}{" "}
+                    </span>
                   </div>
                 </td>
 
                 <td>
                   <div>
                     <span
-                    style={{fontSize: "0.6rem"}}
-                      className={
-                        data.status === "Completed"
-                          ? "badge success"
-                          : data.status === "In Progress"
-                          ? "badge warning"
-                          : "badge danger"
-                      }
+                      style={{ fontSize: "0.6rem" }}
+                      className={getBadge()}
                     >
                       {data.status.toUpperCase()}{" "}
                     </span>
@@ -120,15 +148,21 @@ function TransactionsTable( { data } ) {
                     <div className='tr-extension__content'>
                       <div className='col-one'>
                         <span className='flag'>
-                          <img src={`https://www.countryflags.io/${data.sendCurrency
-                          .slice(0, 2)
-                          .toLowerCase()}/flat/24.png`} alt='flag' />{" "}
+                          <img
+                            src={`https://www.countryflags.io/${data.sendCurrency
+                              .slice(0, 2)
+                              .toLowerCase()}/flat/24.png`}
+                            alt='flag'
+                          />{" "}
                         </span>
                         <span className='material-icons'>arrow_right</span>
                         <span className='flag'>
-                          <img src={`https://www.countryflags.io/${data.destinationCurrency
-                          .slice(0, 2)
-                          .toLowerCase()}/flat/24.png`} alt='flag' />
+                          <img
+                            src={`https://www.countryflags.io/${data.destinationCurrency
+                              .slice(0, 2)
+                              .toLowerCase()}/flat/24.png`}
+                            alt='flag'
+                          />
                         </span>
                       </div>
 

@@ -13,6 +13,34 @@ function TransactionsTable({ data }) {
 
   dateFormat.masks.custom = "dd/mm/yyyy";
 
+  const getBadge = (status) => {
+    switch (status) {
+      case "In Progress":
+        return "badge warning";
+
+      case "In Transit":
+        return "badge warning";
+
+      case "In Waiting":
+        return "badge warning";
+
+      case "Received":
+        return "badge warning";
+
+      case "Failed":
+        return "badge error";
+
+      case "Cancelled":
+        return "badge default";
+
+      case "Completed":
+        return "badge success";
+
+      default:
+        return "badge warning";
+    }
+  };
+
   return (
     <div id='transaction-table'>
       <table className='mod-width'>
@@ -85,13 +113,7 @@ function TransactionsTable({ data }) {
                 <td>
                   <div>
                     <span
-                      className={
-                        data.status === "Completed"
-                          ? "badge success"
-                          : data.status === "In Progress"
-                          ? "badge warning"
-                          : "badge danger"
-                      }
+                      className={getBadge()}
                     >
                       {data.status.toUpperCase()}{" "}
                     </span>
