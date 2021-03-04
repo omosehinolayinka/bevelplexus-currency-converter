@@ -194,7 +194,6 @@ const PaymentState = (props) => {
           payload: res.data.getAllCountry,
         });
       })
-      .catch((err) => console.log(err));
   };
 
   const getCountryId = (currency, redirect) => {

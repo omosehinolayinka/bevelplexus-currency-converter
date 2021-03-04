@@ -39,8 +39,7 @@ const TransactionState = (props) => {
           payload: res.data.getTransactionByUser
         })
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
 
         alertContext.showAlert({
           type: "error",

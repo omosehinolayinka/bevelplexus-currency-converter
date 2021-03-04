@@ -11,6 +11,7 @@ import {
   InMemoryCache,
   ApolloProvider,
 } from "@apollo/client";
+import { onError } from "@apollo/client/link/error";
 import { setContext } from "@apollo/client/link/context";
 import IntroState from "./context/intro/introState";
 import AlertState from "./context/alert/alertState";
@@ -41,8 +42,26 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+  if (graphQLErrors) {
+    graphQLErrors.forEach((err) => {
+      switch (err.extensions.code) {
+        case "UNAUTHENTICATED":
+          window.location = process.env.REACT_APP_BASEURL || "https://app.bevelplexus.com";
+          break;
+        default:
+          console.log(err.message);
+      }
+    });
+  }
+
+  if (networkError) {
+    console.log(`[Network Error]: ${networkError}`);
+  }
+});
+
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  link: authLink.concat(errorLink).concat(httpLink),
   cache: new InMemoryCache(),
 });
 
