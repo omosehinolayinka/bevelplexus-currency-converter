@@ -45,11 +45,7 @@ function Routes() {
   }, [isAuthenticated])
 
   if (isAuthenticated === false) {
-    return (
-      <Router>
-        <Redirect to="/" />
-      </Router>
-    );
+    window.location = process.env.REACT_APP_BASEURL || "https://app.bevelplexus.com";
   }
 
   return (

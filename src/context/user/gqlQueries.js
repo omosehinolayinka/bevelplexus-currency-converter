@@ -20,14 +20,13 @@ export const GET_USER = gql`
       }
       regularAccountDetail {
         city
-        country
-        countryIso3Code
+        countryId
       }
       studentAccountDetail {
-        country
-        countryIso3Code
-        school
+        countryId
         course
+        institutionId
+        yearOfGraduation
       }
     }
   }

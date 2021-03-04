@@ -9,6 +9,7 @@ import {
   // createUploadLink,
   InMemoryCache,
 } from "@apollo/client";
+import { onError } from "@apollo/client/link/error";
 
 import { createUploadLink } from "apollo-upload-client";
 
@@ -32,7 +33,8 @@ const UserState = (props) => {
   const [state, dispatch] = useReducer(UserReducer, defaultState);
 
   // user api from env file or default value
-  const userApi = process.env.REACT_APP_USER_API || "https://bp-user.herokuapp.com/graphql"
+  const userApi =
+    process.env.REACT_APP_USER_API || "https://bp-user.herokuapp.com/graphql";
 
   // create a custom client for recipient enpoint
   const httpLink = createHttpLink({
@@ -50,8 +52,26 @@ const UserState = (props) => {
     };
   });
 
+  const errorLink = onError(({ graphQLErrors, networkError }) => {
+    if (graphQLErrors) {
+      graphQLErrors.forEach((err) => {
+        switch (err.extensions.code) {
+          case "UNAUTHENTICATED":
+            window.location = process.env.REACT_APP_BASEURL || "https://app.bevelplexus.com";
+            break;
+          default:
+            console.log(err.message);
+        }
+      });
+    }
+
+    if (networkError) {
+      console.log(`[Network Error]: ${networkError}`);
+    }
+  });
+
   const client = new ApolloClient({
-    link: authLink.concat(httpLink),
+    link: authLink.concat(errorLink).concat(httpLink),
     cache: new InMemoryCache(),
   });
 
