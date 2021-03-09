@@ -8,12 +8,14 @@ import EditModal from "../../components/editRecipientModal/EditRecipient";
 
 import PaymentContext from "../../context/payment/paymentContext";
 import RecipientContext from "../../context/recipients/recipientContext";
+import UserContext from "../../context/user/userContext"
 
 import { Tooltip, Select } from "antd";
 
 function Paymentrecipient({ showTips }) {
   const paymentContext = useContext(PaymentContext);
   const recipientContext = useContext(RecipientContext);
+  const userContext = useContext(UserContext)
 
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -81,17 +83,21 @@ function Paymentrecipient({ showTips }) {
               <img src='./assets/svg/recipient.svg' alt='recipient' />
               <p>To Individual</p>
             </div>
-            <div
-              className={
-                transactionType === "Tuition"
-                  ? "shadow-box shadow-box-highlight"
-                  : "shadow-box"
-              }
-              onClick={() => paymentContext.setTransactionType("Tuition")}
-            >
-              <img src='./assets/svg/school.svg' alt='school' />
-              <p>Tuition Payment</p>
-            </div>
+
+            {userContext.state.user.userType === "Student" && (
+              <div
+                className={
+                  transactionType === "Tuition"
+                    ? "shadow-box shadow-box-highlight"
+                    : "shadow-box"
+                }
+                onClick={() => paymentContext.setTransactionType("Tuition")}
+              >
+                <img src='./assets/svg/school.svg' alt='school' />
+                <p>Tuition Payment</p>
+              </div>
+            )}
+
           </div>
         </div>
 
@@ -149,7 +155,7 @@ function Paymentrecipient({ showTips }) {
             {transactionType === "Individual" &&
             currentRecipient.name === null ? (
               <div className='shadow-box error-notice small'>
-                <i class="fas fa-ghost"></i>
+                <i class='fas fa-ghost'></i>
                 <p>No recipient selected</p>
               </div>
             ) : (
@@ -160,7 +166,9 @@ function Paymentrecipient({ showTips }) {
                       Edit
                     </Link>
                   ) : (
-                    <Link to='#' className='spacer'>spacer</Link>
+                    <Link to='#' className='spacer'>
+                      spacer
+                    </Link>
                   )}
                 </div>
 
@@ -237,7 +245,10 @@ function Paymentrecipient({ showTips }) {
           <Link to='/dashboard'>
             <button className='left inactive'>Cancel</button>
           </Link>
-          <Link to={!currentRecipient ? '#' : '/dashboard/transfer'} className={!currentRecipient ? 'disabled' : ""}>
+          <Link
+            to={!currentRecipient ? "#" : "/dashboard/transfer"}
+            className={!currentRecipient ? "disabled" : ""}
+          >
             <button className='right'>Next</button>
           </Link>
         </div>

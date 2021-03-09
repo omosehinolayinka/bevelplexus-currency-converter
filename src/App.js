@@ -20,8 +20,6 @@ import RecipientState from "./context/recipients/recipientState";
 import TransactionState from "./context/transactions/transactionState";
 import UserState from "./context/user/userState";
 
-//apollo client init
-
 // payment api from env file or default value
 const paymentApi =
   process.env.REACT_APP_PAYMENTAPI ||
@@ -44,13 +42,14 @@ const authLink = setContext((_, { headers }) => {
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors) {
+    console.log(graphQLErrors);
     graphQLErrors.forEach((err) => {
       switch (err.extensions.code) {
         case "UNAUTHENTICATED":
           window.location = process.env.REACT_APP_BASEURL || "https://app.bevelplexus.com";
           break;
         default:
-          console.log(err.message);
+          console.log(err.message)
       }
     });
   }
@@ -66,6 +65,7 @@ const client = new ApolloClient({
 });
 
 function App() {
+
   return (
     <ApolloProvider client={client}>
       <IntroState>

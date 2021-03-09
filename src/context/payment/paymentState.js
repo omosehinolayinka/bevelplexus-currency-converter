@@ -175,7 +175,7 @@ const PaymentState = (props) => {
         alertContext.showAlert({
           type: "error",
           title: "Opps!",
-          body: "Couldn't process transaction, please try again",
+          body: err.message,
           action() {
             alertContext.hideAlert();
           },
