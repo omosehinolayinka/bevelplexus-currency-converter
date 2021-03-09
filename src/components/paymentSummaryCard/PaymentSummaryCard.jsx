@@ -7,20 +7,20 @@ const PaymentSummaryCard = ({ data }) => {
       <p>
         <span>Send Amount</span>
         <span>
-          {data.sendAmount} {data.sendCurrency}{" "}
+          {parseFloat(data.sendAmount).toLocaleString()} {data.sendCurrency}{" "}
         </span>
       </p>
 
       <p>
         <span>Exchange rate</span>
-        <span> {data.exchangeRate} </span>
+        <span> {data.exchangeRate.toLocaleString()} </span>
       </p>
 
       <p>
         <span>Fees</span>
         <span className='greentext'> 
         {
-          data.fees === "Free" ? data.fees : `${data.fees} ${data.sendCurrency}`
+          data.fees === "Free" ? data.fees : `${data.fees.toLocaleString()} ${data.sendCurrency}`
         } 
         </span>
       </p>
@@ -28,7 +28,7 @@ const PaymentSummaryCard = ({ data }) => {
       <p>
         <span>recipient gets</span>
         <span>
-          {data.convertedAmount} {data.destinationCurrency}{" "}
+          {parseFloat(data.convertedAmount).toLocaleString()} {data.destinationCurrency}{" "}
         </span>
       </p>
 
@@ -45,8 +45,8 @@ const PaymentSummaryCard = ({ data }) => {
         <span>Your total</span>
         <span>
           {data.fees === "Free"
-            ? `${data.sendAmount} ${data.sendCurrency}`
-            : `${data.fees + data.sendAmount} ${data.sendCurrency}`}
+            ? `${data.sendAmount.toLocaleString()} ${data.sendCurrency}`
+            : `${parseFloat(data.fees + data.sendAmount).toLocaleString()} ${data.sendCurrency}`}
         </span>
       </p>
     </div>
