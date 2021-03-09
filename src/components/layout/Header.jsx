@@ -30,54 +30,54 @@ function Header({
     </div>
   );
 
-  const notifications = (
-    <div id='notifications-dropdown'>
-      <div className='pointer'></div>
-      <div className='top-border'></div>
+  // const notifications = (
+  //   <div id='notifications-dropdown'>
+  //     <div className='pointer'></div>
+  //     <div className='top-border'></div>
 
-      <ul>
-        <li>
-          <img src='./assets/svg/greendot.svg' alt='' />
-          <p>
-            Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
-            sint. Velit nostrud amet.
-          </p>
-        </li>
+  //     <ul>
+  //       <li>
+  //         <img src='./assets/svg/greendot.svg' alt='' />
+  //         <p>
+  //           Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
+  //           sint. Velit nostrud amet.
+  //         </p>
+  //       </li>
 
-        <li>
-          <img src='./assets/svg/greendot.svg' alt='' />
-          <p>
-            Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
-            sint. Velit
-          </p>
-        </li>
+  //       <li>
+  //         <img src='./assets/svg/greendot.svg' alt='' />
+  //         <p>
+  //           Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
+  //           sint. Velit
+  //         </p>
+  //       </li>
 
-        <li>
-          <img src='./assets/svg/greendot.svg' alt='' />
-          <p>
-            Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
-            sint. Velit
-          </p>
-        </li>
+  //       <li>
+  //         <img src='./assets/svg/greendot.svg' alt='' />
+  //         <p>
+  //           Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
+  //           sint. Velit
+  //         </p>
+  //       </li>
 
-        <li>
-          <img src='./assets/svg/orangecheck.svg' alt='' />
-          <p>
-            Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
-            sint. Velit
-          </p>
-        </li>
+  //       <li>
+  //         <img src='./assets/svg/orangecheck.svg' alt='' />
+  //         <p>
+  //           Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
+  //           sint. Velit
+  //         </p>
+  //       </li>
 
-        <li>
-          <img src='./assets/svg/orangecheck.svg' alt='' />
-          <p>
-            Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
-            sint. Velit
-          </p>
-        </li>
-      </ul>
-    </div>
-  );
+  //       <li>
+  //         <img src='./assets/svg/orangecheck.svg' alt='' />
+  //         <p>
+  //           Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
+  //           sint. Velit
+  //         </p>
+  //       </li>
+  //     </ul>
+  //   </div>
+  // );
 
   return (
     <header>
@@ -91,14 +91,14 @@ function Header({
       </div>
 
       <div className='profile-summary'>
-        <div className='notifications'>
+        {/* <div className='notifications'>
           <Dropdown overlay={notifications} placement='bottomRight'>
             <div>
               <img src='./assets/svg/bell-icon.svg' alt='notigications' />
               <span></span>
             </div>
           </Dropdown>
-        </div>
+        </div> */}
 
         <Dropdown overlay={menu} placement='bottomRight' arrow>
           <Button>

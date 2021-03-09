@@ -62,7 +62,7 @@ function Dashboard({ showTips }) {
 
             <div className='box-three__text-wrapper'>
               <p>TOTAL TRANSACTIONS</p>
-              <h4>{total()} NGL</h4>
+              <h4>{total().toLocaleString()} NGL</h4>
             </div>
           </div>
         </div>

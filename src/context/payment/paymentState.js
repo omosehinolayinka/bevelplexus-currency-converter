@@ -92,14 +92,14 @@ const PaymentState = (props) => {
               sendCurrency: params.sendCurrency,
               destinationCurrency: params.destinationCurrency,
               baseAmount: params.reverse
-                ? data.convertedAmount
+                ? data.convertedAmount.toFixed(2)
                 : params.baseAmount,
-              actualAmount: data.actualAmount,
-              fee: data.fee,
-              rate: data.rate,
+              actualAmount: data.actualAmount.toFixed(2),
+              fee: data.fee.toFixed(2),
+              rate: data.rate.toFixed(2),
               convertedAmount: params.reverse
                 ? params.convertedAmount
-                : data.convertedAmount,
+                : data.convertedAmount.toFixed(2),
             },
           });
         })

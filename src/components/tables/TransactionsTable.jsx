@@ -101,12 +101,12 @@ function TransactionsTable({ data }) {
                   <div>
                     <span style={{ fontSize: "0.8rem" }}>
                       {" "}
-                      {data.baseAmount} {data.sendCurrency}{" "}
+                      {data.baseAmount.toLocaleString()} {data.sendCurrency}{" "}
                     </span>
                     <span className='material-icons'>arrow_right</span>
                     <span style={{ fontSize: "0.8rem" }}>
                       {" "}
-                      {data.convertedAmount} {data.destinationCurrency}{" "}
+                      {data.convertedAmount.toLocaleString()} {data.destinationCurrency}{" "}
                     </span>
                   </div>
                 </td>
@@ -168,20 +168,20 @@ function TransactionsTable({ data }) {
 
                       <div className='col-two'>
                         <small>Exchange Rate</small>
-                        <p> {data.rate} </p>
+                        <p> {data.rate.toLocaleString()} </p>
                       </div>
 
                       <div className='col-three'>
                         <small>Amount (Before Fee)</small>
                         <p>
-                          {data.baseAmount} {data.sendCurrency}
+                          {data.baseAmount.toLocaleString()} {data.sendCurrency}
                         </p>
                       </div>
 
                       <div className='col-two'>
                         <small>Amount (After Fee)</small>
                         <p>
-                          {data.actualAmount} {data.sendCurrency}
+                          {data.actualAmount.toLocaleString()} {data.sendCurrency}
                         </p>
                       </div>
 

@@ -30,11 +30,11 @@ function LastTransaction({ data }) {
       <div className='box-one__text-wrapper alt'>
         <h3>
           <span>
-            {data[0].baseAmount} {data[0].sendCurrency}
+            {data[0].baseAmount.toLocaleString()} {data[0].sendCurrency}
           </span>
           <span className='material-icons'>arrow_right</span>
           <span>
-            {data[0].convertedAmount} {data[0].destinationCurrency}
+            {data[0].convertedAmount.toLocaleString()} {data[0].destinationCurrency}
           </span>
         </h3>
         <p>Last Transaction</p>

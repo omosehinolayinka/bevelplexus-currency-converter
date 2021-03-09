@@ -69,7 +69,7 @@ const CurrencyCalc = () => {
     const countries = paymentContext.state.countries;
 
     const withFlags = countries.map((ct) => {
-      const flagCode = ct.countryCode.slice(0, 2).toLowerCase();
+      const flagCode = ct.currencyCode.slice(0, 2).toLowerCase();
 
       return {
         ...ct,

@@ -102,7 +102,7 @@ function PaymentOptions({showTips}) {
                   checked={selected === card.title}
                   title={card.title}
                   subLeft={`Transfer speed ${card.speed}`}
-                  action={card.cost}
+                  action={card.cost.toLocaleString()}
                   currency={fx.sendCurrency}
                   green={card.cost === 'Free'}
                 />
