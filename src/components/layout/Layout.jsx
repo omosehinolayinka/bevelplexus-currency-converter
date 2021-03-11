@@ -68,7 +68,7 @@ function Layout({ currentMenu, payProgress, children }) {
                 className={currentMenu === "transaction" ? "active" : ""}
                 ref={currentMenu === "transaction" ? introRef : null}
               >
-                <Link to="/transactions">
+                <Link to="/payment/transactions">
                   <img src="./assets/svg/hourglass-icon.svg" alt="home" />
                   Transaction history
                 </Link>
