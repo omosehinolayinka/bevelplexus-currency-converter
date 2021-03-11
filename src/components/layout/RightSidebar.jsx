@@ -92,10 +92,10 @@ function RightSidebar({ collapsed, collapseRightSidebar }) {
     <div id='profile-dropdown'>
       <ul>
         <li>
-          <Link to='/account'>View my account</Link>
+          <Link to='/payment/account'>View my account</Link>
         </li>
         <li>
-          <Link to='/transactions'>Transaction history</Link>
+          <Link to='/payment/transactions'>Transaction history</Link>
         </li>
       </ul>
 
