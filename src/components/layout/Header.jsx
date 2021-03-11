@@ -22,8 +22,8 @@ function Header({
   const menu = (
     <div id="profile-dropdown">
       <ul>
-        <li><Link to='/account'>View my account</Link></li>
-        <li><Link to='/transactions'>Transaction history</Link></li>
+        <li><Link to='/payment/account'>View my account</Link></li>
+        <li><Link to='/payment/transactions'>Transaction history</Link></li>
       </ul>
 
       <Link to="#" onClick={() => logout()} className='logout-link' >Logout</Link>
