@@ -86,7 +86,7 @@ function Layout({ currentMenu, payProgress, children }) {
                 className={currentMenu === "account" ? "active" : ""}
                 ref={currentMenu === "account" ? introRef : null}
               >
-                <Link to="/account">
+                <Link to="/payment/account">
                   <img src="./assets/svg/user-icon.svg" alt="home" />
                   My Account
                 </Link>
