@@ -78,7 +78,7 @@ function Layout({ currentMenu, children }) {
                 className={currentMenu === "recipients" ? "active" : ""}
                 ref={currentMenu === "recipients" ? introRef : null}
               >
-                <Link to="/recipients">
+                <Link to="/payment/recipients">
                   <img src="./assets/svg/contact-icon.svg" alt="home" />
                   Recipients
                 </Link>
