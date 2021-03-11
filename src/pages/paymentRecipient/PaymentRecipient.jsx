@@ -242,11 +242,11 @@ function Paymentrecipient({ showTips }) {
         </div>
 
         <div className='section-four'>
-          <Link to='/dashboard'>
+          <Link to='/payment/dashboard'>
             <button className='left inactive'>Cancel</button>
           </Link>
           <Link
-            to={!currentRecipient ? "#" : "/dashboard/transfer"}
+            to={!currentRecipient ? "#" : "/payment/dashboard/transfer"}
             className={!currentRecipient ? "disabled" : ""}
           >
             <button className='right'>Next</button>
