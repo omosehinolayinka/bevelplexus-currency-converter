@@ -283,7 +283,7 @@ function RightSidebar({ collapsed, collapseRightSidebar }) {
                 </Tooltip>
               </div>
               <div className='mini-profile__cta'>
-                <Link to='/account'>
+                <Link to='/payment/account'>
                   {userContext.state.user.userType === "Regular" &&
                   getRegularVerification() === "100% VERIFIED" ? (
                     <button>View Profile</button>
