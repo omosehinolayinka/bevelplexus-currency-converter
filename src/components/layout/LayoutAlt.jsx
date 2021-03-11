@@ -69,7 +69,7 @@ function Layout({ currentMenu, children }) {
                 className={currentMenu === "transaction" ? "active" : ""}
                 ref={currentMenu === "transaction" ? introRef : null}
               >
-                <Link to="/transactions">
+                <Link to="/payment/transactions">
                   <img src="./assets/svg/hourglass-icon.svg" alt="home" />
                   Transaction history
                 </Link>
@@ -160,15 +160,15 @@ function Layout({ currentMenu, children }) {
             }
             next={
               currentMenu === "dashboard"
-                ? "/dashboard"
+                ? "/payment/dashboard"
                 : currentMenu === "payment"
-                ? "/transactions"
+                ? "/payment/transactions"
                 : currentMenu === "transaction"
                 ? "recipients"
                 : currentMenu === "recipients"
-                ? "/account"
+                ? "/payment/account"
                 : currentMenu === "account"
-                ? "/"
+                ? "/payment"
                 : ""
             }
             position={introPosition}
