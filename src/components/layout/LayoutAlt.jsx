@@ -69,7 +69,7 @@ function Layout({ currentMenu, children }) {
                 className={currentMenu === "transaction" ? "active" : ""}
                 ref={currentMenu === "transaction" ? introRef : null}
               >
-                <Link to="/transactions">
+                <Link to="/payment/transactions">
                   <img src="./assets/svg/hourglass-icon.svg" alt="home" />
                   Transaction history
                 </Link>
@@ -78,7 +78,7 @@ function Layout({ currentMenu, children }) {
                 className={currentMenu === "recipients" ? "active" : ""}
                 ref={currentMenu === "recipients" ? introRef : null}
               >
-                <Link to="/recipients">
+                <Link to="/payment/recipients">
                   <img src="./assets/svg/contact-icon.svg" alt="home" />
                   Recipients
                 </Link>
@@ -160,15 +160,15 @@ function Layout({ currentMenu, children }) {
             }
             next={
               currentMenu === "dashboard"
-                ? "/dashboard"
+                ? "/payment/dashboard"
                 : currentMenu === "payment"
-                ? "/transactions"
+                ? "/payment/transactions"
                 : currentMenu === "transaction"
                 ? "recipients"
                 : currentMenu === "recipients"
-                ? "/account"
+                ? "/payment/account"
                 : currentMenu === "account"
-                ? "/"
+                ? "/payment"
                 : ""
             }
             position={introPosition}

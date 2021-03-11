@@ -41,7 +41,7 @@ function LastTransaction({ data }) {
       </div>
 
       <div className='box-one__cta'>
-        <Link to='/dashboard/transfer' onClick={selectRecipient} >
+        <Link to='/payment/dashboard/transfer' onClick={selectRecipient} >
           <button>Send Money</button>
         </Link>
       </div>

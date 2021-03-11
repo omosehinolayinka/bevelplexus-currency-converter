@@ -50,7 +50,7 @@ function Layout({ currentMenu, payProgress, children }) {
                 className={currentMenu === "dashboard" ? "active" : ""}
                 ref={currentMenu === "dashboard" ? introRef : null}
               >
-                <Link to="/dashboard">
+                <Link to="/payment/dashboard">
                   <img src="./assets/svg/home-icon.svg" alt="home" />
                   Dashboard
                 </Link>
@@ -59,7 +59,7 @@ function Layout({ currentMenu, payProgress, children }) {
                 className={currentMenu === "payment" ? "active" : ""}
                 ref={currentMenu === "payment" ? introRef : null}
               >
-                <Link to="/dashboard">
+                <Link to="/payment/dashboard">
                   <img src="./assets/svg/wallet-icon.svg" alt="home" />
                   Make payment
                 </Link>
@@ -68,7 +68,7 @@ function Layout({ currentMenu, payProgress, children }) {
                 className={currentMenu === "transaction" ? "active" : ""}
                 ref={currentMenu === "transaction" ? introRef : null}
               >
-                <Link to="/transactions">
+                <Link to="/payment/transactions">
                   <img src="./assets/svg/hourglass-icon.svg" alt="home" />
                   Transaction history
                 </Link>
@@ -77,7 +77,7 @@ function Layout({ currentMenu, payProgress, children }) {
                 className={currentMenu === "recipients" ? "active" : ""}
                 ref={currentMenu === "recipients" ? introRef : null}
               >
-                <Link to="/recipients">
+                <Link to="/payment/recipients">
                   <img src="./assets/svg/contact-icon.svg" alt="home" />
                   Recipients
                 </Link>
@@ -86,7 +86,7 @@ function Layout({ currentMenu, payProgress, children }) {
                 className={currentMenu === "account" ? "active" : ""}
                 ref={currentMenu === "account" ? introRef : null}
               >
-                <Link to="/account">
+                <Link to="/payment/account">
                   <img src="./assets/svg/user-icon.svg" alt="home" />
                   My Account
                 </Link>
@@ -166,13 +166,13 @@ function Layout({ currentMenu, payProgress, children }) {
               }
               next={
                 currentMenu === "dashboard"
-                  ? "/dashboard"
+                  ? "/payment/dashboard"
                   : currentMenu === "payment"
-                  ? "/transactions"
+                  ? "/payment/transactions"
                   : currentMenu === "transaction"
-                  ? "/recipients"
+                  ? "/payment/recipients"
                   : currentMenu === "recipients"
-                  ? "/account"
+                  ? "/payment/account"
                   : currentMenu === "account"
                   ? "/"
                   : ""

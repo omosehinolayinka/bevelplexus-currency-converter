@@ -92,10 +92,10 @@ function RightSidebar({ collapsed, collapseRightSidebar }) {
     <div id='profile-dropdown'>
       <ul>
         <li>
-          <Link to='/account'>View my account</Link>
+          <Link to='/payment/account'>View my account</Link>
         </li>
         <li>
-          <Link to='/transactions'>Transaction history</Link>
+          <Link to='/payment/transactions'>Transaction history</Link>
         </li>
       </ul>
 
@@ -283,7 +283,7 @@ function RightSidebar({ collapsed, collapseRightSidebar }) {
                 </Tooltip>
               </div>
               <div className='mini-profile__cta'>
-                <Link to='/account'>
+                <Link to='/payment/account'>
                   {userContext.state.user.userType === "Regular" &&
                   getRegularVerification() === "100% VERIFIED" ? (
                     <button>View Profile</button>
