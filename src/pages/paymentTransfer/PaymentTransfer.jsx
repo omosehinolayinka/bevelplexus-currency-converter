@@ -122,7 +122,7 @@ function PaymentTransfer({ showTips }) {
 
           <div className='box-container'>
             <div className='shadow-box'>
-              {!recipient.id && <Redirect to='/dashboard' />}
+              {!recipient.id && <Redirect to='/payment/dashboard' />}
               {recipient.bankInfo && (
                 <CustomCheckbox
                   checked={true}
@@ -136,11 +136,11 @@ function PaymentTransfer({ showTips }) {
         </div>
 
         <div className='section-four'>
-          <Link to='/dashboard/recipient'>
+          <Link to='/payment/dashboard/recipient'>
             <button className='left'>Previous</button>
           </Link>
           <Link
-            to={isEmpty ? "#" : "/dashboard/options"}
+            to={isEmpty ? "#" : "/payment/dashboard/options"}
             className={isEmpty ? "disabled" : ""}
           >
             <button className='right'>Next</button>
