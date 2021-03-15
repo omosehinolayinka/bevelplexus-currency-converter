@@ -96,7 +96,7 @@ function PaymentOptions({showTips}) {
               <p>Select the payment options</p>
             </div>
 
-            {paymentMethods.map(card => (
+            {paymentMethods.slice(0, 2).map(card => (
               <div className='shadow-box' key={card.key} onClick={() => handleClick(card)}>
                 <CustomCheckbox
                   checked={selected === card.title}

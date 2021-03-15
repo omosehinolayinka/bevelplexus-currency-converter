@@ -109,7 +109,7 @@ const PaymentState = (props) => {
           ) {
             alertContext.showAlert({
               type: "error",
-              title: "Opps!",
+              title: "Oops!",
               body: "Couldn't get fx rates, please try again",
               action() {
                 alertContext.hideAlert();
@@ -174,8 +174,12 @@ const PaymentState = (props) => {
         console.log(err);
         alertContext.showAlert({
           type: "error",
-          title: "Opps!",
+          title: "Oops!",
           body: err.message,
+          link: err.message.indexOf('verification') !== -1 ? {
+            route: '/payment/account',
+            title: 'Complete Verification'
+          } : undefined,
           action() {
             alertContext.hideAlert();
           },
@@ -208,7 +212,7 @@ const PaymentState = (props) => {
       .catch(() => {
         alertContext.showAlert({
           type: "warning",
-          title: "Opps!",
+          title: "Oops!",
           body:
             "Your transaction may have not been proccessed correctly, please try again",
           action() {
@@ -234,7 +238,7 @@ const PaymentState = (props) => {
       .catch(() => {
         alertContext.showAlert({
           type: "error",
-          title: "Opps!",
+          title: "Oops!",
           body: "Error in getting payment options, please try again",
           action() {
             alertContext.hideAlert();

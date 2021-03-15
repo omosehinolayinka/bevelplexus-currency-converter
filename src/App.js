@@ -3,7 +3,6 @@ import React from "react";
 import "./App.scss";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
-import Alert from "./components/alert/Alert";
 import Routes from "./Routes";
 import {
   ApolloClient,
@@ -77,7 +76,6 @@ function App() {
                   <div className='App'>
                     <Routes />
                     <ToastContainer />
-                    <Alert />
                   </div>
                 </TransactionState>
               </PaymentState>

@@ -13,6 +13,7 @@ import PaymentReview from "./pages/paymentReview/PaymentReview";
 import TransactionHistory from "./pages/transactionHistory/TransactionHistory";
 import recipients from "./pages/recipients/Recipents";
 import AccountSettings from "./pages/account/AccountSettings";
+import Alert from "./components/alert/Alert";
 
 import UserContext from "./context/user/userContext";
 import RecipientContext from "./context/recipients/recipientContext";
@@ -68,6 +69,7 @@ function Routes() {
           </Route>
           <Route exact path="/payment/account/settings" component={AccountSettings} />
         </Switch>
+        <Alert />
       </Router>
     </React.Fragment>
   );

@@ -86,7 +86,7 @@ const RecipientState = (props) => {
       .catch(() => {
         alertContext.showAlert({
           type: "error",
-          title: "Opps!",
+          title: "Oops!",
           body: "Failed to fetch recipients",
           action() {
             alertContext.hideAlert();
@@ -112,7 +112,7 @@ const RecipientState = (props) => {
       .catch(() => {
         alertContext.showAlert({
           type: "error",
-          title: "Opps!",
+          title: "Oops!",
           body:
             "We are finding it difficult to get this recipient's details. Please try again",
           action() {
@@ -143,7 +143,7 @@ const RecipientState = (props) => {
       .catch(() => {
         alertContext.showAlert({
           type: "error",
-          title: "Opps!",
+          title: "Oops!",
           body: "Couldn't add recipient, please try again",
           action() {
             alertContext.hideAlert();
@@ -181,7 +181,7 @@ const RecipientState = (props) => {
       .catch(() => {
         alertContext.showAlert({
           type: "error",
-          title: "Opps!",
+          title: "Oops!",
           body: "Couldn't add bank details, please try again",
           action() {
             alertContext.hideAlert();
@@ -211,7 +211,7 @@ const RecipientState = (props) => {
       .catch(() => {
         alertContext.showAlert({
           type: "error",
-          title: "Opps!",
+          title: "Oops!",
           body: "Error updating recipient, please try again",
           action() {
             alertContext.hideAlert();
@@ -249,7 +249,7 @@ const RecipientState = (props) => {
       .catch(() => {
         alertContext.showAlert({
           type: "error",
-          title: "Opps!",
+          title: "Oops!",
           body: "Coulnd't update bank info, check your network and try again",
           action() {
             alertContext.hideAlert();

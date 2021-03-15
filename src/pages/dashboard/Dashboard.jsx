@@ -71,7 +71,7 @@ function Dashboard({ showTips }) {
           <div className='box-four__title'>
             <h2>
               Recent Transactions
-              <Link to='/transactions'>View All</Link>
+              <Link to='/payment/transactions'>View All</Link>
             </h2>
           </div>
 

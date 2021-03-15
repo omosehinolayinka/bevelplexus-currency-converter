@@ -43,7 +43,7 @@ const TransactionState = (props) => {
 
         alertContext.showAlert({
           type: "error",
-          title: "Opps!",
+          title: "Oops!",
           body: "Failed to fetch transactions, please try again",
           action() {
             alertContext.hideAlert()

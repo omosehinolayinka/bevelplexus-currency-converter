@@ -45,7 +45,7 @@ function Alert() {
             ) : props.link ? (
               <Link to={props.link.route}>
                 <button className='primary' onClick={props.action}>
-                  Proceed
+                  {props.link.title || 'Proceed'}
                 </button>
               </Link>
             ) : (
