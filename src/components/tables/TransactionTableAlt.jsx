@@ -88,7 +88,7 @@ function TransactionsTable({ data }) {
                 <td>
                   <div>
                     <span className={getBadge(data.status).badge}>
-                      {getBadge(data.status).status}
+                      {getBadge(data.status).status.toUpperCase()}
                     </span>
                     <button
                       className='toggle'

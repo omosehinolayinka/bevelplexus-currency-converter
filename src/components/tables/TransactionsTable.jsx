@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import "./TransactionsTable.scss";
 
 import dateFormat from "dateformat";
+import { getBadge } from '../../helpers/transactionBadge'
 
 import TransactionContext from "../../context/transactions/transactionContext";
 
@@ -29,33 +30,6 @@ function TransactionsTable({ data }) {
     // eslint-disable-next-line
   }, []);
 
-  const getBadge = (status) => {
-    switch (status) {
-      case "In Progress":
-        return "badge warning";
-
-      case "In Transit":
-        return "badge warning";
-
-      case "In Waiting":
-        return "badge warning";
-
-      case "Received":
-        return "badge warning";
-
-      case "Failed":
-        return "badge error";
-
-      case "Cancelled":
-        return "badge default";
-
-      case "Completed":
-        return "badge success";
-
-      default:
-        return "badge warning";
-    }
-  };
 
   return (
     <div id='transaction-table'>
@@ -124,9 +98,9 @@ function TransactionsTable({ data }) {
                   <div>
                     <span
                       style={{ fontSize: "0.6rem" }}
-                      className={getBadge()}
+                      className={getBadge(data.status).badge}
                     >
-                      {data.status.toUpperCase()}{" "}
+                      {getBadge(data.status).status.toUpperCase()}
                     </span>
                     <button
                       className='toggle'
