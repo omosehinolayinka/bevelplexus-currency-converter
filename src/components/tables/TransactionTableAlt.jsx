@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import "./TransactionsTable.scss";
 import dateFormat from "dateformat";
 
+import { getBadge } from '../../helpers/transactionBadge';
+
 function TransactionsTable({ data }) {
 
   const [expanded, setExpanded] = useState("");
@@ -12,34 +14,7 @@ function TransactionsTable({ data }) {
   };
 
   dateFormat.masks.custom = "dd/mm/yyyy";
-
-  const getBadge = (status) => {
-    switch (status) {
-      case "In Progress":
-        return "badge warning";
-
-      case "In Transit":
-        return "badge warning";
-
-      case "In Waiting":
-        return "badge warning";
-
-      case "Received":
-        return "badge warning";
-
-      case "Failed":
-        return "badge error";
-
-      case "Cancelled":
-        return "badge default";
-
-      case "Completed":
-        return "badge success";
-
-      default:
-        return "badge warning";
-    }
-  };
+  
 
   return (
     <div id='transaction-table'>
@@ -112,8 +87,8 @@ function TransactionsTable({ data }) {
 
                 <td>
                   <div>
-                    <span className={getBadge()}>
-                      {data.status.toUpperCase()}{" "}
+                    <span className={getBadge(data.status).badge}>
+                      {getBadge(data.status).status.toUpperCase()}
                     </span>
                     <button
                       className='toggle'
