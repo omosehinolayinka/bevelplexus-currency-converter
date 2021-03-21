@@ -3,7 +3,8 @@ import AlertContext from './alertContext';
 import AlertReducer from './alertReducer';
 import {
   SHOW_ALERT,
-  HIDE_ALERT
+  HIDE_ALERT,
+  RESET_STATE
 } from '../types'
 
 const AlertState =  props => {
@@ -20,10 +21,16 @@ const AlertState =  props => {
   const [state, dispatch] = useReducer(AlertReducer, defaultState);
 
   // show intro
-  const showAlert = (params) => dispatch({type: SHOW_ALERT, payload: params});
+  const showAlert = (params) => {
+    dispatch({type: RESET_STATE, payload: defaultState})
+    dispatch({type: SHOW_ALERT, payload: params})
+  };
 
   //hide intro
-  const hideAlert = () => dispatch({type: HIDE_ALERT, payload: defaultState})
+  const hideAlert = () => {
+    dispatch({type: RESET_STATE, payload: defaultState})
+    dispatch({type: HIDE_ALERT, payload: defaultState})
+  }
 
   return <AlertContext.Provider
     value = {{

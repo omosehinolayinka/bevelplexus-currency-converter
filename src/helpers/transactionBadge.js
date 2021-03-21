@@ -1,5 +1,5 @@
 export const getBadge = (status) => {
-  console.log(status);
+
   switch (status) {
 
     case "InProgress":

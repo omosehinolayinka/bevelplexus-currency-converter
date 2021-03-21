@@ -248,10 +248,10 @@ function PaymentReview({ showTips }) {
         </div>
 
         <div className='section-four'>
-          <Link to='/payment/dashboard/options' className='spacer'>
+          <Link to='/payment/options' className='spacer'>
             <button className='left'>PREVIOUS</button>
           </Link>
-          <Link to='/payment/dashboard'>
+          <Link to='/payment'>
             <button className='right' onClick={() => paymentContext.resetState()}>
               Home
             </button>
@@ -259,7 +259,7 @@ function PaymentReview({ showTips }) {
         </div>
       </Layout>
 
-      {paymentContext.reference === "" && <Redirect to='/payment/dashboard/options' />}
+      {paymentContext.reference === "" && <Redirect to='/payment/options' />}
     </div>
   );
 }

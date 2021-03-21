@@ -71,6 +71,13 @@ const CurrencyCalc = () => {
     const withFlags = countries.map((ct) => {
       const flagCode = ct.currencyCode.slice(0, 2).toLowerCase();
 
+      if (flagCode === 'xa') {
+        return {
+          ...ct,
+          flag: `https://www.countryflags.io/cg/flat/24.png`,
+        }
+      }
+
       return {
         ...ct,
         flag: `https://www.countryflags.io/${flagCode}/flat/24.png`,
@@ -200,7 +207,7 @@ const CurrencyCalc = () => {
         </div>
 
         <div className='form__submit'>
-          <Link to='/payment/dashboard/recipient'>
+          <Link to='/payment/recipient'>
             <button type='button' className='form__submit__button'>
               Send this Amount
             </button>

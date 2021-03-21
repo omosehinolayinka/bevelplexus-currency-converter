@@ -112,7 +112,7 @@ function RecipientsTable() {
                         padding: ".7rem 0",
                       }}
                     >
-                      <Link onClick={() => selectRecipient(data)} to='/payment/dashboard/transfer'>Send Money</Link>
+                      <Link onClick={() => selectRecipient(data)} to='/payment/transfer'>Send Money</Link>
                     </button>
                   </div>
                 </td>

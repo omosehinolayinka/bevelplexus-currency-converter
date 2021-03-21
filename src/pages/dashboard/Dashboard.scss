@@ -25,6 +25,7 @@
       justify-content: space-between;
       width: 100%;
       padding-bottom: 1rem;
+      flex-wrap: wrap;
     }
 
     .user-details {
@@ -75,6 +76,23 @@
         font-weight: bold;
         color: #fff;
       }
+    }
+  }
+
+  @media (min-width: 657px) {
+
+    .user-details {
+      margin-bottom: 0.5rem;
+    }
+
+    .box-one__text-wrapper {
+      margin-bottom: 0.5rem;
+      margin-left: auto;
+    }
+
+    .box-one__cta {
+      margin-bottom: 0.5rem;
+      margin-left: auto;
     }
   }
 
