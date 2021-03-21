@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import RecipeientContext from "../../context/recipients/recipientContext";
-import PaymentContext from "../../context/payment/paymentContext"
+import PaymentContext from "../../context/payment/paymentContext";
 
 import { Select } from "antd";
 
@@ -10,13 +10,12 @@ function Editrecipient({ action }) {
   const recipientContext = useContext(RecipeientContext);
   const paymentContext = useContext(PaymentContext);
 
-  const locations = paymentContext.state.countries.map(ct => {
-
+  const locations = paymentContext.state.countries.map((ct) => {
     return {
       code: ct.countryCode,
-      name: ct.name
-    }
-  })
+      name: ct.name,
+    };
+  });
 
   const [loading, setLoading] = useState(false);
   const [disableBank, setDisableBank] = useState(false);
@@ -49,8 +48,6 @@ function Editrecipient({ action }) {
 
   const handleBank = (e) => {
     const num = e.target.value;
-
-    
 
     if (e.target.value.length === 10 && newRecipient.location === "Nigeria") {
       setDisableBank(true);
@@ -112,68 +109,68 @@ function Editrecipient({ action }) {
   const { Option } = Select;
 
   return (
-    <div id='addrecipient'>
-      <div className='box'>
-        <div className='heading'>
+    <div id="addrecipient">
+      <div className="box">
+        <div className="heading">
           <h2>recipient Details</h2>
-          <span className='material-icons' onClick={() => action(false)}>
+          <span className="material-icons" onClick={() => action(false)}>
             clear
           </span>
         </div>
 
-        <div className='form-container'>
-          <div className='shadow-box input-item'>
-            <span className='icon'>
-              <img src='./assets/svg/contact.svg' alt='name' />
+        <div className="form-container">
+          <div className="shadow-box input-item">
+            <span className="icon">
+              <img src="./assets/svg/contact.svg" alt="name" />
             </span>
             <input
               required
-              type='text'
+              type="text"
               value={newRecipient.name}
-              placeholder='Recipient Name'
-              name='name'
+              placeholder="Recipient Name"
+              name="name"
               onChange={handleChange}
             />
           </div>
 
-          <div className='shadow-box input-item'>
-            <span className='icon'>
-              <img src='./assets/svg/mail.svg' alt='settings' />
+          <div className="shadow-box input-item">
+            <span className="icon">
+              <img src="./assets/svg/mail.svg" alt="settings" />
             </span>
             <input
-              type='text'
+              type="text"
               value={newRecipient.email}
-              placeholder='Email'
-              name='email'
+              placeholder="Email"
+              name="email"
               onChange={handleChange}
             />
           </div>
 
-          <div className='shadow-box input-item'>
-            <span className='icon'>
-              <img src='./assets/svg/world-blue.svg' alt='phone' />
+          <div className="shadow-box input-item">
+            <span className="icon">
+              <img src="./assets/svg/world-blue.svg" alt="phone" />
             </span>
             <input
-              type='text'
+              type="text"
               value={newRecipient.phoneNumber}
-              placeholder='Phone Number'
-              name='phoneNumber'
+              placeholder="Phone Number"
+              name="phoneNumber"
               onChange={handleChange}
             />
           </div>
 
-          <div className='shadow-box input-item'>
-            <span className='icon'>
-              <img src='./assets/svg/location-blue.svg' alt='location' />
+          <div className="shadow-box input-item">
+            <span className="icon">
+              <img src="./assets/svg/location-blue.svg" alt="location" />
             </span>
             <Select
               showSearch
               filterOption={true}
-              optionFilterProp='children'
+              optionFilterProp="children"
               onChange={handleSelect}
-              name='location'
-              placeholder='Location'
-              autoComplete='dontshow'
+              name="location"
+              placeholder="Location"
+              autoComplete="dontshow"
             >
               {locations.map((location) => (
                 <Option key={location.code} value={location.name}>
@@ -183,63 +180,67 @@ function Editrecipient({ action }) {
             </Select>
           </div>
 
-          <div className='shadow-box input-item'>
-            <span className='icon'>
-              <img src='./assets/svg/hashtag.svg' alt='number' />
-            </span>
-            <input
-              required
-              type='text'
-              disabled={disableBank}
-              value={newRecipient.accountNumber}
-              placeholder='Account Number'
-              name='accountNumber'
-              onChange={handleBank}
-            />
-          </div>
+          {newRecipient.location !== "" && (
+            <React.Fragment>
+              <div className="shadow-box input-item">
+                <span className="icon">
+                  <img src="./assets/svg/hashtag.svg" alt="number" />
+                </span>
+                <input
+                  required
+                  type="text"
+                  disabled={disableBank}
+                  value={newRecipient.accountNumber}
+                  placeholder="Account Number"
+                  name="accountNumber"
+                  onChange={handleBank}
+                />
+              </div>
 
-          <div className='shadow-box input-item'>
-            <span className='icon'>
-              <img src='./assets/svg/bank.svg' alt='bank' />
-            </span>
-            <input
-              required
-              type='text'
-              value={newRecipient.bank}
-              placeholder='Bank Name'
-              name='bank'
-              disabled= {newRecipient.location === "Nigeria"}
-              onChange={handleChange}
-            />
-          </div>
+              <div className="shadow-box input-item">
+                <span className="icon">
+                  <img src="./assets/svg/bank.svg" alt="bank" />
+                </span>
+                <input
+                  required
+                  type="text"
+                  value={newRecipient.bank}
+                  placeholder="Bank Name"
+                  name="bank"
+                  disabled={newRecipient.location === "Nigeria"}
+                  onChange={handleChange}
+                />
+              </div>
+            </React.Fragment>
+          )}
 
           {newRecipient.location === "Canada" && (
-            <div className='shadow-box input-item'>
-              <span className='icon'>
-                <img src='./assets/svg/hashtag.svg' alt='number' />
+            <div className="shadow-box input-item">
+              <span className="icon">
+                <img src="./assets/svg/hashtag.svg" alt="number" />
               </span>
               <input
                 required
-                type='text'
+                type="text"
                 value={newRecipient.transitOrSortCode}
-                placeholder='Transit Number'
-                name='transitOrSortCode'
+                placeholder="Transit Number"
+                name="transitOrSortCode"
                 onChange={handleChange}
               />
             </div>
           )}
 
           {newRecipient.location === "United Kingdom" && (
-            <div className='shadow-box input-item'>
-              <span className='icon'>
-                <img src='./assets/svg/hashtag.svg' alt='number' />
+            <div className="shadow-box input-item">
+              <span className="icon">
+                <img src="./assets/svg/hashtag.svg" alt="number" />
               </span>
               <input
                 required
-                type='text'
+                type="text"
                 value={newRecipient.transitOrSortCode}
-                placeholder='Sort Code'
-                name='transitOrSortCode'
+                placeholder="Sort Code"
+                name="transitOrSortCode"
                 onChange={handleChange}
               />
             </div>
@@ -247,12 +248,12 @@ function Editrecipient({ action }) {
         </div>
 
         {newRecipient.location === "Nigeria" && (
-          <div className='btn-big-container'>
+          <div className="btn-big-container">
             <button> {newRecipient.acctName} </button>
           </div>
         )}
 
-        <div className='buttons-container'>
+        <div className="buttons-container">
           <button onClick={() => action(false)}>Cancel</button>
           <button
             className={
@@ -267,7 +268,7 @@ function Editrecipient({ action }) {
           >
             {" "}
             {loading ? (
-              <img src='assets/svg/spinner.svg' alt='spinner' />
+              <img src="assets/svg/spinner.svg" alt="spinner" />
             ) : (
               "Save"
             )}{" "}

@@ -118,7 +118,7 @@ function PaymentOptions({showTips}) {
         </div>
 
         <div className='section-four'>
-          <Link to='/payment/dashboard/transfer'>
+          <Link to='/payment/transfer'>
             <button className='left'>Previous</button>
           </Link>
           <Link to='#'>
@@ -126,8 +126,8 @@ function PaymentOptions({showTips}) {
           </Link>
         </div>
 
-        {!recipient && <Redirect to='/payment/dashboard/transfer' />}
-        {redirect && <Redirect to='/payment/dashboard/review' />}
+        {!recipient && <Redirect to='/payment/transfer' />}
+        {redirect && <Redirect to='/payment/review' />}
       </Layout>
     </div>
   );

@@ -63,9 +63,10 @@ const PaymentState = (props) => {
     });
 
     if (
-      params.baseAmount !== "" ||
-      (params.reverse && params.convertedAmount !== "")
+      typeof params.baseAmount === 'number' || (params.reverse && typeof params.convertedAmount === 'number')
     ) {
+      console.log(typeof params.baseAmount);
+      console.log(typeof params.convertedAmount);
       client
         .query({
           query: gql.GET_FX_RATES,
@@ -104,6 +105,7 @@ const PaymentState = (props) => {
           });
         })
         .catch((err) => {
+          console.log(err);
           if (
             err.message !== "Response not successful: Received status code 400"
           ) {
