@@ -54,10 +54,7 @@ function Routes() {
       <Router>
         {isAuthenticated === true && <Redirect to='/payment' />}
         <Switch>
-          <Route exact path="/payment" component={Dashboard} />
-          <Route exact path="/payment">
-            <Redirect to="/payment/recipient" />
-          </Route>
+          <Route exact path="/payment/dashboard" component={Dashboard} />
           <Route exact path="/payment/recipient" component={Paymentrecipient} />
           <Route exact path="/payment/transfer" component={PaymentTransfer} />
           <Route exact path="/payment/options" component={PaymentOptions} />
@@ -68,6 +65,10 @@ function Routes() {
             <Redirect to="/payment/account/settings" />
           </Route>
           <Route exact path="/payment/account/settings" component={AccountSettings} />
+          <Route exact path="/payment">
+            <Redirect to="/payment/dashboard" />
+          </Route>
+          <Redirect to="/payment/dashboard" />
         </Switch>
         <Alert />
       </Router>
