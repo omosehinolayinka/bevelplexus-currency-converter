@@ -5,7 +5,7 @@ import "./Dashboard.scss";
 import Layout from "../../components/layout/LayoutAlt";
 import TransactionTable from "../../components/tables/TransactionsTable";
 import LastTransaction from "./LastTransaction";
-
+import PaymentContext from "../../context/payment/paymentContext";
 import TransactionContext from "../../context/transactions/transactionContext";
 
 function Dashboard({ showTips }) {
@@ -14,33 +14,34 @@ function Dashboard({ showTips }) {
   const total = () => {
     let amount = 0;
 
-    transactionContext.state.transactions.forEach((item) => {
+    transactionContext.state.transactions.forEach(item => {
       amount += item.baseAmount;
     });
 
     return amount;
   };
+  const paymentContext = useContext(PaymentContext);
 
   return (
-    <div id='dashboard'>
-      <Layout currentMenu='dashboard' showTips={showTips}>
-        <div className='page-title'>
+    <div id="dashboard">
+      <Layout currentMenu="dashboard" showTips={showTips}>
+        <div className="page-title">
           <h1>DASHBOARD</h1>
         </div>
 
-        <div className='shadow-box box-one'>
-          <div className='box-one__title'>
+        <div className="shadow-box box-one">
+          <div className="box-one__title">
             <h2>Send Again</h2>
           </div>
 
           {transactionContext.state.transactions.length > 0 ? (
             <LastTransaction data={transactionContext.state.transactions} />
           ) : (
-            <p className='empty-text'>Your last transaction will appear here</p>
+            <p className="empty-text">Your last transaction will appear here</p>
           )}
         </div>
 
-        <div className='box-container double-box-container'>
+        <div className="box-container double-box-container">
           {/* <div className="shadow-box box-two">
             <div className="icon-container">
               <img src="/assets/svg/wallet-icon-alt.svg" alt="walllet"/>
@@ -52,34 +53,34 @@ function Dashboard({ showTips }) {
             </div>
           </div> */}
 
-          <div className='shadow-box box-three' style={{ width: "100%" }}>
-            <div className='icon-container'>
+          <div className="shadow-box box-three" style={{ width: "100%" }}>
+            <div className="icon-container">
               <img
-                src='./assets/svg/transaction-icon-alt.svg'
-                alt='transaction'
+                src="./assets/svg/transaction-icon-alt.svg"
+                alt="transaction"
               />
             </div>
 
-            <div className='box-three__text-wrapper'>
+            <div className="box-three__text-wrapper">
               <p>TOTAL TRANSACTIONS</p>
               <h4>{total().toLocaleString()} NGL</h4>
             </div>
           </div>
         </div>
 
-        <div className='shadow-box box-four'>
-          <div className='box-four__title'>
+        <div className="shadow-box box-four">
+          <div className="box-four__title">
             <h2>
               Recent Transactions
-              <Link to='/payment/transactions'>View All</Link>
+              <Link to="/payment/transactions">View All</Link>
             </h2>
           </div>
 
-          <div className='box-one__content'>
+          <div className="box-one__content">
             {transactionContext.state.transactions.length > 0 ? (
               <TransactionTable data={transactionContext.state.transactions} />
             ) : (
-              <p className='empty-text' style={{ marginTop: "1rem" }}>
+              <p className="empty-text" style={{ marginTop: "1rem" }}>
                 You have not made any transactions yet
               </p>
             )}

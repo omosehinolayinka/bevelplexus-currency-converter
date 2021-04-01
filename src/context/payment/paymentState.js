@@ -17,13 +17,13 @@ import {
   SET_REFERENCE,
   SET_PAYMENT_METHODS,
   RESET_STATE,
-  SET_COUNTRIES,
+  SET_COUNTRIES
 } from "../types";
 
-const PaymentState = (props) => {
+const PaymentState = props => {
   const defaultState = {
     fxDetails: {
-      sendCurrency: "USD",
+      sendCurrency: "CAD",
       baseAmount: "",
       destinationCurrency: "NGN",
       convertedAmount: "",
@@ -31,16 +31,16 @@ const PaymentState = (props) => {
       fee: 0.0,
       rate: 0.0,
       receiveType: "SameDay",
-      reverse: false,
+      reverse: false
     },
     recipient: {
-      name: null,
+      name: null
     },
     transactionType: "Individual",
     paymentOption: "E-transfer",
     referenceID: "",
     paymentOptions: [],
-    countries: [],
+    countries: []
   };
 
   const [state, dispatch] = useReducer(PaymentReducer, defaultState);
@@ -48,22 +48,23 @@ const PaymentState = (props) => {
   const alertContext = useContext(AlertContext);
 
   // set calculation type
-  const setReverseCalc = (value) => {
+  const setReverseCalc = value => {
     dispatch({
       type: CALCULATION_TYPE,
-      payload: value,
+      payload: value
     });
   };
 
   // get fx rates
-  const getFxRates = (params) => {
+  const getFxRates = params => {
     dispatch({
       type: SET_FX_PARAMETERS,
-      payload: params,
+      payload: params
     });
 
     if (
-      typeof params.baseAmount === 'number' || (params.reverse && typeof params.convertedAmount === 'number')
+      typeof params.baseAmount === "number" ||
+      (params.reverse && typeof params.convertedAmount === "number")
     ) {
       console.log(typeof params.baseAmount);
       console.log(typeof params.convertedAmount);
@@ -81,10 +82,10 @@ const PaymentState = (props) => {
             baseAmount: params.reverse
               ? params.convertedAmount
               : params.baseAmount,
-            receiveType: params.receiveType,
-          },
+            receiveType: params.receiveType
+          }
         })
-        .then((res) => {
+        .then(res => {
           const data = res.data.getFxRate;
 
           dispatch({
@@ -100,11 +101,11 @@ const PaymentState = (props) => {
               rate: data.rate.toFixed(2),
               convertedAmount: params.reverse
                 ? params.convertedAmount
-                : data.convertedAmount.toFixed(2),
-            },
+                : data.convertedAmount.toFixed(2)
+            }
           });
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
           if (
             err.message !== "Response not successful: Received status code 400"
@@ -115,7 +116,7 @@ const PaymentState = (props) => {
               body: "Couldn't get fx rates, please try again",
               action() {
                 alertContext.hideAlert();
-              },
+              }
             });
           }
         });
@@ -123,18 +124,18 @@ const PaymentState = (props) => {
   };
 
   // set transaction type
-  const setTransactionType = (params) => {
+  const setTransactionType = params => {
     dispatch({
       type: SET_TRANSACTION_TYPE,
-      payload: params,
+      payload: params
     });
   };
 
   // set current recipient
-  const setCurrentRecipient = (recipient) => {
+  const setCurrentRecipient = recipient => {
     dispatch({
       type: SELECT_RECIPIENT,
-      payload: recipient,
+      payload: recipient
     });
   };
 
@@ -142,15 +143,15 @@ const PaymentState = (props) => {
   const setReceiveType = (receiveType, params) => {
     dispatch({
       type: SET_RECEIVE_TYPE,
-      payload: receiveType,
+      payload: receiveType
     });
   };
 
   //set payment option
-  const setPaymentOption = (value) => {
+  const setPaymentOption = value => {
     dispatch({
       type: SET_PAYMENT_OPTION,
-      payload: value,
+      payload: value
     });
   };
 
@@ -159,32 +160,35 @@ const PaymentState = (props) => {
     client
       .mutate({
         mutation: gql.CREATE_TRANSACTION,
-        variables: { ...data },
+        variables: { ...data }
       })
-      .then((res) => {
+      .then(res => {
         const reference = res.data.createTransaction.reference;
 
         dispatch({
           type: SET_REFERENCE,
-          payload: reference,
+          payload: reference
         });
 
         getCountryId(data.destinationCurrency, redirect);
         // alert(true);
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
         alertContext.showAlert({
           type: "error",
           title: "Oops!",
           body: err.message,
-          link: err.message.indexOf('verification') !== -1 ? {
-            route: '/payment/account',
-            title: 'Complete Verification'
-          } : undefined,
+          link:
+            err.message.indexOf("verification") !== -1
+              ? {
+                  route: "/payment/account",
+                  title: "Complete Verification"
+                }
+              : undefined,
           action() {
             alertContext.hideAlert();
-          },
+          }
         });
       });
   };
@@ -192,23 +196,23 @@ const PaymentState = (props) => {
   const getAllCountries = () => {
     client
       .query({
-        query: GET_ALL_COUNTRIES,
+        query: GET_ALL_COUNTRIES
       })
-      .then((res) => {
+      .then(res => {
         dispatch({
           type: SET_COUNTRIES,
-          payload: res.data.getAllCountry,
+          payload: res.data.getAllCountry
         });
-      })
+      });
   };
 
   const getCountryId = (currency, redirect) => {
     client
       .query({
         query: gql.GET_COUNTRY_ID,
-        variables: { currencyCode: currency },
+        variables: { currencyCode: currency }
       })
-      .then((res) => {
+      .then(res => {
         getPaymentMethods(res.data.getCountryByCurrencyCode.id, redirect);
       })
       .catch(() => {
@@ -219,7 +223,7 @@ const PaymentState = (props) => {
             "Your transaction may have not been proccessed correctly, please try again",
           action() {
             alertContext.hideAlert();
-          },
+          }
         });
       });
   };
@@ -228,12 +232,12 @@ const PaymentState = (props) => {
     client
       .query({
         query: gql.GET_PAYMENT_METHODS,
-        variables: { countryId: id },
+        variables: { countryId: id }
       })
-      .then((res) => {
+      .then(res => {
         dispatch({
           type: SET_PAYMENT_METHODS,
-          payload: res.data.getPaymentChannelByCountryId,
+          payload: res.data.getPaymentChannelByCountryId
         });
         redirect(true);
       })
@@ -244,7 +248,7 @@ const PaymentState = (props) => {
           body: "Error in getting payment options, please try again",
           action() {
             alertContext.hideAlert();
-          },
+          }
         });
       });
   };
@@ -252,7 +256,7 @@ const PaymentState = (props) => {
   const resetState = () => {
     dispatch({
       type: RESET_STATE,
-      payload: defaultState,
+      payload: defaultState
     });
   };
 
@@ -268,7 +272,7 @@ const PaymentState = (props) => {
         setReceiveType,
         setPaymentOption,
         createTransaction,
-        resetState,
+        resetState
       }}
     >
       {props.children}

@@ -21,11 +21,12 @@ function PaymentTransfer({ showTips }) {
 
   const [showModal, setShowModal] = useState(false);
 
-  const handleClick = (receiveType) => {
+  const handleClick = receiveType => {
     paymentContext.setReceiveType(receiveType);
 
     // getFxRates();
   };
+  console.log(paymentContext);
 
   // const getFxRates = () => {
   //   const {
@@ -39,18 +40,18 @@ function PaymentTransfer({ showTips }) {
   const now = new Date();
   const twoDays = new Date(now.getTime() + 172800000);
   return (
-    <div id='payment-transfer'>
-      <Layout currentMenu='payment' payProgress='2' showTips={showTips}>
-        <div className='page-title'>
+    <div id="payment-transfer">
+      <Layout currentMenu="payment" payProgress="2" showTips={showTips}>
+        <div className="page-title">
           <h1>Transfer Details</h1>
         </div>
 
-        <div className='section-one'>
-          <div className='section-title'>
+        <div className="section-one">
+          <div className="section-title">
             <p>When you want they receive?</p>
           </div>
 
-          <div className='box-container'>
+          <div className="box-container">
             <div
               className={
                 receiveType === "Delayed"
@@ -59,8 +60,8 @@ function PaymentTransfer({ showTips }) {
               }
               onClick={() => handleClick("Delayed")}
             >
-              <img src='./assets/svg/calender.svg' alt='recipient' />
-              <p className='flexible-text'>
+              <img src="./assets/svg/calender.svg" alt="recipient" />
+              <p className="flexible-text">
                 1-2 Business Day
                 <span>Free</span>
               </p>
@@ -73,8 +74,8 @@ function PaymentTransfer({ showTips }) {
               }
               onClick={() => handleClick("SameDay")}
             >
-              <img src='./assets/svg/hourglass.svg' alt='school' />
-              <p className='flexible-text'>
+              <img src="./assets/svg/hourglass.svg" alt="school" />
+              <p className="flexible-text">
                 Same day
                 <span>1% of transaction</span>
               </p>
@@ -82,19 +83,19 @@ function PaymentTransfer({ showTips }) {
           </div>
         </div>
 
-        <div className='section-two'>
-          <div className='section-title'>
+        <div className="section-two">
+          <div className="section-title">
             <p>How much you would like to send?</p>
           </div>
 
-          <div className='box-container'>
+          <div className="box-container">
             <Calculator />
 
-            <div className='transfer-info'>
+            <div className="transfer-info">
               <p>
                 Expected start date:{" "}
                 <span> {dateFormat(now, "mmmm dS, yyyy")} </span>{" "}
-                <span className='material-icons'> error_outline</span>
+                <span className="material-icons"> error_outline</span>
               </p>
               <p>
                 Expected completion date:
@@ -104,29 +105,29 @@ function PaymentTransfer({ showTips }) {
                     ? dateFormat(now, "mmmm dS, yyyy")
                     : dateFormat(twoDays, "mmmm dS, yyyy")}{" "}
                 </span>
-                <span className='material-icons'> error_outline</span>
+                <span className="material-icons"> error_outline</span>
               </p>
             </div>
           </div>
         </div>
 
-        <div className='section-divider'></div>
+        <div className="section-divider"></div>
 
-        <div className='section-three'>
-          <div className='section-title'>
+        <div className="section-three">
+          <div className="section-title">
             <p>Receiving method</p>{" "}
-            <Link to='#' className='spacer' onClick={() => setShowModal(true)}>
+            <Link to="#" className="spacer" onClick={() => setShowModal(true)}>
               Add new
             </Link>
           </div>
 
-          <div className='box-container'>
-            <div className='shadow-box'>
-              {!recipient.id && <Redirect to='/payment' />}
+          <div className="box-container">
+            <div className="shadow-box">
+              {!recipient.id && <Redirect to="/payment" />}
               {recipient.bankInfo && (
                 <CustomCheckbox
                   checked={true}
-                  title='Bank Deposit'
+                  title="Bank Deposit"
                   subLeft={recipient.bankInfo[0].bank}
                   subRight={`Account: ${recipient.bankInfo[0].accountNumber}`}
                 />
@@ -135,15 +136,15 @@ function PaymentTransfer({ showTips }) {
           </div>
         </div>
 
-        <div className='section-four'>
-          <Link to='/payment/recipient'>
-            <button className='left'>Previous</button>
+        <div className="section-four">
+          <Link to="/payment/recipient">
+            <button className="left">Previous</button>
           </Link>
           <Link
             to={isEmpty ? "#" : "/payment/options"}
             className={isEmpty ? "disabled" : ""}
           >
-            <button className='right'>Next</button>
+            <button className="right">Next</button>
           </Link>
         </div>
       </Layout>

@@ -6,16 +6,16 @@ import "../paymentRecipient/PaymentRecipient.scss";
 import Layout from "../../components/layout/Layout";
 
 import CustomCheckbox from "../../components/customCheckbox/CustomCheckbox";
-import PaymentSummaryCard from '../../components/paymentSummaryCard/PaymentSummaryCard'
+import PaymentSummaryCard from "../../components/paymentSummaryCard/PaymentSummaryCard";
 
-import PaymentContext from '../../context/payment/paymentContext'
+import PaymentContext from "../../context/payment/paymentContext";
 
-function PaymentOptions({showTips}) {
+function PaymentOptions({ showTips }) {
   const paymentContext = useContext(PaymentContext);
 
-  const selected = paymentContext.state.paymentOption
+  const selected = paymentContext.state.paymentOption;
   const recipient = paymentContext.state.recipient;
-  const fx = paymentContext.state.fxDetails
+  const fx = paymentContext.state.fxDetails;
 
   const [summary, setSummary] = useState({
     sendAmount: fx.baseAmount,
@@ -25,46 +25,46 @@ function PaymentOptions({showTips}) {
     convertedAmount: fx.convertedAmount,
     destinationCurrency: fx.destinationCurrency,
     receivingMethod: selected
-  })
+  });
 
-  const [redirect, setRedirect] = useState(false)
+  const [redirect, setRedirect] = useState(false);
   const [progress, setProgress] = useState("3");
 
   const paymentMethods = [
     {
       key: 1,
-      title: 'E-transfer',
-      speed: '1 hour',
-      cost: 'Free',
+      title: "E-transfer",
+      speed: "1 hour",
+      cost: "Free"
     },
     {
       key: 2,
-      title: 'Bank payment',
-      speed: '1 hour',
-      cost: 'Free',
+      title: "Bank payment",
+      speed: "1 hour",
+      cost: "Free"
     },
     {
       key: 3,
-      title: 'Debit card',
-      speed: '1 hour',
-      cost: fx.baseAmount * 0.01,
+      title: "Debit card",
+      speed: "1 hour",
+      cost: fx.baseAmount * 0.01
     },
     {
       key: 4,
-      title: 'Credit card',
-      speed: '1 hour',
-      cost: fx.baseAmount * 0.01,
-    },
-  ]
+      title: "Credit card",
+      speed: "1 hour",
+      cost: fx.baseAmount * 0.01
+    }
+  ];
 
-  const handleClick = (card) => {
-    paymentContext.setPaymentOption(card.title)
+  const handleClick = card => {
+    paymentContext.setPaymentOption(card.title);
 
     setSummary({
       ...summary,
       fees: card.cost
-    })
-  }
+    });
+  };
 
   const initiateTransaction = () => {
     const transactionDetails = {
@@ -76,58 +76,64 @@ function PaymentOptions({showTips}) {
       baseAmount: fx.baseAmount,
       transactionType: paymentContext.state.transactionType,
       receiveType: fx.receiveType
-    }
+    };
 
-    setProgress("4")
+    setProgress("4");
 
-    paymentContext.createTransaction(transactionDetails, setRedirect)
-  }
+    paymentContext.createTransaction(transactionDetails, setRedirect);
+  };
 
   return (
-    <div id='payment-options'>
-      <Layout currentMenu='payment' payProgress={progress} showTips={showTips}>
-        <div className='page-title'>
+    <div id="payment-options">
+      <Layout currentMenu="payment" payProgress={progress} showTips={showTips}>
+        <div className="page-title">
           <h1>Payment</h1>
         </div>
 
-        <div className='section-wrap'>
-          <div className='section-one'>
-            <div className='section-title'>
+        <div className="section-wrap">
+          <div className="section-one">
+            <div className="section-title">
               <p>Select the payment options</p>
             </div>
 
             {paymentMethods.slice(0, 2).map(card => (
-              <div className='shadow-box' key={card.key} onClick={() => handleClick(card)}>
+              <div
+                className="shadow-box"
+                key={card.key}
+                onClick={() => handleClick(card)}
+              >
                 <CustomCheckbox
                   checked={selected === card.title}
                   title={card.title}
                   subLeft={`Transfer speed ${card.speed}`}
                   action={card.cost.toLocaleString()}
                   currency={fx.sendCurrency}
-                  green={card.cost === 'Free'}
+                  green={card.cost === "Free"}
                 />
               </div>
             ))}
           </div>
 
-          <div className='section-two'>
-          <div className='shadow-box'>
-            <PaymentSummaryCard data={summary} />
-          </div>
+          <div className="section-two">
+            <div className="shadow-box">
+              <PaymentSummaryCard data={summary} />
+            </div>
           </div>
         </div>
 
-        <div className='section-four'>
-          <Link to='/payment/transfer'>
-            <button className='left'>Previous</button>
+        <div className="section-four">
+          <Link to="/payment/transfer">
+            <button className="left">Previous</button>
           </Link>
-          <Link to='#'>
-            <button className='right' onClick={initiateTransaction}>Pay</button>
+          <Link to="#">
+            <button className="right" onClick={initiateTransaction}>
+              Pay
+            </button>
           </Link>
         </div>
 
-        {!recipient && <Redirect to='/payment/transfer' />}
-        {redirect && <Redirect to='/payment/review' />}
+        {!recipient && <Redirect to="/payment/transfer" />}
+        {redirect && <Redirect to="/payment/review" />}
       </Layout>
     </div>
   );

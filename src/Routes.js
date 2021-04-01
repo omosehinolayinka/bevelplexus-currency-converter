@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router,
   Route,
   Redirect,
-  Switch,
+  Switch
 } from "react-router-dom";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Paymentrecipient from "./pages/paymentRecipient/PaymentRecipient";
@@ -18,7 +18,7 @@ import Alert from "./components/alert/Alert";
 import UserContext from "./context/user/userContext";
 import RecipientContext from "./context/recipients/recipientContext";
 import TransactionContext from "./context/transactions/transactionContext";
-import PaymentContext from "./context/payment/paymentContext"
+import PaymentContext from "./context/payment/paymentContext";
 
 function Routes() {
   const [isAuthenticated, setIsAuthenticated] = useState();
@@ -43,28 +43,36 @@ function Routes() {
     }
 
     // eslint-disable-next-line
-  }, [isAuthenticated])
+  }, [isAuthenticated]);
 
   if (isAuthenticated === false) {
-    window.location = process.env.REACT_APP_BASEURL || "https://app.bevelplexus.com";
+    window.location = "http://localhost:3000";
   }
 
   return (
     <React.Fragment>
       <Router>
-        {isAuthenticated === true && <Redirect to='/payment' />}
+        {isAuthenticated === true && <Redirect to="/payment" />}
         <Switch>
           <Route exact path="/payment/dashboard" component={Dashboard} />
           <Route exact path="/payment/recipient" component={Paymentrecipient} />
           <Route exact path="/payment/transfer" component={PaymentTransfer} />
           <Route exact path="/payment/options" component={PaymentOptions} />
           <Route exact path="/payment/review" component={PaymentReview} />
-          <Route exact path="/payment/transactions" component={TransactionHistory} />
+          <Route
+            exact
+            path="/payment/transactions"
+            component={TransactionHistory}
+          />
           <Route exact path="/payment/recipients" component={recipients} />
           <Route exact path="/payment/account">
             <Redirect to="/payment/account/settings" />
           </Route>
-          <Route exact path="/payment/account/settings" component={AccountSettings} />
+          <Route
+            exact
+            path="/payment/account/settings"
+            component={AccountSettings}
+          />
           <Route exact path="/payment">
             <Redirect to="/payment/dashboard" />
           </Route>
