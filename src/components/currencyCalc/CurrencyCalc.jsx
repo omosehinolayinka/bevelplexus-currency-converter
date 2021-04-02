@@ -8,6 +8,12 @@ import { Menu, Dropdown } from "antd";
 
 const CurrencyCalc = () => {
   const [tempValue, setTempValue] = useState("")
+  const [tempValue, setTempValue] = useState("");
+  const [tempCountry, setTempCountry] = useState(false);
+  const path = window.location.pathname;
+
+  const userData = JSON.parse(localStorage.getItem("regularDetail"));
+  const countryId = userData.countryId;
   const paymentContext = useContext(PaymentContext);
 
   const {
@@ -21,6 +27,14 @@ const CurrencyCalc = () => {
     receiveType,
     reverse,
   } = paymentContext.state.fxDetails;
+  
+  const userCurrency = paymentContext.state.countries.find(
+    country => country.id === countryId
+  );
+
+  if (userCurrency && !tempCountry) {
+    paymentContext.state.fxDetails.sendCurrency = userCurrency.currencyCode;
+  }
 
   const handleClick = (e, name) => {
     const data = {
@@ -31,7 +45,7 @@ const CurrencyCalc = () => {
       receiveType,
       reverse: reverse,
     };
-
+    setTempCountry(true);
     paymentContext.getFxRates(data);
   };
 
@@ -92,8 +106,7 @@ const CurrencyCalc = () => {
   const sendCurrencyMenu = (
     <Menu
       onClick={(e) => handleClick(e, "sendCurrency")}
-      name='sendCurrency'
-      selectedKeys={sendCurrency}
+      name='sendCurrency'      
     >
       {currencies.map((currency) => (
         <Menu.Item key={currency.currencyCode}>
