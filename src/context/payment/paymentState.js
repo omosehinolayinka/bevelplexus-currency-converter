@@ -23,7 +23,7 @@ import {
 const PaymentState = (props) => {
   const defaultState = {
     fxDetails: {
-      sendCurrency: "USD",
+      sendCurrency: "CAD",
       baseAmount: "",
       destinationCurrency: "NGN",
       convertedAmount: "",
@@ -63,7 +63,8 @@ const PaymentState = (props) => {
     });
 
     if (
-      typeof params.baseAmount === 'number' || (params.reverse && typeof params.convertedAmount === 'number')
+      typeof params.baseAmount === "number" ||
+      (params.reverse && typeof params.convertedAmount === "number")
     ) {
       console.log(typeof params.baseAmount);
       console.log(typeof params.convertedAmount);
