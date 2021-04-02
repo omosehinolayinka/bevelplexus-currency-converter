@@ -46,7 +46,7 @@ function Routes() {
   }, [isAuthenticated]);
 
   if (isAuthenticated === false) {
-    window.location = "http://localhost:3000";
+    window.location = process.env.REACT_APP_BASEURL || "https://app.bevelplexus.com";
   }
 
   return (
