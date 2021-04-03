@@ -9,6 +9,7 @@ import {
   SET_PAYMENT_METHODS,
   SET_COUNTRIES,
   RESET_STATE,
+  SET_INSTITUTION,
 } from "../types";
 
 export default (state, action) => {
@@ -69,13 +70,18 @@ export default (state, action) => {
         ...state,
         paymentOptions: action.payload,
       };
-    
-      case SET_COUNTRIES:
-        return {
-          ...state,
-          countries: action.payload
-        };
 
+    case SET_COUNTRIES:
+      return {
+        ...state,
+        countries: action.payload,
+      };
+
+    case SET_INSTITUTION:
+      return {
+        ...state,
+        institution: action.payload,
+      };
     case RESET_STATE:
       return {
         ...action.payload,

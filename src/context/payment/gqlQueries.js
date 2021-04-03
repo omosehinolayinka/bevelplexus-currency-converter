@@ -86,9 +86,31 @@ export const GET_PAYMENT_METHODS = gql`
   }
 `;
 
+export const GET_INSTITUTION = gql`
+  query getInstitution($institutionId: String!) {
+    getInstitution(institutionId: $institutionId) {
+      name
+      country {
+        countryCode
+        currencyCode
+        name
+      }
+      city
+      institutionBankInfo {
+        bank
+        accountNumber
+        bankCode
+        transitOrSortCode
+      }
+    }
+  }
+`;
+
 export const queries = {
   GET_FX_RATES,
   CREATE_TRANSACTION,
+  GET_ALL_COUNTRIES,
   GET_COUNTRY_ID,
   GET_PAYMENT_METHODS,
+  GET_INSTITUTION,
 };
