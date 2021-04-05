@@ -10,9 +10,10 @@ const CurrencyCalc = () => {
   const [tempValue, setTempValue] = useState("");
   const [tempCountry, setTempCountry] = useState(false);
   const path = window.location.pathname;
-
-  const userData = JSON.parse(localStorage.getItem("regularDetail"));
-  const countryId = userData.countryId;
+  
+  const userData = JSON.parse(localStorage.getItem("user"));
+  const regularUserData = userData ? userData.regularAccountDetail : null;
+  const countryId = regularUserData ? regularUserData.countryId : ``;
   const paymentContext = useContext(PaymentContext);
 
   const {
