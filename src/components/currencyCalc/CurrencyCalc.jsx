@@ -7,7 +7,6 @@ import PaymentContext from "../../context/payment/paymentContext";
 import { Menu, Dropdown } from "antd";
 
 const CurrencyCalc = () => {
-  const [tempValue, setTempValue] = useState("")
   const [tempValue, setTempValue] = useState("");
   const [tempCountry, setTempCountry] = useState(false);
   const path = window.location.pathname;
