@@ -31,6 +31,8 @@ export const GET_USER = gql`
         course
         institutionId
         yearOfGraduation
+        studentNumber
+        studentEmail
       }
     }
   }

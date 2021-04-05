@@ -18,6 +18,7 @@ import {
   SET_PAYMENT_METHODS,
   RESET_STATE,
   SET_COUNTRIES,
+  SET_INSTITUTION
 } from "../types";
 
 const PaymentState = (props) => {
@@ -36,6 +37,7 @@ const PaymentState = (props) => {
     recipient: {
       name: null,
     },
+    institution: {},
     transactionType: "Individual",
     paymentOption: "E-transfer",
     referenceID: "",
@@ -250,6 +252,21 @@ const PaymentState = (props) => {
       });
   };
 
+  const getInstitution = (id) => {
+    client.query({
+      query: gql.GET_INSTITUTION,
+      variables: {
+        institutionId: id
+      }
+    })
+    .then(res => {
+      dispatch({
+        type: SET_INSTITUTION,
+        payload: res.data.getInstitution
+      })
+    })
+  }
+
   const resetState = () => {
     dispatch({
       type: RESET_STATE,
@@ -269,6 +286,7 @@ const PaymentState = (props) => {
         setReceiveType,
         setPaymentOption,
         createTransaction,
+        getInstitution,
         resetState,
       }}
     >
