@@ -1,14 +1,14 @@
-import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
-import "./CurrencyCalc.scss";
+import React, { useState, useContext } from 'react';
+import { Link } from 'react-router-dom';
+import './CurrencyCalc.scss';
 
-import UserContext from "../../context/user/userContext";
-import PaymentContext from "../../context/payment/paymentContext";
+import UserContext from '../../context/user/userContext';
+import PaymentContext from '../../context/payment/paymentContext';
 
-import { Menu, Dropdown } from "antd";
+import { Menu, Dropdown } from 'antd';
 
 const CurrencyCalc = () => {
-  const [tempValue, setTempValue] = useState("");
+  const [tempValue, setTempValue] = useState('');
   const [tempCountry, setTempCountry] = useState(false);
 
   const userContext = useContext(UserContext);
@@ -27,12 +27,10 @@ const CurrencyCalc = () => {
     fee,
     rate,
     receiveType,
-    reverse
+    reverse,
   } = paymentContext.state.fxDetails;
 
-  const userCurrency = paymentContext.state.countries.find(
-    country => country.id === countryId
-  );
+  const userCurrency = paymentContext.state.countries.find((country) => country.id === countryId);
 
   if (userCurrency && !tempCountry) {
     paymentContext.state.fxDetails.sendCurrency = userCurrency.currencyCode;
@@ -40,20 +38,19 @@ const CurrencyCalc = () => {
 
   const handleClick = (e, name) => {
     const data = {
-      sendCurrency: name === "sendCurrency" ? e.key : sendCurrency,
-      destinationCurrency:
-        name === "destinationCurrency" ? e.key : destinationCurrency,
+      sendCurrency: name === 'sendCurrency' ? e.key : sendCurrency,
+      destinationCurrency: name === 'destinationCurrency' ? e.key : destinationCurrency,
       baseAmount,
-      convertedAmount: baseAmount === "" ? "" : convertedAmount,
+      convertedAmount: baseAmount === '' ? '' : convertedAmount,
       receiveType,
-      reverse: reverse
+      reverse: reverse,
     };
     setTempCountry(true);
     paymentContext.getFxRates(data);
   };
 
-  const handleChange = e => {
-    if (e.target.name === "convertedAmount") {
+  const handleChange = (e) => {
+    if (e.target.name === 'convertedAmount') {
       paymentContext.setReverseCalc(true);
       sendFxRateRequest(e, true);
     } else {
@@ -68,14 +65,13 @@ const CurrencyCalc = () => {
     const data = {
       sendCurrency,
       destinationCurrency,
-      baseAmount: reverse === true ? "" : parseFloat(e.target.value) || "",
-      convertedAmount:
-        reverse === false ? "" : parseFloat(e.target.value) || "",
-      actualAmount: baseAmount === "" ? 0 : actualAmount,
-      fee: baseAmount === "" ? 0 : fee,
-      rate: baseAmount === "" ? 0 : rate,
+      baseAmount: reverse === true ? '' : parseFloat(e.target.value) || '',
+      convertedAmount: reverse === false ? '' : parseFloat(e.target.value) || '',
+      actualAmount: baseAmount === '' ? 0 : actualAmount,
+      fee: baseAmount === '' ? 0 : fee,
+      rate: baseAmount === '' ? 0 : rate,
       receiveType: receiveType,
-      reverse: calcType
+      reverse: calcType,
     };
 
     paymentContext.getFxRates(data);
@@ -84,19 +80,19 @@ const CurrencyCalc = () => {
   const addFlagsToCountries = () => {
     const countries = paymentContext.state.countries;
 
-    const withFlags = countries.map(ct => {
+    const withFlags = countries.map((ct) => {
       const flagCode = ct.currencyCode.slice(0, 2).toLowerCase();
 
-      if (flagCode === "xa") {
+      if (flagCode === 'xa') {
         return {
           ...ct,
-          flag: `https://www.countryflags.io/cg/flat/24.png`
+          flag: `https://www.countryflags.io/cg/flat/24.png`,
         };
       }
 
       return {
         ...ct,
-        flag: `https://www.countryflags.io/${flagCode}/flat/24.png`
+        flag: `https://www.countryflags.io/${flagCode}/flat/24.png`,
       };
     });
 
@@ -106,25 +102,20 @@ const CurrencyCalc = () => {
   const currencies = addFlagsToCountries();
 
   const sendCurrencyMenu = (
-    <Menu onClick={e => handleClick(e, "sendCurrency")} name="sendCurrency">
-      {currencies.map(currency => (
+    <Menu onClick={(e) => handleClick(e, 'sendCurrency')} name="sendCurrency">
+      {currencies.map((currency) => (
         <Menu.Item key={currency.currencyCode}>
-          <img src={currency.flag} alt={currency.currencyCode} />{" "}
-          {currency.currencyCode}
+          <img src={currency.flag} alt={currency.currencyCode} /> {currency.currencyCode}
         </Menu.Item>
       ))}
     </Menu>
   );
 
   const receiveCurrencyMenu = (
-    <Menu
-      onClick={e => handleClick(e, "destinationCurrency")}
-      selectedKeys={destinationCurrency}
-    >
-      {currencies.map(currency => (
+    <Menu onClick={(e) => handleClick(e, 'destinationCurrency')} selectedKeys={destinationCurrency}>
+      {currencies.map((currency) => (
         <Menu.Item key={currency.currencyCode}>
-          <img src={currency.flag} alt={currency.currencyCode} />{" "}
-          {currency.currencyCode}
+          <img src={currency.flag} alt={currency.currencyCode} /> {currency.currencyCode}
         </Menu.Item>
       ))}
     </Menu>
@@ -164,25 +155,23 @@ const CurrencyCalc = () => {
           <p>
             <span className="logic__symbols">
               <small>–</small>
-            </span>{" "}
+            </span>{' '}
             {fee} {sendCurrency}
             <span className="logic__description">Fee (Including IOF)</span>
           </p>
           <p>
             <span className="logic__symbols">
               <small>=</small>
-            </span>{" "}
+            </span>{' '}
             {actualAmount} {sendCurrency}
             <span className="logic__description">Amount we'll convert</span>
           </p>
           <p>
             <span className="logic__symbols">
               <small>÷</small>
-            </span>{" "}
+            </span>{' '}
             {rate}
-            <span className="logic__description">
-              Commercial rate (144 hrs)
-            </span>
+            <span className="logic__description">Commercial rate (144 hrs)</span>
           </p>
         </div>
 

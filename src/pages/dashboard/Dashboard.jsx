@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
-import "./Dashboard.scss";
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
+import './Dashboard.scss';
 
-import Layout from "../../components/layout/LayoutAlt";
-import TransactionTable from "../../components/tables/TransactionsTable";
-import LastTransaction from "./LastTransaction";
-import TransactionContext from "../../context/transactions/transactionContext";
+import Layout from '../../components/layout/LayoutAlt';
+import TransactionTable from '../../components/tables/TransactionsTable';
+import LastTransaction from './LastTransaction';
+import TransactionContext from '../../context/transactions/transactionContext';
 
 function Dashboard({ showTips }) {
   const transactionContext = useContext(TransactionContext);
@@ -13,7 +13,7 @@ function Dashboard({ showTips }) {
   const total = () => {
     let amount = 0;
 
-    transactionContext.state.transactions.forEach(item => {
+    transactionContext.state.transactions.forEach((item) => {
       amount += item.baseAmount;
     });
 
@@ -51,12 +51,9 @@ function Dashboard({ showTips }) {
             </div>
           </div> */}
 
-          <div className="shadow-box box-three" style={{ width: "100%" }}>
+          <div className="shadow-box box-three" style={{ width: '100%' }}>
             <div className="icon-container">
-              <img
-                src="./assets/svg/transaction-icon-alt.svg"
-                alt="transaction"
-              />
+              <img src="./assets/svg/transaction-icon-alt.svg" alt="transaction" />
             </div>
 
             <div className="box-three__text-wrapper">
@@ -78,7 +75,7 @@ function Dashboard({ showTips }) {
             {transactionContext.state.transactions.length > 0 ? (
               <TransactionTable data={transactionContext.state.transactions} />
             ) : (
-              <p className="empty-text" style={{ marginTop: "1rem" }}>
+              <p className="empty-text" style={{ marginTop: '1rem' }}>
                 You have not made any transactions yet
               </p>
             )}
