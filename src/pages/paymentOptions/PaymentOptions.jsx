@@ -70,7 +70,7 @@ function PaymentOptions({ showTips }) {
 
   const initiateTransaction = () => {
     const transactionDetails = {
-      recipientId: recipient.id,
+      recipientId: paymentContext.state.transactionType === "Individual" ? recipient.id : institution.institutionId,
       userId: localStorage.getItem("userId"),
       bankInfoId: recipient.bankInfo[0].id,
       sendCurrency: fx.sendCurrency,
