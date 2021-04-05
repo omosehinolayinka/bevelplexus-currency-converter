@@ -5,7 +5,7 @@ import "./Dashboard.scss";
 import Layout from "../../components/layout/LayoutAlt";
 import TransactionTable from "../../components/tables/TransactionsTable";
 import LastTransaction from "./LastTransaction";
-
+import PaymentContext from "../../context/payment/paymentContext";
 import TransactionContext from "../../context/transactions/transactionContext";
 
 function Dashboard({ showTips }) {
@@ -20,7 +20,7 @@ function Dashboard({ showTips }) {
 
     return amount;
   };
-
+  const paymentContext = useContext(PaymentContext);
   return (
     <div id='dashboard'>
       <Layout currentMenu='dashboard' showTips={showTips}>
