@@ -1,10 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Redirect,
-  Switch,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Paymentrecipient from "./pages/paymentRecipient/PaymentRecipient";
 import PaymentTransfer from "./pages/paymentTransfer/PaymentTransfer";
@@ -18,20 +13,18 @@ import Alert from "./components/alert/Alert";
 import UserContext from "./context/user/userContext";
 import RecipientContext from "./context/recipients/recipientContext";
 import TransactionContext from "./context/transactions/transactionContext";
-import PaymentContext from "./context/payment/paymentContext"
+import PaymentContext from "./context/payment/paymentContext";
 
 function Routes() {
   const [isAuthenticated, setIsAuthenticated] = useState();
+  const [fetchInstitution, setFetchInstitution] = useState(true);
 
   const userContext = useContext(UserContext);
   const recipientContext = useContext(RecipientContext);
   const transactionContext = useContext(TransactionContext);
   const paymentContext = useContext(PaymentContext);
-
   useEffect(() => {
-    localStorage.getItem("token")
-      ? setIsAuthenticated(true)
-      : setIsAuthenticated(false);
+    localStorage.getItem("token") ? setIsAuthenticated(true) : setIsAuthenticated(false);
   }, []);
 
   useEffect(() => {
@@ -43,16 +36,21 @@ function Routes() {
     }
 
     // eslint-disable-next-line
-  }, [isAuthenticated])
+  }, [isAuthenticated]);
 
   if (isAuthenticated === false) {
     window.location = process.env.REACT_APP_BASEURL || "https://app.bevelplexus.com";
   }
 
+  if (userContext.state.user?.studentAccountDetail?.institutionId && fetchInstitution) {
+    const institutionId = userContext.state.user.studentAccountDetail.institutionId;
+    paymentContext.getInstitution(institutionId);
+    setFetchInstitution(false);
+  }
   return (
     <React.Fragment>
       <Router>
-        {isAuthenticated === true && <Redirect to='/payment' />}
+        {isAuthenticated === true && <Redirect to="/payment" />}
         <Switch>
           <Route exact path="/payment/dashboard" component={Dashboard} />
           <Route exact path="/payment/recipient" component={Paymentrecipient} />

@@ -1,15 +1,16 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
-import './Dashboard.scss';
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
+import "./Dashboard.scss";
 
-import Layout from '../../components/layout/LayoutAlt';
-import TransactionTable from '../../components/tables/TransactionsTable';
-import LastTransaction from './LastTransaction';
-import TransactionContext from '../../context/transactions/transactionContext';
+import Layout from "../../components/layout/LayoutAlt";
+import TransactionTable from "../../components/tables/TransactionsTable";
+import LastTransaction from "./LastTransaction";
+import TransactionContext from "../../context/transactions/transactionContext";
+import PaymentContext from "../../context/payment/paymentContext";
 
 function Dashboard({ showTips }) {
+  const paymentContext = useContext(PaymentContext);
   const transactionContext = useContext(TransactionContext);
-
   const total = () => {
     let amount = 0;
 
@@ -33,7 +34,10 @@ function Dashboard({ showTips }) {
           </div>
 
           {transactionContext.state.transactions.length > 0 ? (
-            <LastTransaction data={transactionContext.state.transactions} />
+            <LastTransaction
+              data={transactionContext.state.transactions}
+              institution={paymentContext.state.institution}
+            />
           ) : (
             <p className="empty-text">Your last transaction will appear here</p>
           )}
@@ -51,7 +55,7 @@ function Dashboard({ showTips }) {
             </div>
           </div> */}
 
-          <div className="shadow-box box-three" style={{ width: '100%' }}>
+          <div className="shadow-box box-three" style={{ width: "100%" }}>
             <div className="icon-container">
               <img src="./assets/svg/transaction-icon-alt.svg" alt="transaction" />
             </div>
@@ -73,9 +77,12 @@ function Dashboard({ showTips }) {
 
           <div className="box-one__content">
             {transactionContext.state.transactions.length > 0 ? (
-              <TransactionTable data={transactionContext.state.transactions} />
+              <TransactionTable
+                data={transactionContext.state.transactions}
+                institution={paymentContext.state.institution}
+              />
             ) : (
-              <p className="empty-text" style={{ marginTop: '1rem' }}>
+              <p className="empty-text" style={{ marginTop: "1rem" }}>
                 You have not made any transactions yet
               </p>
             )}

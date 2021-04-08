@@ -1,15 +1,15 @@
-import React, { useState, useContext } from 'react';
-import { Link, Redirect } from 'react-router-dom';
-import './PaymentOptions.scss';
-import '../paymentRecipient/PaymentRecipient.scss';
+import React, { useState, useContext } from "react";
+import { Link, Redirect } from "react-router-dom";
+import "./PaymentOptions.scss";
+import "../paymentRecipient/PaymentRecipient.scss";
 
-import Layout from '../../components/layout/Layout';
+import Layout from "../../components/layout/Layout";
 
-import CustomCheckbox from '../../components/customCheckbox/CustomCheckbox';
-import PaymentSummaryCard from '../../components/paymentSummaryCard/PaymentSummaryCard';
+import CustomCheckbox from "../../components/customCheckbox/CustomCheckbox";
+import PaymentSummaryCard from "../../components/paymentSummaryCard/PaymentSummaryCard";
 
-import PaymentContext from '../../context/payment/paymentContext';
-import UserContext from '../../context/user/userContext';
+import PaymentContext from "../../context/payment/paymentContext";
+import UserContext from "../../context/user/userContext";
 
 function PaymentOptions({ showTips }) {
   const paymentContext = useContext(PaymentContext);
@@ -19,47 +19,46 @@ function PaymentOptions({ showTips }) {
   const institution = paymentContext.state.institution;
   const transactionType = paymentContext.state.transactionType;
   const fx = paymentContext.state.fxDetails;
-  console.log(userContext);
   const institutionId = userContext.state.user.studentAccountDetail
     ? userContext.state.user.studentAccountDetail.institutionId
-    : '';
+    : "";
 
   const [summary, setSummary] = useState({
     sendAmount: fx.baseAmount,
     sendCurrency: fx.sendCurrency,
     exchangeRate: fx.rate,
-    fees: 'Free',
+    fees: "Free",
     convertedAmount: fx.convertedAmount,
     destinationCurrency: fx.destinationCurrency,
     receivingMethod: selected,
   });
 
   const [redirect, setRedirect] = useState(false);
-  const [progress, setProgress] = useState('3');
+  const [progress, setProgress] = useState("3");
 
   const paymentMethods = [
     {
       key: 1,
-      title: 'E-transfer',
-      speed: '1 hour',
-      cost: 'Free',
+      title: "E-transfer",
+      speed: "1 hour",
+      cost: "Free",
     },
     {
       key: 2,
-      title: 'Bank payment',
-      speed: '1 hour',
-      cost: 'Free',
+      title: "Bank payment",
+      speed: "1 hour",
+      cost: "Free",
     },
     {
       key: 3,
-      title: 'Debit card',
-      speed: '1 hour',
+      title: "Debit card",
+      speed: "1 hour",
       cost: fx.baseAmount * 0.01,
     },
     {
       key: 4,
-      title: 'Credit card',
-      speed: '1 hour',
+      title: "Credit card",
+      speed: "1 hour",
       cost: fx.baseAmount * 0.01,
     },
   ];
@@ -74,19 +73,32 @@ function PaymentOptions({ showTips }) {
   };
 
   const initiateTransaction = () => {
-    const transactionDetails = {
-      recipientId:
-        paymentContext.state.transactionType === 'Individual' ? recipient.id : institutionId,
-      userId: localStorage.getItem('userId'),
-      bankInfoId: recipient.bankInfo[0].id,
-      sendCurrency: fx.sendCurrency,
-      destinationCurrency: fx.destinationCurrency,
-      baseAmount: fx.baseAmount,
-      transactionType: paymentContext.state.transactionType,
-      receiveType: fx.receiveType,
-    };
+    let transactionDetails;
+    if (paymentContext.state.transactionType === "Individual") {
+      transactionDetails = {
+        recipientId: recipient.id,
+        userId: localStorage.getItem("userId"),
+        bankInfoId: recipient.bankInfo[0].id,
+        sendCurrency: fx.sendCurrency,
+        destinationCurrency: fx.destinationCurrency,
+        baseAmount: fx.baseAmount,
+        transactionType: paymentContext.state.transactionType,
+        receiveType: fx.receiveType,
+      };
+    } else {
+      transactionDetails = {
+        recipientId: institutionId,
+        userId: localStorage.getItem("userId"),
+        bankInfoId: "",
+        sendCurrency: fx.sendCurrency,
+        destinationCurrency: fx.destinationCurrency,
+        baseAmount: fx.baseAmount,
+        transactionType: paymentContext.state.transactionType,
+        receiveType: fx.receiveType,
+      };
+    }
 
-    setProgress('4');
+    setProgress("4");
 
     paymentContext.createTransaction(transactionDetails, setRedirect);
   };
@@ -112,7 +124,7 @@ function PaymentOptions({ showTips }) {
                   subLeft={`Transfer speed ${card.speed}`}
                   action={card.cost.toLocaleString()}
                   currency={fx.sendCurrency}
-                  green={card.cost === 'Free'}
+                  green={card.cost === "Free"}
                 />
               </div>
             ))}
@@ -136,8 +148,8 @@ function PaymentOptions({ showTips }) {
           </Link>
         </div>
 
-        {((transactionType === 'Individual' && !recipient) ||
-          (transactionType === 'Tuition' && !institution)) && <Redirect to="/payment/transfer" />}
+        {((transactionType === "Individual" && !recipient) ||
+          (transactionType === "Tuition" && !institution)) && <Redirect to="/payment/transfer" />}
         {redirect && <Redirect to="/payment/review" />}
       </Layout>
     </div>
