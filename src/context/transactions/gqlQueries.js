@@ -29,7 +29,15 @@ export const GET_ALL_TRANSACTIONS = gql`
     }
   }
 `;
-
+export const GET_TRANSACTION_ANALYTICS = gql`
+  query getTransactionAnalyticsByUser($currencyCode: String!) {
+    getTransactionAnalyticsByUser(currencyCode: $currencyCode) {
+      totalTransactionsAmount
+      baseCurrencyCode
+    }
+  }
+`;
 export const queries = {
   GET_ALL_TRANSACTIONS,
+  GET_TRANSACTION_ANALYTICS
 };

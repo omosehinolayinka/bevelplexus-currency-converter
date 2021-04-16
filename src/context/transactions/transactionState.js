@@ -7,7 +7,11 @@ import AlertContext from "../alert/alertContext";
 import { useApolloClient } from "@apollo/client";
 import { queries as gql } from "./gqlQueries";
 
-import { GET_TRANSACTIONS, CHANGE_PAGE } from "../types";
+import {
+  GET_TRANSACTIONS,
+  CHANGE_PAGE,
+  GET_TRANSACTION_ANALYTICS
+} from "../types";
 
 const TransactionState = (props) => {
   const defaultState = {
@@ -15,11 +19,12 @@ const TransactionState = (props) => {
       offset: 0,
       limit: 5
     },
-    transactions: []
+    transactions: [],
+    transactionAnalytics: []
   };
 
   const [state, dispatch] = useReducer(TransactionReducer, defaultState);
-  const alertContext = useContext(AlertContext)
+  const alertContext = useContext(AlertContext);
   const client = useApolloClient();
 
   // get all transactions
@@ -37,17 +42,32 @@ const TransactionState = (props) => {
         dispatch({
           type: GET_TRANSACTIONS,
           payload: res.data.getTransactionByUser
-        })
+        });
       })
       .catch(() => {
-
         alertContext.showAlert({
           type: "error",
           title: "Oops!",
           body: "Failed to fetch transactions, please try again",
           action() {
-            alertContext.hideAlert()
+            alertContext.hideAlert();
           }
+        });
+      });
+  };
+  const getTransactionAnalytics = (currencyCode) => {
+    client
+      .query({
+        query: gql.GET_TRANSACTION_ANALYTICS,
+        fetchPolicy: "cache-first",
+        variables: {
+          currencyCode: currencyCode
+        }
+      })
+      .then((res) => {
+        dispatch({
+          type: GET_TRANSACTION_ANALYTICS,
+          payload: res.data.getTransactionAnalyticsByUser
         });
       });
   };
@@ -56,17 +76,18 @@ const TransactionState = (props) => {
     dispatch({
       type: CHANGE_PAGE,
       payload: page
-    })
+    });
 
-    getTransactions(page)
-  }
+    getTransactions(page);
+  };
 
   return (
     <TransactionContext.Provider
       value={{
         state,
         getTransactions,
-        changePage
+        changePage,
+        getTransactionAnalytics
       }}
     >
       {props.children}
