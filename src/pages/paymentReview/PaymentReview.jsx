@@ -29,6 +29,7 @@ function PaymentReview({ showTips }) {
       ? "Free"
       : baseAmount * 0.01;
 
+
   const banks = paymentContext.state.paymentOptions.filter((item) => item.paymentType === "Bank");
   const eTransfers = paymentContext.state.paymentOptions.filter(
     (item) => item.paymentType === "ETransfer",

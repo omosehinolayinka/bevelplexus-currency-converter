@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext,useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
 import "./PaymentOptions.scss";
 import "../paymentRecipient/PaymentRecipient.scss";
@@ -22,6 +22,12 @@ function PaymentOptions({ showTips }) {
   const institutionId = userContext.state.user.studentAccountDetail
     ? userContext.state.user.studentAccountDetail.institutionId
     : "";
+
+  const nigeriaId = "d85188f7-ec38-45af-bd5d-1a291fd26750";
+
+  const userCountryCode =
+    userContext?.state?.user?.regularAccountDetail?.countryId;
+
 
   const [summary, setSummary] = useState({
     sendAmount: fx.baseAmount,
@@ -62,6 +68,13 @@ function PaymentOptions({ showTips }) {
       cost: fx.baseAmount * 0.01,
     },
   ];
+
+  let paymentMethodsByCountry;
+  if (userCountryCode == nigeriaId) {
+    paymentMethodsByCountry = paymentMethods.slice(1, 2);
+  } else {
+    paymentMethodsByCountry = paymentMethods.slice(0, 2);
+  }
 
   const handleClick = (card) => {
     paymentContext.setPaymentOption(card.title);
@@ -116,23 +129,30 @@ function PaymentOptions({ showTips }) {
               <p>Select the payment options</p>
             </div>
 
-            {paymentMethods.slice(0, 2).map((card) => (
-              <div className="shadow-box" key={card.key} onClick={() => handleClick(card)}>
-                <CustomCheckbox
-                  checked={selected === card.title}
-                  title={card.title}
-                  subLeft={`Transfer speed ${card.speed}`}
-                  action={card.cost.toLocaleString()}
-                  currency={fx.sendCurrency}
-                  green={card.cost === "Free"}
-                />
-              </div>
-            ))}
+            {paymentMethodsByCountry.map((card) => {
+              return (
+                <div
+                  className="shadow-box"
+                  key={card.key}
+                  onClick={() => handleClick(card)}
+                >
+                  <CustomCheckbox
+                    checked={selected === card.title}
+                    title={card.title}
+                    subLeft={`Transfer speed ${card.speed}`}
+                    action={card.cost.toLocaleString()}
+                    currency={fx.sendCurrency}
+                    greenuseEffect={card.cost === "Free"}
+                  />
+                </div>
+              );
+            })}
           </div>
 
           <div className="section-two">
             <div className="shadow-box">
-              <PaymentSummaryCard data={summary} />
+                 <PaymentSummaryCard data={summary} />
+             
             </div>
           </div>
         </div>
@@ -149,7 +169,9 @@ function PaymentOptions({ showTips }) {
         </div>
 
         {((transactionType === "Individual" && !recipient) ||
-          (transactionType === "Tuition" && !institution)) && <Redirect to="/payment/transfer" />}
+          (transactionType === "Tuition" && !institution)) && (
+          <Redirect to="/payment/transfer" />
+        )}
         {redirect && <Redirect to="/payment/review" />}
       </Layout>
     </div>
