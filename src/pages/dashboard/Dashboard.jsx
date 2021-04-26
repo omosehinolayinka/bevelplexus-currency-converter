@@ -52,7 +52,7 @@ function Dashboard({ showTips }) {
             </div>
           </div> */}
 
-          <div className='shadow-box box-three' style={{ width: "100%" }}>
+          {/* <div className='shadow-box box-three' style={{ width: "100%" }}>
             <div className='icon-container'>
               <img
                 src='./assets/svg/transaction-icon-alt.svg'
@@ -64,7 +64,7 @@ function Dashboard({ showTips }) {
               <p>TOTAL TRANSACTIONS</p>
               <h4>{total().toLocaleString()} NGL</h4>
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div className='shadow-box box-four'>
