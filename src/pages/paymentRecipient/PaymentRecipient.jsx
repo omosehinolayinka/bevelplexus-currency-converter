@@ -20,6 +20,7 @@ function Paymentrecipient({ showTips }) {
 
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [chooseInstitution, setChooseInstitution] = useState(false);
 
   const transactionType = paymentContext.state.transactionType;
   const allRecipients = recipientContext.state.recipients;
@@ -36,15 +37,10 @@ function Paymentrecipient({ showTips }) {
 
   const text = (
     <div style={tooltipStyle}>
-      <img
-        src="./assets/svg/info-alt.svg"
-        alt="icon"
-        style={{ margin: "5px 12px 0 0" }}
-      />
+      <img src="./assets/svg/info-alt.svg" alt="icon" style={{ margin: "5px 12px 0 0" }} />
       <p style={{ marginBottom: "0", fontSize: "13px" }}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec est
-        ligula, accumsan nec fermentum nec, vulputate et tellus. In non tellus
-        et erat dapibus aliquet.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec est ligula, accumsan nec
+        fermentum nec, vulputate et tellus. In non tellus et erat dapibus aliquet.
       </p>
     </div>
   );
@@ -55,8 +51,7 @@ function Paymentrecipient({ showTips }) {
       limit: 1000,
     });
 
-    
-    if (userContext.state.user.userType === "Student" ) {
+    if (userContext.state.user.userType === "Student") {
       const institutionId = userContext.state.user.studentAccountDetail.institutionId;
       paymentContext.getInstitution(institutionId);
     }
@@ -83,11 +78,12 @@ function Paymentrecipient({ showTips }) {
           <div className="box-container">
             <div
               className={
-                transactionType === "Individual"
-                  ? "shadow-box shadow-box-highlight"
-                  : "shadow-box"
+                transactionType === "Individual" ? "shadow-box shadow-box-highlight" : "shadow-box"
               }
-              onClick={() => paymentContext.setTransactionType("Individual")}
+              onClick={() => {
+                paymentContext.setTransactionType("Individual");
+                setChooseInstitution(false);
+              }}
             >
               <img src="./assets/svg/recipient.svg" alt="recipient" />
               <p>To Individual</p>
@@ -96,11 +92,12 @@ function Paymentrecipient({ showTips }) {
             {userContext.state.user.userType === "Student" && (
               <div
                 className={
-                  transactionType === "Tuition"
-                    ? "shadow-box shadow-box-highlight"
-                    : "shadow-box"
+                  transactionType === "Tuition" ? "shadow-box shadow-box-highlight" : "shadow-box"
                 }
-                onClick={() => paymentContext.setTransactionType("Tuition")}
+                onClick={() => {
+                  paymentContext.setTransactionType("Tuition");
+                  setChooseInstitution(true);
+                }}
               >
                 <img src="./assets/svg/school.svg" alt="school" />
                 <p>Tuition Payment</p>
@@ -128,16 +125,9 @@ function Paymentrecipient({ showTips }) {
                     defaultValue={paymentContext.state.recipient.name}
                   >
                     {allRecipients.map((recipient) => (
-                      <Option
-                        value={recipient.id}
-                        key={recipient.id}
-                        name={recipient}
-                      >
+                      <Option value={recipient.id} key={recipient.id} name={recipient}>
                         {recipient.name}
-                        <img
-                          src="./assets/svg/green-check-alt.svg"
-                          alt="check"
-                        />
+                        <img src="./assets/svg/green-check-alt.svg" alt="check" />
                       </Option>
                     ))}
                   </Select>
@@ -145,9 +135,7 @@ function Paymentrecipient({ showTips }) {
 
                 <div className="side-link">
                   <Link to="#">
-                    <div onClick={() => setShowAddModal(true)}>
-                      Add new recipient
-                    </div>
+                    <div onClick={() => setShowAddModal(true)}>Add new recipient</div>
                     <Tooltip placement="bottomRight" title={text}>
                       <span className="material-icons"> error_outline</span>
                     </Tooltip>
@@ -170,8 +158,7 @@ function Paymentrecipient({ showTips }) {
           </div>
 
           <div className="box-container">
-            {transactionType === "Individual" &&
-            currentRecipient.name === null ? (
+            {transactionType === "Individual" && currentRecipient.name === null ? (
               <div className="shadow-box error-notice small">
                 <i class="fas fa-ghost"></i>
                 <p>No recipient selected</p>
@@ -208,9 +195,7 @@ function Paymentrecipient({ showTips }) {
                   </div>
                   <span className="user-details__text-wrapper">
                     <h3>
-                      {transactionType === "Individual"
-                        ? currentRecipient.name
-                        : institution.name}
+                      {transactionType === "Individual" ? currentRecipient.name : institution.name}
                     </h3>
                     <p>
                       {transactionType === "Individual"
@@ -239,7 +224,10 @@ function Paymentrecipient({ showTips }) {
                     <React.Fragment>
                       <p>
                         <img src="./assets/svg/student.svg" alt="world" />
-                        {dateFormat(userContext.state.user.studentAccountDetail.yearOfGraduation, "mmmm dS, yyyy")}
+                        {dateFormat(
+                          userContext.state.user.studentAccountDetail.yearOfGraduation,
+                          "mmmm dS, yyyy",
+                        )}
                       </p>
 
                       <p>
@@ -267,17 +255,24 @@ function Paymentrecipient({ showTips }) {
             to={!currentRecipient ? "#" : "/payment/transfer"}
             className={!currentRecipient ? "disabled" : ""}
           >
-            <button className="right">Next</button>
+            <button
+              className="right"
+              onClick={() => {
+                if (chooseInstitution) {
+                  paymentContext.setCurrentRecipient(institution);
+                } else {
+                  return;
+                }
+                // chooseInstitution ? paymentContext.setCurrentRecipient(currentRecipient) : '';
+              }}
+            >
+              Next
+            </button>
           </Link>
         </div>
       </Layout>
 
-      {showEditModal && (
-        <EditModal
-          action={setShowEditModal}
-          recipientState={currentRecipient}
-        />
-      )}
+      {showEditModal && <EditModal action={setShowEditModal} recipientState={currentRecipient} />}
       {showAddModal && <AddModal action={setShowAddModal} />}
     </div>
   );

@@ -9,15 +9,19 @@ import CustomCheckbox from "../../components/customCheckbox/CustomCheckbox";
 import PaymentSummaryCard from "../../components/paymentSummaryCard/PaymentSummaryCard";
 
 import PaymentContext from "../../context/payment/paymentContext";
+import UserContext from "../../context/user/userContext";
 
 function PaymentOptions({ showTips }) {
   const paymentContext = useContext(PaymentContext);
-
+  const userContext = useContext(UserContext);
   const selected = paymentContext.state.paymentOption;
   const recipient = paymentContext.state.recipient;
   const institution = paymentContext.state.institution;
   const transactionType = paymentContext.state.transactionType;
   const fx = paymentContext.state.fxDetails;
+  const institutionId = userContext.state.user.studentAccountDetail
+    ? userContext.state.user.studentAccountDetail.institutionId
+    : "";
 
   const [summary, setSummary] = useState({
     sendAmount: fx.baseAmount,
@@ -69,16 +73,30 @@ function PaymentOptions({ showTips }) {
   };
 
   const initiateTransaction = () => {
-    const transactionDetails = {
-      recipientId: recipient.id,
-      userId: localStorage.getItem("userId"),
-      bankInfoId: recipient.bankInfo[0].id,
-      sendCurrency: fx.sendCurrency,
-      destinationCurrency: fx.destinationCurrency,
-      baseAmount: fx.baseAmount,
-      transactionType: paymentContext.state.transactionType,
-      receiveType: fx.receiveType,
-    };
+    let transactionDetails;
+    if (paymentContext.state.transactionType === "Individual") {
+      transactionDetails = {
+        recipientId: recipient.id,
+        userId: localStorage.getItem("userId"),
+        bankInfoId: recipient.bankInfo[0].id,
+        sendCurrency: fx.sendCurrency,
+        destinationCurrency: fx.destinationCurrency,
+        baseAmount: fx.baseAmount,
+        transactionType: paymentContext.state.transactionType,
+        receiveType: fx.receiveType,
+      };
+    } else {
+      transactionDetails = {
+        recipientId: institutionId,
+        userId: localStorage.getItem("userId"),
+        bankInfoId: "",
+        sendCurrency: fx.sendCurrency,
+        destinationCurrency: fx.destinationCurrency,
+        baseAmount: fx.baseAmount,
+        transactionType: paymentContext.state.transactionType,
+        receiveType: fx.receiveType,
+      };
+    }
 
     setProgress("4");
 
@@ -99,11 +117,7 @@ function PaymentOptions({ showTips }) {
             </div>
 
             {paymentMethods.slice(0, 2).map((card) => (
-              <div
-                className="shadow-box"
-                key={card.key}
-                onClick={() => handleClick(card)}
-              >
+              <div className="shadow-box" key={card.key} onClick={() => handleClick(card)}>
                 <CustomCheckbox
                   checked={selected === card.title}
                   title={card.title}
@@ -135,9 +149,7 @@ function PaymentOptions({ showTips }) {
         </div>
 
         {((transactionType === "Individual" && !recipient) ||
-          (transactionType === "Tuition" && !institution)) && (
-          <Redirect to="/payment/transfer" />
-        )}
+          (transactionType === "Tuition" && !institution)) && <Redirect to="/payment/transfer" />}
         {redirect && <Redirect to="/payment/review" />}
       </Layout>
     </div>
