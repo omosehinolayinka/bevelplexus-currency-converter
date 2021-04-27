@@ -75,10 +75,9 @@ function Dashboard({ showTips }) {
               <p>TOTAL TRANSACTIONS</p>
               {transactionContext?.state?.transactionAnalytics ? (
                 <h4>
-                  {
-                    transactionContext.state.transactionAnalytics
-                      .totalTransactionsAmount
-                  }{" "}
+                  {transactionContext.state.transactionAnalytics.totalTransactionsAmount?.toFixed(
+                    2
+                  )}{" "}
                   {
                     transactionContext.state.transactionAnalytics
                       .baseCurrencyCode
