@@ -5,11 +5,12 @@ import { Tooltip } from "antd";
 import UserContext from "../../context/user/userContext";
 
 function VerificationBox() {
-
   const userContext = useContext(UserContext);
 
   const redirect = () => {
-    window.location = `${process.env.REACT_APP_BASEURL}/complete-verification` || "https://app.bevelplexus.com/complete-verification";
+    window.location =
+      `${process.env.REACT_APP_BASEURL}/complete-verification` ||
+      "https://app.bevelplexus.com/complete-verification";
   };
 
   const {
@@ -28,22 +29,24 @@ function VerificationBox() {
   const text = (
     <div style={tooltipStyle}>
       <img
-        src='./assets/svg/info-alt.svg'
-        alt='icon'
+        src="./assets/svg/info-alt.svg"
+        alt="icon"
         style={{ margin: "5px 12px 0 0" }}
       />
       <p style={{ marginBottom: "0", fontSize: "13px" }}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec est
-        ligula, accumsan nec fermentum nec, vulputate et tellus. In non tellus
-        et erat dapibus aliquet.
+        Daily Transaction Limit: $1,000 <br/> 
+        Monthly Transaction Limit: $1,000.{" "}
+        <br /> <br/>
+        Complete your ID Verification to achieve Level 1 Verification. To
+        upgrade to Level 2 provide a utility bill to verify your identity.
       </p>
     </div>
   );
 
   return (
-    <div className='box-container'>
-      <div className='shadow-box shadow-box-highlight'>
-        <div className='box-heading'>
+    <div className="box-container">
+      <div className="shadow-box shadow-box-highlight">
+        <div className="box-heading">
           <h3>
             LEVEL
             {userContext.state.user.userType === "Regular" &&
@@ -61,19 +64,19 @@ function VerificationBox() {
               ? "2"
               : "1"}
           </h3>
-          <Tooltip placement='bottomRight' title={text}>
-            <img src='./assets/svg/info.svg' alt='icon' />
+          <Tooltip placement="bottomRight" title={text}>
+            <img src="./assets/svg/info.svg" alt="icon" />
           </Tooltip>
         </div>
 
-        <div className='subtitle'>
+        <div className="subtitle">
           <p>
             {userContext.state.user.userType === "Regular" &&
             isEmailVerified &&
             isPhoneNumberVerified &&
             isIdentityVerified &&
             isUtilityBillVerified
-              ? "$2000 Dollar Limit"
+              ? "$3000 Dollar Limit"
               : userContext.state.user.userType === "Student" &&
                 isEmailVerified &&
                 isPhoneNumberVerified &&
@@ -85,21 +88,21 @@ function VerificationBox() {
           </p>
         </div>
 
-        <div className='wrap'>
+        <div className="wrap">
           <p>
             Email Verification{" "}
             {isEmailVerified ? (
-              <img src='./assets/svg/green-check-alt.svg' alt='' />
+              <img src="./assets/svg/green-check-alt.svg" alt="" />
             ) : (
-              <span className='material-icons'>close</span>
+              <span className="material-icons">close</span>
             )}
           </p>
           <p>
             Phone Verification
             {isPhoneNumberVerified ? (
-              <img src='./assets/svg/green-check-alt.svg' alt='' />
+              <img src="./assets/svg/green-check-alt.svg" alt="" />
             ) : (
-              <span className='material-icons'>close</span>
+              <span className="material-icons">close</span>
             )}
           </p>
           {/* {userContext.state.user.userType !== "Regular" && (
@@ -115,9 +118,9 @@ function VerificationBox() {
           <p>
             ID Verification
             {isIdentityVerified ? (
-              <img src='./assets/svg/green-check-alt.svg' alt='' />
+              <img src="./assets/svg/green-check-alt.svg" alt="" />
             ) : (
-              <span className='material-icons'>close</span>
+              <span className="material-icons">close</span>
             )}
           </p>
 
@@ -134,7 +137,7 @@ function VerificationBox() {
 
       {(!isEmailVerified || !isPhoneNumberVerified || !isIdentityVerified) && (
         <label onClick={() => redirect()}>
-          <div className='shadow-box button'>Complete Verification</div>
+          <div className="shadow-box button">Complete Verification</div>
         </label>
       )}
     </div>
