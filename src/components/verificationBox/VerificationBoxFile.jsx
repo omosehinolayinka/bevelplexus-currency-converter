@@ -28,14 +28,15 @@ function VerificationBoxFile({ reset, setReset }) {
   const text = (
     <div style={tooltipStyle}>
       <img
-        src='./assets/svg/info-alt.svg'
-        alt='icon'
+        src="./assets/svg/info-alt.svg"
+        alt="icon"
         style={{ margin: "5px 12px 0 0" }}
       />
       <p style={{ marginBottom: "0", fontSize: "13px" }}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec est
-        ligula, accumsan nec fermentum nec, vulputate et tellus. In non tellus
-        et erat dapibus aliquet.
+        Daily Transaction Limit: $3,000 <br />
+        Monthly Transaction Limit: $25,000
+        <br /> <br />
+        To complete Level 2 provide a utility bill to verify your identity.
       </p>
     </div>
   );
@@ -63,27 +64,27 @@ function VerificationBoxFile({ reset, setReset }) {
   };
 
   return (
-    <div className='box-container'>
-      <div className='shadow-box'>
-        <div className='box-heading'>
+    <div className="box-container">
+      <div className="shadow-box">
+        <div className="box-heading">
           <h3>LEVEL 2</h3>
-          <Tooltip placement='bottomRight' title={text}>
-            <img src='./assets/svg/info.svg' alt='icon' />
+          <Tooltip placement="bottomRight" title={text}>
+            <img src="./assets/svg/info.svg" alt="icon" />
           </Tooltip>
         </div>
 
-        <div className='subtitle'>
+        <div className="subtitle">
           <p>$2000 Dollar Limit</p>
         </div>
 
-        <div className='wrap'>
+        <div className="wrap">
           {userContext.state.user.userType !== "Regular" && (
-            <p className='fade-text'>
+            <p className="fade-text">
               School information
               {isSchoolEnrollmentVerified ? (
-                <img src='./assets/svg/green-check-alt.svg' alt='' />
+                <img src="./assets/svg/green-check-alt.svg" alt="" />
               ) : (
-                <span className='material-icons'>close</span>
+                <span className="material-icons">close</span>
               )}
             </p>
           )}
@@ -91,9 +92,9 @@ function VerificationBoxFile({ reset, setReset }) {
           <p>
             Utility bill verifiation
             {isUtilityBillVerified ? (
-              <img src='./assets/svg/green-check-alt.svg' alt='' />
+              <img src="./assets/svg/green-check-alt.svg" alt="" />
             ) : (
-              <span className='material-icons'>close</span>
+              <span className="material-icons">close</span>
             )}
           </p>
 
@@ -103,12 +104,14 @@ function VerificationBoxFile({ reset, setReset }) {
             <p>Complete Level 1 verification before upgrading to level 2</p>
           ) : isIdentityVerified && !isUtilityBillVerified ? (
             <p>
-              Upload a photo of a valid utility bill with your address to upgrade your account
+              Upload a photo of a valid utility bill with your address to
+              upgrade your transaction limit
             </p>
           ) : userContext.state.user.userType === "Student" &&
             !isSchoolEnrollmentVerified ? (
             <p>
-              Upload a photo of a valid school enrollment Document to upgrade your account
+              Upload a photo of a valid school enrollment Document to upgrade
+              your account
             </p>
           ) : (
             <p>Please complete level one verification first </p>
@@ -120,20 +123,20 @@ function VerificationBoxFile({ reset, setReset }) {
       (levelOneComplete && !isSchoolEnrollmentVerified) ? (
         <label>
           <input
-            type='file'
-            name='file'
-            id='choose-file'
+            type="file"
+            name="file"
+            id="choose-file"
             onChange={handleFileUpload}
           />
           {reset === true ? (
-            <div className='shadow-box button'>Choose File</div>
+            <div className="shadow-box button">Choose File</div>
           ) : file === "uploading" ? (
-            <div className='shadow-box button'>
-              <span className='progress'></span> <span>Uploading File</span>
+            <div className="shadow-box button">
+              <span className="progress"></span> <span>Uploading File</span>
             </div>
           ) : file === "completed" ? (
-            <div className='shadow-box button green'>
-              File uploaded <span className='material-icons'>done</span>
+            <div className="shadow-box button green">
+              File uploaded <span className="material-icons">done</span>
             </div>
           ) : (
             ""

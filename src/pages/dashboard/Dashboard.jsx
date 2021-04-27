@@ -55,16 +55,19 @@ function Dashboard({ showTips }) {
             </div>
           </div> */}
 
-          <div className="shadow-box box-three" style={{ width: "100%" }}>
-            <div className="icon-container">
-              <img src="./assets/svg/transaction-icon-alt.svg" alt="transaction" />
+          {/* <div className='shadow-box box-three' style={{ width: "100%" }}>
+            <div className='icon-container'>
+              <img
+                src='./assets/svg/transaction-icon-alt.svg'
+                alt='transaction'
+              />
             </div>
 
             <div className="box-three__text-wrapper">
               <p>TOTAL TRANSACTIONS</p>
               <h4>{total().toLocaleString()} NGL</h4>
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div className="shadow-box box-four">
