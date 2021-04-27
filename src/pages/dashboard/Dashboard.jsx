@@ -63,7 +63,6 @@ function Dashboard({ showTips }) {
             </div>
           </div> */}
 
-
           <div className="shadow-box box-three" style={{ width: "100%" }}>
             <div className="icon-container">
               <img
@@ -76,10 +75,9 @@ function Dashboard({ showTips }) {
               <p>TOTAL TRANSACTIONS</p>
               {transactionContext?.state?.transactionAnalytics ? (
                 <h4>
-                  {
-                    transactionContext.state.transactionAnalytics
-                      .totalTransactionsAmount
-                  }{" "}
+                  {transactionContext.state.transactionAnalytics.totalTransactionsAmount?.toFixed(
+                    2
+                  )}{" "}
                   {
                     transactionContext.state.transactionAnalytics
                       .baseCurrencyCode
@@ -89,7 +87,7 @@ function Dashboard({ showTips }) {
                 <h4>{total().toLocaleString()} NGL</h4>
               )}
             </div>
-          </div> */}
+          </div>
         </div>
 
         <div className="shadow-box box-four">
@@ -119,3 +117,4 @@ function Dashboard({ showTips }) {
 }
 
 export default Dashboard;
+ 
