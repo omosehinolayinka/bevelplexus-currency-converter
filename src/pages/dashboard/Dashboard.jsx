@@ -55,18 +55,12 @@ function Dashboard({ showTips }) {
             </div>
           </div> */}
 
-<<<<<<< HEAD
           {/* <div className='shadow-box box-three' style={{ width: "100%" }}>
             <div className='icon-container'>
               <img
                 src='./assets/svg/transaction-icon-alt.svg'
                 alt='transaction'
               />
-=======
-          <div className="shadow-box box-three" style={{ width: "100%" }}>
-            <div className="icon-container">
-              <img src="./assets/svg/transaction-icon-alt.svg" alt="transaction" />
->>>>>>> 8587ca93f7eabe01d6b320d3fef1fed7a2a55133
             </div>
 
             <div className="box-three__text-wrapper">
