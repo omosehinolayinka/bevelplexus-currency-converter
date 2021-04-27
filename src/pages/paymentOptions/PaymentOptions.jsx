@@ -23,6 +23,11 @@ function PaymentOptions({ showTips }) {
     ? userContext.state.user.studentAccountDetail.institutionId
     : "";
 
+  const nigeriaId = "d85188f7-ec38-45af-bd5d-1a291fd26750";
+
+  const userCountryCode =
+    userContext?.state?.user?.regularAccountDetail?.countryId;
+
   const [summary, setSummary] = useState({
     sendAmount: fx.baseAmount,
     sendCurrency: fx.sendCurrency,
@@ -30,7 +35,7 @@ function PaymentOptions({ showTips }) {
     fees: "Free",
     convertedAmount: fx.convertedAmount,
     destinationCurrency: fx.destinationCurrency,
-    receivingMethod: selected,
+    receivingMethod: selected
   });
 
   const [redirect, setRedirect] = useState(false);
@@ -41,34 +46,41 @@ function PaymentOptions({ showTips }) {
       key: 1,
       title: "E-transfer",
       speed: "1 hour",
-      cost: "Free",
+      cost: "Free"
     },
     {
       key: 2,
       title: "Bank payment",
       speed: "1 hour",
-      cost: "Free",
+      cost: "Free"
     },
     {
       key: 3,
       title: "Debit card",
       speed: "1 hour",
-      cost: fx.baseAmount * 0.01,
+      cost: fx.baseAmount * 0.01
     },
     {
       key: 4,
       title: "Credit card",
       speed: "1 hour",
-      cost: fx.baseAmount * 0.01,
-    },
+      cost: fx.baseAmount * 0.01
+    }
   ];
+
+  let paymentMethodsByCountry;
+  if (userCountryCode == nigeriaId) {
+    paymentMethodsByCountry = paymentMethods.slice(1, 2);
+  } else {
+    paymentMethodsByCountry = paymentMethods.slice(0, 2);
+  }
 
   const handleClick = (card) => {
     paymentContext.setPaymentOption(card.title);
 
     setSummary({
       ...summary,
-      fees: card.cost,
+      fees: card.cost
     });
   };
 
@@ -83,7 +95,7 @@ function PaymentOptions({ showTips }) {
         destinationCurrency: fx.destinationCurrency,
         baseAmount: fx.baseAmount,
         transactionType: paymentContext.state.transactionType,
-        receiveType: fx.receiveType,
+        receiveType: fx.receiveType
       };
     } else {
       transactionDetails = {
@@ -94,7 +106,7 @@ function PaymentOptions({ showTips }) {
         destinationCurrency: fx.destinationCurrency,
         baseAmount: fx.baseAmount,
         transactionType: paymentContext.state.transactionType,
-        receiveType: fx.receiveType,
+        receiveType: fx.receiveType
       };
     }
 
@@ -116,18 +128,24 @@ function PaymentOptions({ showTips }) {
               <p>Select the payment options</p>
             </div>
 
-            {paymentMethods.slice(0, 2).map((card) => (
-              <div className="shadow-box" key={card.key} onClick={() => handleClick(card)}>
-                <CustomCheckbox
-                  checked={selected === card.title}
-                  title={card.title}
-                  subLeft={`Transfer speed ${card.speed}`}
-                  action={card.cost.toLocaleString()}
-                  currency={fx.sendCurrency}
-                  green={card.cost === "Free"}
-                />
-              </div>
-            ))}
+            {paymentMethodsByCountry.map((card) => {
+              return (
+                <div
+                  className="shadow-box"
+                  key={card.key}
+                  onClick={() => handleClick(card)}
+                >
+                  <CustomCheckbox
+                    checked={selected === card.title}
+                    title={card.title}
+                    subLeft={`Transfer speed ${card.speed}`}
+                    action={card.cost.toLocaleString()}
+                    currency={fx.sendCurrency}
+                    greenuseEffect={card.cost === "Free"}
+                  />
+                </div>
+              );
+            })}
           </div>
 
           <div className="section-two">
@@ -149,7 +167,9 @@ function PaymentOptions({ showTips }) {
         </div>
 
         {((transactionType === "Individual" && !recipient) ||
-          (transactionType === "Tuition" && !institution)) && <Redirect to="/payment/transfer" />}
+          (transactionType === "Tuition" && !institution)) && (
+          <Redirect to="/payment/transfer" />
+        )}
         {redirect && <Redirect to="/payment/review" />}
       </Layout>
     </div>

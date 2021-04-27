@@ -8,9 +8,10 @@ import Table from "../../components/tables/TransactionTableAlt";
 // import Pagination from '../../components/pagination/Pagination'
 
 import TransactionContext from "../../context/transactions/transactionContext";
-
+import PaymentContext from "../../context/payment/paymentContext";
 function TransactionHistory({ showTips }) {
   const transactionContext = useContext(TransactionContext);
+  const paymentContext = useContext(PaymentContext);
 
   useEffect(() => {
     transactionContext.getTransactions(transactionContext.state.page);
@@ -23,21 +24,21 @@ function TransactionHistory({ showTips }) {
 
     const values = {
       offset: limit - 5,
-      limit: limit,
+      limit: limit
     };
 
     transactionContext.changePage(values);
   };
 
   return (
-    <div id='transaction-history'>
-      <Layout currentMenu='transaction' showTips={showTips}>
-        <div className='page-header'>
-          <div className='page-title'>
+    <div id="transaction-history">
+      <Layout currentMenu="transaction" showTips={showTips}>
+        <div className="page-header">
+          <div className="page-title">
             <h4>Transactions</h4>
           </div>
 
-          <div className='content-title'>
+          <div className="content-title">
             <h2>
               Your Transactions ({transactionContext.state.total || "0"}){" "}
             </h2>
@@ -51,18 +52,21 @@ function TransactionHistory({ showTips }) {
           </div>
         </div>
 
-        <div className='table-container'>
+        <div className="table-container">
           {transactionContext.state.transactions.length !== 0 ? (
-            <Table data={transactionContext.state.transactions} />
+            <Table
+              data={transactionContext.state.transactions}
+              institution={paymentContext.state.institution}
+            />
           ) : (
-            <div className='shadow-box error-notice small transparent'>
-              <i class='fas fa-ghost'></i>
+            <div className="shadow-box error-notice small transparent">
+              <i class="fas fa-ghost"></i>
               <p>You haven't made any transactions yet</p>
             </div>
           )}
         </div>
 
-        <div className='pagination_container'>
+        <div className="pagination_container">
           <Pagination
             defaultCurrent={1}
             total={transactionContext.state.total || 1}

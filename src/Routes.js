@@ -1,5 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
-import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  Switch
+} from "react-router-dom";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Paymentrecipient from "./pages/paymentRecipient/PaymentRecipient";
 import PaymentTransfer from "./pages/paymentTransfer/PaymentTransfer";
@@ -24,7 +29,9 @@ function Routes() {
   const transactionContext = useContext(TransactionContext);
   const paymentContext = useContext(PaymentContext);
   useEffect(() => {
-    localStorage.getItem("token") ? setIsAuthenticated(true) : setIsAuthenticated(false);
+    localStorage.getItem("token")
+      ? setIsAuthenticated(true)
+      : setIsAuthenticated(false);
   }, []);
 
   useEffect(() => {
@@ -39,11 +46,16 @@ function Routes() {
   }, [isAuthenticated]);
 
   if (isAuthenticated === false) {
-    window.location = process.env.REACT_APP_BASEURL || "https://app.bevelplexus.com";
+    window.location =
+      process.env.REACT_APP_BASEURL || "https://app.bevelplexus.com";
   }
 
-  if (userContext.state.user?.studentAccountDetail?.institutionId && fetchInstitution) {
-    const institutionId = userContext.state.user.studentAccountDetail.institutionId;
+  if (
+    userContext.state.user?.studentAccountDetail?.institutionId &&
+    fetchInstitution
+  ) {
+    const institutionId =
+      userContext.state.user.studentAccountDetail.institutionId;
     paymentContext.getInstitution(institutionId);
     setFetchInstitution(false);
   }
@@ -57,12 +69,20 @@ function Routes() {
           <Route exact path="/payment/transfer" component={PaymentTransfer} />
           <Route exact path="/payment/options" component={PaymentOptions} />
           <Route exact path="/payment/review" component={PaymentReview} />
-          <Route exact path="/payment/transactions" component={TransactionHistory} />
+          <Route
+            exact
+            path="/payment/transactions"
+            component={TransactionHistory}
+          />
           <Route exact path="/payment/recipients" component={recipients} />
           <Route exact path="/payment/account">
             <Redirect to="/payment/account/settings" />
           </Route>
-          <Route exact path="/payment/account/settings" component={AccountSettings} />
+          <Route
+            exact
+            path="/payment/account/settings"
+            component={AccountSettings}
+          />
           <Route exact path="/payment">
             <Redirect to="/payment/dashboard" />
           </Route>

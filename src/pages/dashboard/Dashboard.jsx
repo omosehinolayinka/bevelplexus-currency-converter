@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Dashboard.scss";
 
@@ -11,6 +11,9 @@ import PaymentContext from "../../context/payment/paymentContext";
 function Dashboard({ showTips }) {
   const paymentContext = useContext(PaymentContext);
   const transactionContext = useContext(TransactionContext);
+
+  const [fetchUserAnalytics, setFetchUserAnalytics] = useState(true);
+
   const total = () => {
     let amount = 0;
 
@@ -20,6 +23,11 @@ function Dashboard({ showTips }) {
 
     return amount;
   };
+
+  if (fetchUserAnalytics) {
+    transactionContext.getTransactionAnalytics();
+    setFetchUserAnalytics(false);
+  }
 
   return (
     <div id="dashboard">
@@ -55,17 +63,31 @@ function Dashboard({ showTips }) {
             </div>
           </div> */}
 
-          {/* <div className='shadow-box box-three' style={{ width: "100%" }}>
-            <div className='icon-container'>
+
+          <div className="shadow-box box-three" style={{ width: "100%" }}>
+            <div className="icon-container">
               <img
-                src='./assets/svg/transaction-icon-alt.svg'
-                alt='transaction'
+                src="./assets/svg/transaction-icon-alt.svg"
+                alt="transaction"
               />
             </div>
 
             <div className="box-three__text-wrapper">
               <p>TOTAL TRANSACTIONS</p>
-              <h4>{total().toLocaleString()} NGL</h4>
+              {transactionContext?.state?.transactionAnalytics ? (
+                <h4>
+                  {
+                    transactionContext.state.transactionAnalytics
+                      .totalTransactionsAmount
+                  }{" "}
+                  {
+                    transactionContext.state.transactionAnalytics
+                      .baseCurrencyCode
+                  }
+                </h4>
+              ) : (
+                <h4>{total().toLocaleString()} NGL</h4>
+              )}
             </div>
           </div> */}
         </div>

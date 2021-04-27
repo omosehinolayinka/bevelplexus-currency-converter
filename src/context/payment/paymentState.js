@@ -171,8 +171,8 @@ const PaymentState = (props) => {
           type: SET_REFERENCE,
           payload: reference,
         });
-
-        getCountryId(data.destinationCurrency, redirect);
+// edited to pull data of country the user is initiating payment from
+        getCountryId(data.sendCurrency, redirect);
         // alert(true);
       })
       .catch((err) => {

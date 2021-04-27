@@ -3,10 +3,9 @@ import { Link } from "react-router-dom";
 import "./TransactionsTable.scss";
 import dateFormat from "dateformat";
 
-import { getBadge } from '../../helpers/transactionBadge';
+import { getBadge } from "../../helpers/transactionBadge";
 
-function TransactionsTable({ data }) {
-
+function TransactionsTable({ data, institution }) {
   const [expanded, setExpanded] = useState("");
 
   const toggleTableRow = (row) => {
@@ -14,11 +13,10 @@ function TransactionsTable({ data }) {
   };
 
   dateFormat.masks.custom = "dd/mm/yyyy";
-  
 
   return (
-    <div id='transaction-table'>
-      <table className='mod-width'>
+    <div id="transaction-table">
+      <table className="mod-width">
         <colgroup>
           <col style={{ width: "30%" }} />
           <col style={{ width: "20%" }} />
@@ -26,7 +24,7 @@ function TransactionsTable({ data }) {
           <col style={{ width: "20%" }} />
         </colgroup>
 
-        <tbody className='table-alt'>
+        <tbody className="table-alt">
           {data.map((data) => (
             <React.Fragment key={data.id}>
               <tr className={expanded === data.id ? "expanded" : "collapsed"}>
@@ -39,20 +37,22 @@ function TransactionsTable({ data }) {
                             ? "./assets/svg/avatar.svg"
                             : "./assets/svg/institution.svg"
                         }
-                        alt='avatar'
-                        className='avatar-img'
+                        alt="avatar"
+                        className="avatar-img"
                       />
                       <img
                         src={`https://www.countryflags.io/${data.destinationCurrency
                           .slice(0, 2)
                           .toLowerCase()}/flat/24.png`}
-                        alt='currency flag'
-                        className='img-attachment'
+                        alt="currency flag"
+                        className="img-attachment"
                       />
                     </section>
                     <p>
-                      {data.recipient.name}
-                      <small> {data.recipient.email} </small>
+                      {data.transactionType === "Individual"
+                        ? data?.recipient?.name
+                        : institution?.name}
+                      <small> {data?.recipient?.email || ""} </small>
                     </p>
                   </div>
                 </td>
@@ -69,15 +69,16 @@ function TransactionsTable({ data }) {
                 <td>
                   <div>
                     <p>
-                      <span className='icon-wrap'>
+                      <span className="icon-wrap">
                         <span>
                           {" "}
                           {data.baseAmount.toLocaleString()} {data.sendCurrency}{" "}
                         </span>
-                        <span className='material-icons'>arrow_right</span>
+                        <span className="material-icons">arrow_right</span>
                         <span>
                           {" "}
-                          {data.convertedAmount.toLocaleString()} {data.destinationCurrency}{" "}
+                          {data.convertedAmount.toLocaleString()}{" "}
+                          {data.destinationCurrency}{" "}
                         </span>
                       </span>
                       <small>Last transaction amount</small>
@@ -91,10 +92,10 @@ function TransactionsTable({ data }) {
                       {getBadge(data.status).status.toUpperCase()}
                     </span>
                     <button
-                      className='toggle'
+                      className="toggle"
                       onClick={() => toggleTableRow(data.id)}
                     >
-                      <span className='material-icons'>
+                      <span className="material-icons">
                         {expanded === data.id
                           ? "arrow_drop_up"
                           : "arrow_drop_down"}
@@ -105,49 +106,50 @@ function TransactionsTable({ data }) {
               </tr>
 
               {expanded === data.id && (
-                <tr className='tr-extension'>
-                  <td colSpan='4'>
-                    <div className='tr-extension__content'>
-                      <div className='col-one'>
-                        <span className='flag'>
+                <tr className="tr-extension">
+                  <td colSpan="4">
+                    <div className="tr-extension__content">
+                      <div className="col-one">
+                        <span className="flag">
                           <img
                             src={`https://www.countryflags.io/${data.sendCurrency
                               .slice(0, 2)
                               .toLowerCase()}/flat/24.png`}
-                            alt='flag'
+                            alt="flag"
                           />{" "}
                         </span>
-                        <span className='material-icons'>arrow_right</span>
-                        <span className='flag'>
+                        <span className="material-icons">arrow_right</span>
+                        <span className="flag">
                           <img
                             src={`https://www.countryflags.io/${data.destinationCurrency
                               .slice(0, 2)
                               .toLowerCase()}/flat/24.png`}
-                            alt='flag'
+                            alt="flag"
                           />{" "}
                         </span>
                       </div>
 
-                      <div className='col-two'>
+                      <div className="col-two">
                         <small>Exchange Rate</small>
                         <p> {data.rate.toLocaleString()} </p>
                       </div>
 
-                      <div className='col-three'>
+                      <div className="col-three">
                         <small>Amount (Before Fee)</small>
                         <p>
                           {data.baseAmount.toLocaleString()} {data.sendCurrency}
                         </p>
                       </div>
 
-                      <div className='col-two'>
+                      <div className="col-two">
                         <small>Amount (After Fee)</small>
                         <p>
-                          {data.actualAmount.toLocaleString()} {data.sendCurrency}
+                          {data.actualAmount.toLocaleString()}{" "}
+                          {data.sendCurrency}
                         </p>
                       </div>
 
-                      <div className='col-five'>
+                      <div className="col-five">
                         <button>
                           <Link to={data.link}>View Details</Link>
                         </button>
