@@ -1,4 +1,4 @@
-import React, { useState, useContext,useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { Link, Redirect } from "react-router-dom";
 import "./PaymentOptions.scss";
 import "../paymentRecipient/PaymentRecipient.scss";
@@ -28,7 +28,6 @@ function PaymentOptions({ showTips }) {
   const userCountryCode =
     userContext?.state?.user?.regularAccountDetail?.countryId;
 
-
   const [summary, setSummary] = useState({
     sendAmount: fx.baseAmount,
     sendCurrency: fx.sendCurrency,
@@ -36,7 +35,7 @@ function PaymentOptions({ showTips }) {
     fees: "Free",
     convertedAmount: fx.convertedAmount,
     destinationCurrency: fx.destinationCurrency,
-    receivingMethod: selected,
+    receivingMethod: selected
   });
 
   const [redirect, setRedirect] = useState(false);
@@ -47,26 +46,26 @@ function PaymentOptions({ showTips }) {
       key: 1,
       title: "E-transfer",
       speed: "1 hour",
-      cost: "Free",
+      cost: "Free"
     },
     {
       key: 2,
       title: "Bank payment",
       speed: "1 hour",
-      cost: "Free",
+      cost: "Free"
     },
     {
       key: 3,
       title: "Debit card",
       speed: "1 hour",
-      cost: fx.baseAmount * 0.01,
+      cost: fx.baseAmount * 0.01
     },
     {
       key: 4,
       title: "Credit card",
       speed: "1 hour",
-      cost: fx.baseAmount * 0.01,
-    },
+      cost: fx.baseAmount * 0.01
+    }
   ];
 
   let paymentMethodsByCountry;
@@ -81,7 +80,7 @@ function PaymentOptions({ showTips }) {
 
     setSummary({
       ...summary,
-      fees: card.cost,
+      fees: card.cost
     });
   };
 
@@ -96,7 +95,7 @@ function PaymentOptions({ showTips }) {
         destinationCurrency: fx.destinationCurrency,
         baseAmount: fx.baseAmount,
         transactionType: paymentContext.state.transactionType,
-        receiveType: fx.receiveType,
+        receiveType: fx.receiveType
       };
     } else {
       transactionDetails = {
@@ -107,7 +106,7 @@ function PaymentOptions({ showTips }) {
         destinationCurrency: fx.destinationCurrency,
         baseAmount: fx.baseAmount,
         transactionType: paymentContext.state.transactionType,
-        receiveType: fx.receiveType,
+        receiveType: fx.receiveType
       };
     }
 
@@ -151,8 +150,7 @@ function PaymentOptions({ showTips }) {
 
           <div className="section-two">
             <div className="shadow-box">
-                 <PaymentSummaryCard data={summary} />
-             
+              <PaymentSummaryCard data={summary} />
             </div>
           </div>
         </div>

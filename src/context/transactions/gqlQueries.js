@@ -30,8 +30,8 @@ export const GET_ALL_TRANSACTIONS = gql`
   }
 `;
 export const GET_TRANSACTION_ANALYTICS = gql`
-  query getTransactionAnalyticsByUser($currencyCode: String!) {
-    getTransactionAnalyticsByUser(currencyCode: $currencyCode) {
+  query TransactionUserAnalytics {
+    getTransactionAnalyticsByUser {
       totalTransactionsAmount
       baseCurrencyCode
     }

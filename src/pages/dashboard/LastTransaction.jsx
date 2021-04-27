@@ -22,12 +22,16 @@ function LastTransaction({ data, institution }) {
         </div>
         <span className="box-one__text-wrapper">
           <h3>
-            {" "}
             {data.transactionType === "Individual"
               ? data[0]?.recipient?.name
               : institution?.name}{" "}
           </h3>
-          <p> {data.transactionType === "Individual" ? data[0]?.recipient?.email : ""} </p>
+          <p>
+            {" "}
+            {data.transactionType === "Individual"
+              ? data[0]?.recipient?.email
+              : ""}{" "}
+          </p>
         </span>
       </div>
 
@@ -38,7 +42,8 @@ function LastTransaction({ data, institution }) {
           </span>
           <span className="material-icons">arrow_right</span>
           <span>
-            {data[0].convertedAmount.toLocaleString()} {data[0].destinationCurrency}
+            {data[0].convertedAmount.toLocaleString()}{" "}
+            {data[0].destinationCurrency}
           </span>
         </h3>
         <p>Last Transaction</p>

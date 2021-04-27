@@ -21,7 +21,7 @@ function PaymentReview({ showTips }) {
     baseAmount,
     rate,
     destinationCurrency,
-    convertedAmount,
+    convertedAmount
   } = paymentContext.state.fxDetails;
 
   const fee =
@@ -29,10 +29,11 @@ function PaymentReview({ showTips }) {
       ? "Free"
       : baseAmount * 0.01;
 
-
-  const banks = paymentContext.state.paymentOptions.filter((item) => item.paymentType === "Bank");
+  const banks = paymentContext.state.paymentOptions.filter(
+    (item) => item.paymentType === "Bank"
+  );
   const eTransfers = paymentContext.state.paymentOptions.filter(
-    (item) => item.paymentType === "ETransfer",
+    (item) => item.paymentType === "ETransfer"
   );
 
   useEffect(() => {
@@ -44,12 +45,12 @@ function PaymentReview({ showTips }) {
       anchor: {
         target: "paymentInstructions",
         smooth: true,
-        duration: 1000,
+        duration: 1000
       },
       action() {
         alertContext.hideAlert();
         isAnimated(true);
-      },
+      }
     });
 
     //eslint-disable-next-line
@@ -172,9 +173,10 @@ function PaymentReview({ showTips }) {
                 <p>
                   <span>Your total</span>
                   <span>
-                    {paymentContext.state.paymentOption === ("E-transfer" || "Bank payment")
+                    {paymentContext.state.paymentOption ===
+                    ("E-transfer" || "Bank payment")
                       ? `${baseAmount} ${sendCurrency}`
-                      : `${baseAmount + fee} ${destinationCurrency}`}
+                      : `${baseAmount + fee} ${sendCurrency}`}
                   </span>
                 </p>
               </div>
@@ -182,9 +184,16 @@ function PaymentReview({ showTips }) {
           </div>
         </div>
 
-        <div className="section-three bank-details-box" id="paymentInstructions">
+        <div
+          className="section-three bank-details-box"
+          id="paymentInstructions"
+        >
           <div className="box-container">
-            <div className={`shadow-box ${animate && "shadow-box-highlight animated"}`}>
+            <div
+              className={`shadow-box ${
+                animate && "shadow-box-highlight animated"
+              }`}
+            >
               <div className="action">
                 <Link to="#" className="spacer">
                   Edit
@@ -265,7 +274,10 @@ function PaymentReview({ showTips }) {
             <button className="left">PREVIOUS</button>
           </Link>
           <Link to="/payment">
-            <button className="right" onClick={() => paymentContext.resetState()}>
+            <button
+              className="right"
+              onClick={() => paymentContext.resetState()}
+            >
               Home
             </button>
           </Link>

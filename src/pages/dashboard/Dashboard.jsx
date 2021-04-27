@@ -7,27 +7,13 @@ import TransactionTable from "../../components/tables/TransactionsTable";
 import LastTransaction from "./LastTransaction";
 import TransactionContext from "../../context/transactions/transactionContext";
 import PaymentContext from "../../context/payment/paymentContext";
-// import UserContext from "../../context/user/userContext";
 
 function Dashboard({ showTips }) {
   const paymentContext = useContext(PaymentContext);
   const transactionContext = useContext(TransactionContext);
-  // const userContext = useContext(UserContext);
-  
-  
-  // console.log(
-  //   userContext?.state?.user?.studentAccountDetail?.institutionId)
-  
-  // const userData = userContext.state.user;
 
-  // const [fetchUserAnalytics, setFetchUserAnalytics] = useState(true);/
+  const [fetchUserAnalytics, setFetchUserAnalytics] = useState(true);
 
-  // const regularUserData = userData ? userData.regularAccountDetail : null;
-  // const countryId = regularUserData ? regularUserData.countryId : ``;
-
-  // const userCurrency = paymentContext.state.countries.find(
-  //   (country) => country.id === countryId
-  // );
   const total = () => {
     let amount = 0;
 
@@ -38,12 +24,10 @@ function Dashboard({ showTips }) {
     return amount;
   };
 
-  // if (userCurrency?.currencyCode && fetchUserAnalytics) {
-  //   if (userCurrency.currencyCode)
-  //   console.log(userCurrency.currencyCode);
-  //     transactionContext.getTransactionAnalytics(userCurrency.currencyCode);
-  //   setFetchUserAnalytics(false);
-  // }
+  if (fetchUserAnalytics) {
+    transactionContext.getTransactionAnalytics();
+    setFetchUserAnalytics(false);
+  }
 
   return (
     <div id="dashboard">
@@ -89,9 +73,7 @@ function Dashboard({ showTips }) {
 
             <div className="box-three__text-wrapper">
               <p>TOTAL TRANSACTIONS</p>
-              {/* <h4>{total().toLocaleString()} {transactionContext.state.transactionAnalytics.baseCurrency}</h4> */}
-              {/* {userCurrency?.currencyCode === "NGN" ||
-              userCurrency?.currencyCode === "GBP" ? (
+              {transactionContext?.state?.transactionAnalytics ? (
                 <h4>
                   {
                     transactionContext.state.transactionAnalytics
@@ -102,9 +84,9 @@ function Dashboard({ showTips }) {
                       .baseCurrencyCode
                   }
                 </h4>
-              ) : ( */}
+              ) : (
                 <h4>{total().toLocaleString()} NGL</h4>
-              {/* )} */}
+              )}
             </div>
           </div>
         </div>

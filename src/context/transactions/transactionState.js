@@ -55,14 +55,11 @@ const TransactionState = (props) => {
         });
       });
   };
-  const getTransactionAnalytics = (currencyCode) => {
+  const getTransactionAnalytics = () => {
     client
       .query({
         query: gql.GET_TRANSACTION_ANALYTICS,
-        fetchPolicy: "cache-first",
-        variables: {
-          currencyCode: currencyCode
-        }
+        fetchPolicy: "cache-first"
       })
       .then((res) => {
         dispatch({
