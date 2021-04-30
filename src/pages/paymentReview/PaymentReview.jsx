@@ -131,12 +131,12 @@ function PaymentReview({ showTips }) {
               </div>
 
               <div className="box__title">
-                <h3>Transfer summary</h3>
+                <h3>Transfer Summary</h3>
               </div>
 
               <div id="payment-summary-card">
                 <p>
-                  <span>Send Amount</span>
+                  <span>You Send</span>
                   <span>
                     <img src="./assets/svg/canada-flag.svg" alt="cad" />
                     {baseAmount} {sendCurrency}
@@ -144,7 +144,7 @@ function PaymentReview({ showTips }) {
                 </p>
 
                 <p>
-                  <span>Exchange rate</span>
+                  <span>Exchange Rate</span>
                   <span> {rate} </span>
                 </p>
 
@@ -154,7 +154,7 @@ function PaymentReview({ showTips }) {
                 </p>
 
                 <p>
-                  <span>recipient gets</span>
+                  <span>Recipient Receives</span>
                   <span>
                     <img
                       src={
@@ -171,7 +171,7 @@ function PaymentReview({ showTips }) {
                 <div className="section-divider"></div>
 
                 <p>
-                  <span>Your total</span>
+                  <span>Your Total</span>
                   <span>
                     {paymentContext.state.paymentOption ===
                     ("E-transfer" || "Bank payment")

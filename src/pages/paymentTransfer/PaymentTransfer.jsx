@@ -1,5 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Link, Redirect } from "react-router-dom";
+import { Tooltip } from "antd";
+
 import "./PaymentTransfer.scss";
 import "../paymentRecipient/PaymentRecipient.scss";
 
@@ -37,6 +39,25 @@ function PaymentTransfer({ showTips }) {
   //   } = paymentContext.state.fxDetails;
   // };
 
+  const tooltipStyle = {
+    display: "flex",
+    alignItems: "flex-start"
+  };
+
+  const text = (
+    <div style={tooltipStyle}>
+      <img
+        src="./assets/svg/info-alt.svg"
+        alt="icon"
+        style={{ margin: "5px 12px 0 0" }}
+      />
+      <p style={{ marginBottom: "0", fontSize: "13px" }}>
+        Depending on the nature of your transfer, all transactions are completed
+        within minutes or up to 4 business hours
+      </p>
+    </div>
+  );
+
   // transaction dates
   const now = new Date();
   const twoDays = new Date(now.getTime() + 172800000);
@@ -49,7 +70,7 @@ function PaymentTransfer({ showTips }) {
 
         <div className="section-one">
           <div className="section-title">
-            <p>When you want they receive?</p>
+            <p>When Should Your Funds Be Received?</p>
           </div>
 
           <div className="box-container">
@@ -94,19 +115,21 @@ function PaymentTransfer({ showTips }) {
 
             <div className="transfer-info">
               <p>
-                Expected start date:{" "}
-                <span> {dateFormat(now, "mmmm dS, yyyy")} </span>{" "}
-                <span className="material-icons"> error_outline</span>
-              </p>
-              <p>
-                Expected completion date:
+                Expected Completion Date:
                 <span>
                   {" "}
                   {receiveType === "SameDay"
                     ? dateFormat(now, "mmmm dS, yyyy")
                     : dateFormat(twoDays, "mmmm dS, yyyy")}{" "}
                 </span>
-                <span className="material-icons"> error_outline</span>
+                <Tooltip placement="bottomRight" title={text}>
+                  <span
+                    className="material-icons"
+                    style={{ cursor: "pointer" }}
+                  >
+                    error_outline
+                  </span>
+                </Tooltip>
               </p>
             </div>
           </div>
