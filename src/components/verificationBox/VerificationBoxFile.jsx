@@ -105,8 +105,7 @@ function VerificationBoxFile({ reset, setReset }) {
           ) : isIdentityVerified && !isUtilityBillVerified ? (
             <p>
               Upload a photo of a valid utility bill with your address to
-              upgrade your account
-
+              upgrade your transaction limit
             </p>
           ) : userContext.state.user.userType === "Student" &&
             !isSchoolEnrollmentVerified ? (
@@ -151,3 +150,4 @@ function VerificationBoxFile({ reset, setReset }) {
 }
 
 export default VerificationBoxFile;
+

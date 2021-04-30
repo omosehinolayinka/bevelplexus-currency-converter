@@ -1,3 +1,4 @@
+
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import "./RightSidebar.scss";
@@ -184,6 +185,7 @@ function RightSidebar({ collapsed, collapseRightSidebar }) {
           </div>
 
           <section>
+            <div className="calc-container">
               <h2>Currency Converter</h2>
               <Calculator />
             </div>
@@ -230,9 +232,12 @@ function RightSidebar({ collapsed, collapseRightSidebar }) {
                   </span>
                 )}
                 <Tooltip placement="bottomRight" title={text}>
-
-                  <span className="material-icons" style={{cursor: "pointer"}}>error_outline</span>
-
+                  <span
+                    className="material-icons"
+                    style={{ cursor: "pointer" }}
+                  >
+                    error_outline
+                  </span>
                 </Tooltip>
               </div>
               <div className="mini-profile__cta">
