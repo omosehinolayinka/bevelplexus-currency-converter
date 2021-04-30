@@ -150,3 +150,4 @@ function VerificationBoxFile({ reset, setReset }) {
 }
 
 export default VerificationBoxFile;
+
