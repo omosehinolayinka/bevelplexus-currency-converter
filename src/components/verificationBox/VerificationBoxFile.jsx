@@ -14,7 +14,7 @@ function VerificationBoxFile({ reset, setReset }) {
     isIdentityVerified,
     isPhoneNumberVerified,
     isSchoolEnrollmentVerified,
-    isUtilityBillVerified,
+    isUtilityBillVerified
   } = userContext.state.user.userVerification;
 
   const levelOneComplete =
@@ -22,7 +22,7 @@ function VerificationBoxFile({ reset, setReset }) {
 
   const tooltipStyle = {
     display: "flex",
-    alignItems: "flex-start",
+    alignItems: "flex-start"
   };
 
   const text = (
@@ -44,8 +44,8 @@ function VerificationBoxFile({ reset, setReset }) {
   const handleFileUpload = ({
     target: {
       validity,
-      files: [file],
-    },
+      files: [file]
+    }
   }) => {
     setFile("uploading");
     setReset(false);
@@ -90,7 +90,7 @@ function VerificationBoxFile({ reset, setReset }) {
           )}
 
           <p>
-            Utility bill verifiation
+            Utility Bill Verifiation
             {isUtilityBillVerified ? (
               <img src="./assets/svg/green-check-alt.svg" alt="" />
             ) : (
@@ -105,7 +105,8 @@ function VerificationBoxFile({ reset, setReset }) {
           ) : isIdentityVerified && !isUtilityBillVerified ? (
             <p>
               Upload a photo of a valid utility bill with your address to
-              upgrade your transaction limit
+              upgrade your account
+
             </p>
           ) : userContext.state.user.userType === "Student" &&
             !isSchoolEnrollmentVerified ? (

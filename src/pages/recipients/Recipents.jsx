@@ -27,25 +27,25 @@ function TransactionHistory({ showTips }) {
 
     const values = {
       offset: limit - 5,
-      limit: limit,
+      limit: limit
     };
 
     recipientContext.changePage(values);
   };
 
   return (
-    <div id='recipients'>
-      <Layout currentMenu='recipients' showTips={showTips}>
-        <div className='page-header'>
-          <div className='page-title'>
+    <div id="recipients">
+      <Layout currentMenu="recipients" showTips={showTips}>
+        <div className="page-header">
+          <div className="page-title">
             <h4>Transactions</h4>
           </div>
 
-          <div className='content-title'>
+          <div className="content-title">
             <h2>
-              Your recipients ({recipientContext.state.total || "0"})
-              <div className='side-link' onClick={() => setShowAddModal(true)}>
-                <Link to='#'>Add new recipient</Link>
+              Your Recipients ({recipientContext.state.total || "0"})
+              <div className="side-link" onClick={() => setShowAddModal(true)}>
+                <Link to="#">Add a new recipient</Link>
               </div>
             </h2>
 
@@ -58,18 +58,18 @@ function TransactionHistory({ showTips }) {
           </div>
         </div>
 
-        <div className='table-container'>
+        <div className="table-container">
           {recipientContext.state.recipients.length !== 0 ? (
             <Table />
           ) : (
-            <div className='shadow-box error-notice small transparent' >
-              <i class='fas fa-ghost'></i>
+            <div className="shadow-box error-notice small transparent">
+              <i class="fas fa-ghost"></i>
               <p>You haven't added any recipients</p>
             </div>
           )}
         </div>
 
-        <div className='pagination_container'>
+        <div className="pagination_container">
           <Pagination
             defaultCurrent={1}
             total={recipientContext.state.total || 1}

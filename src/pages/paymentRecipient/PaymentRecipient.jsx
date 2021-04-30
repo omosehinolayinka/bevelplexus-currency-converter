@@ -32,15 +32,20 @@ function Paymentrecipient({ showTips }) {
 
   const tooltipStyle = {
     display: "flex",
-    alignItems: "flex-start",
+    alignItems: "flex-start"
   };
 
   const text = (
     <div style={tooltipStyle}>
-      <img src="./assets/svg/info-alt.svg" alt="icon" style={{ margin: "5px 12px 0 0" }} />
+      <img
+        src="./assets/svg/info-alt.svg"
+        alt="icon"
+        style={{ margin: "5px 12px 0 0" }}
+      />
       <p style={{ marginBottom: "0", fontSize: "13px" }}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec est ligula, accumsan nec
-        fermentum nec, vulputate et tellus. In non tellus et erat dapibus aliquet.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec est
+        ligula, accumsan nec fermentum nec, vulputate et tellus. In non tellus
+        et erat dapibus aliquet.
       </p>
     </div>
   );
@@ -48,11 +53,12 @@ function Paymentrecipient({ showTips }) {
   useEffect(() => {
     recipientContext.getRecipients({
       offset: 0,
-      limit: 1000,
+      limit: 1000
     });
 
     if (userContext.state.user.userType === "Student") {
-      const institutionId = userContext.state.user.studentAccountDetail.institutionId;
+      const institutionId =
+        userContext.state.user.studentAccountDetail.institutionId;
       paymentContext.getInstitution(institutionId);
     }
 
@@ -67,18 +73,23 @@ function Paymentrecipient({ showTips }) {
     <div id="payment-recipient">
       <Layout currentMenu="payment" payProgress="1" showTips={showTips}>
         <div className="page-title">
-          <h1>Select recipient</h1>
+          <h1>Select Recipient</h1>
         </div>
-
         <div className="section-one">
           <div className="section-title">
-            <p>Choose the transaction type</p>
+            {transactionType === "Individual" ? (
+              <p>Choose the transaction type</p>
+            ) : (
+              ""
+            )}
           </div>
 
           <div className="box-container">
             <div
               className={
-                transactionType === "Individual" ? "shadow-box shadow-box-highlight" : "shadow-box"
+                transactionType === "Individual"
+                  ? "shadow-box shadow-box-highlight"
+                  : "shadow-box"
               }
               onClick={() => {
                 paymentContext.setTransactionType("Individual");
@@ -92,7 +103,9 @@ function Paymentrecipient({ showTips }) {
             {userContext.state.user.userType === "Student" && (
               <div
                 className={
-                  transactionType === "Tuition" ? "shadow-box shadow-box-highlight" : "shadow-box"
+                  transactionType === "Tuition"
+                    ? "shadow-box shadow-box-highlight"
+                    : "shadow-box"
                 }
                 onClick={() => {
                   paymentContext.setTransactionType("Tuition");
@@ -110,7 +123,7 @@ function Paymentrecipient({ showTips }) {
           {transactionType === "Individual" && (
             <React.Fragment>
               <div className="section-title">
-                <p>Choose your recipient</p>
+                <p>Select Your Recipient</p>
               </div>
               <div className="box-container">
                 <div className="shadow-box">
@@ -118,16 +131,23 @@ function Paymentrecipient({ showTips }) {
                   <Select
                     showSearch
                     style={{ width: 200 }}
-                    placeholder="Select recipient"
+                    placeholder="Select Recipient"
                     optionFilterProp="children"
                     onChange={onChange}
                     filterOption={true}
                     defaultValue={paymentContext.state.recipient.name}
                   >
                     {allRecipients.map((recipient) => (
-                      <Option value={recipient.id} key={recipient.id} name={recipient}>
+                      <Option
+                        value={recipient.id}
+                        key={recipient.id}
+                        name={recipient}
+                      >
                         {recipient.name}
-                        <img src="./assets/svg/green-check-alt.svg" alt="check" />
+                        <img
+                          src="./assets/svg/green-check-alt.svg"
+                          alt="check"
+                        />
                       </Option>
                     ))}
                   </Select>
@@ -135,7 +155,9 @@ function Paymentrecipient({ showTips }) {
 
                 <div className="side-link">
                   <Link to="#">
-                    <div onClick={() => setShowAddModal(true)}>Add new recipient</div>
+                    <div onClick={() => setShowAddModal(true)}>
+                      Add A New Recipient
+                    </div>
                     <Tooltip placement="bottomRight" title={text}>
                       <span className="material-icons"> error_outline</span>
                     </Tooltip>
@@ -151,14 +173,15 @@ function Paymentrecipient({ showTips }) {
         <div className="section-three">
           <div className="section-title">
             {transactionType === "Individual" ? (
-              <p>Profile recipient</p>
+              <p>Recipient's Profile</p>
             ) : (
               <p>Institution Details</p>
             )}
           </div>
 
           <div className="box-container">
-            {transactionType === "Individual" && currentRecipient.name === null ? (
+            {transactionType === "Individual" &&
+            currentRecipient.name === null ? (
               <div className="shadow-box error-notice small">
                 <i className="fas fa-ghost"></i>
                 <p>No recipient selected</p>
@@ -195,12 +218,15 @@ function Paymentrecipient({ showTips }) {
                   </div>
                   <span className="user-details__text-wrapper">
                     <h3>
-                      {transactionType === "Individual" ? currentRecipient.name : institution.name}
+                      {transactionType === "Individual"
+                        ? currentRecipient.name
+                        : institution.name}
                     </h3>
                     <p>
                       {transactionType === "Individual"
                         ? currentRecipient.email
-                        : userContext.state.user.studentAccountDetail.studentEmail}
+                        : userContext.state.user.studentAccountDetail
+                            .studentEmail}
                     </p>
                   </span>
                 </div>
@@ -210,7 +236,8 @@ function Paymentrecipient({ showTips }) {
                     <img src="./assets/svg/smartphone.svg" alt="smartphone" />
                     {transactionType === "Individual"
                       ? currentRecipient.phoneNumber
-                      : userContext.state.user.studentAccountDetail.studentNumber}
+                      : userContext.state.user.studentAccountDetail
+                          .studentNumber}
                   </p>
 
                   {transactionType === "Individual" ? (
@@ -225,8 +252,9 @@ function Paymentrecipient({ showTips }) {
                       <p>
                         <img src="./assets/svg/student.svg" alt="world" />
                         {dateFormat(
-                          userContext.state.user.studentAccountDetail.yearOfGraduation,
-                          "mmmm dS, yyyy",
+                          userContext.state.user.studentAccountDetail
+                            .yearOfGraduation,
+                          "mmmm dS, yyyy"
                         )}
                       </p>
 
@@ -272,7 +300,12 @@ function Paymentrecipient({ showTips }) {
         </div>
       </Layout>
 
-      {showEditModal && <EditModal action={setShowEditModal} recipientState={currentRecipient} />}
+      {showEditModal && (
+        <EditModal
+          action={setShowEditModal}
+          recipientState={currentRecipient}
+        />
+      )}
       {showAddModal && <AddModal action={setShowAddModal} />}
     </div>
   );

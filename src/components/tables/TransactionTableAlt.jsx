@@ -81,7 +81,7 @@ function TransactionsTable({ data, institution }) {
                           {data.destinationCurrency}{" "}
                         </span>
                       </span>
-                      <small>Last transaction amount</small>
+                      <small>Transaction amount</small>
                     </p>
                   </div>
                 </td>

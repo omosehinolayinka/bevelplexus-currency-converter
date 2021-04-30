@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
 import "./PaymentOptions.scss";
 import "../paymentRecipient/PaymentRecipient.scss";
@@ -23,10 +23,7 @@ function PaymentOptions({ showTips }) {
     ? userContext.state.user.studentAccountDetail.institutionId
     : "";
 
-  const nigeriaId = "d85188f7-ec38-45af-bd5d-1a291fd26750";
-
-  const userCountryCode =
-    userContext?.state?.user?.regularAccountDetail?.countryId;
+  const [isUserCurrencyCode, setIsUserCurrencyCode] = useState(true);
 
   const [summary, setSummary] = useState({
     sendAmount: fx.baseAmount,
@@ -69,7 +66,12 @@ function PaymentOptions({ showTips }) {
   ];
 
   let paymentMethodsByCountry;
-  if (userCountryCode == nigeriaId) {
+
+  if (fx.sendCurrency === "NGN" && isUserCurrencyCode) {
+    paymentContext.setPaymentOption("Bank payment");
+    setIsUserCurrencyCode(false);
+  }
+  if (fx.sendCurrency === "NGN") {
     paymentMethodsByCountry = paymentMethods.slice(1, 2);
   } else {
     paymentMethodsByCountry = paymentMethods.slice(0, 2);
@@ -119,13 +121,13 @@ function PaymentOptions({ showTips }) {
     <div id="payment-options">
       <Layout currentMenu="payment" payProgress={progress} showTips={showTips}>
         <div className="page-title">
-          <h1>Payment</h1>
+          <h1>Payment Summary</h1>
         </div>
 
         <div className="section-wrap">
           <div className="section-one">
             <div className="section-title">
-              <p>Select the payment options</p>
+              <p>Select Payment Method</p>
             </div>
 
             {paymentMethodsByCountry.map((card) => {

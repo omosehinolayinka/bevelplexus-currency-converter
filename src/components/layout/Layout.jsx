@@ -61,7 +61,7 @@ function Layout({ currentMenu, payProgress, children }) {
               >
                 <Link to="/payment">
                   <img src="./assets/svg/wallet-icon.svg" alt="home" />
-                  Make payment
+                  Make Payment
                 </Link>
               </li>
               <li
@@ -70,7 +70,7 @@ function Layout({ currentMenu, payProgress, children }) {
               >
                 <Link to="/payment/transactions">
                   <img src="./assets/svg/hourglass-icon.svg" alt="home" />
-                  Transaction history
+                  Transaction History
                 </Link>
               </li>
               <li

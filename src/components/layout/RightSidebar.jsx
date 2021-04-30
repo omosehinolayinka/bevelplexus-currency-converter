@@ -21,7 +21,7 @@ function RightSidebar({ collapsed, collapseRightSidebar }) {
     isIdentityVerified,
     isPhoneNumberVerified,
     isSchoolEnrollmentVerified,
-    isUtilityBillVerified,
+    isUtilityBillVerified
   } = userContext.state.user.userVerification;
 
   const getRegularVerification = () => {
@@ -31,7 +31,7 @@ function RightSidebar({ collapsed, collapseRightSidebar }) {
       isEmailVerified,
       isPhoneNumberVerified,
       isIdentityVerified,
-      isUtilityBillVerified,
+      isUtilityBillVerified
     ];
 
     verification.forEach((item) => {
@@ -63,7 +63,7 @@ function RightSidebar({ collapsed, collapseRightSidebar }) {
       isPhoneNumberVerified,
       isIdentityVerified,
       isUtilityBillVerified,
-      isSchoolEnrollmentVerified,
+      isSchoolEnrollmentVerified
     ];
 
     verification.forEach((item) => {
@@ -108,7 +108,7 @@ function RightSidebar({ collapsed, collapseRightSidebar }) {
 
   const tooltipStyle = {
     display: "flex",
-    alignItems: "flex-start",
+    alignItems: "flex-start"
   };
 
   const text = (
@@ -184,8 +184,7 @@ function RightSidebar({ collapsed, collapseRightSidebar }) {
           </div>
 
           <section>
-            <div className="calc-container">
-              <h2>Quick Currency Converter</h2>
+              <h2>Currency Converter</h2>
               <Calculator />
             </div>
 
@@ -231,7 +230,9 @@ function RightSidebar({ collapsed, collapseRightSidebar }) {
                   </span>
                 )}
                 <Tooltip placement="bottomRight" title={text}>
+
                   <span className="material-icons" style={{cursor: "pointer"}}>error_outline</span>
+
                 </Tooltip>
               </div>
               <div className="mini-profile__cta">
