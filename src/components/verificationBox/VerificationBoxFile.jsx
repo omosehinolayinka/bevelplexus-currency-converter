@@ -33,9 +33,10 @@ function VerificationBoxFile({ reset, setReset }) {
         style={{ margin: "5px 12px 0 0" }}
       />
       <p style={{ marginBottom: "0", fontSize: "13px" }}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec est
-        ligula, accumsan nec fermentum nec, vulputate et tellus. In non tellus
-        et erat dapibus aliquet.
+        Daily Transaction Limit: $3,000 <br />
+        Monthly Transaction Limit: $25,000
+        <br /> <br />
+        To complete Level 2 provide a utility bill to verify your identity.
       </p>
     </div>
   );
@@ -105,6 +106,7 @@ function VerificationBoxFile({ reset, setReset }) {
             <p>
               Upload a photo of a valid utility bill with your address to
               upgrade your account
+
             </p>
           ) : userContext.state.user.userType === "Student" &&
             !isSchoolEnrollmentVerified ? (
