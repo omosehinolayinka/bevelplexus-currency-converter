@@ -106,55 +106,6 @@ function RightSidebar({ collapsed, collapseRightSidebar }) {
     </div>
   );
 
-  // const notifications = (
-  //   <div id='notifications-dropdown'>
-  //     <div className='pointer'></div>
-  //     <div className='top-border'></div>
-
-  //     <ul>
-  //       <li>
-  //         <img src='assets/svg/greendot.svg' alt='' />
-  //         <p>
-  //           Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
-  //           sint. Velit nostrud amet.
-  //         </p>
-  //       </li>
-
-  //       <li>
-  //         <img src='assets/svg/greendot.svg' alt='' />
-  //         <p>
-  //           Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
-  //           sint. Velit
-  //         </p>
-  //       </li>
-
-  //       <li>
-  //         <img src='assets/svg/greendot.svg' alt='' />
-  //         <p>
-  //           Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
-  //           sint. Velit
-  //         </p>
-  //       </li>
-
-  //       <li>
-  //         <img src='assets/svg/orangecheck.svg' alt='' />
-  //         <p>
-  //           Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
-  //           sint. Velit
-  //         </p>
-  //       </li>
-
-  //       <li>
-  //         <img src='assets/svg/orangecheck.svg' alt='' />
-  //         <p>
-  //           Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
-  //           sint. Velit
-  //         </p>
-  //       </li>
-  //     </ul>
-  //   </div>
-  // );
-
   const tooltipStyle = {
     display: "flex",
     alignItems: "flex-start"
@@ -168,9 +119,9 @@ function RightSidebar({ collapsed, collapseRightSidebar }) {
         style={{ margin: "5px 12px 0 0" }}
       />
       <p style={{ marginBottom: "0", fontSize: "13px" }}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec est
-        ligula, accumsan nec fermentum nec, vulputate et tellus. In non tellus
-        et erat dapibus aliquet.
+        Each verification level gives you access to higher daily and monthly
+        transaction limits. For your account to be 100% verified you will need
+        to complete Level 2 verification.
       </p>
     </div>
   );
@@ -280,7 +231,12 @@ function RightSidebar({ collapsed, collapseRightSidebar }) {
                   </span>
                 )}
                 <Tooltip placement="bottomRight" title={text}>
-                  <span className="material-icons">error_outline</span>
+                  <span
+                    className="material-icons"
+                    style={{ cursor: "pointer" }}
+                  >
+                    error_outline
+                  </span>
                 </Tooltip>
               </div>
               <div className="mini-profile__cta">
