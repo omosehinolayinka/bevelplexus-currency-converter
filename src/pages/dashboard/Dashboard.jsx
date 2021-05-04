@@ -73,10 +73,12 @@ function Dashboard({ showTips }) {
 
             <div className="box-three__text-wrapper">
               <p>TOTAL TRANSACTIONS</p>
+              {/* <h4>{total().toLocaleString()} NGL</h4> */}
               {transactionContext?.state?.transactionAnalytics ? (
                 <h4>
-                  {transactionContext.state.transactionAnalytics.totalTransactionsAmount?.toFixed(
-                    2
+                  {transactionContext.state.transactionAnalytics.totalTransactionsAmount?.toLocaleString(
+                    "en-US",
+                    { minimumFractionDigits: 2, maximumFractionDigits: 2 }
                   )}{" "}
                   {
                     transactionContext.state.transactionAnalytics
@@ -117,4 +119,3 @@ function Dashboard({ showTips }) {
 }
 
 export default Dashboard;
- 

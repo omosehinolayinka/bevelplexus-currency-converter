@@ -22,13 +22,13 @@ function LastTransaction({ data, institution }) {
         </div>
         <span className="box-one__text-wrapper">
           <h3>
-            {data.transactionType === "Individual"
+            {data[0].transactionType === "Individual"
               ? data[0]?.recipient?.name
-              : institution?.name}{" "}
+              : institution.name}{" "}
           </h3>
           <p>
             {" "}
-            {data.transactionType === "Individual"
+            {data[0].transactionType === "Individual"
               ? data[0]?.recipient?.email
               : ""}{" "}
           </p>

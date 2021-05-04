@@ -57,6 +57,7 @@ function PaymentReview({ showTips }) {
   }, []);
 
   const flagCode = destinationCurrency.slice(0, 2).toLowerCase();
+  const sendFlagCode = sendCurrency.slice(0, 2).toLowerCase();
 
   return (
     <div id="payment-review">
@@ -138,7 +139,14 @@ function PaymentReview({ showTips }) {
                 <p>
                   <span>You Send</span>
                   <span>
-                    <img src="./assets/svg/canada-flag.svg" alt="cad" />
+                    <img
+                      src={
+                        sendFlagCode === "xa"
+                          ? `https://www.countryflags.io/cg/flat/24.png`
+                          : `https://www.countryflags.io/${sendFlagCode}/flat/24.png`
+                      }
+                      alt={sendFlagCode}
+                    />
                     {baseAmount} {sendCurrency}
                   </span>
                 </p>

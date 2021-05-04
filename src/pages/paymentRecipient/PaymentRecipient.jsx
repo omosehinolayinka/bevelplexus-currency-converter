@@ -77,7 +77,7 @@ function Paymentrecipient({ showTips }) {
         </div>
         <div className="section-one">
           <div className="section-title">
-            {transactionType === "Individual" ? (
+            {Object.keys(institution).length !== 0 ? (
               <p>Choose the transaction type</p>
             ) : (
               ""
