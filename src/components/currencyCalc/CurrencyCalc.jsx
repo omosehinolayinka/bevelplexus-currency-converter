@@ -139,7 +139,9 @@ const CurrencyCalc = () => {
             <input
               type="number"
               name="baseAmount"
-              placeholder="1,000"
+              // style={sendamount}
+              className="sendamount"
+              placeholder={baseAmount === "" ? "1,000" : baseAmount}
               value={reverse === false ? tempValue : baseAmount}
               onChange={handleChange}
               onKeyUp={handleChange}
@@ -180,9 +182,7 @@ const CurrencyCalc = () => {
               <small>÷</small>
             </span>{" "}
             {rate}
-            <span className="logic__description">
-              Exchange Rate (Valid for 24 Hours)
-            </span>
+            <span className="logic__description">Exchange Rate</span>
           </p>
         </div>
 
