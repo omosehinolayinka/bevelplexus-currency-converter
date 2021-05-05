@@ -15,7 +15,6 @@ function TransactionHistory({ showTips }) {
 
   useEffect(() => {
     transactionContext.getTransactions(transactionContext.state.page);
-
     // eslint-disable-next-line
   }, []);
 
@@ -29,7 +28,16 @@ function TransactionHistory({ showTips }) {
 
     transactionContext.changePage(values);
   };
-
+  const clonedData = [...transactionContext.state.transactions];
+  const sortedData = clonedData.sort((a, b) => {
+    if (a.createdAt < b.createdAt) {
+      return 1;
+    }
+    if (a.createdAt > b.createdAt) {
+      return -1;
+    }
+    return 0;
+  });
   return (
     <div id="transaction-history">
       <Layout currentMenu="transaction" showTips={showTips}>
@@ -55,7 +63,7 @@ function TransactionHistory({ showTips }) {
         <div className="table-container">
           {transactionContext.state.transactions.length !== 0 ? (
             <Table
-              data={transactionContext.state.transactions}
+              data={sortedData}
               institution={paymentContext.state.institution}
             />
           ) : (

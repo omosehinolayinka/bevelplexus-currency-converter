@@ -59,6 +59,16 @@ function PaymentReview({ showTips }) {
   const flagCode = destinationCurrency.slice(0, 2).toLowerCase();
   const sendFlagCode = sendCurrency.slice(0, 2).toLowerCase();
 
+  function transactionTitle(title) {
+    if (title === "E-transfer") {
+      return "E-Transfer";
+    } else if (title === "Bank payment") {
+      return "Bank Deposit";
+    } else {
+      return title;
+    }
+  }
+
   return (
     <div id="payment-review">
       <Layout currentMenu="payment" payProgress="5" showTips={showTips}>
@@ -209,7 +219,11 @@ function PaymentReview({ showTips }) {
               </div>
 
               <div className="box__title">
-                <h3> {paymentContext.state.paymentOption} Instructions</h3>
+                <h3>
+                  {" "}
+                  {transactionTitle(paymentContext.state.paymentOption)}{" "}
+                  Instructions
+                </h3>
               </div>
 
               <div id="payment-summary-card">

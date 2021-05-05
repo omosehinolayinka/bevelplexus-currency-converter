@@ -23,11 +23,21 @@ function Dashboard({ showTips }) {
 
     return amount;
   };
+  const clonedData = [...transactionContext.state.transactions];
+  const sortedData = clonedData.sort((a, b) => {
+    if (a.createdAt < b.createdAt) {
+      return 1;
+    }
+    if (a.createdAt > b.createdAt) {
+      return -1;
+    }
+    return 0;
+  });
 
-  if (fetchUserAnalytics) {
-    transactionContext.getTransactionAnalytics();
-    setFetchUserAnalytics(false);
-  }
+  // if (fetchUserAnalytics) {
+  //   transactionContext.getTransactionAnalytics();
+  //   setFetchUserAnalytics(false);
+  // }
 
   return (
     <div id="dashboard">
@@ -43,7 +53,7 @@ function Dashboard({ showTips }) {
 
           {transactionContext.state.transactions.length > 0 ? (
             <LastTransaction
-              data={transactionContext.state.transactions}
+              data={sortedData}
               institution={paymentContext.state.institution}
             />
           ) : (
@@ -73,8 +83,8 @@ function Dashboard({ showTips }) {
 
             <div className="box-three__text-wrapper">
               <p>TOTAL TRANSACTIONS</p>
-              {/* <h4>{total().toLocaleString()} NGL</h4> */}
-              {transactionContext?.state?.transactionAnalytics ? (
+              <h4>{total().toLocaleString()} NGL</h4>
+              {/* {transactionContext?.state?.transactionAnalytics ? (
                 <h4>
                   {transactionContext.state.transactionAnalytics.totalTransactionsAmount?.toLocaleString(
                     "en-US",
@@ -87,7 +97,7 @@ function Dashboard({ showTips }) {
                 </h4>
               ) : (
                 <h4>{total().toLocaleString()} NGL</h4>
-              )}
+              )} */}
             </div>
           </div>
         </div>
@@ -103,7 +113,7 @@ function Dashboard({ showTips }) {
           <div className="box-one__content">
             {transactionContext.state.transactions.length > 0 ? (
               <TransactionTable
-                data={transactionContext.state.transactions}
+                data={sortedData}
                 institution={paymentContext.state.institution}
               />
             ) : (

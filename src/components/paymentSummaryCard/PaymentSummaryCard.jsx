@@ -1,7 +1,7 @@
 import React from "react";
 import "./PaymentSummaryCard.scss";
 
-const PaymentSummaryCard = ({ data }) => {
+const PaymentSummaryCard = ({ data, title }) => {
   return (
     <div id="payment-summary-card">
       <p>
@@ -37,7 +37,7 @@ const PaymentSummaryCard = ({ data }) => {
 
       <p>
         <span>Receiving Method</span>
-        <span> {data.receivingMethod} </span>
+        <span> {title(data.receivingMethod)} </span>
       </p>
 
       <div className="section-divider"></div>
