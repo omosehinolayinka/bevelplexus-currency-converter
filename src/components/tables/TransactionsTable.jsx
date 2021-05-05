@@ -15,14 +15,12 @@ function TransactionsTable({ data, institution }) {
 
   dateFormat.masks.custom = "dd/mm/yy";
 
-  const transactions = data.slice(0, 5);
-
   const transactionContext = useContext(TransactionContext);
 
   useEffect(() => {
     const page = {
       offset: 0,
-      limit: 5,
+      limit: 5
     };
 
     transactionContext.getTransactions(page);
@@ -50,7 +48,7 @@ function TransactionsTable({ data, institution }) {
         </thead>
 
         <tbody>
-          {transactions.map((data) => (
+          {data.map((data) => (
             <React.Fragment key={data.id}>
               <tr className={expanded === data.id ? "expanded" : "collapsed"}>
                 <td>
@@ -81,7 +79,8 @@ function TransactionsTable({ data, institution }) {
                     <span className="material-icons">arrow_right</span>
                     <span style={{ fontSize: "0.8rem" }}>
                       {" "}
-                      {data.convertedAmount.toLocaleString()} {data.destinationCurrency}{" "}
+                      {data.convertedAmount.toLocaleString()}{" "}
+                      {data.destinationCurrency}{" "}
                     </span>
                   </div>
                 </td>
@@ -97,12 +96,20 @@ function TransactionsTable({ data, institution }) {
 
                 <td>
                   <div>
-                    <span style={{ fontSize: "0.6rem" }} className={getBadge(data.status).badge}>
+                    <span
+                      style={{ fontSize: "0.6rem" }}
+                      className={getBadge(data.status).badge}
+                    >
                       {getBadge(data.status).status.toUpperCase()}
                     </span>
-                    <button className="toggle" onClick={() => toggleTableRow(data.id)}>
+                    <button
+                      className="toggle"
+                      onClick={() => toggleTableRow(data.id)}
+                    >
                       <span className="material-icons">
-                        {expanded === data.id ? "arrow_drop_up" : "arrow_drop_down"}
+                        {expanded === data.id
+                          ? "arrow_drop_up"
+                          : "arrow_drop_down"}
                       </span>
                     </button>
                   </div>
@@ -148,7 +155,8 @@ function TransactionsTable({ data, institution }) {
                       <div className="col-two">
                         <small>Amount (After Fee)</small>
                         <p>
-                          {data.actualAmount.toLocaleString()} {data.sendCurrency}
+                          {data.actualAmount.toLocaleString()}{" "}
+                          {data.sendCurrency}
                         </p>
                       </div>
 

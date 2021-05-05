@@ -30,26 +30,6 @@ function Paymentrecipient({ showTips }) {
 
   const { Option } = Select;
 
-  const tooltipStyle = {
-    display: "flex",
-    alignItems: "flex-start"
-  };
-
-  const text = (
-    <div style={tooltipStyle}>
-      <img
-        src="./assets/svg/info-alt.svg"
-        alt="icon"
-        style={{ margin: "5px 12px 0 0" }}
-      />
-      <p style={{ marginBottom: "0", fontSize: "13px" }}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec est
-        ligula, accumsan nec fermentum nec, vulputate et tellus. In non tellus
-        et erat dapibus aliquet.
-      </p>
-    </div>
-  );
-
   useEffect(() => {
     recipientContext.getRecipients({
       offset: 0,
@@ -158,9 +138,6 @@ function Paymentrecipient({ showTips }) {
                     <div onClick={() => setShowAddModal(true)}>
                       Add A New Recipient
                     </div>
-                    <Tooltip placement="bottomRight" title={text}>
-                      <span className="material-icons"> error_outline</span>
-                    </Tooltip>
                   </Link>
                 </div>
               </div>

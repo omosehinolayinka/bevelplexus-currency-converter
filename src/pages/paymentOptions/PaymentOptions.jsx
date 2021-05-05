@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { Link, Redirect } from "react-router-dom";
 import "./PaymentOptions.scss";
 import "../paymentRecipient/PaymentRecipient.scss";
@@ -64,6 +64,16 @@ function PaymentOptions({ showTips }) {
       cost: fx.baseAmount * 0.01
     }
   ];
+
+  function cardTitle(title) {
+    if (title === "E-transfer") {
+      return "E-Transfer";
+    } else if (title === "Bank payment") {
+      return "Bank Deposit";
+    } else {
+      return title;
+    }
+  }
 
   let paymentMethodsByCountry;
 
@@ -139,7 +149,7 @@ function PaymentOptions({ showTips }) {
                 >
                   <CustomCheckbox
                     checked={selected === card.title}
-                    title={card.title}
+                    title={cardTitle(card.title)}
                     subLeft={`Transfer speed ${card.speed}`}
                     action={card.cost.toLocaleString()}
                     currency={fx.sendCurrency}
@@ -152,7 +162,7 @@ function PaymentOptions({ showTips }) {
 
           <div className="section-two">
             <div className="shadow-box">
-              <PaymentSummaryCard data={summary} />
+              <PaymentSummaryCard data={summary} title={cardTitle} />
             </div>
           </div>
         </div>

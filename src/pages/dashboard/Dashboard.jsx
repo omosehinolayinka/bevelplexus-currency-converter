@@ -23,6 +23,16 @@ function Dashboard({ showTips }) {
 
     return amount;
   };
+  const clonedData = [...transactionContext.state.transactions];
+  const sortedData = clonedData.sort((a, b) => {
+    if (a.createdAt < b.createdAt) {
+      return 1;
+    }
+    if (a.createdAt > b.createdAt) {
+      return -1;
+    }
+    return 0;
+  });
 
   if (fetchUserAnalytics) {
     transactionContext.getTransactionAnalytics();
@@ -43,7 +53,7 @@ function Dashboard({ showTips }) {
 
           {transactionContext.state.transactions.length > 0 ? (
             <LastTransaction
-              data={transactionContext.state.transactions}
+              data={sortedData}
               institution={paymentContext.state.institution}
             />
           ) : (
@@ -103,7 +113,7 @@ function Dashboard({ showTips }) {
           <div className="box-one__content">
             {transactionContext.state.transactions.length > 0 ? (
               <TransactionTable
-                data={transactionContext.state.transactions}
+                data={sortedData}
                 institution={paymentContext.state.institution}
               />
             ) : (
