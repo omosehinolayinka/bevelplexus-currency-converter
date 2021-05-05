@@ -34,10 +34,10 @@ function Dashboard({ showTips }) {
     return 0;
   });
 
-  // if (fetchUserAnalytics) {
-  //   transactionContext.getTransactionAnalytics();
-  //   setFetchUserAnalytics(false);
-  // }
+  if (fetchUserAnalytics) {
+    transactionContext.getTransactionAnalytics();
+    setFetchUserAnalytics(false);
+  }
 
   return (
     <div id="dashboard">
@@ -83,8 +83,8 @@ function Dashboard({ showTips }) {
 
             <div className="box-three__text-wrapper">
               <p>TOTAL TRANSACTIONS</p>
-              <h4>{total().toLocaleString()} NGL</h4>
-              {/* {transactionContext?.state?.transactionAnalytics ? (
+              {/* <h4>{total().toLocaleString()} NGL</h4> */}
+              {transactionContext?.state?.transactionAnalytics ? (
                 <h4>
                   {transactionContext.state.transactionAnalytics.totalTransactionsAmount?.toLocaleString(
                     "en-US",
@@ -97,7 +97,7 @@ function Dashboard({ showTips }) {
                 </h4>
               ) : (
                 <h4>{total().toLocaleString()} NGL</h4>
-              )} */}
+              )}
             </div>
           </div>
         </div>
