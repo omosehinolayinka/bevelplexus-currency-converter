@@ -7,7 +7,7 @@ import {
   ApolloClient,
   createHttpLink,
   // createUploadLink,
-  InMemoryCache,
+  InMemoryCache
 } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
 
@@ -25,9 +25,9 @@ const UserState = (props) => {
         isIdentityVerified: false,
         isPhoneNumberVerified: false,
         isSchoolEnrollmentVerified: false,
-        isUtilityBillVerified: false,
-      },
-    },
+        isUtilityBillVerified: false
+      }
+    }
   };
 
   const [state, dispatch] = useReducer(UserReducer, defaultState);
@@ -38,7 +38,7 @@ const UserState = (props) => {
 
   // create a custom client for recipient enpoint
   const httpLink = createHttpLink({
-    uri: userApi,
+    uri: userApi
   });
 
   const authLink = setContext((_, { headers }) => {
@@ -47,8 +47,8 @@ const UserState = (props) => {
     return {
       headers: {
         ...headers,
-        authorization: token ? `Bearer ${token}` : "",
-      },
+        authorization: token ? `Bearer ${token}` : ""
+      }
     };
   });
 
@@ -57,7 +57,8 @@ const UserState = (props) => {
       graphQLErrors.forEach((err) => {
         switch (err.extensions.code) {
           case "UNAUTHENTICATED":
-            window.location = process.env.REACT_APP_BASEURL || "https://app.bevelplexus.com";
+            window.location =
+              process.env.REACT_APP_BASEURL || "http://localhost:3000";
             break;
           default:
             console.log(err.message);
@@ -72,17 +73,17 @@ const UserState = (props) => {
 
   const client = new ApolloClient({
     link: authLink.concat(errorLink).concat(httpLink),
-    cache: new InMemoryCache(),
+    cache: new InMemoryCache()
   });
 
   // create client upload link
   const link = createUploadLink({
-    uri: userApi,
+    uri: userApi
   });
 
   const uploadClient = new ApolloClient({
     link: authLink.concat(link),
-    cache: new InMemoryCache(),
+    cache: new InMemoryCache()
   });
 
   // get user details
@@ -92,13 +93,13 @@ const UserState = (props) => {
         query: gql.GET_USER,
         fetchPolicy: "cache-first",
         variables: {
-          id: localStorage.getItem("userId"),
-        },
+          id: localStorage.getItem("userId")
+        }
       })
       .then((res) => {
         dispatch({
           type: GET_USER,
-          payload: res.data.user,
+          payload: res.data.user
         });
 
         setUser && setUser(res.data.user);
@@ -115,8 +116,8 @@ const UserState = (props) => {
           firstName: details.firstName,
           lastName: details.lastName,
           email: details.email,
-          phoneNumber: details.phoneNumber,
-        },
+          phoneNumber: details.phoneNumber
+        }
       })
       .then(() => {
         showSuccess("User Updated");
@@ -134,8 +135,8 @@ const UserState = (props) => {
         variables: {
           userId: localStorage.getItem("userId"),
           oldPassword: data.oldPassword,
-          newPassword: data.newPassword,
-        },
+          newPassword: data.newPassword
+        }
       })
       .then(() => {
         setLoading(false);
@@ -154,8 +155,8 @@ const UserState = (props) => {
         mutation: gql.VERIFY_IDENTITY,
         variables: {
           file: file,
-          userId: localStorage.getItem("userId"),
-        },
+          userId: localStorage.getItem("userId")
+        }
       })
       .then(() => setFile("completed"))
       .catch(() => showError("Couldn't upload file, try again"));
@@ -168,8 +169,8 @@ const UserState = (props) => {
         mutation: gql.VERIFY_UTILITY,
         variables: {
           file: file,
-          userId: localStorage.getItem("userId"),
-        },
+          userId: localStorage.getItem("userId")
+        }
       })
       .then(() => setFile("completed"))
       .catch(() => showError("Couldn't upload file, try again"));
@@ -182,8 +183,8 @@ const UserState = (props) => {
         mutation: gql.VERIFY_ENROLLMENT,
         variables: {
           file: file,
-          userId: localStorage.getItem("userId"),
-        },
+          userId: localStorage.getItem("userId")
+        }
       })
       .then(() => setFile("completed"))
       .catch(() => showError("Couldn't upload file, try again"));
@@ -197,7 +198,7 @@ const UserState = (props) => {
       pauseOnHover: true,
       position: "top-right",
       hideProgressBar: true,
-      toastId: "Yes",
+      toastId: "Yes"
     });
   };
 
@@ -209,7 +210,7 @@ const UserState = (props) => {
       pauseOnHover: true,
       position: "top-right",
       hideProgressBar: true,
-      toastId: "Yes",
+      toastId: "Yes"
     });
   };
 
@@ -222,7 +223,7 @@ const UserState = (props) => {
         resetPassword,
         verifyIdentity,
         verifyUtility,
-        verifyEnrollment,
+        verifyEnrollment
       }}
     >
       {props.children}
