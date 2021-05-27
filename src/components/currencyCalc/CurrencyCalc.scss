@@ -1,9 +1,18 @@
 @import ".././../variables";
 
+.currency-calculator-wrapper {
+  display: grid;
+  place-content: center;
+  background: linear-gradient(168.01deg, #0185ff, #0b07d6);
+  height: 100vh;
+}
 #currency-calculator {
   display: flex;
   flex-direction: column;
   width: 100%;
+  background: #1890ff;
+  padding: 20px;
+  border-radius: 10px;
 
   h2 {
     color: #fff;

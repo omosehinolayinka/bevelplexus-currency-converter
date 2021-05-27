@@ -1,0 +1,88 @@
+@import url("https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800;900&display=swap");
+#payment-transfer .section-two .box-container {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+#payment-transfer .section-two .box-container #currency-calculator {
+  margin-bottom: 1rem;
+}
+
+#payment-transfer .section-two .box-container #currency-calculator form .logic-box {
+  border-left-color: #015EFF;
+}
+
+#payment-transfer .section-two .box-container #currency-calculator form .logic-box span.logic__symbols {
+  background-color: #015EFF;
+  color: #fff;
+}
+
+#payment-transfer .section-two .box-container #currency-calculator form .logic-box p {
+  color: #4A4B65;
+}
+
+#payment-transfer .section-two .box-container #currency-calculator form .notice,
+#payment-transfer .section-two .box-container #currency-calculator form .form__submit {
+  display: none;
+}
+
+#payment-transfer .section-two .box-container .transfer-info {
+  width: 100%;
+}
+
+#payment-transfer .section-two .box-container .transfer-info p {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #879dad;
+}
+
+#payment-transfer .section-two .box-container .transfer-info p span:nth-child(1) {
+  color: #4A4B65;
+  margin-left: 7px;
+}
+
+#payment-transfer .section-two .box-container .transfer-info p span:nth-child(2) {
+  font-size: 18px;
+  margin-left: 7px;
+  color: #015EFF;
+}
+
+#payment-transfer .section-three .section-title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 10px;
+}
+
+#payment-transfer .section-three .section-title p {
+  margin-bottom: 0;
+}
+
+#payment-transfer .section-three .section-title a {
+  margin-left: 10px;
+}
+
+#payment-transfer .section-three .box-container .shadow-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding-top: 3%;
+}
+/*# sourceMappingURL=PaymentTransfer.css.map */

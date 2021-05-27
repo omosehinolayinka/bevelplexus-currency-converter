@@ -11,11 +11,11 @@ const CurrencyCalc = () => {
   const [tempValue, setTempValue] = useState("");
   const [tempCountry, setTempCountry] = useState(false);
 
-  const userContext = useContext(UserContext);
+  // const userContext = useContext(UserContext);
 
-  const userData = userContext.state.user;
-  const regularUserData = userData ? userData.regularAccountDetail : null;
-  const countryId = regularUserData ? regularUserData.countryId : ``;
+  // const userData = userContext.state.user;
+  // const regularUserData = userData ? userData.regularAccountDetail : null;
+  // const countryId = regularUserData ? regularUserData.countryId : ``;
   const paymentContext = useContext(PaymentContext);
 
   const {
@@ -30,13 +30,13 @@ const CurrencyCalc = () => {
     reverse
   } = paymentContext.state.fxDetails;
 
-  const userCurrency = paymentContext.state.countries.find(
-    (country) => country.id === countryId
-  );
+  // const userCurrency = paymentContext.state.countries.find(
+  //   (country) => country.id === countryId
+  // );
 
-  if (userCurrency && !tempCountry) {
-    paymentContext.state.fxDetails.sendCurrency = userCurrency.currencyCode;
-  }
+  // if (userCurrency && !tempCountry) {
+  //   paymentContext.state.fxDetails.sendCurrency = userCurrency.currencyCode;
+  // }
 
   const handleClick = (e, name) => {
     const data = {
@@ -131,101 +131,102 @@ const CurrencyCalc = () => {
   );
 
   return (
-    <div id="currency-calculator">
-      <form>
-        <label>
-          <div className="currency-input">
-            <small>You Send</small>
-            <input
-              type="number"
-              name="baseAmount"
-              // style={sendamount}
-              className="sendamount"
-              placeholder={baseAmount === "" ? "1,000" : baseAmount}
-              value={reverse === false ? tempValue : baseAmount}
-              onChange={handleChange}
-              onKeyUp={handleChange}
-            />
+    <div className="currency-calculator-wrapper">
+      <div id="currency-calculator">
+        <form>
+          <label>
+            <div className="currency-input">
+              <small>You Send</small>
+              <input
+                type="number"
+                name="baseAmount"
+                className="sendamount"
+                placeholder={baseAmount === "" ? "1,000" : baseAmount}
+                value={reverse === false ? tempValue : baseAmount}
+                onChange={handleChange}
+                onKeyUp={handleChange}
+              />
+            </div>
+
+            <Dropdown overlay={sendCurrencyMenu}>
+              <p className="currency-dropdown">
+                <img
+                  src={`https://www.countryflags.io/${sendCurrency
+                    .slice(0, 2)
+                    .toLowerCase()}/flat/24.png`}
+                  alt={sendCurrency}
+                />
+                {sendCurrency}
+                <span className="material-icons">arrow_drop_down</span>
+              </p>
+            </Dropdown>
+          </label>
+
+          <div className="logic-box">
+            <p>
+              <span className="logic__symbols">
+                <small>–</small>
+              </span>{" "}
+              {fee} {sendCurrency}
+              <span className="logic__description">Fee</span>
+            </p>
+            <p>
+              <span className="logic__symbols">
+                <small>=</small>
+              </span>{" "}
+              {actualAmount} {sendCurrency}
+              <span className="logic__description">Amount we'll convert</span>
+            </p>
+            <p>
+              <span className="logic__symbols">
+                <small>÷</small>
+              </span>{" "}
+              {rate}
+              <span className="logic__description">Exchange Rate</span>
+            </p>
           </div>
 
-          <Dropdown overlay={sendCurrencyMenu}>
-            <p className="currency-dropdown">
-              <img
-                src={`https://www.countryflags.io/${sendCurrency
-                  .slice(0, 2)
-                  .toLowerCase()}/flat/24.png`}
-                alt={sendCurrency}
+          <label>
+            <div className="currency-input">
+              <small>They Receive</small>
+              <input
+                type="number"
+                name="convertedAmount"
+                placeholder="3,900"
+                value={reverse === true ? tempValue : convertedAmount}
+                onChange={handleChange}
+                onKeyUp={handleChange}
+                // disabled
               />
-              {sendCurrency}
-              <span className="material-icons">arrow_drop_down</span>
-            </p>
-          </Dropdown>
-        </label>
+            </div>
 
-        <div className="logic-box">
-          <p>
-            <span className="logic__symbols">
-              <small>–</small>
-            </span>{" "}
-            {fee} {sendCurrency}
-            <span className="logic__description">Fee</span>
-          </p>
-          <p>
-            <span className="logic__symbols">
-              <small>=</small>
-            </span>{" "}
-            {actualAmount} {sendCurrency}
-            <span className="logic__description">Amount we'll convert</span>
-          </p>
-          <p>
-            <span className="logic__symbols">
-              <small>÷</small>
-            </span>{" "}
-            {rate}
-            <span className="logic__description">Exchange Rate</span>
-          </p>
-        </div>
+            <Dropdown overlay={receiveCurrencyMenu}>
+              <p className="currency-dropdown">
+                <img
+                  src={`https://www.countryflags.io/${destinationCurrency
+                    .slice(0, 2)
+                    .toLowerCase()}/flat/24.png`}
+                  alt={destinationCurrency}
+                />
+                {destinationCurrency}
+                <span className="material-icons">arrow_drop_down</span>
+              </p>
+            </Dropdown>
+          </label>
 
-        <label>
-          <div className="currency-input">
-            <small>They Receive</small>
-            <input
-              type="number"
-              name="convertedAmount"
-              placeholder="3,900"
-              value={reverse === true ? tempValue : convertedAmount}
-              onChange={handleChange}
-              onKeyUp={handleChange}
-              // disabled
-            />
+          <div className="notice">
+            <p>This page is refreshed every 60 seconds</p>
           </div>
 
-          <Dropdown overlay={receiveCurrencyMenu}>
-            <p className="currency-dropdown">
-              <img
-                src={`https://www.countryflags.io/${destinationCurrency
-                  .slice(0, 2)
-                  .toLowerCase()}/flat/24.png`}
-                alt={destinationCurrency}
-              />
-              {destinationCurrency}
-              <span className="material-icons">arrow_drop_down</span>
-            </p>
-          </Dropdown>
-        </label>
-
-        <div className="notice">
-          <p>This page is refreshed every 60 seconds</p>
-        </div>
-
-        <div className="form__submit">
-          <Link to="/payment/recipient">
-            <button type="button" className="form__submit__button">
-              Send This Amount
-            </button>
-          </Link>
-        </div>
-      </form>
+          <div className="form__submit">
+            <Link to="/payment/recipient">
+              <button type="button" className="form__submit__button">
+                Send This Amount
+              </button>
+            </Link>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

@@ -1,0 +1,137 @@
+@import url("https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800;900&display=swap");
+#custom-checkbox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0 0.5rem;
+  width: 100%;
+  cursor: pointer;
+}
+
+#custom-checkbox .checkbox {
+  width: 25px;
+  height: 25px;
+  border: 1px solid rgba(219, 221, 227, 0.7);
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-box-shadow: 0px 2px 5px rgba(169, 181, 192, 0.2);
+          box-shadow: 0px 2px 5px rgba(169, 181, 192, 0.2);
+  border-radius: 4px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-right: 1.5rem;
+}
+
+#custom-checkbox .checkbox__inner {
+  background: #015eff;
+  border-radius: 2px;
+  height: 15px;
+  width: 15px;
+  margin: auto;
+}
+
+#custom-checkbox .wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  cursor: pointer;
+}
+
+#custom-checkbox .checkbox-details {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  padding-right: 5%;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
+}
+
+#custom-checkbox .checkbox-details p:nth-child(1) {
+  font-weight: 600;
+  font-size: 18px;
+  color: #4A4B65;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  margin-bottom: .5rem !important;
+}
+
+#custom-checkbox .checkbox-details p.sub-details {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  font-size: 14px !important;
+  color: #879DAD !important;
+  font-weight: normal !important;
+}
+
+@media (max-width: 575px) {
+  #custom-checkbox .checkbox-details {
+    padding-right: 5%;
+  }
+}
+
+@media (max-width: 455px) {
+  #custom-checkbox .checkbox-details .sub-details {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+
+#custom-checkbox .checkbox-action {
+  width: 20%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+#custom-checkbox .checkbox-action a {
+  color: #879DAD;
+  text-align: right;
+}
+
+#custom-checkbox .checkbox-action a.green {
+  color: #0FC578;
+}
+/*# sourceMappingURL=CustomCheckbox.css.map */

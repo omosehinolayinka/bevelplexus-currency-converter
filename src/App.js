@@ -8,7 +8,7 @@ import {
   ApolloClient,
   createHttpLink,
   InMemoryCache,
-  ApolloProvider,
+  ApolloProvider
 } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
 import { setContext } from "@apollo/client/link/context";
@@ -25,7 +25,7 @@ const paymentApi =
   "https://bp-transaction.herokuapp.com/graphql";
 
 const httpLink = createHttpLink({
-  uri: paymentApi,
+  uri: paymentApi
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -34,8 +34,8 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : "",
-    },
+      authorization: token ? `Bearer ${token}` : ""
+    }
   };
 });
 
@@ -45,10 +45,11 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
     graphQLErrors.forEach((err) => {
       switch (err.extensions.code) {
         case "UNAUTHENTICATED":
-          window.location = process.env.REACT_APP_BASEURL || "https://app.bevelplexus.com";
+          window.location =
+            process.env.REACT_APP_BASEURL || "http://localhost:3000";
           break;
         default:
-          console.log(err.message)
+          console.log(err.message);
       }
     });
   }
@@ -60,11 +61,10 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 
 const client = new ApolloClient({
   link: authLink.concat(errorLink).concat(httpLink),
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache()
 });
 
 function App() {
-
   return (
     <ApolloProvider client={client}>
       <IntroState>
@@ -73,7 +73,7 @@ function App() {
             <RecipientState>
               <PaymentState>
                 <TransactionState>
-                  <div className='App'>
+                  <div className="App">
                     <Routes />
                     <ToastContainer />
                   </div>

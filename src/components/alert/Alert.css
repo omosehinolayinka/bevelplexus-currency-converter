@@ -1,0 +1,168 @@
+@import url("https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800;900&display=swap");
+#alert {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background: rgba(14, 7, 61, 0.2);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  z-index: 100;
+}
+
+#alert .box {
+  height: auto;
+  background-color: #fff;
+  border-radius: 6px;
+  position: relative;
+  padding: 1rem;
+}
+
+@media (min-width: 1000px) {
+  #alert .box {
+    width: 40%;
+  }
+}
+
+@media (max-width: 999px) {
+  #alert .box {
+    width: 60%;
+  }
+}
+
+@media (max-width: 600px) {
+  #alert .box {
+    width: 85%;
+  }
+}
+
+#alert .box .wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  top: 1rem;
+  padding: 0 1rem 1rem;
+}
+
+#alert .box .wrap p.icon {
+  border: 1px solid transparent;
+  border-radius: 100%;
+  width: 69px;
+  height: 69px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-bottom: .7rem;
+}
+
+#alert .box .wrap p.icon span.danger {
+  color: #F34335;
+}
+
+#alert .box .wrap p.icon span.success {
+  color: #0FC578;
+}
+
+#alert .box .wrap p.icon span.warning {
+  color: #daa917;
+}
+
+#alert .box .wrap p.icon span {
+  font-size: 3.8rem;
+}
+
+#alert .box .wrap p.icon.success {
+  border-color: #0FC578;
+}
+
+#alert .box .wrap p.icon.danger {
+  border-color: #F34335;
+}
+
+#alert .box .wrap .heading {
+  font-size: 1.5rem;
+  margin-bottom: .6rem;
+}
+
+#alert .box .wrap p.body {
+  font-size: 1rem;
+  color: #788691;
+  text-align: center;
+}
+
+#alert .box .wrap a {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#alert .box .wrap button.primary {
+  margin: 1rem 0;
+  width: 70%;
+  border: none;
+  display: block;
+  position: static;
+  background-color: #015EFF;
+  color: #fff;
+  padding: .7rem 0;
+}
+
+#alert .box button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: transparent;
+  border: none;
+  padding: 0.5rem;
+  z-index: 150;
+}
+
+#alert .box button span {
+  font-size: 1.5rem;
+  color: #4a4b65;
+}
+
+#alert .box button:focus {
+  outline: none;
+}
+
+@media (max-width: 420px) {
+  #alert .box {
+    width: 90%;
+  }
+}
+/*# sourceMappingURL=Alert.css.map */

@@ -19,6 +19,7 @@ import UserContext from "./context/user/userContext";
 import RecipientContext from "./context/recipients/recipientContext";
 import TransactionContext from "./context/transactions/transactionContext";
 import PaymentContext from "./context/payment/paymentContext";
+import CurrencyCalc from "./components/currencyCalc/CurrencyCalc";
 
 function Routes() {
   const [isAuthenticated, setIsAuthenticated] = useState();
@@ -28,12 +29,43 @@ function Routes() {
   const recipientContext = useContext(RecipientContext);
   const transactionContext = useContext(TransactionContext);
   const paymentContext = useContext(PaymentContext);
+
   useEffect(() => {
+    async function countries() {
+      const query = {
+        query: `mutation {
+         login(loginArgs: { email: "tmy63454@cuoly.com", password: "T3m!l@de" }) {
+              token
+              user {
+                id
+                firstName
+                lastName
+                email
+              }
+      }
+    }
+    `
+      };
+
+      const body = JSON.stringify(query);
+      const res = await fetch("https://api.bevelplexus.com/user/graphql", {
+        method: "POST",
+        body: body,
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+      const data = await res.json();
+      const token = data.data.login.token;
+      console.log(token);
+      localStorage.setItem("token", token);
+    }
+    countries();
+
     localStorage.getItem("token")
       ? setIsAuthenticated(true)
       : setIsAuthenticated(false);
   }, []);
-
   useEffect(() => {
     if (isAuthenticated === true) {
       userContext.getUser();
@@ -46,8 +78,7 @@ function Routes() {
   }, [isAuthenticated]);
 
   if (isAuthenticated === false) {
-    window.location =
-      process.env.REACT_APP_BASEURL || "https://app.bevelplexus.com";
+    window.location = process.env.REACT_APP_BASEURL || "http://localhost:3000";
   }
 
   if (
@@ -64,7 +95,7 @@ function Routes() {
       <Router>
         {isAuthenticated === true && <Redirect to="/payment" />}
         <Switch>
-          <Route exact path="/payment/dashboard" component={Dashboard} />
+          <Route exact path="/payment/dashboard" component={CurrencyCalc} />
           <Route exact path="/payment/recipient" component={Paymentrecipient} />
           <Route exact path="/payment/transfer" component={PaymentTransfer} />
           <Route exact path="/payment/options" component={PaymentOptions} />

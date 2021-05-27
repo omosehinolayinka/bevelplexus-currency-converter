@@ -1,0 +1,301 @@
+@import url("https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800;900&display=swap");
+#editrecipient, #addrecipient, #addReceivingMethod {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background: rgba(14, 7, 61, 0.2);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  z-index: 1000;
+}
+
+#editrecipient .box, #addrecipient .box, #addReceivingMethod .box {
+  width: 60%;
+  background-color: #F5F6F9;
+  position: relative;
+  padding: 2rem;
+}
+
+#editrecipient .box .heading, #addrecipient .box .heading, #addReceivingMethod .box .heading {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+  padding: 1rem 2rem 2.5rem;
+}
+
+#editrecipient .box .heading h2, #addrecipient .box .heading h2, #addReceivingMethod .box .heading h2 {
+  text-align: center;
+  margin-bottom: 0;
+  color: #4A4B65;
+}
+
+#editrecipient .box .heading span, #addrecipient .box .heading span, #addReceivingMethod .box .heading span {
+  position: absolute;
+  right: 0;
+  color: #4A4B65;
+  cursor: pointer;
+}
+
+#editrecipient .box .form-container, #addrecipient .box .form-container, #addReceivingMethod .box .form-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+#editrecipient .box .form-container .shadow-box, #addrecipient .box .form-container .shadow-box, #addReceivingMethod .box .form-container .shadow-box {
+  width: 49%;
+  padding: .5rem;
+  margin-bottom: 1rem;
+}
+
+#editrecipient .box .form-container .shadow-box span.icon, #addrecipient .box .form-container .shadow-box span.icon, #addReceivingMethod .box .form-container .shadow-box span.icon {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#editrecipient .box .form-container .shadow-box input, #editrecipient .box .form-container .shadow-box .ant-select, #addrecipient .box .form-container .shadow-box input, #addrecipient .box .form-container .shadow-box .ant-select, #addReceivingMethod .box .form-container .shadow-box input, #addReceivingMethod .box .form-container .shadow-box .ant-select {
+  border: none;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  color: #B4BEC6;
+}
+
+#editrecipient .box .form-container .shadow-box input .ant-select-selector, #editrecipient .box .form-container .shadow-box .ant-select .ant-select-selector, #addrecipient .box .form-container .shadow-box input .ant-select-selector, #addrecipient .box .form-container .shadow-box .ant-select .ant-select-selector, #addReceivingMethod .box .form-container .shadow-box input .ant-select-selector, #addReceivingMethod .box .form-container .shadow-box .ant-select .ant-select-selector {
+  border: none;
+  padding: 0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+#editrecipient .box .form-container .shadow-box input:focus, #addrecipient .box .form-container .shadow-box input:focus, #addReceivingMethod .box .form-container .shadow-box input:focus {
+  color: #4A4B65;
+}
+
+#editrecipient .box .form-container .shadow-box input.active, #addrecipient .box .form-container .shadow-box input.active, #addReceivingMethod .box .form-container .shadow-box input.active {
+  color: #4A4B65;
+}
+
+#editrecipient .box .form-container .shadow-box input:focus, #addrecipient .box .form-container .shadow-box input:focus, #addReceivingMethod .box .form-container .shadow-box input:focus {
+  outline: none;
+}
+
+#editrecipient .box .form-container .shadow-box input:disabled, #addrecipient .box .form-container .shadow-box input:disabled, #addReceivingMethod .box .form-container .shadow-box input:disabled {
+  all: unset;
+  background-color: transparent;
+  color: #B4BEC6;
+  width: 100%;
+}
+
+#editrecipient .box .form-container .shadow-box input::-webkit-input-placeholder, #addrecipient .box .form-container .shadow-box input::-webkit-input-placeholder, #addReceivingMethod .box .form-container .shadow-box input::-webkit-input-placeholder {
+  color: #B4BEC6;
+}
+
+#editrecipient .box .form-container .shadow-box input:-ms-input-placeholder, #addrecipient .box .form-container .shadow-box input:-ms-input-placeholder, #addReceivingMethod .box .form-container .shadow-box input:-ms-input-placeholder {
+  color: #B4BEC6;
+}
+
+#editrecipient .box .form-container .shadow-box input::-ms-input-placeholder, #addrecipient .box .form-container .shadow-box input::-ms-input-placeholder, #addReceivingMethod .box .form-container .shadow-box input::-ms-input-placeholder {
+  color: #B4BEC6;
+}
+
+#editrecipient .box .form-container .shadow-box input::placeholder, #addrecipient .box .form-container .shadow-box input::placeholder, #addReceivingMethod .box .form-container .shadow-box input::placeholder {
+  color: #B4BEC6;
+}
+
+#editrecipient .box .btn-big-container, #addrecipient .box .btn-big-container, #addReceivingMethod .box .btn-big-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 1rem;
+}
+
+#editrecipient .box .btn-big-container button, #addrecipient .box .btn-big-container button, #addReceivingMethod .box .btn-big-container button {
+  width: 50%;
+  padding: 1rem;
+  background-color: #EDF4FF;
+  border: none;
+  border-radius: 6px;
+  border: 1px solid transparent;
+}
+
+@media (max-width: 455px) {
+  #editrecipient .box .btn-big-container button, #addrecipient .box .btn-big-container button, #addReceivingMethod .box .btn-big-container button {
+    width: 90%;
+  }
+}
+
+#editrecipient .box .btn-big-container button:focus, #addrecipient .box .btn-big-container button:focus, #addReceivingMethod .box .btn-big-container button:focus {
+  outline: none;
+}
+
+#editrecipient .box .btn-big-container button:hover, #addrecipient .box .btn-big-container button:hover, #addReceivingMethod .box .btn-big-container button:hover {
+  border-color: #efefef;
+}
+
+#editrecipient .box .buttons-container, #addrecipient .box .buttons-container, #addReceivingMethod .box .buttons-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  padding: 1rem;
+}
+
+@media (max-width: 455px) {
+  #editrecipient .box .buttons-container, #addrecipient .box .buttons-container, #addReceivingMethod .box .buttons-container {
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+  #editrecipient .box .buttons-container button, #addrecipient .box .buttons-container button, #addReceivingMethod .box .buttons-container button {
+    width: 49%;
+  }
+}
+
+#editrecipient .box .buttons-container button, #addrecipient .box .buttons-container button, #addReceivingMethod .box .buttons-container button {
+  margin-left: 10px;
+  padding: .65rem 3rem;
+  height: 45px;
+  border: 1px solid #015EFF;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#editrecipient .box .buttons-container button img, #addrecipient .box .buttons-container button img, #addReceivingMethod .box .buttons-container button img {
+  max-height: 100%;
+}
+
+#editrecipient .box .buttons-container button.disabled, #addrecipient .box .buttons-container button.disabled, #addReceivingMethod .box .buttons-container button.disabled {
+  pointer-events: none;
+  cursor: not-allowed;
+  opacity: 0.3;
+}
+
+#editrecipient .box .buttons-container button:focus, #addrecipient .box .buttons-container button:focus, #addReceivingMethod .box .buttons-container button:focus {
+  outline: none;
+}
+
+#editrecipient .box .buttons-container button:nth-child(1), #addrecipient .box .buttons-container button:nth-child(1), #addReceivingMethod .box .buttons-container button:nth-child(1) {
+  color: #015EFF;
+  background-color: transparent;
+}
+
+#editrecipient .box .buttons-container button:nth-child(2), #addrecipient .box .buttons-container button:nth-child(2), #addReceivingMethod .box .buttons-container button:nth-child(2) {
+  color: #fff;
+  background-color: #015EFF;
+}
+
+@media (max-width: 1125px) {
+  #editrecipient .box, #addrecipient .box, #addReceivingMethod .box {
+    width: 85%;
+  }
+}
+
+@media (max-width: 975px) {
+  #editrecipient .box, #addrecipient .box, #addReceivingMethod .box {
+    width: 95%;
+  }
+}
+
+@media (max-width: 660px) {
+  #editrecipient .box, #addrecipient .box, #addReceivingMethod .box {
+    width: 100%;
+  }
+  #editrecipient .box .heading, #addrecipient .box .heading, #addReceivingMethod .box .heading {
+    padding: 1rem 2rem 2rem;
+  }
+  #editrecipient .box .form-container .shadow-box, #addrecipient .box .form-container .shadow-box, #addReceivingMethod .box .form-container .shadow-box {
+    width: 100%;
+    margin-bottom: .7rem;
+  }
+  #editrecipient .box .btn-big-container, #editrecipient .box .buttons-container, #addrecipient .box .btn-big-container, #addrecipient .box .buttons-container, #addReceivingMethod .box .btn-big-container, #addReceivingMethod .box .buttons-container {
+    padding: .7rem 1rem;
+  }
+}
+
+#addReceivingMethod .box {
+  width: 35%;
+}
+
+#addReceivingMethod .box .form-container .shadow-box {
+  width: 100%;
+}
+
+#addReceivingMethod .box .btn-big-container, #addReceivingMethod .box .buttons-container {
+  width: 100%;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#addReceivingMethod .box .btn-big-container button {
+  width: 100%;
+}
+
+@media (max-width: 1125px) {
+  #addReceivingMethod .box {
+    width: 50%;
+  }
+}
+
+@media (max-width: 1125px) {
+  #addReceivingMethod .box {
+    width: 50%;
+  }
+}
+
+@media (max-width: 575px) {
+  #addReceivingMethod .box {
+    width: 80%;
+  }
+}
+
+@media (max-width: 480px) {
+  #addReceivingMethod .box {
+    width: 90%;
+  }
+}
+
+@media (max-width: 410px) {
+  #addReceivingMethod .box {
+    width: 96%;
+    padding: 1rem;
+  }
+}
+/*# sourceMappingURL=EditRecipient.css.map */

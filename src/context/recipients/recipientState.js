@@ -14,9 +14,9 @@ const RecipientState = (props) => {
   const defaultState = {
     page: {
       offset: 0,
-      limit: 5,
+      limit: 5
     },
-    recipients: [],
+    recipients: []
   };
 
   const [state, dispatch] = useReducer(RecipientReducer, defaultState);
@@ -28,7 +28,7 @@ const RecipientState = (props) => {
 
   // create a custom client for recipient enpoint
   const httpLink = createHttpLink({
-    uri: userApi,
+    uri: userApi
   });
 
   const authLink = setContext((_, { headers }) => {
@@ -37,8 +37,8 @@ const RecipientState = (props) => {
     return {
       headers: {
         ...headers,
-        authorization: token ? `Bearer ${token}` : "",
-      },
+        authorization: token ? `Bearer ${token}` : ""
+      }
     };
   });
 
@@ -47,7 +47,8 @@ const RecipientState = (props) => {
       graphQLErrors.forEach((err) => {
         switch (err.extensions.code) {
           case "UNAUTHENTICATED":
-            window.location = process.env.REACT_APP_BASEURL || "https://app.bevelplexus.com";
+            window.location =
+              process.env.REACT_APP_BASEURL || "http://localhost:3000";
             break;
           default:
             console.log(err.message);
@@ -62,7 +63,7 @@ const RecipientState = (props) => {
 
   const client = new ApolloClient({
     link: authLink.concat(errorLink).concat(httpLink),
-    cache: new InMemoryCache(),
+    cache: new InMemoryCache()
   });
 
   // get all recipients
@@ -73,14 +74,14 @@ const RecipientState = (props) => {
         fetchPolicy: "cache-first",
         variables: {
           offset: page.offset,
-          limit: page.limit,
-        },
+          limit: page.limit
+        }
       })
       .then((res) => {
         const data = res.data.recipientByUser;
         dispatch({
           type: GET_RECIPIENTS,
-          payload: data,
+          payload: data
         });
       })
       .catch(() => {
@@ -90,7 +91,7 @@ const RecipientState = (props) => {
           body: "Failed to fetch recipients",
           action() {
             alertContext.hideAlert();
-          },
+          }
         });
       });
   };
@@ -102,8 +103,8 @@ const RecipientState = (props) => {
         query: gql.SINGLE_RECIPIENT,
         fetchPolicy: "cache-first",
         variables: {
-          id: id,
-        },
+          id: id
+        }
       })
       .then((res) => {
         console.log(res.data.recipient);
@@ -113,11 +114,10 @@ const RecipientState = (props) => {
         alertContext.showAlert({
           type: "error",
           title: "Oops!",
-          body:
-            "We are finding it difficult to get this recipient's details. Please try again",
+          body: "We are finding it difficult to get this recipient's details. Please try again",
           action() {
             alertContext.hideAlert();
-          },
+          }
         });
       });
   };
@@ -133,8 +133,8 @@ const RecipientState = (props) => {
           email: data.email,
           phoneNumber: data.phoneNumber,
           location: data.location,
-          bankCode: data.transitOrSortCode,
-        },
+          bankCode: data.transitOrSortCode
+        }
       })
       .then((res) => {
         const id = res.data.addRecipient.id;
@@ -147,7 +147,7 @@ const RecipientState = (props) => {
           body: "Couldn't add recipient, please try again",
           action() {
             alertContext.hideAlert();
-          },
+          }
         });
       });
   };
@@ -163,8 +163,8 @@ const RecipientState = (props) => {
           bank: data.bank,
           accountNumber: data.accountNumber,
           bankCode: data.bankCode,
-          transitOrSortCode: data.transitOrSortCode,
-        },
+          transitOrSortCode: data.transitOrSortCode
+        }
       })
       .then(() => {
         getRecipients(defaultState.page);
@@ -174,7 +174,7 @@ const RecipientState = (props) => {
           body: `${data.name} has been added as a recipient`,
           action() {
             alertContext.hideAlert();
-          },
+          }
         });
         data.closeModal(false);
       })
@@ -185,7 +185,7 @@ const RecipientState = (props) => {
           body: "Couldn't add bank details, please try again",
           action() {
             alertContext.hideAlert();
-          },
+          }
         });
       });
   };
@@ -202,8 +202,8 @@ const RecipientState = (props) => {
           email: data.email,
           phoneNumber: data.phoneNumber,
           location: data.location,
-          bankCode: data.transitOrSortCode,
-        },
+          bankCode: data.transitOrSortCode
+        }
       })
       .then(() => {
         updateBank(data);
@@ -215,7 +215,7 @@ const RecipientState = (props) => {
           body: "Error updating recipient, please try again",
           action() {
             alertContext.hideAlert();
-          },
+          }
         });
       });
   };
@@ -231,8 +231,8 @@ const RecipientState = (props) => {
           bank: data.bank,
           accountNumber: data.accountNumber,
           bankCode: data.bankCode,
-          transitOrSortCode: data.transitOrSortCode,
-        },
+          transitOrSortCode: data.transitOrSortCode
+        }
       })
       .then(() => {
         getRecipients(defaultState.page);
@@ -242,7 +242,7 @@ const RecipientState = (props) => {
           body: `${data.name}'s details have been updated successfully`,
           action() {
             alertContext.hideAlert();
-          },
+          }
         });
         data.closeModal(false);
       })
@@ -253,7 +253,7 @@ const RecipientState = (props) => {
           body: "Coulnd't update bank info, check your network and try again",
           action() {
             alertContext.hideAlert();
-          },
+          }
         });
         data.loading(false);
       });
@@ -263,7 +263,7 @@ const RecipientState = (props) => {
   const changePage = (page) => {
     dispatch({
       type: CHANGE_PAGE,
-      payload: page,
+      payload: page
     });
 
     getRecipients(page);
@@ -277,7 +277,7 @@ const RecipientState = (props) => {
         getRecipient,
         updateRecipient,
         addRecipient,
-        changePage,
+        changePage
       }}
     >
       {props.children}

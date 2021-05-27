@@ -1,0 +1,131 @@
+@import url("https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800;900&display=swap");
+#payment-review .section-three {
+  padding-bottom: 0;
+}
+
+#payment-review .section-three .box-container {
+  margin-bottom: 0;
+}
+
+#payment-review .section-three .box-container .shadow-box {
+  margin-bottom: 1.5rem;
+}
+
+#payment-review .section-three .box-container .shadow-box .user-details {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 100%;
+}
+
+#payment-review .section-three .box-container .shadow-box .user-details .user-details__avi {
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+
+#payment-review .section-three .box-container .shadow-box .user-details .wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  width: 100%;
+  padding-right: 10%;
+}
+
+#payment-review .section-three .box-container .shadow-box .user-details .wrap .user-details__text-wrapper h3 {
+  font-size: 1rem;
+}
+
+#payment-review .section-three .box-container .shadow-box .user-details .wrap .user-details__text-wrapper p {
+  font-size: .9rem;
+}
+
+@media (max-width: 575px) {
+  #payment-review .section-three .box-container .shadow-box .user-details .wrap {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+  }
+  #payment-review .section-three .box-container .shadow-box .user-details .wrap .user-details__text-wrapper {
+    margin-bottom: 5px;
+  }
+}
+
+@media (max-width: 575px) {
+  #payment-review .section-three .box-container .shadow-box .contact-details {
+    margin-top: .5rem;
+  }
+}
+
+#payment-review .payment-details-box .box__title, #payment-review .bank-details-box .box__title {
+  position: relative;
+  top: -12px;
+}
+
+#payment-review .payment-details-box .box__title h3, #payment-review .bank-details-box .box__title h3 {
+  color: #4A4B65;
+  font-size: 1rem;
+}
+
+#payment-review .payment-details-box #payment-summary-card, #payment-review .bank-details-box #payment-summary-card {
+  padding: 0;
+}
+
+#payment-review .payment-details-box #payment-summary-card p, #payment-review .bank-details-box #payment-summary-card p {
+  font-size: 14px;
+  padding: .3rem 0;
+}
+
+#payment-review .payment-details-box #payment-summary-card .section-divider, #payment-review .bank-details-box #payment-summary-card .section-divider {
+  margin: .7rem 0;
+}
+
+#payment-review .bank-details-box #payment-summary-card .payment-method {
+  padding: 1rem 0;
+  border-bottom: 1px solid #E1E5E8;
+}
+
+#payment-review .bank-details-box #payment-summary-card .payment-method .instructions {
+  color: #5a6974;
+}
+
+#payment-review .bank-details-box #payment-summary-card p {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  padding: .4rem 0;
+}
+
+#payment-review .bank-details-box #payment-summary-card p span:first-child {
+  margin-right: 15px;
+}
+
+#payment-review .bank-details-box #payment-summary-card p:last-child span:last-child {
+  font-size: 14px;
+}
+
+#payment-review .bank-details-box #payment-summary-card p.reference-id {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-top: 1rem;
+}
+
+#payment-review .bank-details-box #payment-summary-card p.reference-id span:first-child {
+  margin-bottom: 3px;
+}
+/*# sourceMappingURL=PaymentReview.css.map */

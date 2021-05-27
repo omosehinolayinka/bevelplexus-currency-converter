@@ -1,0 +1,159 @@
+@import url("https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800;900&display=swap");
+#intro {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background: rgba(14, 7, 61, 0.2);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  z-index: 100;
+  margin-left: 250px;
+}
+
+#intro .box {
+  width: 320px;
+  height: 147px;
+  background: #0E073D;
+  border-radius: 5px;
+  position: absolute;
+  margin-left: 40px;
+  top: auto;
+  color: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 1rem;
+}
+
+#intro .box .wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  width: 100%;
+  height: 100%;
+  margin-right: 5px;
+}
+
+#intro .box .wrap .heading {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  color: #fff;
+}
+
+#intro .box .wrap .heading p:nth-child(1) {
+  font-weight: 400;
+  font-size: 14px;
+}
+
+#intro .box .wrap .body {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+#intro .box .wrap .body p {
+  font-size: 12px;
+  color: #d6d6d6;
+  font-weight: 100;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#intro .box .wrap .footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+}
+
+#intro .box .wrap .footer p {
+  margin-bottom: 0;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
+}
+
+#intro .box .wrap .footer a {
+  color: #fff;
+}
+
+#intro .box .pointer {
+  position: absolute;
+  height: 30px;
+  width: 50px;
+  background-color: #0E073D;
+  left: -10px;
+  top: 61.5px;
+  margin: auto 0;
+  -webkit-transform: rotate(35deg) skewX(-25deg);
+          transform: rotate(35deg) skewX(-25deg);
+  z-index: -1;
+}
+
+#intro .box .border {
+  position: absolute;
+  right: 0px;
+  width: 5px;
+  border-radius: 5px;
+  background-color: #015EFF;
+  height: 100%;
+}
+
+@media (max-width: 420px) {
+  #intro .box {
+    width: 90%;
+  }
+}
+
+@media (max-width: 925px) {
+  #intro {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 925px) {
+  #intro {
+    display: none !important;
+  }
+}
+/*# sourceMappingURL=Intro.css.map */
