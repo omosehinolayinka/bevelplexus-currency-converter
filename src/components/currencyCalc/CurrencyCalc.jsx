@@ -1,21 +1,12 @@
 import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
 import "./CurrencyCalc.scss";
 
-import UserContext from "../../context/user/userContext";
 import PaymentContext from "../../context/payment/paymentContext";
 
 import { Menu, Dropdown } from "antd";
 
 const CurrencyCalc = () => {
   const [tempValue, setTempValue] = useState("");
-  const [tempCountry, setTempCountry] = useState(false);
-
-  // const userContext = useContext(UserContext);
-
-  // const userData = userContext.state.user;
-  // const regularUserData = userData ? userData.regularAccountDetail : null;
-  // const countryId = regularUserData ? regularUserData.countryId : ``;
   const paymentContext = useContext(PaymentContext);
 
   const {
@@ -30,14 +21,6 @@ const CurrencyCalc = () => {
     reverse
   } = paymentContext.state.fxDetails;
 
-  // const userCurrency = paymentContext.state.countries.find(
-  //   (country) => country.id === countryId
-  // );
-
-  // if (userCurrency && !tempCountry) {
-  //   paymentContext.state.fxDetails.sendCurrency = userCurrency.currencyCode;
-  // }
-
   const handleClick = (e, name) => {
     const data = {
       sendCurrency: name === "sendCurrency" ? e.key : sendCurrency,
@@ -48,7 +31,6 @@ const CurrencyCalc = () => {
       receiveType,
       reverse: reverse
     };
-    setTempCountry(true);
     paymentContext.getFxRates(data);
   };
 
@@ -219,11 +201,11 @@ const CurrencyCalc = () => {
           </div>
 
           <div className="form__submit">
-            <Link to="/payment/recipient">
+            <a href="https://app.bevelplexus.com">
               <button type="button" className="form__submit__button">
                 Send This Amount
               </button>
-            </Link>
+            </a>
           </div>
         </form>
       </div>
